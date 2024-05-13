@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(raylib-cpp-cmake-template CXX)
+project(MyProject)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -67,7 +67,7 @@ set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/Src/")
 # Declaring our executable
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 target_link_libraries(${PROJECT_NAME} PRIVATE LDtkLoader::LDtkLoader)
