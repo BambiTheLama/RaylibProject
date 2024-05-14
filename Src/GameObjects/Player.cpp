@@ -10,6 +10,7 @@ Player::Player(int x, int y) {
 
 void Player::update(float deltaTime)
 {
+    deltaTime*=1000;
     if(IsKeyDown(KEY_W))
         pos.y-=deltaTime;
     if(IsKeyDown(KEY_S))
