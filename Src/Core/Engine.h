@@ -8,13 +8,13 @@
 
 
 class Engine {
-    Scene* s;
+    Scene *s;
+
 public:
     Engine();
 
-    void setScene(Scene* s);
+    void setScene(Scene *s);
 };
-
 
 
 #endif //ENGINE_H

@@ -8,8 +8,9 @@
 #include <vector>
 #include "../GameObjects/GameObject.h"
 
-class GameScene : public Scene{
-    std::vector<GameObject*> gameObjects;
+class GameScene : public Scene {
+    std::vector<GameObject *> gameObjects;
+
 public:
     void start();
 
@@ -17,7 +18,6 @@ public:
 
     void draw();
 };
-
 
 
 #endif //GAMESCENE_H

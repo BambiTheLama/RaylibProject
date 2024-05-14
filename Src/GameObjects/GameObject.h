@@ -9,6 +9,7 @@
 class GameObject {
 protected:
     Rectangle pos;
+
 public:
     virtual void update(float deltaTime) = 0;
 

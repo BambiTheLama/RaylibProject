@@ -6,10 +6,9 @@
 #define MYPROJECT_PLAYER_H
 #include "GameObject.h"
 
-class Player : public GameObject{
-
+class Player : public GameObject {
 public:
-    Player(int x=0,int y=0);
+    Player(int x = 0, int y = 0);
 
     void update(float deltaTime);
 

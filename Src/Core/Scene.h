@@ -6,7 +6,6 @@
 #define SCENE_H
 
 
-
 class Scene {
 public:
     virtual void start() = 0;
@@ -15,7 +14,6 @@ public:
 
     virtual void draw() = 0;
 };
-
 
 
 #endif //SCENE_H
