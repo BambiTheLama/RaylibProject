@@ -6,12 +6,16 @@
 #include "../GameObjects/Player.h"
 
 void GameScene::start() {
-    gameObjects.push_back(new Player);
+    Player *p = new Player(200, 200);
+    gameObjects.push_back(p);
+    controller = new CharacterController();
+    controller->setCharacter(p);
 }
 
 void GameScene::update(float deltaTime) {
     for (auto o: gameObjects)
         o->update(deltaTime);
+    controller->update(deltaTime);
 }
 
 void GameScene::draw() {

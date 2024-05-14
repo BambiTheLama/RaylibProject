@@ -4,10 +4,14 @@
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
+#include "raylib.h"
+#include "../../Core/Controller.h"
 
-class Character{
+class Character {
 public:
-    void move(float x,float y,float deltaTime);
-}
+    virtual void move(Vector2 dir, float deltaTime) = 0;
+
+    virtual void action(Input input) = 0;
+};
 
 #endif //CHARACTER_H

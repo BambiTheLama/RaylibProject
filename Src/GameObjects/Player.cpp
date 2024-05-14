@@ -9,17 +9,18 @@ Player::Player(int x, int y) {
 }
 
 void Player::update(float deltaTime) {
-    deltaTime *= 1000;
-    if (IsKeyDown(KEY_W))
-        pos.y -= deltaTime;
-    if (IsKeyDown(KEY_S))
-        pos.y += deltaTime;
-    if (IsKeyDown(KEY_A))
-        pos.x -= deltaTime;
-    if (IsKeyDown(KEY_D))
-        pos.x += deltaTime;
 }
+
+void Player::move(Vector2 dir, float deltaTime) {
+    pos.x += dir.x * deltaTime * speed;
+    pos.y += dir.y * deltaTime * speed;
+}
+
+void Player::action(Input input) {
+}
+
 
 void Player::draw() {
     DrawRectangleRec(pos,RED);
+    DrawText(TextFormat("%lf %lf", pos.x, pos.y), 0, 100, 10,RED);
 }

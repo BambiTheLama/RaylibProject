@@ -7,9 +7,11 @@
 #include "Scene.h"
 #include <vector>
 #include "../GameObjects/GameObject.h"
+#include "../GameObjects/AddisionalTypes/CharacterController.h"
 
 class GameScene : public Scene {
     std::vector<GameObject *> gameObjects;
+    CharacterController *controller;
 
 public:
     void start();
