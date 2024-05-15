@@ -9,6 +9,7 @@ Player::Player(int x, int y) {
 }
 
 void Player::update(float deltaTime) {
+
 }
 
 void Player::move(Vector2 dir, float deltaTime) {

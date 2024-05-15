@@ -10,7 +10,7 @@
 
 class CharacterController {
     Controller *controller;
-    Character *character = NULL;
+    Character *character = nullptr;
 
 public:
     CharacterController();
