@@ -11,15 +11,16 @@ GameObject *Game::getObject(Rectangle pos) {
         return nullptr;
 }
 
-std::vector<GameObject *> Game::getObjects(Rectangle pos) {
+std::list<GameObject *> Game::getObjects(Rectangle pos) {
     if (!gameScene)
-        return std::vector<GameObject *>();
+        return std::list<GameObject *>();
+    return gameScene->getObjects();
 }
 
 bool Game::addObject(GameObject *obj) {
     if (!gameScene)
         return false;
-    return true;
+    return gameScene->addObject(obj);
 }
 
 void Game::deleteObject(GameObject *obj) {

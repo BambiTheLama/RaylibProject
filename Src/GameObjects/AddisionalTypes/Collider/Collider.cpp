@@ -1,9 +1,17 @@
 #include "Collider.h"
 
 #include <algorithm>
-
+#include <cstdio>
 #include "../../GameObject.h"
 #include "../../Game.h"
+
+
+Collider::~Collider() {
+    for (auto c: collisionElemnets)
+        delete c;
+    collisionElemnets.clear();
+}
+
 
 void Collider::clearCollider() {
     std::vector<Collider *> collidersExit;
@@ -38,25 +46,37 @@ void Collider::checkCollision() {
     GameObject *thisObj = dynamic_cast<GameObject *>(this);
     if (!thisObj)
         return;
-    std::vector<GameObject *> objects = Game::getObjects(thisObj->getPos());
+    std::list<GameObject *> objects = Game::getObjects(thisObj->getPos());
+    objects.remove(thisObj);
     for (auto o: objects) {
         Collider *collider = dynamic_cast<Collider *>(o);
         if (!collider)
             continue;
         auto find = std::find(colliders.begin(), colliders.end(), collider);
-        if (find == colliders.end())
+        if (find != colliders.end())
             continue;
         if (isColliding(thisObj, collider, o)) {
             find = std::find(lastFrameColliders.begin(), lastFrameColliders.end(), collider);
             if (find == lastFrameColliders.end()) {
                 onCollisionEnter(collider);
+                collider->onCollisionEnter(this);
             } else {
                 onCollision(collider);
+                collider->onCollision(this);
             }
+            collider->colliders.push_back(this);
             colliders.push_back(collider);
         }
     }
 }
 
 
+#ifdef showColliders
 
+void Collider::draw() {
+    GameObject *obj = dynamic_cast<GameObject *>(this);
+
+    for (auto c: collisionElemnets)
+        c->draw(obj);
+}
+#endif

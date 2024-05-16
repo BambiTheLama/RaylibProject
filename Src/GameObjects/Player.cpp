@@ -4,12 +4,20 @@
 
 #include "Player.h"
 
+#include "AddisionalTypes/Collider/CollisionElementBox.h"
+#include "AddisionalTypes/Collider/CollisionElementCircle.h"
+
 Player::Player(int x, int y) {
-    pos = {(float) x, (float) y, 10, 10};
+    pos = {(float) x, (float) y, 64, 64};
+    collisionElemnets.push_back(new CollisionElementBox({0, 0, 64, 64}));
+    collisionElemnets.push_back(new CollisionElementCircle({32, 32}, 32));
 }
 
-void Player::update(float deltaTime) {
+Player::~Player() {
+}
 
+
+void Player::update(float deltaTime) {
 }
 
 void Player::move(Vector2 dir, float deltaTime) {

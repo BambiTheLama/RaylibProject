@@ -8,10 +8,13 @@
 #include <vector>
 
 #include "raylib.h"
+#define showColliders
 
 enum class CollisionType {
     Line, Box, Circle
 };
+
+class GameObject;
 
 class CollisionElement {
     CollisionType type;
@@ -24,13 +27,20 @@ public:
     virtual bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos) = 0;
 
     virtual Rectangle getBox(Vector2 pos) {
+        return {0, 0, 0, 0};
     }
 
     virtual Vector3 getCircle(Vector2 pos) {
+        return {0, 0};
     }
 
     virtual std::vector<Vector2> getLines(Vector2 pos) {
+        return std::vector<Vector2>();
     }
+
+#ifdef showColliders
+    void draw(GameObject *obj);
+#endif
 };
 
 bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end);

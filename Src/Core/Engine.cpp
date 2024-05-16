@@ -21,6 +21,8 @@ Engine::Engine() {
         DrawFPS(0, 0);
         EndDrawing();
     }
+    if (s)
+        delete s;
     CloseWindow();
 }
 

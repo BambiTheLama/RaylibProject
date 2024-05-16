@@ -4,14 +4,20 @@
 #include <list>
 
 #include "CollisionElement.h"
+
+
 class GameObject;
 
 class Collider {
     std::list<Collider *> colliders;
     std::list<Collider *> lastFrameColliders;
+
+protected:
     std::vector<CollisionElement *> collisionElemnets;
 
 public:
+    virtual ~Collider();
+
     virtual void onCollisionEnter(Collider *collider) {
     }
 
@@ -21,6 +27,13 @@ public:
     virtual void onCollisionExit(Collider *collider) {
     }
 
+#ifdef showColliders
+    void draw();
+#endif
+
+
+    friend class GameScene;
+
 private:
     void clearCollider();
 
@@ -28,4 +41,3 @@ private:
 
     void checkCollision();
 };
-

@@ -66,18 +66,8 @@ set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/Src/")
 
 # Declaring our executable
 add_executable(${PROJECT_NAME}
-        Src/GameObjects/AddisionalTypes/Hitable.h
-        Src/GameObjects/AddisionalTypes/Collider/Collider.h
-        Src/GameObjects/Game.h
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElement.cpp
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElement.h
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElementBox.cpp
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElementBox.h
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElementCircle.cpp
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElementCircle.h
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElementLines.cpp
-        Src/GameObjects/AddisionalTypes/Collider/CollisionElementLines.h
-)
+        Src/GameObjects/Wall.cpp
+        Src/GameObjects/Wall.h)
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 

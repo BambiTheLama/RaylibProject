@@ -31,3 +31,4 @@ bool CollisionElementBox::isCollidiongWith(Vector2 thisPos, CollisionElement *co
     }
     return false;
 }
+

@@ -5,7 +5,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <vector>
-
+#include <list>
 #include "GameObject.h"
 
 
@@ -20,7 +20,7 @@ class Game {
 public:
     static GameObject *getObject(Rectangle pos);
 
-    static std::vector<GameObject *> getObjects(Rectangle pos);
+    static std::list<GameObject *> getObjects(Rectangle pos);
 
     static void deleteObject(GameObject *obj);
 
