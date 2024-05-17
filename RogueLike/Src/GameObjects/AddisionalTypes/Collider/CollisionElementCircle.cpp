@@ -1,7 +1,3 @@
-//
-// Created by Szymek on 16.05.2024.
-//
-
 #include "CollisionElementCircle.h"
 
 CollisionElementCircle::CollisionElementCircle(Vector2 point, float radius) : CollisionElement(CollisionType::Circle) {

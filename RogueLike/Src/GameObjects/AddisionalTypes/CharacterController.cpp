@@ -1,7 +1,3 @@
-//
-// Created by Szymek on 15.05.2024.
-//
-
 #include "CharacterController.h"
 
 #include "../../Core/GamePadController.h"

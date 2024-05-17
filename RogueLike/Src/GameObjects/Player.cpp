@@ -1,7 +1,3 @@
-//
-// Created by szymek on 14.05.2024.
-//
-
 #include "Player.h"
 
 #include "AddisionalTypes/Collider/CollisionElementBox.h"

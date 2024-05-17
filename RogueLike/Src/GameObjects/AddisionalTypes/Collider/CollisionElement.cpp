@@ -1,7 +1,3 @@
-//
-// Created by Szymek on 16.05.2024.
-//
-
 #include "CollisionElement.h"
 #include <math.h>
 #include "raylib.h"

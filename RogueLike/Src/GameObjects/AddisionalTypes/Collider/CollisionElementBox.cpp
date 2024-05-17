@@ -1,7 +1,3 @@
-//
-// Created by Szymek on 16.05.2024.
-//
-
 #include "CollisionElementBox.h"
 
 CollisionElementBox::CollisionElementBox(Rectangle col) : CollisionElement(CollisionType::Box) {

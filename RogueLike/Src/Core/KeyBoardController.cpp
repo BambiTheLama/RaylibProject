@@ -1,7 +1,3 @@
-//
-// Created by Szymek on 14.05.2024.
-//
-
 #include "KeyBoardController.h"
 #include <math.h>
 
