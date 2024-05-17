@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{11d53e83-cb4a-4d38-99ae-8d298051a5a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{8a179deb-aec9-48d8-8787-ad8ea8af4362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\AddisionalTypes">
+      <UniqueIdentifier>{cf6bd629-9c31-45fc-a3cf-4304654f0622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\AddisionalTypes\Colliders">
+      <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Core\Controller.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Engine.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\GamePadController.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\GameScene.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\KeyBoardController.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Scene.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Game.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\GameObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Player.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Wall.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Character.h">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\CharacterController.h">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\Collider.h">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElement.h">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementBox.h">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.h">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.h">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Core\Engine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\GamePadController.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\GameScene.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\KeyBoardController.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Game.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Player.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Wall.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\Collider.cpp">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElement.cpp">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementBox.cpp">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.cpp">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.cpp">
+      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\main.cpp" />
+  </ItemGroup>
+</Project>
