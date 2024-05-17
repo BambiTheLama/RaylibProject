@@ -16,7 +16,7 @@ public:
         pos = {(float) x, (float) y, 64.0f, 64.0f};
 
         //collisionElemnets.push_back(new CollisionElementBox({0, 0, pos.width, pos.height}));
-        std::vector<Vector2> points = {{0, 0}, {0, 32}, {32, 0}};
+        std::vector<Vector2> points = {{0, 0}, {0, 64}, {64, 0}};
         collisionElemnets.push_back(new CollisionElementLines(points));
     }
 

@@ -9,7 +9,7 @@
 
 Player::Player(int x, int y) {
     pos = {(float) x, (float) y, 64, 64};
-    collisionElemnets.push_back(new CollisionElementBox({0, 0, 64, 64}));
+    //collisionElemnets.push_back(new CollisionElementBox({0, 0, 64, 64}));
     collisionElemnets.push_back(new CollisionElementCircle({32, 32}, 32));
 }
 
