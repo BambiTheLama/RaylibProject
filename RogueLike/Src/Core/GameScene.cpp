@@ -1,12 +1,7 @@
-//
-// Created by Szymek on 14.05.2024.
-//
-
 #include "GameScene.h"
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Game.h"
 #include <algorithm>
-
 #include "../GameObjects/Wall.h"
 
 GameScene::GameScene() {
@@ -17,6 +12,7 @@ GameScene::~GameScene() {
     Game::gameScene = nullptr;
     for (auto o: gameObjects)
         delete o;
+    
     gameObjects.clear();
 }
 

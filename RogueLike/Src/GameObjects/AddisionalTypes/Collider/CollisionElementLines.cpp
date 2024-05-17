@@ -16,13 +16,12 @@ bool CollisionElementLines::isCollidiongWith(Vector2 thisPos, CollisionElement *
     std::vector<Vector2> points = getLines(thisPos);
     if (collisionElement->getType() == CollisionType::Box) {
         Rectangle rec = collisionElement->getBox(collisionElementPos);
-        for (int i = 0; i < lines.size() - 1; i++) {
-            if (CheckCollisionRecLine(rec, lines[i], lines[i + 1]))
+        for (int i = 0; i < points.size() - 1; i++) {
+            if (CheckCollisionRecLine(rec, points[i], points[i + 1]))
                 return true;
         }
-        if (CheckCollisionRecLine(rec, lines[0], lines[lines.size() - 1]))
-            return true;
-        return false;
+
+        return CheckCollisionRecLine(rec, points[0], points[points.size() - 1]);
     }
     if (collisionElement->getType() == CollisionType::Line) {
         std::vector<Vector2> points2 = collisionElement->getLines(collisionElementPos);
@@ -30,6 +29,6 @@ bool CollisionElementLines::isCollidiongWith(Vector2 thisPos, CollisionElement *
     }
     if (collisionElement->getType() == CollisionType::Circle) {
         Vector3 sCircle = collisionElement->getCircle(collisionElementPos);
-        return CheckCollisionCircleLines({sCircle.x, sCircle.y}, sCircle.z, lines);
+        return CheckCollisionCircleLines({sCircle.x, sCircle.y}, sCircle.z, points);
     }
 }
