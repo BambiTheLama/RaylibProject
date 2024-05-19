@@ -4,7 +4,7 @@
 class GameObject {
 protected:
     Rectangle pos;
-
+    int drawOrder = 0;
 public:
     virtual ~GameObject() {
     }
@@ -16,5 +16,7 @@ public:
     Vector2 getPosPoint() { return {pos.x, pos.y}; }
 
     Rectangle getPos() { return pos; }
+
+    int getDrawOrder() { return drawOrder; }
 };
 

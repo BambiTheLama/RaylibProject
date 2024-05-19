@@ -21,7 +21,7 @@ public:
 
     void draw();
 
-    void onCollisionEnter(Collider *collider) override { printf("KURWA\n"); }
+    void onCollisionEnter(Collider* collider) override;
 
-    void onCollisionExit(Collider *collider) override { printf("KURWA END\n"); }
+    void onCollisionExit(Collider* collider) override;
 };

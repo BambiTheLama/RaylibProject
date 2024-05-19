@@ -1,12 +1,14 @@
 #include "Player.h"
-
+#include "AddisionalTypes/Collider/CollisionElementLines.h"
 #include "AddisionalTypes/Collider/CollisionElementBox.h"
 #include "AddisionalTypes/Collider/CollisionElementCircle.h"
 
 Player::Player(int x, int y) {
     pos = {(float) x, (float) y, 64, 64};
-    collisionElemnets.push_back(new CollisionElementBox({0, 0, 64, 64}));
-    //collisionElemnets.push_back(new CollisionElementCircle({32, 32}, 32));
+    pos.x -= pos.width / 2;
+    pos.y -= pos.height / 2;
+    collisionElemnets.push_back(new CollisionElementBox({0, 0, pos.width, pos.height}));
+    //drawOrder = 10;
 }
 
 Player::~Player() {
@@ -26,6 +28,14 @@ void Player::action(Input input) {
 
 
 void Player::draw() {
-    DrawRectangleRec(pos,RED);
-    DrawText(TextFormat("%lf %lf", pos.x, pos.y), 0, 100, 10,RED);
+    DrawRectangleRec(pos,BLUE);
+    DrawRectangleLinesEx(pos, 2, BLACK);
+}
+
+void Player::onCollisionEnter(Collider* collider) { 
+    printf("KURWA\n"); 
+}
+
+void Player::onCollisionExit(Collider* collider) { 
+    printf("KURWA END\n"); 
 }
