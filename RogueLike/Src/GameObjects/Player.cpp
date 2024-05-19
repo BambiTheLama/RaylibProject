@@ -44,6 +44,7 @@ void Player::onCollisionEnter(Collider* collider) {
     //    ch->destoryController();
 }
 
-void Player::onCollisionExit(Collider* collider) { 
+void Player::onCollisionExit(Collider* collider) {
+    collider->onCollisionExit(this);
 
 }

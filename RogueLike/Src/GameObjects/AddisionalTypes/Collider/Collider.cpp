@@ -120,3 +120,8 @@ void Collider::draw() {
         c->draw(obj);
 }
 #endif
+
+void Collider::removeObject(Collider* c) {
+    lastFrameColliders.remove(c);
+    colliders.remove(c);
+}

@@ -35,6 +35,8 @@ public:
 
     GameObject* getThisObj();
 
+
+
 #ifdef showColliders
     void draw();
 #endif
@@ -45,4 +47,6 @@ private:
     bool isColliding(Collider *collider, GameObject *otherObj);
 
     void checkCollision();
+
+    void removeObject(Collider* c);
 };

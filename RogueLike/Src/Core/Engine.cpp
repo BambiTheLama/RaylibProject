@@ -10,7 +10,10 @@ Engine::Engine() {
     s = new GameScene();
     s->start();
     while (!WindowShouldClose()) {
-        s->update(GetFrameTime());
+        float deltaTime = GetFrameTime();
+        if (deltaTime > 0.2f)
+            deltaTime = 0.2f;
+        s->update(deltaTime);
         BeginDrawing();
         ClearBackground(RAYWHITE);
         s->draw();
