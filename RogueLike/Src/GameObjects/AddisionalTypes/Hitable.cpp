@@ -1,5 +1,7 @@
 #include "Hitable.h"
 #include "../Game.h"
+#include "../ParticleText.h"
+#include <string>
 
 Hitable::Hitable(int hp)
 {
@@ -14,6 +16,16 @@ bool Hitable::dealDamage(float damage, float invisibleFrames)
 	hp -= damage;
 	this->invisibleFrames = invisibleFrames;
 	onHit();
+	GameObject* gm = dynamic_cast<GameObject*>(this);
+	if (gm)
+	{
+		Vector2 pos = gm->getPosPoint();
+		std::string text = std::to_string(damage);
+		for(int i=0;i<4;i++)
+			text.pop_back();
+		Game::addObject(new ParticleText(pos.x, pos.y, text));
+	}
+
 	if (hp <= 0)
 		deadTrigger();
 	return true;
@@ -28,4 +40,10 @@ void Hitable::update(float deltaTime)
 void Hitable::deadTrigger()
 {
 	Game::deleteObject(dynamic_cast<GameObject*>(this));
+}
+
+void Hitable::draw(Rectangle pos) {
+	DrawRectangleRec(pos, GRAY);
+	DrawRectangle(pos.x, pos.y, pos.width * getProcentHp(), pos.height, GREEN);
+	DrawRectangleLinesEx(pos, 3, BLACK);
 }

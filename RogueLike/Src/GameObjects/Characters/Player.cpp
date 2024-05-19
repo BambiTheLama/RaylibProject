@@ -33,6 +33,7 @@ void Player::action(Input input) {
 void Player::draw() {
     DrawRectangleRec(pos,BLUE);
     DrawRectangleLinesEx(pos, 2, BLACK);
+    Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 }
 
 void Player::onCollisionEnter(Collider* collider) { 

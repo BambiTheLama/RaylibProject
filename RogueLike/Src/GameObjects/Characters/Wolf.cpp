@@ -39,6 +39,7 @@ void Wolf::update(float deltaTime)
 void Wolf::draw()
 {
 	DrawRectangleRec(pos, LIGHTGRAY);
+	Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 }
 
 void Wolf::move(Vector2 dir, float deltaTime)

@@ -31,5 +31,6 @@ public:
     ObjectType getType() { return type; }
 
     friend class Collider;
+
 };
 

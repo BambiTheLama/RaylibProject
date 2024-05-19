@@ -40,6 +40,7 @@
     <ClInclude Include="Src\GameObjects\Characters\Wolf.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
+    <ClInclude Include="Src\GameObjects\ParticleText.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\AIController.cpp" />
@@ -60,6 +61,7 @@
     <ClCompile Include="Src\GameObjects\Characters\Wall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
+    <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
     <ClCompile Include="Src\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

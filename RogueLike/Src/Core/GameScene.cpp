@@ -22,7 +22,6 @@ void GameScene::start() {
     Player *p = new Player(200, 200);
     gameObjects.push_back(p);
     controller.setCharacter(p);
-    gameObjects.push_back(new Player(500, 200));
     for (auto o: gameObjects) {
         Collider *col = dynamic_cast<Collider *>(o);
         if (col)
@@ -65,6 +64,7 @@ void GameScene::update(float deltaTime) {
     }
     for (auto o : toDelete)
     {
+        gameObjects.remove(o);
         Collider* collider = dynamic_cast<Collider*>(o);
         if (collider) {
             colliders.remove(collider);
@@ -103,7 +103,7 @@ bool GameScene::addObject(GameObject *obj) {
 }
 void GameScene::deleteObject(GameObject* obj)
 {
-    gameObjects.remove(obj);
+
     Collider* collider = dynamic_cast<Collider*>(obj);
     if (collider) {
         collidersToRemove.remove(collider);
@@ -113,8 +113,11 @@ void GameScene::deleteObject(GameObject* obj)
 }
 
 void GameScene::draw() {
-    for (auto o: gameObjects)
+    for (auto o : gameObjects)
+    {
         o->draw();
+    }
+
 #ifdef showColliders
     for (auto o: colliders) {
         o->draw();
