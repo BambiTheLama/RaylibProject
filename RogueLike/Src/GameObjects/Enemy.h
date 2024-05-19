@@ -3,9 +3,10 @@
 #include "AddisionalTypes/Character.h"
 #include "AddisionalTypes/CharacterController.h"
 #include "AddisionalTypes/Collider/Collider.h"
+#include "AddisionalTypes/Hitable.h"
 class AIController;
 class Enemy :
-    public GameObject,public Character,public Collider
+    public GameObject,public Character,public Collider,public Hitable
 {
     AIController* ai;
     CharacterController controller;
@@ -21,5 +22,9 @@ public:
     void action(Input input);
 
     void onCollisionEnter(Collider* collider);
+
+    void destoryController();
+
+    void onHit();
 };
 

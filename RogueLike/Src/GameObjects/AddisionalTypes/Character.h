@@ -12,12 +12,10 @@ public:
 
     virtual void action(Input input) = 0;
 
-    bool canBeControllerd(CharacterController* c) { return !controllBy || c == controllBy; }
+    bool canBeControllerd(CharacterController* c);
 
-    void setController(CharacterController* c)
-    {
-        if (!controllBy || c == controllBy)
-            controllBy = c;
-    }
+    void setController(CharacterController* c);
+
+    virtual void destoryController();
 };
 

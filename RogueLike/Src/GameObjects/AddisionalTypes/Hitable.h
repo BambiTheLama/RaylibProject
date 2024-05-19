@@ -1,8 +1,15 @@
 #pragma once
-
-
 class Hitable {
+protected:
+    float hp = 0;
+    float invisibleFrames = 0.0f;
 public:
-    virtual void dealDamage(float damage) = 0;
+    bool dealDamage(float damage, float invisibleFrames = 0.1f);
+
+    void update(float deltaTime);
+
+    virtual void onHit(){}
+
+    virtual void deadTrigger();
 };
 

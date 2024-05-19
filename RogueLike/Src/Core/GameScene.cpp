@@ -72,6 +72,9 @@ void GameScene::update(float deltaTime) {
     }
     for (auto o: colliders)
         o->checkCollision();
+    for (auto o : toDelete)
+        delete o;
+    toDelete.clear();
     gameObjects.sort(sortGameObjectCondiction);
 }
 
@@ -86,7 +89,14 @@ bool GameScene::addObject(GameObject *obj) {
         colliders.push_back(collider);
     return true;
 }
-
+void GameScene::deleteObject(GameObject* obj)
+{
+    gameObjects.remove(obj);
+    Collider* collider = dynamic_cast<Collider*>(obj);
+    if (collider)
+        colliders.remove(collider);
+    toDelete.push_back(obj);
+}
 
 void GameScene::draw() {
     for (auto o: gameObjects)

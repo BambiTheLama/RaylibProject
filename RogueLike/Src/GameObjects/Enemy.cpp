@@ -5,6 +5,7 @@
 
 Enemy::Enemy(int x, int y)
 {
+	hp = 10;
 	pos = { (float)x, (float)y, 48, 64 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
@@ -20,8 +21,9 @@ Enemy::Enemy(int x, int y)
 
 void Enemy::update(float deltaTime)
 {
+	Hitable::update(deltaTime);
 	controller.update(deltaTime);
-	if (ai->target)
+	if (ai && ai->target)
 	{
 		Rectangle pos = getPos();
 		Rectangle otherPos = ai->target->getPos();
@@ -54,9 +56,20 @@ void Enemy::action(Input input)
 void Enemy::onCollisionEnter(Collider* col)
 {
 	GameObject* gm = col->getThisObj();
-	if (gm && ((int)gm->getType() & ai->targerType) > 0)
+	if (gm && ai && ((int)gm->getType() & ai->targerType) > 0)
 	{
 		ai->target = gm;
 	}
+
+}
+
+void Enemy::destoryController()
+{
+	controller.destoryController();
+	ai = nullptr;
+}
+
+void Enemy::onHit()
+{
 
 }

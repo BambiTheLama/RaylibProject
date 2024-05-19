@@ -9,11 +9,14 @@ CharacterController::CharacterController() {
 }
 
 CharacterController::~CharacterController() {
-    delete controller;
+    if (this->controller)
+        delete controller;
 }
 
 
 void CharacterController::update(float deltaTime) {
+    if (!controller)
+        return;
     controller->update(deltaTime);
     if (!character)
         return;
@@ -36,4 +39,14 @@ void CharacterController::setController(Controller* controller)
     if (this->controller)
         delete this->controller;
     this->controller = controller; 
+}
+
+void CharacterController::destoryController()
+{
+    if (this->controller)
+    {
+        delete this->controller;
+        this->controller = nullptr;
+    }
+
 }

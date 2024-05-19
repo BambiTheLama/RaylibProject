@@ -126,5 +126,11 @@
     <ClCompile Include="Src\Core\AIController.cpp">
       <Filter>Core\Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

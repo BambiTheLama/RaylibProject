@@ -46,12 +46,14 @@
     <ClCompile Include="Src\Core\GamePadController.cpp" />
     <ClCompile Include="Src\Core\GameScene.cpp" />
     <ClCompile Include="Src\Core\KeyBoardController.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\Collider.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElement.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementBox.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
     <ClCompile Include="Src\GameObjects\Enemy.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
     <ClCompile Include="Src\GameObjects\Player.cpp" />

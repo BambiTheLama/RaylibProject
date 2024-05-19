@@ -17,5 +17,9 @@ public:
     void setCharacter(Character* character);
 
     void setController(Controller* controller);
+
+    void destoryController();
+
+    bool hasController() { return controller; }
 };
 

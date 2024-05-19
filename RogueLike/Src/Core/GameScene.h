@@ -9,6 +9,7 @@ class Collider;
 
 class GameScene : public Scene {
     std::list<GameObject *> gameObjects;
+    std::list<GameObject*> toDelete;
     std::list<Collider *> colliders;
     CharacterController controller;
     bool toSort = false;
@@ -27,5 +28,7 @@ public:
     std::list<GameObject *> getObjects() { return gameObjects; }
 
     bool addObject(GameObject *obj);
+
+    void deleteObject(GameObject* obj);
 };
 

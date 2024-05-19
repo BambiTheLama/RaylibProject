@@ -35,8 +35,11 @@ void Collider::clearCollider() {
     }
     lastFrameColliders = colliders;
     colliders.clear();
-    for (auto c: collidersExit)
-        c->onCollisionExit(this);
+    for (auto c : collidersExit)
+    {
+        onCollisionExit(c);
+    }
+
 }
 
 
