@@ -2,14 +2,16 @@
 #include "../GameObjects/GameObject.h"
 #include "../GameObjects/Game.h"
 #include "raymath.h"
+
 void AIController::update(float deltaTime)
 {
 	moveDir = { 0,0 };
+	inputs.clear();
 	if (targerType == 0 || !thisObj)
 		return;
+	lookForTarget();
 	if (!target)
 	{
-		lookForTarget();
 		return;
 	}
 	Vector2 pos = target->getPosPoint();
@@ -18,6 +20,8 @@ void AIController::update(float deltaTime)
 		moveDir = Vector2Normalize(thisPos - pos);
 	if (action == (int)Action::GoTo)
 		moveDir = Vector2Normalize(pos - thisPos);
+	if (action == (int)Action::Attack)
+		inputs.push_back(Input::Attack1);
 }
 
 void AIController::lookForTarget() {

@@ -6,10 +6,11 @@
 #include "AddisionalTypes/Hitable.h"
 class AIController;
 class Enemy :
-    public GameObject,public Character,public Collider,public Hitable
+    public GameObject, public Character, public Collider, public Hitable
 {
     AIController* ai;
     CharacterController controller;
+    float speed = 10;
 public:
     Enemy(int x = 0, int y = 0);
 

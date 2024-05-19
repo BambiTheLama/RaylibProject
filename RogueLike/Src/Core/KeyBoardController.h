@@ -8,7 +8,7 @@ class KeyBoardController : public Controller {
     int keyDown[ControllsSize] = {KEY_S, KEY_DOWN};
     int keyLeft[ControllsSize] = {KEY_A, KEY_LEFT};
     int keyRight[ControllsSize] = {KEY_D, KEY_RIGHT};
-
+    int keyAttack1[ControllsSize] = { KEY_E, KEY_SPACE };
 public:
     void update(float deltaTime) override;
 };

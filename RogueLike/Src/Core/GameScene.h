@@ -11,6 +11,7 @@ class GameScene : public Scene {
     std::list<GameObject *> gameObjects;
     std::list<GameObject*> toDelete;
     std::list<Collider *> colliders;
+    std::list<Collider*> collidersToRemove;
     CharacterController controller;
     bool toSort = false;
 

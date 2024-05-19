@@ -49,26 +49,29 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
     for (auto c: collisionElemnets)
         for (auto c2: collider->collisionElemnets)
             if (c->isCollidiongWith(pos, c2, otherPos)) {
-                if (solidObject)
-                    return true;
-                    ///TODO POPRAWIC DZia³anie
 
-                    Vector2 dirVector = pos - otherPos;
                     
-                    dirVector = Vector2Normalize(dirVector);
-                    if (abs(dirVector.x) < abs(dirVector.y))
-                        dirVector.x = 0;
-                    else
-                        dirVector.y = 0;
+                ///TODO POPRAWIC DZia³anie
+
+                Vector2 dirVector = pos - otherPos;
+
+                dirVector = Vector2Normalize(dirVector);
+                if (abs(dirVector.x) < abs(dirVector.y))
+                    dirVector.x = 0;
+                else
+                    dirVector.y = 0;
+
+                if (!solidObject)
+                {
                     thisObj->pos.x += dirVector.x;
                     thisObj->pos.y += dirVector.y;
+                }
 
-                
-                    if (!collider->solidObject)
-                    {
-                        otherObj->pos.x -= dirVector.x;
-                        otherObj->pos.y -= dirVector.y;
-                    }
+                if (!collider->solidObject)
+                {
+                    otherObj->pos.x -= dirVector.x;
+                    otherObj->pos.y -= dirVector.y;
+                }
                 
                 return true;
             }

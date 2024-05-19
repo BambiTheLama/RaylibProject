@@ -1,6 +1,12 @@
 #include "Character.h"
 #include "CharacterController.h"
 
+Character::~Character()
+{
+    if (controllBy)
+        controllBy->setCharacter(nullptr);
+}
+
 bool Character::canBeControllerd(CharacterController* c) 
 { 
     return !controllBy ||  c == controllBy || !controllBy->hasController(); 
@@ -8,7 +14,7 @@ bool Character::canBeControllerd(CharacterController* c)
 
 void Character::setController(CharacterController* c)
 {
-    if (!controllBy || c == controllBy)
+    if (c != controllBy)
         controllBy = c;
 }
 

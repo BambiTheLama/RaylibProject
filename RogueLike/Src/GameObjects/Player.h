@@ -3,9 +3,10 @@
 #include "GameObject.h"
 #include "AddisionalTypes/Character.h"
 #include "AddisionalTypes/Collider/Collider.h"
+#include "AddisionalTypes/Hitable.h"
 
 
-class Player : public GameObject, public Character, public Collider {
+class Player : public GameObject, public Character, public Collider,public Hitable {
     float speed = 100;
 
 public:

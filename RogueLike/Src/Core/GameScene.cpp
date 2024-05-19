@@ -3,7 +3,7 @@
 #include "../GameObjects/Game.h"
 #include <algorithm>
 #include "../GameObjects/Wall.h"
-#include "../GameObjects/Enemy.h"
+#include "../GameObjects/Characters/Wolf.h"
 
 GameScene::GameScene() {
     Game::gameScene = this;
@@ -50,7 +50,7 @@ void GameScene::update(float deltaTime) {
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
         Vector2 cursor = GetMousePosition();
 
-        addObject(new Enemy(cursor.x, cursor.y));
+        addObject(new Wolf(cursor.x, cursor.y));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 cursor = GetMousePosition();
@@ -83,7 +83,9 @@ void GameScene::update(float deltaTime) {
         o->clearCollider();
     for (auto o: colliders)
         o->checkCollision();
-
+    for (auto c : collidersToRemove)
+        colliders.remove(c);
+    collidersToRemove.clear();
 
     gameObjects.sort(sortGameObjectCondiction);
 }
@@ -104,7 +106,7 @@ void GameScene::deleteObject(GameObject* obj)
     gameObjects.remove(obj);
     Collider* collider = dynamic_cast<Collider*>(obj);
     if (collider) {
-        colliders.remove(collider);
+        collidersToRemove.remove(collider);
     }
 
     toDelete.push_back(obj);

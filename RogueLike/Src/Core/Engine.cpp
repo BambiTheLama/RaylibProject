@@ -3,8 +3,8 @@
 #include "GameScene.h"
 
 Engine::Engine() {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1600;
+    const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
     s = new GameScene();

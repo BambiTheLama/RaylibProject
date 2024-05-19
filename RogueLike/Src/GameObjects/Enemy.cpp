@@ -5,7 +5,7 @@
 
 Enemy::Enemy(int x, int y)
 {
-	hp = 10;
+	hp = 100;
 	pos = { (float)x, (float)y, 48, 64 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
@@ -44,8 +44,8 @@ void Enemy::draw()
 
 void Enemy::move(Vector2 dir, float deltaTime)
 {
-	pos.x += dir.x * deltaTime * 100;
-	pos.y += dir.y * deltaTime * 100;
+	pos.x += dir.x * deltaTime * speed;
+	pos.y += dir.y * deltaTime * speed;
 }
 
 void Enemy::action(Input input)
@@ -61,6 +61,7 @@ void Enemy::onCollisionEnter(Collider* col)
 		ai->target = gm;
 	}
 
+
 }
 
 void Enemy::destoryController()
@@ -71,5 +72,5 @@ void Enemy::destoryController()
 
 void Enemy::onHit()
 {
-
+	speed+=5;
 }

@@ -4,8 +4,8 @@
 #include "../../Core/KeyBoardController.h"
 
 CharacterController::CharacterController() {
-    controller = new KeyBoardController();
-    //controller = new GamePadController();
+    controller = nullptr;
+    setController(new KeyBoardController());
 }
 
 CharacterController::~CharacterController() {
@@ -29,7 +29,8 @@ void CharacterController::update(float deltaTime) {
 void CharacterController::setCharacter(Character* character) 
 { 
     this->character = character; 
-    character->setController(this); 
+    if(character)
+        character->setController(this); 
 }
 
 void CharacterController::setController(Controller* controller) 

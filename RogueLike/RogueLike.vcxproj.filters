@@ -16,6 +16,9 @@
     <Filter Include="Core\Controllers">
       <UniqueIdentifier>{f7078cd4-35c3-49c1-9020-3b51887552ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Characters">
+      <UniqueIdentifier>{4bf0bcaa-2ad6-4acc-956d-3a1ce35dc194}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -63,9 +66,6 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.h">
       <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Enemy.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\Controller.h">
       <Filter>Core\Controllers</Filter>
     </ClInclude>
@@ -77,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="Src\Core\AIController.h">
       <Filter>Core\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\Wolf.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Enemy.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +120,6 @@
       <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\main.cpp" />
-    <ClCompile Include="Src\GameObjects\Enemy.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Core\GamePadController.cpp">
       <Filter>Core\Controllers</Filter>
     </ClCompile>
@@ -131,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp">
       <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Enemy.cpp">
+      <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

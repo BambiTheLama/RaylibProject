@@ -3,6 +3,7 @@
 #include "AddisionalTypes/Collider/CollisionElementBox.h"
 #include "AddisionalTypes/Collider/CollisionElementCircle.h"
 #include "AddisionalTypes/Hitable.h"
+
 Player::Player(int x, int y){
     pos = {(float) x, (float) y, 48, 64};
     pos.x -= pos.width / 2;
@@ -17,6 +18,7 @@ Player::~Player() {
 
 
 void Player::update(float deltaTime) {
+    Hitable::update(deltaTime);
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
@@ -35,16 +37,15 @@ void Player::draw() {
 
 void Player::onCollisionEnter(Collider* collider) { 
     Character* ch = dynamic_cast<Character*>(collider);
-    Hitable* hit = dynamic_cast<Hitable*>(collider);
-    if (hit)
-    {
-        hit->dealDamage(2);
-    }
+    //Hitable* hit = dynamic_cast<Hitable*>(collider);
+    //if (hit)
+    //{
+    //    hit->dealDamage(2);
+    //}
     //if (ch)
     //    ch->destoryController();
 }
 
 void Player::onCollisionExit(Collider* collider) {
-    collider->onCollisionExit(this);
 
 }
