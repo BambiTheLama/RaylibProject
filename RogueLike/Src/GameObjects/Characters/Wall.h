@@ -1,8 +1,8 @@
 #pragma once
-#include "GameObject.h"
-#include "AddisionalTypes/Collider/Collider.h"
-#include "AddisionalTypes/Collider/CollisionElementBox.h"
-#include "AddisionalTypes/Collider/CollisionElementLines.h"
+#include "../GameObject.h"
+#include "../AddisionalTypes/Collider/Collider.h"
+#include "../AddisionalTypes/Collider/CollisionElementBox.h"
+#include "../AddisionalTypes/Collider/CollisionElementLines.h"
 #include "iostream"
 
 class Wall : public GameObject, public Collider {

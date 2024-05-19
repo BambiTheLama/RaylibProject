@@ -36,12 +36,6 @@
     <ClInclude Include="Src\GameObjects\GameObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Player.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\Wall.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Character.h">
       <Filter>GameObjects\AddisionalTypes</Filter>
     </ClInclude>
@@ -81,8 +75,14 @@
     <ClInclude Include="Src\GameObjects\Characters\Wolf.h">
       <Filter>GameObjects\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Enemy.h">
-      <Filter>GameObjects</Filter>
+    <ClInclude Include="Src\GameObjects\Characters\Enemy.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\Player.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\Wall.h">
+      <Filter>GameObjects\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,12 +93,6 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Game.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Player.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Wall.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp">
@@ -138,8 +132,14 @@
     <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp">
       <Filter>GameObjects\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\Enemy.cpp">
-      <Filter>GameObjects</Filter>
+    <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\Player.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\Wall.cpp">
+      <Filter>GameObjects\Characters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

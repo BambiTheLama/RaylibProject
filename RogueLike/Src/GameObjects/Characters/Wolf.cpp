@@ -13,6 +13,7 @@ Wolf::Wolf(int x, int y)
 	ai->action = (int)Action::GoTo;
 	controller.setController(ai);
 	controller.setCharacter(this);
+	
 }
 
 void Wolf::update(float deltaTime)
@@ -21,15 +22,16 @@ void Wolf::update(float deltaTime)
 	controller.update(deltaTime);
 	if (ai && ai->target)
 	{
+		ai->action = 0;
 		Rectangle pos = getPos();
 		Rectangle otherPos = ai->target->getPos();
 		Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
 		float distance = Vector2Length(posV - otherPosV);
 		if (distance < 200)
-			ai->action = (int)Action::Attack;
-		else
-			ai->action = (int)Action::GoTo;
+			ai->action |= (int)Action::Attack;
+
+		ai->action |= (int)Action::GoTo;
 			
 	}
 }
@@ -41,6 +43,13 @@ void Wolf::draw()
 
 void Wolf::move(Vector2 dir, float deltaTime)
 {
+	if (recoveryTime > 0)
+	{
+		recoveryTime -= deltaTime;
+		pos.x += dir.x * deltaTime * 20;
+		pos.y += dir.y * deltaTime * 20;
+		return;
+	}
 	if (attackTime <= 0)
 	{
 		pos.x += dir.x * deltaTime * 100;
@@ -50,8 +59,11 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	else
 	{
 		attackTime -= deltaTime;
+
 		pos.x += attackDir.x * deltaTime * 200;
 		pos.y += attackDir.y * deltaTime * 200;
+		if (attackTime <= 0)
+			recoveryTime = recoveryTimeMax;
 	}
 }
 

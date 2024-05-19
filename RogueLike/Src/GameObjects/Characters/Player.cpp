@@ -1,8 +1,8 @@
 #include "Player.h"
-#include "AddisionalTypes/Collider/CollisionElementLines.h"
-#include "AddisionalTypes/Collider/CollisionElementBox.h"
-#include "AddisionalTypes/Collider/CollisionElementCircle.h"
-#include "AddisionalTypes/Hitable.h"
+#include "../AddisionalTypes/Collider/CollisionElementLines.h"
+#include "../AddisionalTypes/Collider/CollisionElementBox.h"
+#include "../AddisionalTypes/Collider/CollisionElementCircle.h"
+#include "../AddisionalTypes/Hitable.h"
 
 Player::Player(int x, int y){
     pos = {(float) x, (float) y, 48, 64};

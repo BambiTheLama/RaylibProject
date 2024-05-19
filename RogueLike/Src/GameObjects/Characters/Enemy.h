@@ -1,9 +1,9 @@
 #pragma once
-#include "GameObject.h"
-#include "AddisionalTypes/Character.h"
-#include "AddisionalTypes/CharacterController.h"
-#include "AddisionalTypes/Collider/Collider.h"
-#include "AddisionalTypes/Hitable.h"
+#include "../GameObject.h"
+#include "../AddisionalTypes/Character.h"
+#include "../AddisionalTypes/CharacterController.h"
+#include "../AddisionalTypes/Collider/Collider.h"
+#include "../AddisionalTypes/Hitable.h"
 class AIController;
 class Enemy :
     public GameObject, public Character, public Collider, public Hitable

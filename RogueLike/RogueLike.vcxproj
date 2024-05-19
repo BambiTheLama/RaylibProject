@@ -34,12 +34,12 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h" />
+    <ClInclude Include="Src\GameObjects\Characters\Enemy.h" />
+    <ClInclude Include="Src\GameObjects\Characters\Player.h" />
+    <ClInclude Include="Src\GameObjects\Characters\Wall.h" />
     <ClInclude Include="Src\GameObjects\Characters\Wolf.h" />
-    <ClInclude Include="Src\GameObjects\Enemy.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
-    <ClInclude Include="Src\GameObjects\Player.h" />
-    <ClInclude Include="Src\GameObjects\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\AIController.cpp" />
@@ -55,11 +55,11 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\Player.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\Wall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp" />
-    <ClCompile Include="Src\GameObjects\Enemy.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
-    <ClCompile Include="Src\GameObjects\Player.cpp" />
-    <ClCompile Include="Src\GameObjects\Wall.cpp" />
     <ClCompile Include="Src\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

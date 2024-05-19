@@ -12,6 +12,8 @@ class Wolf :
     float damge = 1;
     float attackTime = 0;
     float attackTimeMax = 2;
+    float recoveryTime = 0;
+    float recoveryTimeMax = 0.5;
     Vector2 attackDir;
     CharacterController controller;
     AIController* ai;

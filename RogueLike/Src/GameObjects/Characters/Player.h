@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include "GameObject.h"
-#include "AddisionalTypes/Character.h"
-#include "AddisionalTypes/Collider/Collider.h"
-#include "AddisionalTypes/Hitable.h"
+#include "../GameObject.h"
+#include "../AddisionalTypes/Character.h"
+#include "../AddisionalTypes/Collider/Collider.h"
+#include "../AddisionalTypes/Hitable.h"
 
 
 class Player : public GameObject, public Character, public Collider,public Hitable {
@@ -14,7 +14,7 @@ public:
 
     ~Player();
 
-    void update(float deltaTime);
+    void update(float deltaTime) override;
 
     void move(Vector2 dir, float deltaTime);
 

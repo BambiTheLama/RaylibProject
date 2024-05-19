@@ -1,8 +1,8 @@
 #include "GameScene.h"
-#include "../GameObjects/Player.h"
+#include "../GameObjects/Characters/Player.h"
 #include "../GameObjects/Game.h"
 #include <algorithm>
-#include "../GameObjects/Wall.h"
+#include "../GameObjects/Characters/Wall.h"
 #include "../GameObjects/Characters/Wolf.h"
 
 GameScene::GameScene() {
