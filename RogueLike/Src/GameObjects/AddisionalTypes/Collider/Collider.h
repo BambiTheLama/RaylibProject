@@ -11,11 +11,15 @@ class GameObject;
 class Collider {
     std::list<Collider *> colliders;
     std::list<Collider *> lastFrameColliders;
+    GameObject* thisObj = nullptr;
+    bool trigger = false;
 
 protected:
     std::vector<CollisionElement *> collisionElemnets;
-
+    bool solidObject = false;
 public:
+    Collider();
+
     virtual ~Collider();
 
     virtual void onCollisionEnter(Collider *collider) {
@@ -27,17 +31,18 @@ public:
     virtual void onCollisionExit(Collider *collider) {
     }
 
+    bool isTrigger() { return trigger; }
+
+    GameObject* getThisObj();
+
 #ifdef showColliders
     void draw();
 #endif
-
-
     friend class GameScene;
-
 private:
     void clearCollider();
 
-    bool isColliding(GameObject *thisObj, Collider *collider, GameObject *otherObj);
+    bool isColliding(Collider *collider, GameObject *otherObj);
 
     void checkCollision();
 };

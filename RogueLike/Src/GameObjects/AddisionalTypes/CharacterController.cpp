@@ -22,3 +22,18 @@ void CharacterController::update(float deltaTime) {
     for (auto i: inputs)
         character->action(i);
 }
+
+void CharacterController::setCharacter(Character* character) 
+{ 
+    this->character = character; 
+    character->setController(this); 
+}
+
+void CharacterController::setController(Controller* controller) 
+{ 
+    if (!controller)
+        return; 
+    if (this->controller)
+        delete this->controller;
+    this->controller = controller; 
+}

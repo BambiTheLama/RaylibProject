@@ -76,21 +76,21 @@ void CollisionElement::draw(GameObject *obj) {
     std::vector<Vector2> points;
     switch (type) {
         case CollisionType::Box:
-            DrawRectangleRec(getBox(obj->getPosPoint()),RED);
-            DrawRectangleLinesEx(getBox(obj->getPosPoint()), 3,BLACK);
+            DrawRectangleRec(getBox(obj->getPosPoint()),{255,0,0,128});
+            DrawRectangleLinesEx(getBox(obj->getPosPoint()), 3, { 0,0,0,128 });
             break;
         case CollisionType::Circle:
             circle = getCircle(obj->getPosPoint());
-            DrawCircleV({circle.x, circle.y}, circle.z,RED);
-            DrawCircleLinesV({circle.x, circle.y}, circle.z,BLACK);
+            DrawCircleV({circle.x, circle.y}, circle.z, { 255,0,0,128 });
+            DrawCircleLinesV({circle.x, circle.y}, circle.z, { 0,0,0,128 });
             break;
         case CollisionType::Line:
             points = getLines(obj->getPosPoint());
             for (auto i = 0; i < points.size(); i++) {
                 Vector2 p1 = points[i];
                 Vector2 p2 = points[(i + 1) % points.size()];
-                DrawLineEx(p1, p2, 5,BLACK);
-                DrawLineEx(p1, p2, 3,RED);
+                DrawLineEx(p1, p2, 7, { 0,0,0,128 });
+                DrawLineEx(p1, p2, 3, { 255,0,0,128 });
             }
 
             break;

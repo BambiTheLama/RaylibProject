@@ -6,6 +6,7 @@ Wall::Wall(int x, int y) {
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;
     collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
+    solidObject = true;
 }
 
 void Wall::update(float deltaTime) {
@@ -17,9 +18,9 @@ void Wall::draw(){
 }
 
 void Wall::onCollisionEnter(Collider* collider) {
-    printf("KURWA111\n");
+    
 }
 
 void Wall::onCollisionExit(Collider* collider){
-    printf("KURWA111 END\n");
+
 }

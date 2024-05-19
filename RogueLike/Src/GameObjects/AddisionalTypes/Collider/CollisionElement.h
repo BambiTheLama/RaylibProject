@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "raylib.h"
-//#define showColliders
+#define showColliders
 
 enum class CollisionType {
     Line, Box, Circle

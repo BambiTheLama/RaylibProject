@@ -3,6 +3,7 @@
 #include "../GameObjects/Game.h"
 #include <algorithm>
 #include "../GameObjects/Wall.h"
+#include "../GameObjects/Enemy.h"
 
 GameScene::GameScene() {
     Game::gameScene = this;
@@ -20,8 +21,7 @@ GameScene::~GameScene() {
 void GameScene::start() {
     Player *p = new Player(200, 200);
     gameObjects.push_back(p);
-    controller = new CharacterController();
-    controller->setCharacter(p);
+    controller.setCharacter(p);
     gameObjects.push_back(new Player(500, 200));
     for (auto o: gameObjects) {
         Collider *col = dynamic_cast<Collider *>(o);
@@ -47,10 +47,26 @@ void GameScene::update(float deltaTime) {
 
         addObject(new Wall(cursor.x, cursor.y));
     }
+    if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
+        Vector2 cursor = GetMousePosition();
+
+        addObject(new Enemy(cursor.x, cursor.y));
+    }
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        Vector2 cursor = GetMousePosition();
+        std::list<GameObject*> objects=getObjects();
+        for(auto o:objects)
+            if (CheckCollisionPointRec(cursor, o->getPos()))
+            {
+                Character* ch = dynamic_cast<Character*>(o);
+                if (ch && ch->canBeControllerd(&controller))
+                    controller.setCharacter(ch);
+            }
+    }
 
     for (auto o: gameObjects)
         o->update(deltaTime);
-    controller->update(deltaTime);
+    controller.update(deltaTime);
     for (auto o: colliders) {
         o->clearCollider();
     }

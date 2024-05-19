@@ -14,6 +14,8 @@ public:
 
     void update(float deltaTime);
 
-    void setCharacter(Character *character) { this->character = character; }
+    void setCharacter(Character* character);
+
+    void setController(Controller* controller);
 };
 

@@ -1,6 +1,6 @@
 #include "KeyBoardController.h"
 #include <math.h>
-
+#include "raymath.h"
 void KeyBoardController::update(float deltaTime) {
     moveDir = {0, 0};
     for (int i = 0; i < ControllsSize; i++) {
@@ -13,10 +13,5 @@ void KeyBoardController::update(float deltaTime) {
         if (IsKeyDown(keyLeft[i]))
             moveDir.x -= 1;
     }
-    float dist = pow(moveDir.x, 2) + pow(moveDir.y, 2);
-    if (dist > 0) {
-        float distSquare = sqrt(dist);
-        moveDir.x /= distSquare;
-        moveDir.y /= distSquare;
-    }
+    moveDir = Vector2Normalize(moveDir);
 }

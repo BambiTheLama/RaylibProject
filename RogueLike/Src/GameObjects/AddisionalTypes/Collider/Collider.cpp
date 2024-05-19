@@ -1,10 +1,14 @@
 #include "Collider.h"
-
+#include "raymath.h"
 #include <algorithm>
 #include <cstdio>
 #include "../../GameObject.h"
 #include "../../Game.h"
 
+
+Collider::Collider(){
+
+}
 
 Collider::~Collider() {
     for (auto c: collisionElemnets)
@@ -12,6 +16,14 @@ Collider::~Collider() {
     collisionElemnets.clear();
 }
 
+GameObject* Collider::getThisObj()
+{
+    if (!thisObj) 
+        thisObj = dynamic_cast<GameObject*>(this);
+    
+    return thisObj;
+    
+}
 
 void Collider::clearCollider() {
     std::vector<Collider *> collidersExit;
@@ -28,12 +40,33 @@ void Collider::clearCollider() {
 }
 
 
-bool Collider::isColliding(GameObject *thisObj, Collider *collider, GameObject *otherObj) {
+bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
     Vector2 pos = thisObj->getPosPoint();
     Vector2 otherPos = otherObj->getPosPoint();
     for (auto c: collisionElemnets)
         for (auto c2: collider->collisionElemnets)
             if (c->isCollidiongWith(pos, c2, otherPos)) {
+                if (solidObject)
+                    return true;
+                    ///TODO POPRAWIC DZia³anie
+
+                    Vector2 dirVector = pos - otherPos;
+                    
+                    dirVector = Vector2Normalize(dirVector);
+                    if (abs(dirVector.x) < abs(dirVector.y))
+                        dirVector.x = 0;
+                    else
+                        dirVector.y = 0;
+                    thisObj->pos.x += dirVector.x;
+                    thisObj->pos.y += dirVector.y;
+
+                
+                    if (!collider->solidObject)
+                    {
+                        otherObj->pos.x -= dirVector.x;
+                        otherObj->pos.y -= dirVector.y;
+                    }
+                
                 return true;
             }
 
@@ -43,9 +76,12 @@ bool Collider::isColliding(GameObject *thisObj, Collider *collider, GameObject *
 
 
 void Collider::checkCollision() {
-    GameObject *thisObj = dynamic_cast<GameObject *>(this);
-    if (!thisObj)
-        return;
+    if (!thisObj) {
+        thisObj = dynamic_cast<GameObject*>(this);
+        if (!thisObj)
+            return;
+    }
+
     std::list<GameObject *> objects = Game::getObjects(thisObj->getPos());
     while(std::find(objects.begin(), objects.end(), thisObj) != objects.end())
         objects.remove(thisObj);
@@ -56,7 +92,7 @@ void Collider::checkCollision() {
         auto find = std::find(colliders.begin(), colliders.end(), collider);
         if (find != colliders.end())
             continue;
-        if (isColliding(thisObj, collider, o)) {
+        if (isColliding(collider, o)) {
             find = std::find(lastFrameColliders.begin(), lastFrameColliders.end(), collider);
             if (find == lastFrameColliders.end()) {
                 onCollisionEnter(collider);

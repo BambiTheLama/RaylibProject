@@ -3,12 +3,13 @@
 #include "AddisionalTypes/Collider/CollisionElementBox.h"
 #include "AddisionalTypes/Collider/CollisionElementCircle.h"
 
-Player::Player(int x, int y) {
-    pos = {(float) x, (float) y, 64, 64};
+Player::Player(int x, int y){
+    pos = {(float) x, (float) y, 48, 64};
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;
-    collisionElemnets.push_back(new CollisionElementBox({0, 0, pos.width, pos.height}));
+    collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height /4, pos.width/2, pos.height/2}));
     //drawOrder = 10;
+    type = ObjectType::Player;
 }
 
 Player::~Player() {
@@ -33,9 +34,9 @@ void Player::draw() {
 }
 
 void Player::onCollisionEnter(Collider* collider) { 
-    printf("KURWA\n"); 
+
 }
 
 void Player::onCollisionExit(Collider* collider) { 
-    printf("KURWA END\n"); 
+
 }
