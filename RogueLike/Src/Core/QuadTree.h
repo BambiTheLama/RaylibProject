@@ -23,7 +23,7 @@ public:
 	void draw();
 
 private:
-	void getObjects(std::list<GameObject*>& list, Rectangle pos);
+	void getObjects(std::list<GameObject*>& list, Rectangle &pos);
 
 	void openTree();
 

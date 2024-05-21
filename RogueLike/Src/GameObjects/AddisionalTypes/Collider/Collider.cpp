@@ -89,8 +89,8 @@ void Collider::checkCollision() {
     }
 
     std::list<GameObject *> objects = Game::getObjects(thisObj->getPos());
-    while(std::find(objects.begin(), objects.end(), thisObj) != objects.end())
-        objects.remove(thisObj);
+    objects.remove(thisObj);
+
     for (auto o: objects) {
         Collider *collider = dynamic_cast<Collider *>(o);
         if (!collider)

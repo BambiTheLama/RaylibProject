@@ -101,7 +101,7 @@ std::list<GameObject*> QuadTree::getObjects(Rectangle pos)
 	return objs;
 }
 
-void QuadTree::getObjects(std::list<GameObject*>& list, Rectangle pos)
+void QuadTree::getObjects(std::list<GameObject*>& list, Rectangle &pos)
 {
 	if (roots[0])
 	{
