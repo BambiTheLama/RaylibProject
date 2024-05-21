@@ -3,6 +3,8 @@
 #include "../ParticleText.h"
 #include <string>
 
+int Hitable::showParticle = 0b11111;
+
 Hitable::Hitable(int hp)
 {
 	maxHp = hp;
@@ -17,7 +19,7 @@ bool Hitable::dealDamage(float damage, float invisibleFrames)
 	this->invisibleFrames = invisibleFrames;
 	onHit();
 	GameObject* gm = dynamic_cast<GameObject*>(this);
-	if (gm)
+	if (gm && ((int)gm->getType() & showParticle) != 0)
 	{
 		Vector2 pos = gm->getPosPoint();
 		std::string text = std::to_string(damage);

@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "CharacterController.h"
+#include "../GameObject.h"
 
 Character::~Character()
 {

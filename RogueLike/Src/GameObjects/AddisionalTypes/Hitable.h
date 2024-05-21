@@ -7,6 +7,8 @@ protected:
     float hp = 0;
     float invisibleFrames = 0.0f;
 public:
+    static int showParticle;
+
     Hitable(int hp = 10);
 
     bool dealDamage(float damage, float invisibleFrames = 0.1f);

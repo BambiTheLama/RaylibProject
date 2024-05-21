@@ -84,7 +84,10 @@
     <ClInclude Include="Src\GameObjects\Characters\Wall.h">
       <Filter>GameObjects\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\ParticleText.h" />
+    <ClInclude Include="Src\Font.h" />
+    <ClInclude Include="Src\GameObjects\ParticleText.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -142,6 +145,9 @@
     <ClCompile Include="Src\GameObjects\Characters\Wall.cpp">
       <Filter>GameObjects\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
+    <ClCompile Include="Src\Font.cpp" />
+    <ClCompile Include="Src\GameObjects\ParticleText.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

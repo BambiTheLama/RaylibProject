@@ -6,6 +6,7 @@
 class CharacterController {
     Controller *controller;
     Character *character = nullptr;
+    GameObject* gm;
 
 public:
     CharacterController();

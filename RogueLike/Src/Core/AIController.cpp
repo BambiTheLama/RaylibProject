@@ -14,6 +14,7 @@ void AIController::update(float deltaTime)
 	{
 		return;
 	}
+	
 	Vector2 pos = target->getPosPoint();
 	Vector2 thisPos = thisObj->getPosPoint();
 	if ((action & (int)Action::Run) != 0)
@@ -26,6 +27,7 @@ void AIController::update(float deltaTime)
 }
 
 void AIController::lookForTarget() {
+	target = nullptr;
 	Rectangle pos = thisObj->getPos();
 	pos.x -= range;
 	pos.y -= range;
@@ -33,6 +35,7 @@ void AIController::lookForTarget() {
 	pos.height += range * 2;
 	std::list<GameObject*> objcts = Game::getObjects(pos);
 	objcts.remove(thisObj);
+
 	for (auto o : objcts)
 	{
 		if (((int)o->getType() & targerType) != 0)

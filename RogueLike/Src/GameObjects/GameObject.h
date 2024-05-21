@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "../Font.h"
 
 enum class ObjectType :int
 {

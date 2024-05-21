@@ -24,7 +24,7 @@ void Wolf::update(float deltaTime)
 	{
 		ai->action = 0;
 		Rectangle pos = getPos();
-		if (target)
+		if (target != 0 && ai->target)
 		{
 			Rectangle otherPos = ai->target->getPos();
 			Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
@@ -32,16 +32,13 @@ void Wolf::update(float deltaTime)
 			float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
 			if (distance < 200)
 				ai->action |= (int)Action::Attack;
+
+			ai->action |= (int)Action::GoTo;
 		}
 
 
-		ai->action |= (int)Action::GoTo;
 		
 	
-	}
-	else
-	{
-		move({ 0,0 }, deltaTime);
 	}
 }
 
@@ -79,17 +76,14 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	}
 }
 
-void Wolf::action(Input input)
+void Wolf::action(Input input, Vector2 dir)
 {
 	if (input == Input::Attack1 && attackTime <= 0.0f)
 	{
-		if (ai)
-		{
-			Rectangle pos = ai->target->getPos();
-			Rectangle pos2 = getPos();
-			Vector2 dir = { pos.x + pos.width / 2 - pos2.x - pos2.width / 2,pos.y + pos.height / 2 - pos2.y - pos2.height / 2 };
-			attackDir = Vector2Normalize(dir);
-		}
+		if (abs(dir.x) <= 0.1 && abs(dir.y) < 0.1)
+			return;
+		attackDir = Vector2Normalize(dir);
+		
 
 
 		attackTime = attackTimeMax;

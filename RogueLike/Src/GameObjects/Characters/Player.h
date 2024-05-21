@@ -18,7 +18,7 @@ public:
 
     void move(Vector2 dir, float deltaTime);
 
-    void action(Input input);
+    void action(Input input, Vector2 dir);
 
     void draw();
 
