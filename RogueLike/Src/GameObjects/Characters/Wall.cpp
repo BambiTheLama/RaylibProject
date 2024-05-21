@@ -7,6 +7,7 @@ Wall::Wall(int x, int y) {
     pos.y -= pos.height / 2;
     collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
     solidObject = true;
+    moving = false;
 }
 
 void Wall::update(float deltaTime) {

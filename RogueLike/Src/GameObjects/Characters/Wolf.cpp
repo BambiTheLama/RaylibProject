@@ -11,6 +11,7 @@ Wolf::Wolf(int x, int y)
 	ai->thisObj = this;
 	ai->targerType = (int)ObjectType::Player;
 	ai->action = (int)Action::GoTo;
+	ai->range = 500;
 	controller.setController(ai);
 	controller.setCharacter(this);
 	
@@ -32,7 +33,7 @@ void Wolf::update(float deltaTime)
 			float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
 			if (distance < 200)
 				ai->action |= (int)Action::Attack;
-
+			
 			ai->action |= (int)Action::GoTo;
 		}
 
@@ -46,6 +47,16 @@ void Wolf::draw()
 {
 	DrawRectangleRec(pos, LIGHTGRAY);
 	Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
+	if (!ai)
+		return;
+	return;
+	float range = ai->range;
+	Color c = { 0,0,0,25 };
+	if ((ai->action & (int)Action::GoTo) != 0)
+		c.g = 255;
+	if ((ai->action & (int)Action::Attack) != 0)
+		c.r = 255;
+	DrawRectangle(pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2, c);
 }
 
 void Wolf::move(Vector2 dir, float deltaTime)

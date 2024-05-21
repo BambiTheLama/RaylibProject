@@ -4,7 +4,7 @@
 #include <list>
 #include "../GameObjects/GameObject.h"
 #include "../GameObjects/AddisionalTypes/CharacterController.h"
-
+#include "QuadTree.h"
 class Collider;
 
 class GameScene : public Scene {
@@ -14,7 +14,7 @@ class GameScene : public Scene {
     std::list<Collider*> collidersToRemove;
     CharacterController controller;
     bool toSort = false;
-
+    QuadTree* tree;
 public:
     GameScene();
 
@@ -26,7 +26,7 @@ public:
 
     void draw();
 
-    std::list<GameObject *> getObjects() { return gameObjects; }
+    std::list<GameObject*> getObjects(Rectangle pos) { return tree->getObjects(pos); }
 
     bool addObject(GameObject *obj);
 

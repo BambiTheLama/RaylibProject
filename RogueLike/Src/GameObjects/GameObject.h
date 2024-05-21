@@ -14,6 +14,7 @@ class GameObject {
 protected:
     Rectangle pos;
     int drawOrder = 0;
+    bool moving = true;
     ObjectType type = ObjectType::NON;
 public:
     virtual ~GameObject() {
@@ -30,6 +31,8 @@ public:
     int getDrawOrder() { return drawOrder; }
 
     ObjectType getType() { return type; }
+
+    bool movingObject() { return moving; }
 
     friend class Collider;
 

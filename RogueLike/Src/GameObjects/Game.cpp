@@ -11,7 +11,7 @@ GameObject *Game::getObject(Rectangle pos) {
 std::list<GameObject *> Game::getObjects(Rectangle pos) {
     if (!gameScene)
         return std::list<GameObject *>();
-    return gameScene->getObjects();
+    return gameScene->getObjects(pos);
 }
 
 bool Game::addObject(GameObject *obj) {

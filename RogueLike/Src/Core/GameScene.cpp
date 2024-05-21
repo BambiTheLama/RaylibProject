@@ -7,6 +7,7 @@
 
 GameScene::GameScene() {
     Game::gameScene = this;
+    tree = new QuadTree({ -3000,-3000,6000,6000 });
 }
 
 GameScene::~GameScene() {
@@ -20,13 +21,8 @@ GameScene::~GameScene() {
 
 void GameScene::start() {
     Player *p = new Player(200, 200);
-    gameObjects.push_back(p);
+    addObject(p);
     controller.setCharacter(p);
-    for (auto o: gameObjects) {
-        Collider *col = dynamic_cast<Collider *>(o);
-        if (col)
-            colliders.push_back(col);
-    }
 }
 
 bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
@@ -48,12 +44,12 @@ void GameScene::update(float deltaTime) {
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
         Vector2 cursor = GetMousePosition();
-
-        addObject(new Wolf(cursor.x, cursor.y));
+        for (int i = 0; i < 10; i++)
+            addObject(new Wolf(cursor.x + i, cursor.y + i));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 cursor = GetMousePosition();
-        std::list<GameObject*> objects=getObjects();
+        std::list<GameObject*> objects = getObjects({ cursor.x - 1,cursor.y - 1,3,3 });
         for(auto o:objects)
             if (CheckCollisionPointRec(cursor, o->getPos()))
             {
@@ -77,6 +73,7 @@ void GameScene::update(float deltaTime) {
     toDelete.clear();
     for (auto o: gameObjects)
         o->update(deltaTime);
+    tree->update();
     controller.update(deltaTime);
 
     for (auto o : colliders)
@@ -91,6 +88,7 @@ void GameScene::update(float deltaTime) {
 }
 
 bool GameScene::addObject(GameObject *obj) {
+
     auto find = std::find(gameObjects.begin(), gameObjects.end(), obj);
     if (find != gameObjects.end())
         return true;
@@ -99,20 +97,21 @@ bool GameScene::addObject(GameObject *obj) {
     Collider *collider = dynamic_cast<Collider *>(obj);
     if (collider)
         colliders.push_back(collider);
+    tree->addObj(obj);
     return true;
 }
 void GameScene::deleteObject(GameObject* obj)
 {
-
     Collider* collider = dynamic_cast<Collider*>(obj);
     if (collider) {
         collidersToRemove.remove(collider);
     }
-
+    tree->removeObj(obj);
     toDelete.push_back(obj);
 }
 
 void GameScene::draw() {
+
     for (auto o : gameObjects)
     {
         o->draw();
@@ -123,4 +122,6 @@ void GameScene::draw() {
         o->draw();
     }
 #endif
+    if(IsKeyDown(KEY_TAB))
+        tree->draw();
 }

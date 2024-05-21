@@ -25,6 +25,7 @@
     <ClInclude Include="Src\Core\GamePadController.h" />
     <ClInclude Include="Src\Core\GameScene.h" />
     <ClInclude Include="Src\Core\KeyBoardController.h" />
+    <ClInclude Include="Src\Core\QuadTree.h" />
     <ClInclude Include="Src\Core\Scene.h" />
     <ClInclude Include="Src\Font.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Character.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="Src\Core\GamePadController.cpp" />
     <ClCompile Include="Src\Core\GameScene.cpp" />
     <ClCompile Include="Src\Core\KeyBoardController.cpp" />
+    <ClCompile Include="Src\Core\QuadTree.cpp" />
     <ClCompile Include="Src\Font.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp" />
