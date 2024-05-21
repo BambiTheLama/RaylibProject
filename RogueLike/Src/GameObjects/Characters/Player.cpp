@@ -43,8 +43,8 @@ void Player::onCollisionEnter(Collider* collider) {
     //{
     //    hit->dealDamage(2);
     //}
-    //if (ch)
-    //    ch->destoryController();
+    if (ch)
+        ch->destoryController();
 }
 
 void Player::onCollisionExit(Collider* collider) {

@@ -20,19 +20,28 @@ void Wolf::update(float deltaTime)
 {
 	Hitable::update(deltaTime);
 	controller.update(deltaTime);
-	if (ai && ai->target)
+	if (ai)
 	{
 		ai->action = 0;
 		Rectangle pos = getPos();
-		Rectangle otherPos = ai->target->getPos();
-		Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
-		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
-		float distance = Vector2Length(posV - otherPosV);
-		if (distance < 200)
-			ai->action |= (int)Action::Attack;
+		if (target)
+		{
+			Rectangle otherPos = ai->target->getPos();
+			Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
+			Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
+			float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
+			if (distance < 200)
+				ai->action |= (int)Action::Attack;
+		}
+
 
 		ai->action |= (int)Action::GoTo;
-			
+		
+	
+	}
+	else
+	{
+		move({ 0,0 }, deltaTime);
 	}
 }
 
@@ -49,12 +58,14 @@ void Wolf::move(Vector2 dir, float deltaTime)
 		recoveryTime -= deltaTime;
 		pos.x += dir.x * deltaTime * 20;
 		pos.y += dir.y * deltaTime * 20;
+		attackDir = dir;
 		return;
 	}
 	if (attackTime <= 0)
 	{
 		pos.x += dir.x * deltaTime * 100;
 		pos.y += dir.y * deltaTime * 100;
+		attackDir = dir;
 
 	}
 	else
@@ -72,10 +83,15 @@ void Wolf::action(Input input)
 {
 	if (input == Input::Attack1 && attackTime <= 0.0f)
 	{
-		Rectangle pos = ai->target->getPos();
-		Rectangle pos2 = getPos(); 
-		Vector2 dir = { pos.x + pos.width / 2 - pos2.x - pos2.width / 2,pos.y + pos.height / 2 - pos2.y - pos2.height / 2 };
-		attackDir = Vector2Normalize(dir);
+		if (ai)
+		{
+			Rectangle pos = ai->target->getPos();
+			Rectangle pos2 = getPos();
+			Vector2 dir = { pos.x + pos.width / 2 - pos2.x - pos2.width / 2,pos.y + pos.height / 2 - pos2.y - pos2.height / 2 };
+			attackDir = Vector2Normalize(dir);
+		}
+
+
 		attackTime = attackTimeMax;
 	}
 
@@ -96,7 +112,8 @@ void Wolf::onCollisionEnter(Collider* collider)
 
 void Wolf::destoryController()
 {
-
+	controller.destoryController();
+	ai = nullptr;
 }
 
 void Wolf::onHit()

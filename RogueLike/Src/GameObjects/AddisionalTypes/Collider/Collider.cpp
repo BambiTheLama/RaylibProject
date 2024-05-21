@@ -52,8 +52,8 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
 
                     
                 ///TODO POPRAWIC DZia³anie
-
-                Vector2 dirVector = pos - otherPos;
+                
+                Vector2 dirVector = Vector2Subtract(pos, otherPos);
 
                 dirVector = Vector2Normalize(dirVector);
                 if (abs(dirVector.x) < abs(dirVector.y))

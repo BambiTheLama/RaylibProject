@@ -29,7 +29,7 @@ void Enemy::update(float deltaTime)
 		Rectangle otherPos = ai->target->getPos();
 		Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
-		float distance = Vector2Length(posV - otherPosV);
+		float distance = Vector2Length(Vector2Subtract(posV , otherPosV));
 		if (distance < 100)
 			ai->action = (int)Action::Run;
 		else if (distance > 200)

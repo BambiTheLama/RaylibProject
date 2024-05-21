@@ -17,9 +17,10 @@ void AIController::update(float deltaTime)
 	Vector2 pos = target->getPosPoint();
 	Vector2 thisPos = thisObj->getPosPoint();
 	if ((action & (int)Action::Run) != 0)
-		moveDir = Vector2Normalize(thisPos - pos);
+		moveDir = Vector2Normalize(Vector2Subtract(thisPos, pos));
 	if ((action & (int)Action::GoTo) != 0)
-		moveDir = Vector2Normalize(pos - thisPos);
+		moveDir = Vector2Normalize(Vector2Subtract(pos , thisPos));
+
 	if ((action & (int)Action::Attack) != 0)
 		inputs.push_back(Input::Attack1);
 }
