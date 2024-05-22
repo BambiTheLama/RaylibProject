@@ -1,11 +1,13 @@
 #include "Wolf.h"
 #include "../AddisionalTypes/Collider/CollisionElementBox.h"
+#include "../AddisionalTypes/Collider/CollisionElementCircle.h"
 #include "raymath.h"
 
 Wolf::Wolf(int x, int y)
 {
 	pos = { (float)x,(float)y,64,32 };
 	collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height / 4, pos.width / 2, pos.height / 2 }));
+	//collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
 	type = ObjectType::Enemy;
 	ai = new AIController();
 	ai->thisObj = this;

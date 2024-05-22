@@ -7,7 +7,7 @@ class CharacterController {
     Controller *controller;
     Character *character = nullptr;
     GameObject* gm;
-
+    Vector2 pos = { 0,0 };
 public:
     CharacterController();
 
@@ -22,5 +22,7 @@ public:
     void destoryController();
 
     bool hasController() { return controller; }
+
+    Vector2 getPos() { return pos; }
 };
 

@@ -15,6 +15,7 @@ class GameScene : public Scene {
     CharacterController controller;
     bool toSort = false;
     QuadTree* tree;
+    Camera2D camera;
 public:
     GameScene();
 

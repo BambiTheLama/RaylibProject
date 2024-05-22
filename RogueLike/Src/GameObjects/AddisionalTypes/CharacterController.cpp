@@ -2,6 +2,7 @@
 
 #include "../../Core/GamePadController.h"
 #include "../../Core/KeyBoardController.h"
+#include "../GameObject.h"
 
 CharacterController::CharacterController() {
     controller = nullptr;
@@ -21,6 +22,12 @@ void CharacterController::update(float deltaTime) {
     if (!character)
         return;
     character->move(controller->getMoveDir(), deltaTime);
+    if (gm)
+    {
+        Rectangle rec = gm->getPos();
+        pos = { rec.x + rec.width / 2,rec.y + rec.height / 2 };
+    }
+
     std::vector<Input> inputs = controller->getInputs();
 
     for (auto i : inputs)
@@ -32,6 +39,9 @@ void CharacterController::setCharacter(Character* character)
     this->character = character; 
     if(character)
         character->setController(this); 
+    GameObject* gm = dynamic_cast<GameObject*>(character);
+    if (gm)
+        this->gm = gm;
 }
 
 void CharacterController::setController(Controller* controller) 

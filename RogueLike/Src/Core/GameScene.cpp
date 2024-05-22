@@ -8,6 +8,9 @@
 GameScene::GameScene() {
     Game::gameScene = this;
     tree = new QuadTree({ -3000,-3000,6000,6000 });
+    camera.zoom = 1;
+    camera.rotation = 0;
+    camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
 }
 
 GameScene::~GameScene() {
@@ -37,18 +40,15 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
 }
 
 void GameScene::update(float deltaTime) {
+    Vector2 cursor = GetScreenToWorld2D(GetMousePosition(), camera);
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
-        Vector2 cursor = GetMousePosition();
-
         addObject(new Wall(cursor.x, cursor.y));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
-        Vector2 cursor = GetMousePosition();
         for (int i = 0; i < 10; i++)
             addObject(new Wolf(cursor.x + i, cursor.y + i));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        Vector2 cursor = GetMousePosition();
         std::list<GameObject*> objects = getObjects({ cursor.x - 1,cursor.y - 1,3,3 });
         for(auto o:objects)
             if (CheckCollisionPointRec(cursor, o->getPos()))
@@ -58,6 +58,9 @@ void GameScene::update(float deltaTime) {
                     controller.setCharacter(ch);
             }
     }
+    if (IsKeyPressed(KEY_F1))
+        for (auto o : gameObjects)
+            deleteObject(o);
     for (auto o : toDelete)
     {
         gameObjects.remove(o);
@@ -85,6 +88,7 @@ void GameScene::update(float deltaTime) {
     collidersToRemove.clear();
 
     gameObjects.sort(sortGameObjectCondiction);
+    camera.target = controller.getPos();
 }
 
 bool GameScene::addObject(GameObject *obj) {
@@ -111,7 +115,7 @@ void GameScene::deleteObject(GameObject* obj)
 }
 
 void GameScene::draw() {
-
+    BeginMode2D(camera);
     for (auto o : gameObjects)
     {
         o->draw();
@@ -124,4 +128,5 @@ void GameScene::draw() {
 #endif
     if(IsKeyDown(KEY_TAB))
         tree->draw();
+    EndMode2D();
 }
