@@ -43,7 +43,7 @@ void Collider::clearCollider() {
 }
 
 
-bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
+bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaTime) {
     Vector2 pos = thisObj->getPosPoint();
     Vector2 otherPos = otherObj->getPosPoint();
     for (auto c: collisionElemnets)
@@ -63,14 +63,14 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
 
                 if (!solidObject)
                 {
-                    thisObj->pos.x += dirVector.x * (collider->mass / massAdd);
-                    thisObj->pos.y += dirVector.y * (collider->mass / massAdd);
+                    thisObj->pos.x += dirVector.x * (collider->mass / massAdd) * deltaTime * 200.0f;
+                    thisObj->pos.y += dirVector.y * (collider->mass / massAdd) * deltaTime * 200.0f;
                 }
 
                 if (!collider->solidObject)
                 {
-                    otherObj->pos.x -= dirVector.x * (mass / massAdd);
-                    otherObj->pos.y -= dirVector.y * (mass / massAdd);
+                    otherObj->pos.x -= dirVector.x * (mass / massAdd) * deltaTime * 200.0f;
+                    otherObj->pos.y -= dirVector.y * (mass / massAdd) * deltaTime * 200.0f;
                 }
                 
                 return true;
@@ -81,7 +81,7 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
 }
 
 
-void Collider::checkCollision() {
+void Collider::checkCollision(float deltaTime) {
     if (!thisObj) {
         thisObj = dynamic_cast<GameObject*>(this);
         if (!thisObj)
@@ -98,7 +98,7 @@ void Collider::checkCollision() {
         auto find = std::find(colliders.begin(), colliders.end(), collider);
         if (find != colliders.end())
             continue;
-        if (isColliding(collider, o)) {
+        if (isColliding(collider, o,deltaTime)) {
             find = std::find(lastFrameColliders.begin(), lastFrameColliders.end(), collider);
             if (find == lastFrameColliders.end()) {
                 onCollisionEnter(collider);

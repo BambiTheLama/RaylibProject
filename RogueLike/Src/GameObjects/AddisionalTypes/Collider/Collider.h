@@ -46,9 +46,9 @@ public:
 private:
     void clearCollider();
 
-    bool isColliding(Collider *collider, GameObject *otherObj);
+    bool isColliding(Collider *collider, GameObject *otherObj, float deltaTime);
 
-    void checkCollision();
+    void checkCollision(float deltaTime);
 
     void removeObject(Collider* c);
 };

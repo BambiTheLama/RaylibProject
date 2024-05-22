@@ -55,7 +55,8 @@ void GameScene::update(float deltaTime) {
             if (CheckCollisionPointRec(cursor, o->getPos()))
             {
                 Character* ch = dynamic_cast<Character*>(o);
-                ch->destoryController();
+                if(ch)
+                    ch->destoryController();
                 if (ch && ch->canBeControllerd(&controller))
                     controller.setCharacter(ch);
             }
@@ -84,7 +85,7 @@ void GameScene::update(float deltaTime) {
     for (auto o : colliders)
         o->clearCollider();
     for (auto o: colliders)
-        o->checkCollision();
+        o->checkCollision(deltaTime);
     for (auto c : collidersToRemove)
         colliders.remove(c);
     collidersToRemove.clear();

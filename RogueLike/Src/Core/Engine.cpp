@@ -13,8 +13,8 @@ Engine::Engine() {
     s->start();
     while (!WindowShouldClose() && s) {
         float deltaTime = GetFrameTime();
-        if (deltaTime > 0.2f)
-            deltaTime = 0.2f;
+        if (deltaTime > 1/60.0f)
+            deltaTime = 1/60.0f;
         s->update(deltaTime);
         BeginDrawing();
         ClearBackground(RAYWHITE);
