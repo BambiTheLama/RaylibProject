@@ -17,15 +17,16 @@ GameScene::~GameScene() {
     Game::gameScene = nullptr;
     for (auto o: gameObjects)
         delete o;
-    
     gameObjects.clear();
+    delete tree;
+
 }
 
 
 void GameScene::start() {
-    Player *p = new Player(200, 200);
-    addObject(p);
-    controller.setCharacter(p);
+    addObject(new Player(200, 200));
+    //controller.setCharacter(p);
+    controller.setCharacterType(ObjectType::Player);
 }
 
 bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
@@ -45,7 +46,7 @@ void GameScene::update(float deltaTime) {
         addObject(new Wall(cursor.x, cursor.y));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 1; i++)
             addObject(new Wolf(cursor.x + i, cursor.y + i));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -54,6 +55,7 @@ void GameScene::update(float deltaTime) {
             if (CheckCollisionPointRec(cursor, o->getPos()))
             {
                 Character* ch = dynamic_cast<Character*>(o);
+                ch->destoryController();
                 if (ch && ch->canBeControllerd(&controller))
                     controller.setCharacter(ch);
             }

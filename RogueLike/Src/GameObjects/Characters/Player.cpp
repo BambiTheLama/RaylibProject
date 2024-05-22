@@ -11,6 +11,7 @@ Player::Player(int x, int y){
     collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height /4, pos.width/2, pos.height/2}));
     //drawOrder = 10;
     type = ObjectType::Player;
+    mass = 10;
 }
 
 Player::~Player() {
@@ -26,7 +27,7 @@ void Player::move(Vector2 dir, float deltaTime) {
     pos.y += dir.y * deltaTime * speed;
 }
 
-void Player::action(Input input, Vector2 dir) {
+void Player::action(Input input, Vector2 dir,float deltaTime) {
 }
 
 
@@ -39,10 +40,10 @@ void Player::draw() {
 void Player::onCollisionEnter(Collider* collider) { 
     Character* ch = dynamic_cast<Character*>(collider);
     Hitable* hit = dynamic_cast<Hitable*>(collider);
-    if (hit)
-    {
-        hit->dealDamage(2);
-    }
+    //if (hit)
+    //{
+    //    hit->dealDamage(2);
+    //}
     //if (ch)
     //    ch->destoryController();
 }

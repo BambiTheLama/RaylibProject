@@ -12,7 +12,7 @@ public:
 
     virtual void move(Vector2 dir, float deltaTime) = 0;
 
-    virtual void action(Input input, Vector2 dir) = 0;
+    virtual void action(Input input, Vector2 dir,float deltaTime) = 0;
 
     bool canBeControllerd(CharacterController* c);
 

@@ -12,11 +12,13 @@ class Collider {
     std::list<Collider *> colliders;
     std::list<Collider *> lastFrameColliders;
     GameObject* thisObj = nullptr;
-    bool trigger = false;
+
 
 protected:
     std::vector<CollisionElement *> collisionElemnets;
     bool solidObject = false;
+    bool trigger = false;
+    int mass = 1;
 public:
     Collider();
 

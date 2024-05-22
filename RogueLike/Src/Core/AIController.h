@@ -5,10 +5,11 @@ class GameObject;
 
 enum class Action
 {
-    NON    = 0b000,
-    Run    = 0b001,
-    Attack = 0b010,
-    GoTo   = 0b100,
+    NON    = 0b0000,
+    Run    = 0b0001,
+    Attack = 0b0010,
+    GoTo   = 0b0100,
+    IDE    = 0b1000,
 };
 class AIController :
     public Controller
@@ -21,6 +22,7 @@ public:
     int targerType = 0;
     int range = 0;
     int action = 0;
+    Vector2 IDEMoveDir = { 0,0 };
 
     void update(float deltaTime);
 

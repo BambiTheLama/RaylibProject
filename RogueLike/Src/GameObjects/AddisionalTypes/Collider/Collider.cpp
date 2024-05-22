@@ -52,7 +52,7 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
 
                     
                 ///TODO POPRAWIC DZia³anie
-                
+                float massAdd = mass + collider->mass;
                 Vector2 dirVector = Vector2Subtract(pos, otherPos);
 
                 dirVector = Vector2Normalize(dirVector);
@@ -63,14 +63,14 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj) {
 
                 if (!solidObject)
                 {
-                    thisObj->pos.x += dirVector.x;
-                    thisObj->pos.y += dirVector.y;
+                    thisObj->pos.x += dirVector.x * (collider->mass / massAdd);
+                    thisObj->pos.y += dirVector.y * (collider->mass / massAdd);
                 }
 
                 if (!collider->solidObject)
                 {
-                    otherObj->pos.x -= dirVector.x;
-                    otherObj->pos.y -= dirVector.y;
+                    otherObj->pos.x -= dirVector.x * (mass / massAdd);
+                    otherObj->pos.y -= dirVector.y * (mass / massAdd);
                 }
                 
                 return true;

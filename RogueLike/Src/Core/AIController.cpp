@@ -7,6 +7,30 @@ void AIController::update(float deltaTime)
 {
 	moveDir = { 0,0 };
 	inputs.clear();
+
+
+	if ((action & (int)Action::IDE) != 0)
+	{
+		if (abs(IDEMoveDir.x) < 0.1 && abs(IDEMoveDir.x) < 0.1)
+		{
+			IDEMoveDir = { (rand() % 21) / 10.0f - 1.0f,(rand() % 21) / 10.0f - 1.0f };
+		}
+		else
+		{
+			Vector2 moveDiff = { (rand() % 2001) / 1000.0f - 1.0f,(rand() % 2001) / 1000.0f - 1.0f };
+		
+			IDEMoveDir = Vector2Add(IDEMoveDir, { moveDiff.x * deltaTime,moveDiff.y * deltaTime });
+		}
+		IDEMoveDir = Vector2Normalize(IDEMoveDir);
+		moveDir = IDEMoveDir;
+	}
+	else
+	{
+		IDEMoveDir = { 0,0 };
+	}
+
+
+
 	if (targerType == 0 || !thisObj)
 		return;
 	lookForTarget();
@@ -21,6 +45,8 @@ void AIController::update(float deltaTime)
 		moveDir = Vector2Normalize(Vector2Subtract(thisPos, pos));
 	if ((action & (int)Action::GoTo) != 0)
 		moveDir = Vector2Normalize(Vector2Subtract(pos , thisPos));
+
+
 
 	if ((action & (int)Action::Attack) != 0)
 		inputs.push_back(Input::Attack1);

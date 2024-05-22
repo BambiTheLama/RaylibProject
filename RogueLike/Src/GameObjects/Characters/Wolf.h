@@ -26,7 +26,7 @@ public:
 
     void move(Vector2 dir, float deltaTime);
 
-    void action(Input input, Vector2 dir);
+    void action(Input input, Vector2 dir, float deltaTime);
 
     void onCollisionEnter(Collider* collider);
 

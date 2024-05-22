@@ -1,13 +1,14 @@
 #pragma once
 #include "Character.h"
 #include "../../Core/Controller.h"
-
+#include "../GameObject.h"
 
 class CharacterController {
-    Controller *controller;
-    Character *character = nullptr;
-    GameObject* gm;
+    Controller* controller = nullptr;
+    Character* character = nullptr;
+    GameObject* gm = nullptr;
     Vector2 pos = { 0,0 };
+    ObjectType type = ObjectType::NON;
 public:
     CharacterController();
 
@@ -24,5 +25,7 @@ public:
     bool hasController() { return controller; }
 
     Vector2 getPos() { return pos; }
+
+    void setCharacterType(ObjectType type) { this->type = type; }
 };
 

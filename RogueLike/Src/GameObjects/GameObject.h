@@ -32,9 +32,10 @@ public:
 
     ObjectType getType() { return type; }
 
+    void setType(ObjectType type) { this->type = type; }
+
     bool movingObject() { return moving; }
 
     friend class Collider;
-
 };
 

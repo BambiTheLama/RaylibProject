@@ -4,7 +4,7 @@
 #include "raylib.h"
 
 enum class Input {
-    Interact, Attack1, Attack2,
+    Interact, Attack1, Attack2, IDE
 };
 
 class Controller {

@@ -16,7 +16,7 @@ Wolf::Wolf(int x, int y)
 	ai->range = 500;
 	controller.setController(ai);
 	controller.setCharacter(this);
-	
+	controller.setCharacterType(ObjectType::Enemy);
 }
 
 void Wolf::update(float deltaTime)
@@ -38,10 +38,15 @@ void Wolf::update(float deltaTime)
 			
 			ai->action |= (int)Action::GoTo;
 		}
+		else
+		{
+			ai->action |= (int)Action::IDE;
+		}
 
-
-		
-	
+	}
+	else
+	{
+		move({ 0,0 }, deltaTime);
 	}
 }
 
@@ -80,6 +85,7 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	}
 	else
 	{
+		attackDir = Vector2Normalize(Vector2Add({ dir.x * deltaTime,dir.y * deltaTime }, attackDir));
 		attackTime -= deltaTime;
 
 		pos.x += attackDir.x * deltaTime * 200;
@@ -89,15 +95,14 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	}
 }
 
-void Wolf::action(Input input, Vector2 dir)
+void Wolf::action(Input input, Vector2 dir,float deltaTime)
 {
+
 	if (input == Input::Attack1 && attackTime <= 0.0f)
 	{
 		if (abs(dir.x) <= 0.1 && abs(dir.y) < 0.1)
 			return;
 		attackDir = Vector2Normalize(dir);
-		
-
 
 		attackTime = attackTimeMax;
 	}

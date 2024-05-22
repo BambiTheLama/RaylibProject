@@ -1,12 +1,11 @@
 #include "CharacterController.h"
-
 #include "../../Core/GamePadController.h"
 #include "../../Core/KeyBoardController.h"
-#include "../GameObject.h"
+
 
 CharacterController::CharacterController() {
-    controller = nullptr;
     setController(new KeyBoardController());
+    this->type = type;
 }
 
 CharacterController::~CharacterController() {
@@ -31,7 +30,7 @@ void CharacterController::update(float deltaTime) {
     std::vector<Input> inputs = controller->getInputs();
 
     for (auto i : inputs)
-        character->action(i, controller->getMoveDir());
+        character->action(i, controller->getMoveDir(), deltaTime);
 }
 
 void CharacterController::setCharacter(Character* character) 
@@ -41,7 +40,11 @@ void CharacterController::setCharacter(Character* character)
         character->setController(this); 
     GameObject* gm = dynamic_cast<GameObject*>(character);
     if (gm)
+    {
         this->gm = gm;
+        gm->setType(type);
+    }
+
 }
 
 void CharacterController::setController(Controller* controller) 
