@@ -43,6 +43,7 @@ public:
     void draw();
 #endif
     friend class GameScene;
+    friend class Floor;
 private:
     void clearCollider();
 

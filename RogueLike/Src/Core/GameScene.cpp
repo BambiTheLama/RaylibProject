@@ -4,40 +4,25 @@
 #include <algorithm>
 #include "../GameObjects/Characters/Wall.h"
 #include "../GameObjects/Characters/Wolf.h"
+#include "Controller.h"
+
 
 GameScene::GameScene() {
     Game::gameScene = this;
-    tree = new QuadTree({ -3000,-3000,6000,6000 });
     camera.zoom = 1;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
+    floor = new Floor({ -6000,-6000,12000,12000 });
 }
 
 GameScene::~GameScene() {
     Game::gameScene = nullptr;
-    for (auto o: gameObjects)
-        delete o;
-    gameObjects.clear();
-    delete tree;
-
 }
 
 
 void GameScene::start() {
     addObject(new Player(200, 200));
-    //controller.setCharacter(p);
     controller.setCharacterType(ObjectType::Player);
-}
-
-bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
-{
-    if (gm->getDrawOrder() == gm2->getDrawOrder())
-    {
-        Rectangle r1 = gm->getPos();
-        Rectangle r2 = gm2->getPos();
-        return r1.y + r1.height < r2.y + r2.height;
-    }
-    return gm->getDrawOrder() < gm2->getDrawOrder();
 }
 
 void GameScene::update(float deltaTime) {
@@ -61,75 +46,33 @@ void GameScene::update(float deltaTime) {
                     controller.setCharacter(ch);
             }
     }
-    if (IsKeyPressed(KEY_F1))
-        for (auto o : gameObjects)
-            deleteObject(o);
-    for (auto o : toDelete)
-    {
-        gameObjects.remove(o);
-        Collider* collider = dynamic_cast<Collider*>(o);
-        if (collider) {
-            colliders.remove(collider);
-            for (auto c : colliders)
-                c->removeObject(collider);
-        }
-        delete o;
-    }
-
-    toDelete.clear();
-    for (auto o: gameObjects)
-        o->update(deltaTime);
-    tree->update();
+    if (floor)
+        floor->update(deltaTime);
     controller.update(deltaTime);
-
-    for (auto o : colliders)
-        o->clearCollider();
-    for (auto o: colliders)
-        o->checkCollision(deltaTime);
-    for (auto c : collidersToRemove)
-        colliders.remove(c);
-    collidersToRemove.clear();
-
-    gameObjects.sort(sortGameObjectCondiction);
     camera.target = controller.getPos();
 }
 
+std::list<GameObject*> GameScene::getObjects(Rectangle pos)
+{
+    if(floor)
+        return floor->getObjects(pos); 
+    return std::list<GameObject*>();
+}
 bool GameScene::addObject(GameObject *obj) {
 
-    auto find = std::find(gameObjects.begin(), gameObjects.end(), obj);
-    if (find != gameObjects.end())
-        return true;
-    gameObjects.push_back(obj);
-    toSort = true;
-    Collider *collider = dynamic_cast<Collider *>(obj);
-    if (collider)
-        colliders.push_back(collider);
-    tree->addObj(obj);
-    return true;
+    if (floor)
+        return floor->addObject(obj);
+    return false;
 }
 void GameScene::deleteObject(GameObject* obj)
 {
-    Collider* collider = dynamic_cast<Collider*>(obj);
-    if (collider) {
-        collidersToRemove.remove(collider);
-    }
-    tree->removeObj(obj);
-    toDelete.push_back(obj);
+    if (floor)
+        floor->deleteObject(obj);
 }
 
 void GameScene::draw() {
     BeginMode2D(camera);
-    for (auto o : gameObjects)
-    {
-        o->draw();
-    }
-
-#ifdef showColliders
-    for (auto o: colliders) {
-        o->draw();
-    }
-#endif
-    if(IsKeyDown(KEY_TAB))
-        tree->draw();
+    if (floor)
+        floor->draw();
     EndMode2D();
 }

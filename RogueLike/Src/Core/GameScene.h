@@ -2,19 +2,13 @@
 #include "Scene.h"
 #include <vector>
 #include <list>
-#include "../GameObjects/GameObject.h"
-#include "../GameObjects/AddisionalTypes/CharacterController.h"
+#include "Floor/Floor.h"
 #include "QuadTree.h"
-class Collider;
+#include "../GameObjects/AddisionalTypes/CharacterController.h"
 
 class GameScene : public Scene {
-    std::list<GameObject *> gameObjects;
-    std::list<GameObject*> toDelete;
-    std::list<Collider *> colliders;
-    std::list<Collider*> collidersToRemove;
     CharacterController controller;
-    bool toSort = false;
-    QuadTree* tree;
+    Floor* floor = nullptr;
     Camera2D camera;
 public:
     GameScene();
@@ -27,7 +21,7 @@ public:
 
     void draw();
 
-    std::list<GameObject*> getObjects(Rectangle pos) { return tree->getObjects(pos); }
+    std::list<GameObject*> getObjects(Rectangle pos);
 
     bool addObject(GameObject *obj);
 

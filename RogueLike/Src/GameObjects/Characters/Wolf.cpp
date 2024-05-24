@@ -54,8 +54,10 @@ void Wolf::draw()
 {
 	DrawRectangleRec(pos, LIGHTGRAY);
 	Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
+	DrawLineEx({ dir.x*75 + pos.x + pos.width / 2,dir.y*75 + pos.y + pos.height / 2 }, { pos.x + pos.width / 2,pos.y + pos.height / 2 }, 3, BLACK);
 	if (!ai)
 		return;
+	
 	return;
 	float range = ai->range;
 	Color c = { 0,0,0,25 };
@@ -64,34 +66,39 @@ void Wolf::draw()
 	if ((ai->action & (int)Action::Attack) != 0)
 		c.r = 255;
 	DrawRectangle(pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2, c);
+	
 }
 
 void Wolf::move(Vector2 dir, float deltaTime)
 {
+	this->dir = dir;
 	if (recoveryTime > 0)
 	{
+		speed = 20;
 		recoveryTime -= deltaTime;
-		pos.x += dir.x * deltaTime * 20;
-		pos.y += dir.y * deltaTime * 20;
+		pos.x += dir.x * deltaTime * speed;
+		pos.y += dir.y * deltaTime * speed;
 		attackDir = dir;
 		return;
 	}
 	if (attackTime <= 0)
 	{
-		pos.x += dir.x * deltaTime * 100;
-		pos.y += dir.y * deltaTime * 100;
+		speed = 100;
+		pos.x += dir.x * deltaTime * speed;
+		pos.y += dir.y * deltaTime * speed;
 		attackDir = dir;
 
 	}
 	else
 	{
-		attackDir = Vector2Normalize(Vector2Add({ dir.x * deltaTime,dir.y * deltaTime }, attackDir));
+		attackDir = Vector2Normalize(Vector2Add({ dir.x * deltaTime * 2,dir.y * deltaTime * 2 }, attackDir));
 		attackTime -= deltaTime;
-
-		pos.x += attackDir.x * deltaTime * 200;
-		pos.y += attackDir.y * deltaTime * 200;
+		speed = 200;
+		pos.x += attackDir.x * deltaTime * speed;
+		pos.y += attackDir.y * deltaTime * speed;
 		if (attackTime <= 0)
 			recoveryTime = recoveryTimeMax;
+		this->dir = attackDir;
 	}
 }
 

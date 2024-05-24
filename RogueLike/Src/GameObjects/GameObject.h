@@ -36,6 +36,8 @@ public:
 
     bool movingObject() { return moving; }
 
+    virtual float getSpeed() { return 0; }
+
     friend class Collider;
 };
 

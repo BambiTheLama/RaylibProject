@@ -14,9 +14,11 @@ class Wolf :
     float attackTimeMax = 2;
     float recoveryTime = 0;
     float recoveryTimeMax = 0.5;
+    float speed = 0;
     Vector2 attackDir;
     CharacterController controller;
     AIController* ai;
+    Vector2 dir;
 public:
     Wolf(int x = 0, int y = 0);
 
@@ -33,5 +35,7 @@ public:
     void destoryController();
 
     void onHit();
+
+    virtual float getSpeed() { return speed; }
 };
 

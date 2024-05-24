@@ -1,8 +1,10 @@
 #include "Wall.h"
-
+#include "../../Core/Floor/Room.h"
 
 Wall::Wall(int x, int y) {
-    pos = { (float)x, (float)y, 64.0f, 64.0f };
+    
+        
+    pos = { (float)x, (float)y, tileW, tileH };
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;
     collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));

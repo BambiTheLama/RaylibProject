@@ -54,8 +54,10 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaT
                 ///TODO POPRAWIC DZia³anie
                 float massAdd = mass + collider->mass;
                 Vector2 dirVector = Vector2Subtract(pos, otherPos);
-
+                //float dist = Vector2Distance(dirVector);
                 dirVector = Vector2Normalize(dirVector);
+                const float moveMultyplay = 0.04f;
+
                 if (abs(dirVector.x) < abs(dirVector.y))
                     dirVector.x = 0;
                 else
@@ -63,14 +65,20 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaT
 
                 if (!solidObject)
                 {
-                    thisObj->pos.x += dirVector.x * (collider->mass / massAdd) * deltaTime * 200.0f;
-                    thisObj->pos.y += dirVector.y * (collider->mass / massAdd) * deltaTime * 200.0f;
+                    float speed = thisObj->getSpeed();
+                    if (speed <= 0)
+                        speed = 1;
+                    thisObj->pos.x += dirVector.x * (collider->mass / massAdd) * moveMultyplay * speed;
+                    thisObj->pos.y += dirVector.y * (collider->mass / massAdd) * moveMultyplay * speed;
                 }
 
                 if (!collider->solidObject)
                 {
-                    otherObj->pos.x -= dirVector.x * (mass / massAdd) * deltaTime * 200.0f;
-                    otherObj->pos.y -= dirVector.y * (mass / massAdd) * deltaTime * 200.0f;
+                    float speed = otherObj->getSpeed();
+                    if (speed <= 0)
+                        speed = 1;
+                    otherObj->pos.x -= dirVector.x * (mass / massAdd) *  moveMultyplay * speed;
+                    otherObj->pos.y -= dirVector.y * (mass / massAdd) *  moveMultyplay * speed;
                 }
                 
                 return true;

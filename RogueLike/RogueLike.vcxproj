@@ -22,11 +22,15 @@
     <ClInclude Include="Src\Core\AIController.h" />
     <ClInclude Include="Src\Core\Controller.h" />
     <ClInclude Include="Src\Core\Engine.h" />
+    <ClInclude Include="Src\Core\Floor\Floor.h" />
+    <ClInclude Include="Src\Core\Floor\Room.h" />
+    <ClInclude Include="Src\Core\Floor\RoomElements.h" />
     <ClInclude Include="Src\Core\GamePadController.h" />
     <ClInclude Include="Src\Core\GameScene.h" />
     <ClInclude Include="Src\Core\KeyBoardController.h" />
     <ClInclude Include="Src\Core\QuadTree.h" />
     <ClInclude Include="Src\Core\Scene.h" />
+    <ClInclude Include="Src\Core\WaveCollapsFun.h" />
     <ClInclude Include="Src\Font.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Character.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\CharacterController.h" />
@@ -47,10 +51,14 @@
   <ItemGroup>
     <ClCompile Include="Src\Core\AIController.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
+    <ClCompile Include="Src\Core\Floor\Floor.cpp" />
+    <ClCompile Include="Src\Core\Floor\Room.cpp" />
+    <ClCompile Include="Src\Core\Floor\RoomElements.cpp" />
     <ClCompile Include="Src\Core\GamePadController.cpp" />
     <ClCompile Include="Src\Core\GameScene.cpp" />
     <ClCompile Include="Src\Core\KeyBoardController.cpp" />
     <ClCompile Include="Src\Core\QuadTree.cpp" />
+    <ClCompile Include="Src\Core\WaveCollapsFun.cpp" />
     <ClCompile Include="Src\Font.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp" />

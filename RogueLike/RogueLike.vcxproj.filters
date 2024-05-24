@@ -19,6 +19,9 @@
     <Filter Include="GameObjects\Characters">
       <UniqueIdentifier>{4bf0bcaa-2ad6-4acc-956d-3a1ce35dc194}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Floor">
+      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -91,6 +94,18 @@
     <ClInclude Include="Src\Core\QuadTree.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\WaveCollapsFun.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Floor\Floor.h">
+      <Filter>Core\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Floor\Room.h">
+      <Filter>Core\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Floor\RoomElements.h">
+      <Filter>Core\Floor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -154,6 +169,18 @@
     </ClCompile>
     <ClCompile Include="Src\Core\QuadTree.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\WaveCollapsFun.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Floor\Floor.cpp">
+      <Filter>Core\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Floor\Room.cpp">
+      <Filter>Core\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Floor\RoomElements.cpp">
+      <Filter>Core\Floor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 
 
 class Player : public GameObject, public Character, public Collider,public Hitable {
-    float speed = 1000;
+    float speed = 500;
 
 public:
     Player(int x = 0, int y = 0);
@@ -25,5 +25,7 @@ public:
     void onCollisionEnter(Collider* collider) override;
 
     void onCollisionExit(Collider* collider) override;
+
+    virtual float getSpeed() { return speed; }
 
 };
