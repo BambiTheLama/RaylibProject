@@ -5,8 +5,15 @@ Wall::Wall(int x, int y) {
     
         
     pos = { (float)x, (float)y, tileW, tileH };
-    pos.x -= pos.width / 2;
-    pos.y -= pos.height / 2;
+    collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
+    solidObject = true;
+    moving = false;
+    mass = 10000;
+}
+
+Wall::Wall(int x, int y, int w, int h)
+{
+    pos = { (float)x, (float)y, (float)w, (float)h };
     collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
     solidObject = true;
     moving = false;

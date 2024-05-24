@@ -6,8 +6,8 @@
 #include <time.h>
 
 Engine::Engine() {
-    //srand(time(NULL));
-    srand(69);
+    srand(time(NULL));
+    //srand(69);
     const int screenWidth = 1600;
     const int screenHeight = 900;
 

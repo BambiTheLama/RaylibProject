@@ -34,17 +34,18 @@ void loadRooms(nlohmann::json &j) {
 	normalRooms.clear();
 	specialRooms.clear();
 	int blocks[roomSize][roomSize];
+	if (j.contains("BOSSROOMSIZE"))
+	{
+		bossRoomSize.x = j["BOSSROOMSIZE"][0];
+		bossRoomSize.y = j["BOSSROOMSIZE"][1];
+	}
+
 	if (j.contains("BOSSROOM"))
 	{
-		if (j["BOSSROMM"].contains("Size"))
-		{
-			bossRoomSize.x = j["BOSSROMM"]["Size"][0];
-			bossRoomSize.y = j["BOSSROMM"]["Size"][1];
-		}
 
-		for (int i = 0; i < j["BOSSROMM"].size(); i++)
+		for (int i = 0; i < j["BOSSROOM"].size(); i++)
 		{
-			loadRoom(blocks, j["BOSSROMM"][i]);
+			loadRoom(blocks, j["BOSSROOM"][i]);
 			bossRooms.push_back(Room(i,RoomType::Boss, blocks));
 		}
 
@@ -115,7 +116,7 @@ std::vector<GameObject*> Room::getObjects()
 
 Room getRoom(RoomType type, int ID)
 {
-	if (ID > 0)
+	if (ID >= 0)
 	switch (type)
 	{
 	case RoomType::Normal:

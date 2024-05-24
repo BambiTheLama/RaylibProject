@@ -12,7 +12,7 @@ GameScene::GameScene() {
     camera.zoom = 1;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
-    floor = new Floor({ -6000,-6000,12000,12000 });
+    floor = new Floor({ 0,0,3000,3000 });
 }
 
 GameScene::~GameScene() {

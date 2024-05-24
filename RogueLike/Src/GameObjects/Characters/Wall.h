@@ -5,9 +5,13 @@
 #include "../AddisionalTypes/Collider/CollisionElementLines.h"
 #include "iostream"
 
+
+
 class Wall : public GameObject, public Collider {
 public:
     Wall(int x, int y);
+
+    Wall(int x, int y, int w, int h);
 
     void update(float deltaTime);
 

@@ -3,11 +3,44 @@
 #include "Room.h"
 #include "RoomElements.h"
 #include <fstream>
+#include "../../GameObjects/Characters/Wall.h"
+
+FloorRooms getFloorRooms()
+{
+    FloorRooms floorRooms;
+    for (int i = 0; i < getRoomSize(RoomType::Special); i++)
+        floorRooms.specialRooms.push_back(getRoom(RoomType::Special, i).createRoomData());
+    for (int i = 0; i < getRoomSize(RoomType::Normal); i++)
+        floorRooms.standardsRooms.push_back(getRoom(RoomType::Normal, i).createRoomData());
+
+    Vec2 bossRoomSize = getBossRoomSize();
+    if (bossRoomSize.y * bossRoomSize.x >= getRoomSize(RoomType::Boss))
+        return floorRooms;
+    for (int i = 0; i < bossRoomSize.y; i++)
+    {
+        std::vector<RoomData> data;
+        for (int j = 0; j < bossRoomSize.x; j++)
+        {
+            data.push_back(getRoom(RoomType::Boss, i * bossRoomSize.x + j).createRoomData());
+        }
+
+
+        floorRooms.bossRoom.push_back(data);
+    }
+
+
+    return floorRooms;
+}
 
 Floor::Floor(Rectangle pos)
 {
     this->pos = pos;
-    tree = new QuadTree(pos);
+
+    tree = new QuadTree({ pos.x - 100,pos.y - 100,pos.width + 200,pos.height + 200 });
+    addObject(new Wall(pos.x - 100, pos.y - 100, 100, pos.height + 200));
+    addObject(new Wall(pos.x - 100, pos.y - 100, pos.width + 200, 100));
+    addObject(new Wall(pos.x + pos.width, pos.y - 100, 100, pos.height + 200));
+    addObject(new Wall(pos.x - 100, pos.y + pos.height, pos.width + 200, 100));
     std::string path = "rooms.json";
     std::ifstream reader(path.c_str());
     if (reader.is_open())
@@ -18,24 +51,10 @@ Floor::Floor(Rectangle pos)
         loadRooms(j);
     }
 
-    FloorRooms floorRooms;
-    Vec2 bossRoomSize = getBossRoomSize();
-    for (int i = 0; i < bossRoomSize.y; i++)
-    {
-        std::vector<RoomData> data;
-        for (int j = 0; j < bossRoomSize.x; j++)
-        {
-            data.push_back(getRoom(RoomType::Boss, i * bossRoomSize.x + j).createRoomData());
-        }
-        floorRooms.bossRoom.push_back(data);
-    }
+    FloorRooms floorRooms = getFloorRooms();
 
-    for (int i = 0; i < getRoomSize(RoomType::Special); i++)
-        floorRooms.specialRooms.push_back(getRoom(RoomType::Special, i).createRoomData());
-    for (int i = 0; i < getRoomSize(RoomType::Normal); i++)
-        floorRooms.standardsRooms.push_back(getRoom(RoomType::Normal, i).createRoomData());
-    int floorW = 10;
-    int floorH = 10;
+    int floorW = pos.width / roomW;
+    int floorH = pos.height / roomH;
     std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
     for (int i = 0; i < floorW; i++)
         for (int j = 0; j < floorH; j++)

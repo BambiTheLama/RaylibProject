@@ -77,8 +77,8 @@ static void setBoosRoom(std::vector<std::vector<RoomData>>& roomGrid, std::vecto
 	const int x = rand() % (gridW - bossRoomSizeW);
 	const int y = rand() % (gridH - bossRoomSizeH);
 	for (int i = 0; i < bossRoomSizeH; i++)
-		for (int j = 0; i < bossRoomSizeW; j++)
-			roomGrid[x + i][y + j] = bossRoom[i][j];
+		for (int j = 0; j < bossRoomSizeW; j++)
+			roomGrid[y + i][x + j] = bossRoom[i][j];
 }
 
 static void setSpecialRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<RoomData>& specialRooms)

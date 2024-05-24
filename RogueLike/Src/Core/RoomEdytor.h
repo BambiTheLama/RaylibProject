@@ -9,6 +9,8 @@ class RoomEdytor :
 {
     int ID = 0;
     RoomType type = RoomType::Normal;
+    int bossW = 1;
+    int bossH = 1;
     std::vector<std::vector<int>> room;
     std::vector<std::vector<std::vector<int>>> normalRoom;
     std::vector<std::vector<std::vector<int>>> bossRoom;

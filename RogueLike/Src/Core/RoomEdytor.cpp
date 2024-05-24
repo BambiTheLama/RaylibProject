@@ -19,12 +19,22 @@ RoomEdytor::RoomEdytor()
 	{
 		return;
 	}
+	if (j.contains("BOSSROOMSIZE"))
+	{
+		bossW = j["BOSSROOMSIZE"][0];
+		bossH = j["BOSSROOMSIZE"][1];
+	}
+
 	if (j.contains("BOSSROOM"))
 	{
-		for (int i = 0; i < j["BOSSROMM"].size(); i++)
+
+
+
+
+		for (int i = 0; i < j["BOSSROOM"].size(); i++)
 		{
 			std::vector<std::vector<int>> blocks;
-			loadRoom(blocks, j["BOSSROMM"][i]);
+			loadRoom(blocks, j["BOSSROOM"][i]);
 			bossRoom.push_back(blocks);
 		}
 
@@ -55,7 +65,8 @@ RoomEdytor::RoomEdytor()
 RoomEdytor::~RoomEdytor()
 {
 	nlohmann::json j;
-
+	j["BOSSROOMSIZE"][0] = bossW;
+	j["BOSSROOMSIZE"][1] = bossH;
 	for (int i = 0; i < bossRoom.size(); i++)
 	{
 		for (int y = 0; y < roomSize; y++)
@@ -201,6 +212,26 @@ void RoomEdytor::update(float deltaTime)
 			break;
 		}
 	}
+	if (IsKeyPressed(KEY_UP))
+	{
+		bossH++;
+	}
+	if (IsKeyPressed(KEY_DOWN))
+	{
+		bossH--;
+	}
+	if (IsKeyPressed(KEY_RIGHT))
+	{
+		bossW++;
+	}
+	if (IsKeyPressed(KEY_LEFT))
+	{
+		bossW--;
+	}
+	if (bossH < 0)
+		bossH = 0;
+	if (bossW < 0)
+		bossW = 0;
 	
 	load();
 }
@@ -315,7 +346,7 @@ void RoomEdytor::draw()
 	}
 	MyFont::DrawTextWithOutline(TextFormat("UsingBlock = %d\n\nRoomID = %d\n\nRoomType = [%s]", usingBlock,ID, roomName.c_str()), 0, 10, 32, WHITE, BLACK);
 
-	MyFont::DrawTextWithOutline(TextFormat("Boss = %d", bossRoom.size()), 1000, 200, 32, WHITE, BLACK);
+	MyFont::DrawTextWithOutline(TextFormat("Boss = %d  [%dx%d]", bossRoom.size(),bossW,bossH), 1000, 200, 32, WHITE, BLACK);
 	MyFont::DrawTextWithOutline(TextFormat("Special = %d", specialRoom.size()), 1000, 250, 32, WHITE, BLACK);
 	MyFont::DrawTextWithOutline(TextFormat("Normal = %d", normalRoom.size()), 1000, 300, 32, WHITE, BLACK);
 	DrawRectangle(950, 200, 32, 32, RED);
