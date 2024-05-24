@@ -8,7 +8,7 @@ GameObject* getRoomElement(int ID,int x,int y)
 	return new Wall(x, y);
 }
 
-BlockType getRoomType(int ID)
+BlockType getRoomElementType(int ID)
 {
 	if (ID <= 0)
 		return BlockType::NON;

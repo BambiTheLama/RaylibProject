@@ -6,11 +6,27 @@ static std::vector<Room> normalRooms;
 static std::vector<Room> specialRooms;
 static std::vector<Room> bossRooms;
 
-static void loadRoom(int blocks[roomSize][roomSize], nlohmann::json& j)
+void loadRoom(int blocks[roomSize][roomSize], nlohmann::json& j)
 {
 	for (int y = 0; y < j.size(); y++)
 		for (int x = 0; x < j[y].size(); x++)
 			blocks[y][x] = j[y][x];
+}
+
+void loadRoom(std::vector<std::vector<int>> &blocks, nlohmann::json& j)
+{
+	blocks.clear();
+	for (int y = 0; y < j.size(); y++)
+	{
+		std::vector<int> data;
+		for (int x = 0; x < j[y].size(); x++)
+		{
+			data.push_back(j[y][x]);
+		}
+		blocks.push_back(data);
+	}
+
+
 }
 
 void loadRooms(nlohmann::json &j) {
@@ -38,7 +54,7 @@ void loadRooms(nlohmann::json &j) {
 		for (int i = 0; i < j["SPECIALROOM"].size(); i++)
 		{
 			loadRoom(blocks, j["SPECIALROOM"][i]);
-			bossRooms.push_back(Room(i, RoomType::Special, blocks));
+			specialRooms.push_back(Room(i, RoomType::Special, blocks));
 		}
 	}
 	if (j.contains("ROOM"))
@@ -46,7 +62,7 @@ void loadRooms(nlohmann::json &j) {
 		for (int i = 0; i < j["ROOM"].size(); i++)
 		{
 			loadRoom(blocks, j["ROOM"][i]);
-			bossRooms.push_back(Room(i, RoomType::Normal, blocks));
+			normalRooms.push_back(Room(i, RoomType::Normal, blocks));
 		}
 	}
 }
@@ -75,10 +91,10 @@ RoomData Room::createRoomData()
 	data.ID = ID;
 	for (int i = 0; i < roomSize; i++)
 	{
-		data.up.push_back(getRoomType(blockID[0][i]));
-		data.down.push_back(getRoomType(blockID[roomSize - 1][i]));
-		data.left.push_back(getRoomType(blockID[i][0]));
-		data.right.push_back(getRoomType(blockID[i][roomSize - 1]));
+		data.up.push_back(getRoomElementType(blockID[0][i]));
+		data.down.push_back(getRoomElementType(blockID[roomSize - 1][i]));
+		data.left.push_back(getRoomElementType(blockID[i][0]));
+		data.right.push_back(getRoomElementType(blockID[i][roomSize - 1]));
 	}
 
 	return data;

@@ -31,6 +31,10 @@ public:
 	int getID() { return ID; }
 };
 
+void loadRoom(int blocks[roomSize][roomSize], nlohmann::json& j);
+
+void loadRoom(std::vector<std::vector<int>>& blocks, nlohmann::json& j);
+
 void loadRooms(nlohmann::json& j);
 
 Room getRoom(RoomType type,int ID);
