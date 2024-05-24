@@ -1,6 +1,6 @@
 #pragma once
 #include "CollisionElement.h"
-#include "raylib.h"
+#include "raylib.hpp"
 
 
 class CollisionElementCircle : public CollisionElement {

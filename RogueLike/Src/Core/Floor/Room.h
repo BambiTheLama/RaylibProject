@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "../WaveCollapsFun.h"
+#include <json.hpp>
+
 #define roomSize 8
 #define tileW 32
 #define tileH 32
@@ -8,13 +10,15 @@
 #define roomH (roomSize*tileH)
 
 class GameObject;
+
 class Room
 {
 	int ID;
 	int blockID[roomSize][roomSize];
 	std::vector<GameObject*> objects;
+	RoomType type;
 public:
-	Room(int ID, int blocks[roomSize][roomSize]);
+	Room(int ID, RoomType type, int blocks[roomSize][roomSize]);
 
 	void addObject(GameObject* gm);
 
@@ -27,5 +31,14 @@ public:
 	int getID() { return ID; }
 };
 
-Room getRoom(int ID);
+void loadRooms(nlohmann::json& j);
 
+Room getRoom(RoomType type,int ID);
+
+int getRoomSize(RoomType type);
+
+struct Vec2 {
+	int x, y;
+};
+
+Vec2 getBossRoomSize();

@@ -1,20 +1,28 @@
 #include "Engine.h"
-#include "raylib.h"
+#include "raylib.hpp"
 #include "GameScene.h"
+#include "RoomEdytor.h"
 #include "../Font.h"
 #include <time.h>
 
 Engine::Engine() {
-    srand(time(NULL));
+    //srand(time(NULL));
+    srand(69);
     const int screenWidth = 1600;
     const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
     SetTargetFPS(60);
     MyFont::SetUpFont();
-    s = new GameScene();
-    s->start();
+    setScene(new GameScene());
     while (!WindowShouldClose() && s) {
+
+        if(IsKeyPressed(KEY_F1))
+            setScene(new GameScene());
+        if (IsKeyPressed(KEY_F2))
+            setScene(new RoomEdytor());
+
+
         float deltaTime = GetFrameTime();
         if (deltaTime > 1.0f / 60.0f)
             deltaTime = 1.0f / 60.0f;
@@ -34,7 +42,9 @@ Engine::Engine() {
 void Engine::setScene(Scene *s) {
     if (!s)
         return;
-    delete this->s;
-    s->start();
+    if(this->s)
+        delete this->s;
+
     this->s = s;
+    s->start();
 }

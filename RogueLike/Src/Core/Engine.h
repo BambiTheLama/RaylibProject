@@ -3,7 +3,7 @@
 
 
 class Engine {
-    Scene *s;
+    Scene* s = nullptr;
 
 public:
     Engine();

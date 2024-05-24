@@ -1,5 +1,5 @@
 #pragma once
-#include "raylib.h"
+#include "raylib.hpp"
 #include "../../Core/Controller.h"
 
 class GameObject;

@@ -1,5 +1,5 @@
 #pragma once
-#include "raylib.h"
+#include "raylib.hpp"
 #include <vector>
 #include <list>
 

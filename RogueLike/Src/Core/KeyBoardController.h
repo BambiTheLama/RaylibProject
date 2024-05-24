@@ -1,6 +1,6 @@
 #pragma once
 #include "Controller.h"
-#include "raylib.h"
+#include "raylib.hpp"
 #define ControllsSize 2
 
 class KeyBoardController : public Controller {

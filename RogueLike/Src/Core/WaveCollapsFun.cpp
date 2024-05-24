@@ -3,6 +3,8 @@
 
 bool RoomData::isMaching(Dir dir, std::vector<BlockType> blocks)
 {
+	if (ID < 0)
+		return true;
 	std::vector<BlockType> thisBlocks;
 	switch (dir) {
 	case Dir::Up:
@@ -98,16 +100,16 @@ static void setSpecialRooms(std::vector<std::vector<RoomData>>& roomGrid, std::v
 
 static bool isPossibleRoom(std::vector<std::vector<RoomData>>& roomGrid, RoomData& room, int x, int y) {
 	if (x - 1 >= 0)
-		if (roomGrid[y][x - 1].ID >= 0 && !roomGrid[y][x - 1].isMaching(Dir::Right, room.left))
+		if (!roomGrid[y][x - 1].isMaching(Dir::Right, room.left))
 			return false;
 	if (x + 1 < roomGrid[0].size())
-		if (roomGrid[y][x + 1].ID >= 0 && !roomGrid[y][x + 1].isMaching(Dir::Left, room.right))
+		if (!roomGrid[y][x + 1].isMaching(Dir::Left, room.right))
 			return false;
 	if (y - 1 >= 0)
-		if (roomGrid[y - 1][x].ID >= 0 && !roomGrid[y - 1][x].isMaching(Dir::Down, room.up))
+		if (!roomGrid[y - 1][x].isMaching(Dir::Down, room.up))
 			return false;
 	if (y + 1 < roomGrid.size())
-		if (roomGrid[y + 1][x].ID >= 0 && !roomGrid[y + 1][x].isMaching(Dir::Up, room.down))
+		if (!roomGrid[y + 1][x].isMaching(Dir::Up, room.down))
 			return false;
 	
 	return true;
@@ -139,11 +141,11 @@ static void sortRoomsToFill(std::vector<std::vector<RoomData>>& roomGrid, std::v
 	if (roomsToFill.size() <= 1)
 		return;
 	for (int j = 0; j < roomsToFill.size() - 1; j++)
-		for (int i = j; i < roomsToFill.size() - 1; i++)
+		for (int i = 0; i < roomsToFill.size() - 1; i++)
 		{
 			Vector2 p1 = roomsToFill[i];
 			Vector2 p2 = roomsToFill[i + 1];
-			if (roomGrid[p1.y][p1.x].posibleRoom.size() > roomGrid[p2.y][p2.x].posibleRoom.size())
+			if (roomGrid[p1.y][p1.x].posibleRoom.size() < roomGrid[p2.y][p2.x].posibleRoom.size())
 			{
 				roomsToFill[i] = p2;
 				roomsToFill[i + 1] = p1;
@@ -173,6 +175,22 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 		{
 			int e = rand() % n;
 			ID = roomGrid[p.y][p.x].posibleRoom[e];
+
+		}
+		else
+		{
+
+			setPossibleRooms(roomGrid, rooms, p.x, p.y);
+			n = roomGrid[p.y][p.x].posibleRoom.size();
+			if (n <= 0)
+			{
+				printf("KURWA NIE MA POOJU %d %d\n", p.x, p.y);
+			}
+			else
+			{
+				int e = rand() % n;
+				ID = roomGrid[p.y][p.x].posibleRoom[e];
+			}
 
 		}
 		roomGrid[p.y][p.x] = rooms[ID];

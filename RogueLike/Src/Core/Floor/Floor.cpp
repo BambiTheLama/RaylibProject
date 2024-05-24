@@ -2,14 +2,38 @@
 #include "../WaveCollapsFun.h"
 #include "Room.h"
 #include "RoomElements.h"
+#include <fstream>
 
 Floor::Floor(Rectangle pos)
 {
     this->pos = pos;
     tree = new QuadTree(pos);
+    std::string path = "rooms.json";
+    std::ifstream reader(path.c_str());
+    if (reader.is_open())
+    {
+        nlohmann::json j;
+        reader >> j;
+        reader.close();
+        loadRooms(j);
+    }
+
     FloorRooms floorRooms;
-    for (int i = 0; i < 8; i++)
-        floorRooms.standardsRooms.push_back(getRoom(i).createRoomData());
+    Vec2 bossRoomSize = getBossRoomSize();
+    for (int i = 0; i < bossRoomSize.y; i++)
+    {
+        std::vector<RoomData> data;
+        for (int j = 0; j < bossRoomSize.x; j++)
+        {
+            data.push_back(getRoom(RoomType::Boss, i * bossRoomSize.x + j).createRoomData());
+        }
+        floorRooms.bossRoom.push_back(data);
+    }
+
+    for (int i = 0; i < getRoomSize(RoomType::Special); i++)
+        floorRooms.specialRooms.push_back(getRoom(RoomType::Special, i).createRoomData());
+    for (int i = 0; i < getRoomSize(RoomType::Normal); i++)
+        floorRooms.standardsRooms.push_back(getRoom(RoomType::Normal, i).createRoomData());
     int floorW = 10;
     int floorH = 10;
     std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
@@ -19,9 +43,10 @@ Floor::Floor(Rectangle pos)
             int startX = roomW * i;
             int startY = roomH * j;
             int ID = roomGrid[j][i].ID;
+            RoomType type = roomGrid[j][i].type;
             if (ID < 0)
                 continue;
-            Room room = getRoom(ID);
+            Room room = getRoom(type,ID);
 
             for (int x = 0; x < roomSize; x++)
                 for (int y = 0; y < roomSize; y++)
@@ -68,9 +93,6 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
 void Floor::update(float deltaTime)
 {
 
-    if (IsKeyPressed(KEY_F1))
-        for (auto o : gameObjects)
-            deleteObject(o);
     for (auto o : toDelete)
     {
         gameObjects.remove(o);

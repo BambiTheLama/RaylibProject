@@ -10,10 +10,14 @@ enum class Dir :char
 {
 	Up, Down, Left, Right
 };
-
+enum class RoomType
+{
+	Normal, Boss, Special
+};
 struct RoomData {
 	int ID = -1;
 	char rotate = 0;
+	RoomType type;
 	std::vector<BlockType> up;
 	std::vector<BlockType> down;
 	std::vector<BlockType> left;

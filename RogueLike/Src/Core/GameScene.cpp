@@ -17,10 +17,12 @@ GameScene::GameScene() {
 
 GameScene::~GameScene() {
     Game::gameScene = nullptr;
+    delete floor;
 }
 
 
 void GameScene::start() {
+    Game::gameScene = this;
     addObject(new Player(200, 200));
     controller.setCharacterType(ObjectType::Player);
 }
@@ -28,7 +30,8 @@ void GameScene::start() {
 void GameScene::update(float deltaTime) {
     Vector2 cursor = GetScreenToWorld2D(GetMousePosition(), camera);
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
-        addObject(new Wall(cursor.x, cursor.y));
+        for(int i=0;i<10;i++)
+        addObject(new Wall(cursor.x+i, cursor.y+i));
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
         for (int i = 0; i < 1; i++)

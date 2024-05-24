@@ -1,6 +1,6 @@
 #include "CollisionElement.h"
 #include <math.h>
-#include "raylib.h"
+#include "raylib.hpp"
 
 bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end) {
     Vector2 point;
