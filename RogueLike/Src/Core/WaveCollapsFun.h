@@ -8,7 +8,7 @@ enum class BlockType :char
 
 enum class Dir :char
 {
-	Up, Down, Left, Right
+	Up, Down, Left, Right, NON
 };
 enum class RoomType
 {
@@ -34,3 +34,5 @@ struct FloorRooms {
 };
 
 std::vector<std::vector<RoomData>> generareFloor(int w, int h, FloorRooms &floorRooms);
+
+Dir swapDir(Dir d);

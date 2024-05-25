@@ -4,7 +4,7 @@
 #include <cstdio>
 #include "../../GameObject.h"
 #include "../../Game.h"
-
+#include "../../../Core/WaveCollapsFun.h"
 
 Collider::Collider(){
 
@@ -50,18 +50,37 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaT
         for (auto c2: collider->collisionElemnets)
             if (c->isCollidiongWith(pos, c2, otherPos)) {
 
-                    
+                
                 ///TODO POPRAWIC DZia³anie
                 float massAdd = mass + collider->mass;
                 Vector2 dirVector = Vector2Subtract(pos, otherPos);
-                //float dist = Vector2Distance(dirVector);
                 dirVector = Vector2Normalize(dirVector);
+                Dir dir = c->getCollisionDir(pos, c2, otherPos);
+                switch (dir)
+                {
+                case Dir::Up:
+                    dirVector.x = 0;
+                    dirVector.y = -1;
+                    break;
+                case Dir::Down:
+                    dirVector.x = 0;
+                    dirVector.y = 1;
+                    break;
+                case Dir::Left:
+                    dirVector.x = -1;
+                    dirVector.y = 0;
+                    break;
+                case Dir::Right:
+                    dirVector.x = 1;
+                    dirVector.y = 0;
+                    break;
+
+                }
+
+
                 const float moveMultyplay = 0.04f;
 
-                if (abs(dirVector.x) < abs(dirVector.y))
-                    dirVector.x = 0;
-                else
-                    dirVector.y = 0;
+
 
                 if (!solidObject)
                 {

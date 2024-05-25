@@ -1,8 +1,8 @@
 #pragma once
 #include <list>
 #include <vector>
-
 #include "raylib.hpp"
+
 //#define showColliders
 
 enum class CollisionType {
@@ -10,7 +10,7 @@ enum class CollisionType {
 };
 
 class GameObject;
-
+enum class Dir :char;
 class CollisionElement {
     CollisionType type;
 
@@ -20,6 +20,8 @@ public:
     CollisionType getType() { return type; }
 
     virtual bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos) = 0;
+
+    virtual Dir getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
 
     virtual Rectangle getBox(Vector2 pos) {
         return {0, 0, 0, 0};
@@ -33,12 +35,16 @@ public:
         return std::vector<Vector2>();
     }
 
+
+
 #ifdef showColliders
     void draw(GameObject *obj);
 #endif
 };
 
 bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end);
+
+Dir CheckCollisionRecLineDir(Rectangle rec, Vector2 start, Vector2 end);
 
 bool CheckCollisionCircles(Vector3 p1, Vector3 p2);
 

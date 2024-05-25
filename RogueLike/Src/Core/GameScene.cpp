@@ -9,10 +9,12 @@
 
 GameScene::GameScene() {
     Game::gameScene = this;
-    camera.zoom = 1;
+    camera.zoom = 0.1;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
-    floor = new Floor({ 0,0,3000,3000 });
+    Rectangle pos = { 0,0,9000,6000 };
+    floor = new Floor(pos);
+    camera.target = { pos.width / 2,pos.height / 2 };
 }
 
 GameScene::~GameScene() {
@@ -52,7 +54,7 @@ void GameScene::update(float deltaTime) {
     if (floor)
         floor->update(deltaTime);
     controller.update(deltaTime);
-    camera.target = controller.getPos();
+    //camera.target = controller.getPos();
 }
 
 std::list<GameObject*> GameScene::getObjects(Rectangle pos)

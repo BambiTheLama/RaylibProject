@@ -28,11 +28,11 @@ bool RoomData::isMaching(Dir dir, std::vector<BlockType> blocks)
 
 	if (blocks.size() < thisBlocks.size())
 		return false;
-
+	int mistakes = 0;
 	for (int i = 0; i < thisBlocks.size(); i++)
 		if (thisBlocks[i] != blocks[i])
-			return false;
-	return true;
+			mistakes++;
+	return mistakes < 3;
 
 }
 
@@ -212,4 +212,20 @@ std::vector<std::vector<RoomData>> generareFloor(int w, int h, FloorRooms& floor
 	if (floorRooms.standardsRooms.size() > 0)
 		fillRooms(roomGrid, floorRooms.standardsRooms);
 	return roomGrid;
+}
+
+Dir swapDir(Dir d)
+{
+	switch (d)
+	{
+	case Dir::Up:
+		return Dir::Down;
+	case Dir::Down:
+		return Dir::Up;
+	case Dir::Left:
+		return Dir::Right;
+	case Dir::Right:
+		return Dir::Left;
+	}
+	return Dir::NON;
 }

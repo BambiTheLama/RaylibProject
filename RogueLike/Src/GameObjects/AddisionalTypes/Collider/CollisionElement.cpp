@@ -1,6 +1,13 @@
 #include "CollisionElement.h"
 #include <math.h>
 #include "raylib.hpp"
+#include "../../../Core/WaveCollapsFun.h"
+
+
+Dir CollisionElement::getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
+{
+    return Dir::NON;
+}
 
 bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end) {
     Vector2 point;
@@ -17,6 +24,19 @@ bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end) {
     if (CheckCollisionLines(start, end, {rec.x, rec.y}, {rec.x + rec.width, rec.y + rec.height}, &point))
         return true;
     return false;
+}
+
+Dir CheckCollisionRecLineDir(Rectangle rec, Vector2 start, Vector2 end) {
+    Vector2 point;
+    if (CheckCollisionLines(start, end, { rec.x, rec.y }, { rec.x, rec.y + rec.height }, &point))
+        return Dir::Left;
+    if (CheckCollisionLines(start, end, { rec.x, rec.y }, { rec.x + rec.width, rec.y }, &point))
+        return Dir::Up;
+    if (CheckCollisionLines(start, end, { rec.x + rec.width, rec.y }, { rec.x + rec.width, rec.y + rec.height }, &point))
+        return Dir::Right;
+    if (CheckCollisionLines(start, end, { rec.x, rec.y + rec.height }, { rec.x + rec.width, rec.y + rec.height }, &point))
+        return Dir::Down;
+    return Dir::NON;
 }
 
 bool CheckCollisionCircles(Vector3 p1, Vector3 p2) {

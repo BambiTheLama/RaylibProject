@@ -12,6 +12,8 @@ public:
     bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos) override;
 
     Rectangle getBox(Vector2 pos) override { return {col.x + pos.x, col.y + pos.y, col.width, col.height}; }
+
+    Dir getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
 };
 
 
