@@ -12,7 +12,7 @@ Engine::Engine() {
     const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-    SetTargetFPS(60);
+    //SetTargetFPS(60);
     MyFont::SetUpFont();
     setScene(new GameScene());
     while (!WindowShouldClose() && s) {
