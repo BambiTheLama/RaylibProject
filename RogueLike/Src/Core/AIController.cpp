@@ -61,13 +61,19 @@ void AIController::lookForTarget() {
 	pos.height += range * 2;
 	std::list<GameObject*> objcts = Game::getObjects(pos);
 	objcts.remove(thisObj);
-
+	float dist = range * 2;
 	for (auto o : objcts)
 	{
 		if (((int)o->getType() & targerType) != 0)
 		{
-			target = o;
-			return;
+			Rectangle otherPos = o->getPos();
+			float d = Vector2Distance({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, 
+				{ otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 });
+			if (!target ||dist>d)
+			{
+				target = o;
+				dist = d;
+			}
 		}
 
 	}

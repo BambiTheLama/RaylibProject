@@ -125,6 +125,8 @@ void Floor::update(float deltaTime)
     }
 
     toDelete.clear();
+
+
     for (auto o : gameObjects)
         o->update(deltaTime);
     tree->update();
