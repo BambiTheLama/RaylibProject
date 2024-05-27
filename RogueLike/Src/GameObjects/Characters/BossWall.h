@@ -6,8 +6,11 @@
 class BossWall :
     public GameObject , public Collider
 {
+    BossWall();
 public:
     BossWall(int x, int y);
+
+    BossWall(int x, int y, int w, int h);
 
     void update(float deltaTime);
 

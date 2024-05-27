@@ -3,7 +3,7 @@
 #include "Room.h"
 #include "RoomElements.h"
 #include <fstream>
-#include "../../GameObjects/Characters/Wall.h"
+#include "../../GameObjects/Characters/BossWall.h"
 
 FloorRooms getFloorRooms()
 {
@@ -39,10 +39,10 @@ Floor::Floor(Rectangle pos)
     this->pos = pos;
 
     tree = new QuadTree({ pos.x - 100,pos.y - 100,pos.width + 200,pos.height + 200 });
-    addObject(new Wall(pos.x - 100, pos.y - 100, 100, pos.height + 200));
-    addObject(new Wall(pos.x - 100, pos.y - 100, pos.width + 200, 100));
-    addObject(new Wall(pos.x + pos.width, pos.y - 100, 100, pos.height + 200));
-    addObject(new Wall(pos.x - 100, pos.y + pos.height, pos.width + 200, 100));
+    addObject(new BossWall(pos.x - 100, pos.y - 100, 100, pos.height + 200));
+    addObject(new BossWall(pos.x - 100, pos.y - 100, pos.width + 200, 100));
+    addObject(new BossWall(pos.x + pos.width, pos.y - 100, 100, pos.height + 200));
+    addObject(new BossWall(pos.x - 100, pos.y + pos.height, pos.width + 200, 100));
     std::string path = "rooms.json";
     std::ifstream reader(path.c_str());
     if (reader.is_open())
