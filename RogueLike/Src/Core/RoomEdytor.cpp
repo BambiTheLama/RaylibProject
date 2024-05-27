@@ -322,6 +322,15 @@ void RoomEdytor::draw()
 			case BlockType::Wall:
 				c = RED;
 				break;
+			case BlockType::PlayerSpawnPoint:
+				c = GREEN;
+				break;
+			case BlockType::ChestSpawnPoint:
+				c = YELLOW;
+				break;
+			case BlockType::EnemySpawnPoint:
+				c = PINK;
+				break;
 			default:
 				break;
 			}

@@ -22,6 +22,14 @@ BlockType getRoomElementType(int ID)
 {
 	if (ID <= 0)
 		return BlockType::NON;
+	if (ID <= 2)
+		return BlockType::Wall;
+	if (ID <= 3)
+		return BlockType::PlayerSpawnPoint;
+	if (ID <= 4)
+		return BlockType::ChestSpawnPoint;
+	if (ID <= 5)
+		return BlockType::EnemySpawnPoint;
 
-	return BlockType::Wall;
+
 }

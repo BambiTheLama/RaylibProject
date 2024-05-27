@@ -161,7 +161,7 @@ static void sortRoomsToFill(std::vector<std::vector<RoomData>>& roomGrid, std::v
 {
 	if (roomsToFill.size() <= 1)
 		return;
-	for (int j = 0; j < roomsToFill.size() - 1; j++)
+	for (int j = 0; j < roomsToFill.size() / 2; j++)
 		for (int i = 0; i < roomsToFill.size() - 1; i++)
 		{
 			Vector2 p1 = roomsToFill[i];
