@@ -8,8 +8,8 @@ static std::vector<Room> bossRooms;
 
 void loadRoom(int blocks[roomSize][roomSize], nlohmann::json& j)
 {
-	for (int y = 0; y < j.size(); y++)
-		for (int x = 0; x < j[y].size(); x++)
+	for (int y = 0; y < j.size() && y < roomSize; y++)
+		for (int x = 0; x < j[y].size() && x < roomSize; x++)
 			blocks[y][x] = j[y][x];
 }
 
@@ -23,9 +23,21 @@ void loadRoom(std::vector<std::vector<int>> &blocks, nlohmann::json& j)
 		{
 			data.push_back(j[y][x]);
 		}
+		for (int x = j[y].size(); x < roomSize; x++)
+		{
+			data.push_back(0);
+		}
 		blocks.push_back(data);
 	}
-
+	for (int y = j.size(); y < roomSize; y++)
+	{
+		std::vector<int> data;
+		for (int x = 0; x < roomSize; x++)
+		{
+			data.push_back(0);
+		}
+		blocks.push_back(data);
+	}
 
 }
 

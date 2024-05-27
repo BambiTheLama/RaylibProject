@@ -3,7 +3,7 @@
 #include "../WaveCollapsFun.h"
 #include <json.hpp>
 
-#define roomSize 8
+#define roomSize 9
 #define tileW 32
 #define tileH 32
 #define roomW (roomSize*tileW)
