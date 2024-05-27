@@ -74,8 +74,24 @@ static void setBoosRoom(std::vector<std::vector<RoomData>>& roomGrid, std::vecto
 	const int gridH = roomGrid.size();
 	if (bossRoomSizeH <= 0 || bossRoomSizeW <= 0)
 		return;
-	const int x = rand() % (gridW - bossRoomSizeW);
-	const int y = rand() % (gridH - bossRoomSizeH);
+	int x = 0;
+	int y = 0;
+	if (rand() % 2)
+	{
+		if (rand() % 2)
+			x = 0;
+		else
+			x = gridW - bossRoomSizeW;
+		y = rand() % (gridH - bossRoomSizeH);
+	}
+	else
+	{
+		if (rand() % 2)
+			y = 0;
+		else
+			y = gridH - bossRoomSizeH;
+		x = rand() % (gridW - bossRoomSizeW);
+	}
 	for (int i = 0; i < bossRoomSizeH; i++)
 		for (int j = 0; j < bossRoomSizeW; j++)
 			roomGrid[y + i][x + j] = bossRoom[i][j];
@@ -83,9 +99,14 @@ static void setBoosRoom(std::vector<std::vector<RoomData>>& roomGrid, std::vecto
 
 static void setSpecialRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<RoomData>& specialRooms)
 {
-	for (auto r : specialRooms)
+	if (roomGrid.size() > 0 && roomGrid[0].size() > 0 && specialRooms.size() > 0)
 	{
-		RoomData room = r;
+		roomGrid[roomGrid.size() / 2][roomGrid[0].size()/2] = specialRooms[0];
+
+	}
+	for (int i = 1; i < specialRooms.size(); i++)
+	{
+		RoomData room = specialRooms[i];
 		int x = 0;
 		int y = 0;
 		do

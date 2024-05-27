@@ -4,10 +4,10 @@
 #include "../AddisionalTypes/Collider/CollisionElementBox.h"
 #include "../AddisionalTypes/Collider/CollisionElementLines.h"
 #include "iostream"
+#include "../AddisionalTypes/Hitable.h"
 
 
-
-class Wall : public GameObject, public Collider {
+class Wall : public GameObject, public Collider, public Hitable {
 public:
     Wall(int x, int y);
 

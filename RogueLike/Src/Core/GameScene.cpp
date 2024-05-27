@@ -9,7 +9,7 @@
 
 GameScene::GameScene() {
     Game::gameScene = this;
-    camera.zoom = 1;
+    camera.zoom = .1f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
     Rectangle pos = { 0,0,9000,6000 };

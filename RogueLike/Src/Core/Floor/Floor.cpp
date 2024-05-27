@@ -34,6 +34,8 @@ FloorRooms getFloorRooms()
 
 Floor::Floor(Rectangle pos)
 {
+    pos.width = ((int)pos.width / roomW) * roomW;
+    pos.height = ((int)pos.height / roomH) * roomH;
     this->pos = pos;
 
     tree = new QuadTree({ pos.x - 100,pos.y - 100,pos.width + 200,pos.height + 200 });
