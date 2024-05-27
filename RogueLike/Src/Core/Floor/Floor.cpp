@@ -14,7 +14,7 @@ FloorRooms getFloorRooms()
         floorRooms.standardsRooms.push_back(getRoom(RoomType::Normal, i).createRoomData());
 
     Vec2 bossRoomSize = getBossRoomSize();
-    if (bossRoomSize.y * bossRoomSize.x >= getRoomSize(RoomType::Boss))
+    if (bossRoomSize.y * bossRoomSize.x > getRoomSize(RoomType::Boss))
         return floorRooms;
     for (int i = 0; i < bossRoomSize.y; i++)
     {

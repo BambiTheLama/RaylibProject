@@ -46,6 +46,6 @@ void Hitable::deadTrigger()
 
 void Hitable::draw(Rectangle pos) {
 	DrawRectangleRec(pos, GRAY);
-	DrawRectangle(pos.x, pos.y, pos.width * getProcentHp(), pos.height, GREEN);
+	DrawRectangleRec({ pos.x, pos.y, pos.width * getProcentHp(), pos.height }, GREEN);
 	DrawRectangleLinesEx(pos, 3, BLACK);
 }

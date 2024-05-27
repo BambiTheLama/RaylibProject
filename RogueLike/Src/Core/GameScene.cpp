@@ -31,6 +31,10 @@ void GameScene::start() {
 
 void GameScene::update(float deltaTime) {
     Vector2 cursor = GetScreenToWorld2D(GetMousePosition(), camera);
+    if (IsKeyDown(KEY_UP))
+        camera.zoom += deltaTime;
+    if (IsKeyDown(KEY_DOWN))
+        camera.zoom -= deltaTime;
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         for(int i=0;i<10;i++)
         addObject(new Wall(cursor.x+i, cursor.y+i));

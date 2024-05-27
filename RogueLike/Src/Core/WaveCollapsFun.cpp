@@ -211,6 +211,7 @@ std::vector<std::vector<RoomData>> generareFloor(int w, int h, FloorRooms& floor
 		setSpecialRooms(roomGrid, floorRooms.specialRooms);
 	if (floorRooms.standardsRooms.size() > 0)
 		fillRooms(roomGrid, floorRooms.standardsRooms);
+	
 	return roomGrid;
 }
 

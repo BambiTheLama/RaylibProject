@@ -37,4 +37,6 @@ Debug/
 Relise/
 .git/
 .vs/
-MarioAI/NN/
+
+!packages/
+!include/
