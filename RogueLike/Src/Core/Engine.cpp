@@ -4,6 +4,7 @@
 #include "RoomEdytor.h"
 #include "../Font.h"
 #include <time.h>
+#include <fstream>
 
 Engine::Engine() {
     srand(time(NULL));
@@ -12,6 +13,17 @@ Engine::Engine() {
     const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+    std::string path = "rooms.json";
+    std::ifstream reader(path.c_str());
+    if (reader.is_open())
+    {
+        nlohmann::json j;
+        reader >> j;
+        reader.close();
+        loadRooms(j);
+    }
+
     //SetTargetFPS(60);
     MyFont::SetUpFont();
     setScene(new GameScene());

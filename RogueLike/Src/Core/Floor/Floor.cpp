@@ -43,15 +43,7 @@ Floor::Floor(Rectangle pos)
     addObject(new BossWall(pos.x - 100, pos.y - 100, pos.width + 200, 100));
     addObject(new BossWall(pos.x + pos.width, pos.y - 100, 100, pos.height + 200));
     addObject(new BossWall(pos.x - 100, pos.y + pos.height, pos.width + 200, 100));
-    std::string path = "rooms.json";
-    std::ifstream reader(path.c_str());
-    if (reader.is_open())
-    {
-        nlohmann::json j;
-        reader >> j;
-        reader.close();
-        loadRooms(j);
-    }
+
 
     FloorRooms floorRooms = getFloorRooms();
 
@@ -133,7 +125,7 @@ void Floor::update(float deltaTime,Camera2D camera)
     else
     {
         Vector2 camPos = camera.target;
-        Vector2 offset = { camera.offset.x * 1.1f*1.0f/camera.zoom,camera.offset.y * 1.1f * 1.0f / camera.zoom };
+        Vector2 offset = { camera.offset.x * 1.5f*1.0f/camera.zoom,camera.offset.y * 1.5f * 1.0f / camera.zoom };
 
         camPos.x -= offset.x;
         camPos.y -= offset.y;

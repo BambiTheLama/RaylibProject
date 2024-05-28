@@ -29,7 +29,10 @@ BlockType getRoomElementType(int ID)
 	if (ID <= 4)
 		return BlockType::ChestSpawnPoint;
 	if (ID <= 5)
+		return BlockType::LootSpawnPoint;
+	if (ID <= 6)
 		return BlockType::EnemySpawnPoint;
-
+	if (ID <= 7)
+		return BlockType::BossSpawnPoint;
 
 }

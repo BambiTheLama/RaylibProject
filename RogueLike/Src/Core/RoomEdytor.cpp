@@ -331,6 +331,12 @@ void RoomEdytor::draw()
 			case BlockType::EnemySpawnPoint:
 				c = PINK;
 				break;
+			case BlockType::LootSpawnPoint:
+				c = ORANGE;
+				break;
+			case BlockType::BossSpawnPoint:
+				c = PURPLE;
+				break;
 			default:
 				break;
 			}

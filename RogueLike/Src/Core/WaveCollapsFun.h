@@ -3,7 +3,7 @@
 
 enum class BlockType :char
 {
-	NON, Wall, PlayerSpawnPoint, ChestSpawnPoint, EnemySpawnPoint,
+	NON, Wall, PlayerSpawnPoint, ChestSpawnPoint, EnemySpawnPoint, LootSpawnPoint, BossSpawnPoint
 };
 
 enum class Dir :char
