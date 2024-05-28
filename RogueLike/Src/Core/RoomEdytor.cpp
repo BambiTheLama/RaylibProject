@@ -337,6 +337,9 @@ void RoomEdytor::draw()
 			case BlockType::BossSpawnPoint:
 				c = PURPLE;
 				break;
+			case BlockType::BossEnterWall:
+				c = BLACK;
+				break;
 			default:
 				break;
 			}

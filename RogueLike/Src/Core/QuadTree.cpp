@@ -35,8 +35,7 @@ void QuadTree::update()
 	{
 		if (!o->movingObject())
 			continue;
-		for (int i = 0; i < 4; i++)
-			roots[i]->updatePos(o);
+		updatePos(o);
 	}
 
 

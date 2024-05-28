@@ -34,5 +34,7 @@ BlockType getRoomElementType(int ID)
 		return BlockType::EnemySpawnPoint;
 	if (ID <= 7)
 		return BlockType::BossSpawnPoint;
-
+	if (ID <= 8)
+		return BlockType::BossEnterWall;
+	return BlockType::NON;
 }
