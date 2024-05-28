@@ -81,12 +81,12 @@ Floor::Floor(Rectangle pos)
 
 Floor::~Floor()
 {
-    for (auto o : gameObjects)
+    for (auto o : allGameObjects)
         deleteObject(o);
     colliders.clear();
     for (auto o : toDelete)
     {
-        gameObjects.remove(o);
+        allGameObjects.remove(o);
         Collider* collider = dynamic_cast<Collider*>(o);
         if (collider) {
             colliders.remove(collider);
@@ -111,12 +111,12 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
     return gm->getDrawOrder() < gm2->getDrawOrder();
 }
 
-void Floor::update(float deltaTime)
+void Floor::update(float deltaTime,Camera2D camera)
 {
 
     for (auto o : toDelete)
     {
-        gameObjects.remove(o);
+        allGameObjects.remove(o);
         Collider* collider = dynamic_cast<Collider*>(o);
         if (collider) {
             colliders.remove(collider);
@@ -127,9 +127,22 @@ void Floor::update(float deltaTime)
     }
 
     toDelete.clear();
+    //std::list<GameObject*> gameObjects;
+    if (!tree)
+        closeObjects = allGameObjects;
+    else
+    {
+        Vector2 camPos = camera.target;
+        Vector2 offset = { camera.offset.x * 1.1f*1.0f/camera.zoom,camera.offset.y * 1.1f * 1.0f / camera.zoom };
 
-
-    for (auto o : gameObjects)
+        camPos.x -= offset.x;
+        camPos.y -= offset.y;
+        offset.x *= 2;
+        offset.y *= 2;
+        Rectangle pos = { camPos.x,camPos.y,offset.x,offset.y };
+        closeObjects = tree->getObjects(pos);
+    }
+    for (auto o : closeObjects)
         o->update(deltaTime);
     tree->update();
 
@@ -140,13 +153,13 @@ void Floor::update(float deltaTime)
     for (auto c : collidersToRemove)
         colliders.remove(c);
     collidersToRemove.clear();
-    gameObjects.sort(sortGameObjectCondiction);
+    closeObjects.sort(sortGameObjectCondiction);
 
 }
 
 void Floor::draw()
 {
-    for (auto o : gameObjects)
+    for (auto o : closeObjects)
     {
         o->draw();
     }
@@ -167,18 +180,18 @@ std::list<GameObject*> Floor::getObjects(Rectangle pos)
 
 bool Floor::addObject(GameObject* obj)
 {
-    auto find = std::find(gameObjects.begin(), gameObjects.end(), obj);
-    if (find != gameObjects.end())
+    auto find = std::find(allGameObjects.begin(), allGameObjects.end(), obj);
+    if (find != allGameObjects.end())
         return true;
-    gameObjects.push_back(obj);
+    allGameObjects.push_back(obj);
     Collider* collider = dynamic_cast<Collider*>(obj);
     if (collider)
     {
         if (!collider->solidObject)
             colliders.push_back(collider);
-        tree->addObj(obj);
-    }
 
+    }
+    tree->addObj(obj);
     return true;
 }
 

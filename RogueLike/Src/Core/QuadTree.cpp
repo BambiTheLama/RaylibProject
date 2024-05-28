@@ -105,6 +105,14 @@ void QuadTree::getObjects(std::list<GameObject*>& list, Rectangle &pos)
 {
 	if (roots[0])
 	{
+		Rectangle collision = GetCollisionRec(pos, this->pos);
+		if (collision.width == this->pos.width && collision.height == this->pos.height)
+		{
+			for (auto o : objects)
+				if (std::find(list.begin(), list.end(), o) == list.end())
+					list.push_back(o);
+			return;
+		}
 		for (int i = 0; i < 4; i++)
 		{
 			if (roots[i]->isThisPart(pos))
@@ -168,6 +176,14 @@ void QuadTree::closeTree()
 
 void QuadTree::addToList(std::list<GameObject*>& list, Rectangle pos)
 {
+	Rectangle collision = GetCollisionRec(pos, this->pos);
+	if (collision.width == this->pos.width && collision.height == this->pos.height)
+	{
+		for (auto o : objects)
+			if (std::find(list.begin(), list.end(), o) == list.end())
+				list.push_back(o);
+		return;
+	}
 	for (auto o : objects)
 		if (CheckCollisionRecs(o->getPos(), pos) && std::find(list.begin(), list.end(), o) == list.end())
 			list.push_back(o);

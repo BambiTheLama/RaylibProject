@@ -6,7 +6,8 @@
 
 class Floor
 {
-    std::list<GameObject*> gameObjects;
+    std::list<GameObject*> allGameObjects;
+    std::list<GameObject*> closeObjects;
     std::list<GameObject*> toDelete;
     std::list<Collider*> colliders;
     std::list<Collider*> collidersToRemove;
@@ -17,7 +18,7 @@ public:
 
     ~Floor();
 
-    void update(float deltaTime);
+    void update(float deltaTime, Camera2D camera);
 
     void draw();
 

@@ -8,8 +8,6 @@
 #include <vector>
 
 class Wall : public GameObject, public Collider, public Hitable {
-    static std::vector<Vector2> wallsPos;
-    static bool genWalls;
 public:
     Wall(int x, int y);
 
@@ -18,8 +16,6 @@ public:
     void update(float deltaTime);
 
     void draw() override;
-
-    static void drawWalls();
 
     void onCollisionEnter(Collider* collider) override;
 

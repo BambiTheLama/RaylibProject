@@ -9,7 +9,7 @@
 
 GameScene::GameScene() {
     Game::gameScene = this;
-    camera.zoom = .1f;
+    camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
     Rectangle pos = { 0,0,9000,6000 };
@@ -56,7 +56,7 @@ void GameScene::update(float deltaTime) {
             }
     }
     if (floor)
-        floor->update(deltaTime);
+        floor->update(deltaTime,camera);
     controller.update(deltaTime);
 
     if(controller.hasCharacter())
