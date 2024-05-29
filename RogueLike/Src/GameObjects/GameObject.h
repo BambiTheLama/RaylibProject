@@ -20,6 +20,10 @@ public:
     virtual ~GameObject() {
     }
 
+    virtual void start(){}
+
+    virtual void destroy(){}
+
     virtual void update(float deltaTime) = 0;
 
     virtual void draw() = 0;

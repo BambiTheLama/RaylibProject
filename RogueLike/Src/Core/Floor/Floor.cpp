@@ -60,37 +60,79 @@ Floor::Floor(Rectangle pos)
             if (ID < 0)
                 continue;
             Room room = getRoom(type,ID);
+            int roomID[roomSize][roomSize];
             for (int x = 0; x < roomSize; x++)
-            {
-                int Id = -1;
-                int times = 0;
-                int sy = 0;
                 for (int y = 0; y < roomSize; y++)
-                {
-                    int id = room.getBlockID(x, y);
-                    if (id != Id)
-                    {
-                        if (Id > 0)
-                        {
-                            GameObject* b = getRoomElement(Id, startX + x * tileW, startY + sy * tileH, tileW, tileH * times);
-                            if (b)
-                                addObject(b);
-                        }
-                        times = 1;
-                        Id = id;
-                        sy = y;
-                    }
-                    else 
-                        times++;
+                    roomID[y][x] = room.getBlockID(x, y);
 
-                }
-                if (Id > 0)
+            int lrID = -1;
+            int rID = -1;
+            int sX = -1;
+            int sY = -1;
+            int sW = -1;
+            int sH = -1;
+            for (int y = 0; y < roomSize; y++)
+            {
+                sX = -1;
+                sY = -1;
+                lrID = -1;
+                sH = 1;
+                sW = 1;
+                for (int x = 0; x < roomSize; x++)
                 {
-                    GameObject* b = getRoomElement(Id, startX + x * tileW, startY + sy * tileH, tileW, tileH * times);
+                    rID = roomID[y][x];
+                    if (rID == lrID && getRoomElementType(rID) == BlockType::Wall || getRoomElementType(rID) == BlockType::BossEnterWall)
+                        sW++;
+                    else
+                    {
+                        if (lrID > 0)
+                            break;
+                        sX = x;
+                        sY = y;
+                        sH = 1;
+                        sW = 1;
+                        lrID = rID;
+                    }
+                    if (rID <= 0)
+                        continue;
+                    roomID[y][x] = 0;
+                }
+                if (lrID > 0 && sH > 0 && sW > 0)
+                {
+                    bool isbreak = false;
+                    int k = 1;
+                    do {
+
+                    
+
+                    for (int x = sX; x < sX + sW; x++)
+                    {
+                        if (roomID[k+y][x] != lrID)
+                        {
+                            isbreak = true;
+                            break;
+                        }
+                    }
+                    if (!isbreak)
+                    {
+                        sH++;
+                        for (int x = sX; x < sX + sW; x++)
+                        {
+                            roomID[k+y][x] = 0;
+
+                        }
+                    }
+                    k++;
+                    } while (!isbreak && k + y < roomSize);
+                    GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
                     if (b)
                         addObject(b);
+                    y--;
                 }
+
             }
+
+            
 
         }
 }
@@ -139,6 +181,7 @@ void Floor::update(float deltaTime,Camera2D camera)
             for (auto c : colliders)
                 c->removeObject(collider);
         }
+        o->destroy();
         delete o;
     }
 
@@ -208,6 +251,7 @@ bool Floor::addObject(GameObject* obj)
 
     }
     tree->addObj(obj);
+    obj->start();
     return true;
 }
 
