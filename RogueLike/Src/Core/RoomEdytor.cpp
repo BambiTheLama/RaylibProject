@@ -108,6 +108,8 @@ void RoomEdytor::update(float deltaTime)
 	float m = GetMouseWheelMove();
 	if (IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
 	{
+		if (IsKeyDown(KEY_TAB))
+			ID = 1000;
 		save();
 		ID += m;
 		if (ID < 0)

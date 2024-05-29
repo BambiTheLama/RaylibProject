@@ -37,6 +37,7 @@ void QuadTree::update()
 			continue;
 		updatePos(o);
 	}
+	//printf("OBJECTS SIZE %d\n", objects.size());
 
 
 

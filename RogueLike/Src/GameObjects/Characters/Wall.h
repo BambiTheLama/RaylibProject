@@ -8,8 +8,11 @@
 #include <vector>
 
 class Wall : public GameObject, public Collider, public Hitable {
+    Wall();
 public:
     Wall(int x, int y);
+
+    Wall(int x, int y, int w, int h);
 
     ~Wall();
 

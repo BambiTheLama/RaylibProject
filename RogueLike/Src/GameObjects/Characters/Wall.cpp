@@ -2,15 +2,23 @@
 #include "../../Core/Floor/Room.h"
 #include "rlgl.h"
 
-
-Wall::Wall(int x, int y) {
-    
-        
-    pos = { (float)x, (float)y, tileW, tileH };
-    collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
+Wall::Wall()
+{
     solidObject = true;
     moving = false;
     mass = 10000;
+}
+
+Wall::Wall(int x, int y):Wall() 
+{
+    pos = { (float)x, (float)y, tileW, tileH };
+    collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
+}
+
+Wall::Wall(int x, int y, int w, int h):Wall()
+{
+    pos = { (float)x, (float)y, (float)w, (float)h };
+    collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
 }
 
 Wall::~Wall()

@@ -3,6 +3,6 @@
 
 class GameObject;
 
-GameObject* getRoomElement(int ID,int x,int y);
+GameObject* getRoomElement(int ID, int x, int y, int w, int h);
 
 BlockType getRoomElementType(int ID);

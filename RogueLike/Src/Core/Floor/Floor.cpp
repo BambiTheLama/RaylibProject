@@ -60,14 +60,38 @@ Floor::Floor(Rectangle pos)
             if (ID < 0)
                 continue;
             Room room = getRoom(type,ID);
-
             for (int x = 0; x < roomSize; x++)
+            {
+                int Id = -1;
+                int times = 0;
+                int sy = 0;
                 for (int y = 0; y < roomSize; y++)
                 {
-                    GameObject* b = getRoomElement(room.getBlockID(x, y), startX + x * tileW, startY + y * tileH);
+                    int id = room.getBlockID(x, y);
+                    if (id != Id)
+                    {
+                        if (Id > 0)
+                        {
+                            GameObject* b = getRoomElement(Id, startX + x * tileW, startY + sy * tileH, tileW, tileH * times);
+                            if (b)
+                                addObject(b);
+                        }
+                        times = 1;
+                        Id = id;
+                        sy = y;
+                    }
+                    else 
+                        times++;
+
+                }
+                if (Id > 0)
+                {
+                    GameObject* b = getRoomElement(Id, startX + x * tileW, startY + sy * tileH, tileW, tileH * times);
                     if (b)
                         addObject(b);
                 }
+            }
+
         }
 }
 
