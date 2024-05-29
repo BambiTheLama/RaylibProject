@@ -25,6 +25,8 @@ public:
 
     void draw();
 
+    void drawUI();
+
     std::list<GameObject*> getObjects(Rectangle pos);
 
     bool addObject(GameObject* obj);

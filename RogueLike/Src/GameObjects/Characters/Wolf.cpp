@@ -2,6 +2,8 @@
 #include "../AddisionalTypes/Collider/CollisionElementBox.h"
 #include "../AddisionalTypes/Collider/CollisionElementCircle.h"
 #include "raymath.h"
+#include "../Game.h"
+#include "../ParticleText.h"
 
 Wolf::Wolf(int x, int y)
 {
@@ -17,6 +19,11 @@ Wolf::Wolf(int x, int y)
 	controller.setController(ai);
 	controller.setCharacter(this);
 	controller.setCharacterType(ObjectType::Enemy);
+}
+
+void Wolf::destroy()
+{
+	Game::addObject(new ParticleText(pos.x, pos.y, "KURWA UMIERAM"));
 }
 
 void Wolf::update(float deltaTime)

@@ -21,7 +21,7 @@ void QuadTree::addObj(GameObject* o)
 	}
 
 	objects.push_back(o);
-	if (!roots[0] && objects.size() >= 5)
+	if (!roots[0] && objects.size() >= 8)
 		openTree();
 
 }
@@ -79,7 +79,7 @@ void QuadTree::removeObj(GameObject* o)
 				roots[i]->removeObj(o);
 	}
 	objects.remove(o);
-	if (objects.size() <= 2)
+	if (objects.size() <= 5)
 		closeTree();
 }
 

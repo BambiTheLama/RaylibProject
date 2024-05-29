@@ -22,6 +22,8 @@ class Wolf :
 public:
     Wolf(int x = 0, int y = 0);
 
+    void destroy();
+
     void update(float deltaTime);
 
     void draw();

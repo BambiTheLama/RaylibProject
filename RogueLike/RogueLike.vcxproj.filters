@@ -88,9 +88,6 @@
       <Filter>GameObjects\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Src\Font.h" />
-    <ClInclude Include="Src\GameObjects\ParticleText.h">
-      <Filter>GameObjects\Characters</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\QuadTree.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -110,6 +107,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
+    <ClInclude Include="Src\GameObjects\ParticleText.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -168,9 +168,6 @@
       <Filter>GameObjects\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Src\Font.cpp" />
-    <ClCompile Include="Src\GameObjects\ParticleText.cpp">
-      <Filter>GameObjects\Characters</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Core\QuadTree.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -190,6 +187,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
+    <ClCompile Include="Src\GameObjects\ParticleText.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

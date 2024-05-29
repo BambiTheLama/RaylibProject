@@ -201,8 +201,9 @@ void Floor::update(float deltaTime,Camera2D camera)
     else
     {
         Vector2 camPos = camera.target;
-        Vector2 offset = { camera.offset.x * 1.5f*1.0f/camera.zoom,camera.offset.y * 1.5f * 1.0f / camera.zoom };
-
+        Vector2 offset = { camera.offset.x * 1.0f / camera.zoom,camera.offset.y * 1.5f * 1.0f / camera.zoom };
+        offset.x += 250;
+        offset.y += 250;
         camPos.x -= offset.x;
         camPos.y -= offset.y;
         offset.x *= 2;
@@ -237,8 +238,14 @@ void Floor::draw()
         o->draw();
     }
 #endif
+
     if (IsKeyDown(KEY_TAB))
         tree->draw();
+}
+
+void Floor::drawUI()
+{
+    MyFont::DrawTextWithOutline(TextFormat("%d/%d", closeObjects.size(), allGameObjects.size()), 64, 64, 32, WHITE, BLACK);
 }
 
 std::list<GameObject*> Floor::getObjects(Rectangle pos) 

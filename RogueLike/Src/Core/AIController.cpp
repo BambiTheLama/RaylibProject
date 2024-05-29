@@ -19,7 +19,7 @@ void AIController::update(float deltaTime)
 		{
 			Vector2 moveDiff = { (rand() % 2001) / 1000.0f - 1.0f,(rand() % 2001) / 1000.0f - 1.0f };
 		
-			IDEMoveDir = Vector2Add(IDEMoveDir, { moveDiff.x * deltaTime,moveDiff.y * deltaTime });
+			IDEMoveDir = Vector2Add(IDEMoveDir, { moveDiff.x * deltaTime*10,moveDiff.y * deltaTime*10 });
 		}
 		IDEMoveDir = Vector2Normalize(IDEMoveDir);
 		moveDir = IDEMoveDir;
