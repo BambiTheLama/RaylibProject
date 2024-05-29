@@ -4,6 +4,7 @@
 #include "../../GameObjects/AddisionalTypes/Collider/Collider.h"
 #include "../QuadTree.h"
 
+class Room;
 class Floor
 {
     std::list<GameObject*> allGameObjects;
@@ -17,6 +18,8 @@ public:
     Floor(Rectangle pos);
 
     ~Floor();
+
+    void setUpRooms(int startX, int startY, Room& room);
 
     void update(float deltaTime, Camera2D camera);
 

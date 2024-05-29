@@ -60,81 +60,90 @@ Floor::Floor(Rectangle pos)
             if (ID < 0)
                 continue;
             Room room = getRoom(type,ID);
-            int roomID[roomSize][roomSize];
-            for (int x = 0; x < roomSize; x++)
-                for (int y = 0; y < roomSize; y++)
-                    roomID[y][x] = room.getBlockID(x, y);
+            setUpRooms(startX, startY, room);
+        }
+}
 
-            int lrID = -1;
-            int rID = -1;
-            int sX = -1;
-            int sY = -1;
-            int sW = -1;
-            int sH = -1;
-            for (int y = 0; y < roomSize; y++)
+void Floor::setUpRooms(int startX, int startY, Room& room)
+{
+    int roomID[roomSize][roomSize];
+    for (int x = 0; x < roomSize; x++)
+        for (int y = 0; y < roomSize; y++)
+            roomID[y][x] = room.getBlockID(x, y);
+
+    int lrID = -1;
+    int rID = -1;
+    int sX = -1;
+    int sY = -1;
+    int sW = -1;
+    int sH = -1;
+    for (int y = 0; y < roomSize; y++)
+    {
+        sX = -1;
+        sY = -1;
+        lrID = -1;
+        sH = 1;
+        sW = 1;
+        BlockType type = getRoomElementType(rID);
+        for (int x = 0; x < roomSize; x++)
+        {
+            rID = roomID[y][x];
+            if (rID == lrID && (type == BlockType::Wall || type == BlockType::BossEnterWall))
+                sW++;
+            else
             {
-                sX = -1;
-                sY = -1;
-                lrID = -1;
-                sH = 1;
-                sW = 1;
-                for (int x = 0; x < roomSize; x++)
+                if (lrID > 0)
                 {
-                    rID = roomID[y][x];
-                    if (rID == lrID && getRoomElementType(rID) == BlockType::Wall || getRoomElementType(rID) == BlockType::BossEnterWall)
-                        sW++;
-                    else
-                    {
-                        if (lrID > 0)
-                            break;
-                        sX = x;
-                        sY = y;
-                        sH = 1;
-                        sW = 1;
-                        lrID = rID;
-                    }
-                    if (rID <= 0)
-                        continue;
-                    roomID[y][x] = 0;
-                }
-                if (lrID > 0 && sH > 0 && sW > 0)
-                {
-                    bool isbreak = false;
-                    int k = 1;
-                    do {
-
-                    
-
-                    for (int x = sX; x < sX + sW; x++)
-                    {
-                        if (roomID[k+y][x] != lrID)
-                        {
-                            isbreak = true;
-                            break;
-                        }
-                    }
-                    if (!isbreak)
-                    {
-                        sH++;
-                        for (int x = sX; x < sX + sW; x++)
-                        {
-                            roomID[k+y][x] = 0;
-
-                        }
-                    }
-                    k++;
-                    } while (!isbreak && k + y < roomSize);
+                    if (type == BlockType::Wall || type == BlockType::BossEnterWall)
+                        break;
                     GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
                     if (b)
                         addObject(b);
-                    y--;
                 }
 
+                sX = x;
+                sY = y;
+                sH = 1;
+                sW = 1;
+                lrID = rID;
+                type = getRoomElementType(rID);
             }
-
-            
-
+            if (rID <= 0)
+                continue;
+            roomID[y][x] = 0;
         }
+        if (lrID > 0 && sH > 0 && sW > 0)
+        {
+            bool isbreak = false;
+            int k = 1;
+            do {
+
+                for (int x = sX; x < sX + sW; x++)
+                {
+                    if (roomID[k + y][x] != lrID)
+                    {
+                        isbreak = true;
+                        break;
+                    }
+                }
+                if (!isbreak)
+                {
+                    sH++;
+                    for (int x = sX; x < sX + sW; x++)
+                    {
+                        roomID[k + y][x] = 0;
+
+                    }
+                }
+                k++;
+            } while (!isbreak && k + y < roomSize);
+            GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
+            if (b)
+                addObject(b);
+            y--;
+        }
+
+    }
 }
 
 Floor::~Floor()
