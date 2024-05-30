@@ -38,5 +38,7 @@ public:
 private:
     void setUpLoot();
 
+    void setUpEnemies();
+
 };
 

@@ -6,6 +6,7 @@
 #include "../../GameObjects/Characters/BossWall.h"
 #include "../../GameObjects/Characters/LootBlock.h"
 #include "../../GameObjects/Characters/SpawnPoint.h"
+#include "../../GameObjects/Characters/Wolf.h"
 
 FloorRooms getFloorRooms()
 {
@@ -65,6 +66,7 @@ Floor::Floor(Rectangle pos)
             setUpRooms(startX, startY, room);
         }
     setUpLoot();
+    setUpEnemies();
 }
 
 
@@ -187,6 +189,7 @@ void Floor::update(float deltaTime,Camera2D camera)
 {
     for (auto o : toDelete)
     {
+        tree->removeObj(o);
         allGameObjects.remove(o);
         Collider* collider = dynamic_cast<Collider*>(o);
         if (collider) {
@@ -343,4 +346,51 @@ void Floor::setUpLoot()
 
 
 
+}
+
+void Floor::setUpEnemies()
+{
+    Rectangle thisP = { 0,0,1600,900 };
+    float w = pos.width / thisP.width;
+    float h = pos.height / thisP.height;
+
+    for (int x = 0; x < w; x++)
+        for (int y = 0; y < h; y++)
+        {
+            thisP.x = x * thisP.width;
+            thisP.y = y * thisP.height;
+            int elements = 10;
+            std::list<GameObject*> gm = tree->getObjects(thisP);
+            std::vector<SpawnPoint*> spawnPoints;
+            for (auto o : gm)
+            {
+                SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
+                if (!sp)
+                    continue;
+                if (sp->getType() != BlockType::EnemySpawnPoint)
+                    continue;
+                spawnPoints.push_back(sp);
+            }
+            for (auto o : spawnPoints)
+                deleteObject(o);
+            if (spawnPoints.size() <= elements)
+            {
+                for (auto o : spawnPoints)
+                {
+                    Rectangle pos = o->getPos();
+                    addObject(new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2));
+                }
+            }
+            else
+            {
+                for (; elements > 0 && spawnPoints.size() > 0; elements--)
+                {
+                    int e = rand() % spawnPoints.size();
+                    Rectangle pos = spawnPoints[e]->getPos();
+                    addObject(new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2));
+                    spawnPoints.erase(spawnPoints.begin() + e);
+
+                }
+            }
+        }
 }

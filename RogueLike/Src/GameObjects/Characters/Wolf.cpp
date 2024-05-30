@@ -15,7 +15,7 @@ Wolf::Wolf(float x, float y)
 	ai->thisObj = this;
 	ai->targerType = (int)ObjectType::Player;
 	ai->action = (int)Action::GoTo;
-	ai->range = 500;
+	ai->range = 300;
 	controller.setController(ai);
 	controller.setCharacter(this);
 	controller.setCharacterType(ObjectType::Enemy);
