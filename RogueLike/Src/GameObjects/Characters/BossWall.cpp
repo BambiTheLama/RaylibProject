@@ -9,7 +9,7 @@ BossWall::BossWall()
     mass = 10000;
 }
 
-BossWall::BossWall(int x, int y):BossWall()
+BossWall::BossWall(float x, float y):BossWall()
 {
     pos = { (float)x, (float)y, tileW, tileH };
     collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));

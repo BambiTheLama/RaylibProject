@@ -106,10 +106,19 @@
     <ClInclude Include="Src\Core\RoomEdytor.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
     <ClInclude Include="Src\GameObjects\ParticleText.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\BossWall.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\SpawnPoint.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Characters\LootBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -186,10 +195,19 @@
     <ClCompile Include="Src\Core\RoomEdytor.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
     <ClCompile Include="Src\GameObjects\ParticleText.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\SpawnPoint.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -12,7 +12,7 @@ class Enemy :
     CharacterController controller;
     float speed = 10;
 public:
-    Enemy(int x = 0, int y = 0);
+    Enemy(float x,float y);
 
     void update(float deltaTime);
 

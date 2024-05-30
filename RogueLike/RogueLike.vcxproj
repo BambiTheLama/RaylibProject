@@ -41,9 +41,12 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h" />
+    <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
     <ClInclude Include="Src\GameObjects\Characters\Enemy.h" />
+    <ClInclude Include="Src\GameObjects\Characters\LootBlock.h" />
     <ClInclude Include="Src\GameObjects\Characters\Player.h" />
+    <ClInclude Include="Src\GameObjects\Characters\SpawnPoint.h" />
     <ClInclude Include="Src\GameObjects\Characters\Wall.h" />
     <ClInclude Include="Src\GameObjects\Characters\Wolf.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
@@ -71,9 +74,12 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Player.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\SpawnPoint.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Wall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />

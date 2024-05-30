@@ -31,14 +31,18 @@ void QuadTree::update()
 	if (!roots[0])
 		return;
 
-	for (auto o : objects)
-	{
-		if (!o->movingObject())
-			continue;
-		updatePos(o);
-	}
-	//printf("OBJECTS SIZE %d\n", objects.size());
 
+	//printf("OBJECTS SIZE %d\n", objects.size());
+	if (roots[0])
+	{
+		for (auto o : objects)
+		{
+			if (!o->movingObject())
+				continue;
+			for (int i = 0; i < 4; i++)
+				roots[i]->updatePos(o);
+		}
+	}
 
 
 }

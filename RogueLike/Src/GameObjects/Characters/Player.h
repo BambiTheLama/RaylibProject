@@ -10,7 +10,7 @@ class Player : public GameObject, public Character, public Collider,public Hitab
     float speed = 500;
 
 public:
-    Player(int x = 0, int y = 0);
+    Player(float x,float y);
 
     ~Player();
 

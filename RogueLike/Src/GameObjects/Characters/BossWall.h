@@ -8,7 +8,7 @@ class BossWall :
 {
     BossWall();
 public:
-    BossWall(int x, int y);
+    BossWall(float x, float y);
 
     BossWall(int x, int y, int w, int h);
 

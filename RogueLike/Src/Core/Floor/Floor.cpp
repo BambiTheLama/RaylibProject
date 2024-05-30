@@ -4,6 +4,8 @@
 #include "RoomElements.h"
 #include <fstream>
 #include "../../GameObjects/Characters/BossWall.h"
+#include "../../GameObjects/Characters/LootBlock.h"
+#include "../../GameObjects/Characters/SpawnPoint.h"
 
 FloorRooms getFloorRooms()
 {
@@ -34,8 +36,8 @@ FloorRooms getFloorRooms()
 
 Floor::Floor(Rectangle pos)
 {
-    pos.width = ((int)pos.width / roomW) * roomW;
-    pos.height = ((int)pos.height / roomH) * roomH;
+    pos.width = ((int)pos.width / (int)roomW) * (int)roomW;
+    pos.height = ((int)pos.height / (int)roomH) * (int)roomH;
     this->pos = pos;
 
     tree = new QuadTree({ pos.x - 100,pos.y - 100,pos.width + 200,pos.height + 200 });
@@ -62,7 +64,10 @@ Floor::Floor(Rectangle pos)
             Room room = getRoom(type,ID);
             setUpRooms(startX, startY, room);
         }
+    setUpLoot();
 }
+
+
 
 void Floor::setUpRooms(int startX, int startY, Room& room)
 {
@@ -180,7 +185,6 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
 
 void Floor::update(float deltaTime,Camera2D camera)
 {
-
     for (auto o : toDelete)
     {
         allGameObjects.remove(o);
@@ -212,8 +216,13 @@ void Floor::update(float deltaTime,Camera2D camera)
         closeObjects = tree->getObjects(pos);
     }
     for (auto o : closeObjects)
+    {
         o->update(deltaTime);
-    tree->update();
+        if(o->movingObject())
+            tree->updatePos(o);
+    }
+
+    //tree->update();
 
     for (auto o : colliders)
         o->clearCollider();
@@ -245,7 +254,7 @@ void Floor::draw()
 
 void Floor::drawUI()
 {
-    MyFont::DrawTextWithOutline(TextFormat("%d/%d", closeObjects.size(), allGameObjects.size()), 64, 64, 32, WHITE, BLACK);
+    MyFont::DrawTextWithOutline(TextFormat("%d/%d", closeObjects.size(), allGameObjects.size()), 0, 64, 32, WHITE, BLACK);
 }
 
 std::list<GameObject*> Floor::getObjects(Rectangle pos) 
@@ -284,4 +293,54 @@ void Floor::removeObject(GameObject* obj)
         collidersToRemove.remove(collider);
     }
     tree->removeObj(obj);
+}
+
+void Floor::setUpLoot()
+{
+    Rectangle thisP = { 0,0,1600,900 };
+    float w = pos.width / thisP.width;
+    float h = pos.height / thisP.height;
+
+    for(int x=0;x<w;x++)
+        for (int y = 0; y < h; y++)
+        {
+            thisP.x = x * thisP.width;
+            thisP.y = y * thisP.height;
+            int elements = 40;
+            std::list<GameObject*> gm = tree->getObjects(thisP);
+            std::vector<SpawnPoint*> spawnPoints;
+            for (auto o : gm)
+            {
+                SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
+                if (!sp)
+                    continue;
+                if (sp->getType() != BlockType::LootSpawnPoint)
+                    continue;
+                spawnPoints.push_back(sp);
+            }
+            for (auto o : spawnPoints)
+                deleteObject(o);
+            if (spawnPoints.size() <= elements)
+            {
+                for (auto o : spawnPoints)
+                {
+                    Rectangle pos = o->getPos();
+                    addObject(new LootBlock(pos.x, pos.y));
+                }
+            }
+            else
+            {
+                for (; elements > 0 && spawnPoints.size() > 0; elements--)
+                {
+                    int e = rand() % spawnPoints.size();
+                    Rectangle pos = spawnPoints[e]->getPos();
+                    addObject(new LootBlock(pos.x, pos.y));
+                    spawnPoints.erase(spawnPoints.begin() + e);
+
+                }
+            }
+        }
+
+
+
 }

@@ -3,11 +3,11 @@
 #include "../WaveCollapsFun.h"
 #include <json.hpp>
 
-#define roomSize 9
-#define tileW 32
-#define tileH 32
-#define roomW (roomSize*tileW)
-#define roomH (roomSize*tileH)
+const int roomSize = 9;
+const float tileW = 32.0f;
+const float tileH = 32.0f;
+const float roomW = (roomSize * tileW);
+const float roomH = (roomSize * tileH);
 
 class GameObject;
 
@@ -24,7 +24,7 @@ public:
 
 	RoomData createRoomData();
 
-	int getBlockID(int x, int y);
+	int getBlockID(int x,int y);
 
 	std::vector<GameObject*> getObjects();
 

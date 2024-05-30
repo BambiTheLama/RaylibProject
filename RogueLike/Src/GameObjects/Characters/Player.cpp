@@ -4,7 +4,7 @@
 #include "../AddisionalTypes/Collider/CollisionElementCircle.h"
 #include "../AddisionalTypes/Hitable.h"
 
-Player::Player(int x, int y){
+Player::Player(float x, float y){
     pos = {(float) x, (float) y, 48, 64};
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;

@@ -5,9 +5,9 @@
 #include "../Game.h"
 #include "../ParticleText.h"
 
-Wolf::Wolf(int x, int y)
+Wolf::Wolf(float x, float y)
 {
-	pos = { (float)x,(float)y,64,32 };
+	pos = { x,y,64,32 };
 	collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height / 4, pos.width / 2, pos.height / 2 }));
 	//collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
 	type = ObjectType::Enemy;

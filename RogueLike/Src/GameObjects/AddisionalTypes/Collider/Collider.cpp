@@ -78,7 +78,7 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaT
                 }
 
 
-                const float moveMultyplay = 0.04f;
+                const float moveMultyplay = 0.02f;
 
 
 

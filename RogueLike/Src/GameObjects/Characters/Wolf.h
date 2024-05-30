@@ -20,7 +20,7 @@ class Wolf :
     AIController* ai;
     Vector2 dir;
 public:
-    Wolf(int x = 0, int y = 0);
+    Wolf(float x,float y);
 
     void destroy();
 

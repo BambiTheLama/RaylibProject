@@ -35,5 +35,8 @@ public:
 
     void removeObject(GameObject* obj);
 
+private:
+    void setUpLoot();
+
 };
 

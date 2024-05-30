@@ -113,7 +113,7 @@ RoomData Room::createRoomData()
 	return data;
 }
 
-int Room::getBlockID(int x, int y)
+int Room::getBlockID(int x,int y)
 {
 	if (x < 0 || y < 0 || x >= roomSize || y >= roomSize)
 		return -1;

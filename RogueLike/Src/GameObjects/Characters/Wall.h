@@ -7,12 +7,13 @@
 #include "../AddisionalTypes/Hitable.h"
 #include <vector>
 
-class Wall : public GameObject, public Collider, public Hitable {
-    Wall();
-public:
-    Wall(int x, int y);
+extern const float tileW;
+extern const float tileH;
 
-    Wall(int x, int y, int w, int h);
+class Wall : public GameObject, public Collider, public Hitable {
+
+public:
+    Wall(float x, float y, float w = tileW, float h = tileH);
 
     ~Wall();
 

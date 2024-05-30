@@ -3,7 +3,7 @@
 #include "raymath.h"
 #include "../AddisionalTypes/Collider/CollisionElementBox.h"
 
-Enemy::Enemy(int x, int y)
+Enemy::Enemy(float x, float y)
 {
 	hp = 100;
 	pos = { (float)x, (float)y, 48, 64 };
