@@ -65,8 +65,10 @@ Floor::Floor(Rectangle pos)
             Room room = getRoom(type,ID);
             setUpRooms(startX, startY, room);
         }
-    setUpLoot();
-    setUpEnemies();
+    //setUpObjects(std::vector<int>{ 0 }, 10, BlockType::EnemySpawnPoint);
+    //setUpObjects(std::vector<int>{ 1 }, 20, BlockType::LootSpawnPoint);
+    setUpObjects(std::vector<int>{ 1 }, 1, BlockType::ElitEnemySpawn);
+    removeCloseEnemies();
 }
 
 
@@ -235,7 +237,6 @@ void Floor::update(float deltaTime,Camera2D camera)
         colliders.remove(c);
     collidersToRemove.clear();
     closeObjects.sort(sortGameObjectCondiction);
-
 }
 
 void Floor::draw()
@@ -267,6 +268,8 @@ std::list<GameObject*> Floor::getObjects(Rectangle pos)
 
 bool Floor::addObject(GameObject* obj)
 {
+    if (!obj)
+        return false;
     auto find = std::find(allGameObjects.begin(), allGameObjects.end(), obj);
     if (find != allGameObjects.end())
         return true;
@@ -298,58 +301,10 @@ void Floor::removeObject(GameObject* obj)
     tree->removeObj(obj);
 }
 
-void Floor::setUpLoot()
+void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type)
 {
-    Rectangle thisP = { 0,0,1600,900 };
-    float w = pos.width / thisP.width;
-    float h = pos.height / thisP.height;
-
-    for(int x=0;x<w;x++)
-        for (int y = 0; y < h; y++)
-        {
-            thisP.x = x * thisP.width;
-            thisP.y = y * thisP.height;
-            int elements = 40;
-            std::list<GameObject*> gm = tree->getObjects(thisP);
-            std::vector<SpawnPoint*> spawnPoints;
-            for (auto o : gm)
-            {
-                SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
-                if (!sp)
-                    continue;
-                if (sp->getType() != BlockType::LootSpawnPoint)
-                    continue;
-                spawnPoints.push_back(sp);
-            }
-            for (auto o : spawnPoints)
-                deleteObject(o);
-            if (spawnPoints.size() <= elements)
-            {
-                for (auto o : spawnPoints)
-                {
-                    Rectangle pos = o->getPos();
-                    addObject(new LootBlock(pos.x, pos.y));
-                }
-            }
-            else
-            {
-                for (; elements > 0 && spawnPoints.size() > 0; elements--)
-                {
-                    int e = rand() % spawnPoints.size();
-                    Rectangle pos = spawnPoints[e]->getPos();
-                    addObject(new LootBlock(pos.x, pos.y));
-                    spawnPoints.erase(spawnPoints.begin() + e);
-
-                }
-            }
-        }
-
-
-
-}
-
-void Floor::setUpEnemies()
-{
+    if (objects.size() <= 0)
+        return;
     Rectangle thisP = { 0,0,1600,900 };
     float w = pos.width / thisP.width;
     float h = pos.height / thisP.height;
@@ -359,7 +314,7 @@ void Floor::setUpEnemies()
         {
             thisP.x = x * thisP.width;
             thisP.y = y * thisP.height;
-            int elements = 10;
+            int elements = numberOfObjects;
             std::list<GameObject*> gm = tree->getObjects(thisP);
             std::vector<SpawnPoint*> spawnPoints;
             for (auto o : gm)
@@ -367,7 +322,7 @@ void Floor::setUpEnemies()
                 SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
                 if (!sp)
                     continue;
-                if (sp->getType() != BlockType::EnemySpawnPoint)
+                if (sp->getType() != type)
                     continue;
                 spawnPoints.push_back(sp);
             }
@@ -377,8 +332,8 @@ void Floor::setUpEnemies()
             {
                 for (auto o : spawnPoints)
                 {
-                    Rectangle pos = o->getPos();
-                    addObject(new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2));
+                    int ID = objects[rand() % objects.size()];
+                    addObject(getObject(ID, o->getPos()));
                 }
             }
             else
@@ -387,10 +342,29 @@ void Floor::setUpEnemies()
                 {
                     int e = rand() % spawnPoints.size();
                     Rectangle pos = spawnPoints[e]->getPos();
-                    addObject(new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2));
+                    int ID = objects[rand() % objects.size()];
+                    addObject(getObject(ID, pos));
                     spawnPoints.erase(spawnPoints.begin() + e);
 
                 }
             }
         }
+}
+
+void Floor::removeCloseEnemies()
+{
+    Rectangle rPos;
+    rPos.width = 1600;
+    rPos.height = 1600;
+    rPos.x = pos.x + pos.width / 2 - rPos.width / 2;
+    rPos.y = pos.y + pos.height / 2 - rPos.height / 2;
+
+    std::list<GameObject*> gm = tree->getObjects(rPos);
+    for (auto o : gm)
+    {
+        if (o->getType() != ObjectType::Enemy)
+            continue;
+        deleteObject(o);
+
+    }
 }

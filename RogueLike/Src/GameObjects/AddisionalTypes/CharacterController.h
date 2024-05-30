@@ -26,7 +26,7 @@ public:
 
     Vector2 getPos() { return pos; }
 
-    void setCharacterType(ObjectType type) { this->type = type; }
+    void setCharacterType(ObjectType type);
 
     bool hasCharacter() { return character; }
 };

@@ -342,6 +342,9 @@ void RoomEdytor::draw()
 			case BlockType::BossEnterWall:
 				c = BLACK;
 				break;
+			case BlockType::ElitEnemySpawn:
+				c = GetColor(0xff00ffff);
+				break;
 			default:
 				break;
 			}

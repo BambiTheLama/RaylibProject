@@ -65,3 +65,11 @@ void CharacterController::destoryController()
     }
 
 }
+
+void CharacterController::setCharacterType(ObjectType type)
+{ 
+    this->type = type; 
+    if (gm)
+        gm->setType(type);
+
+}

@@ -3,6 +3,8 @@
 #include "../../GameObjects/Characters/BossWall.h"
 #include "../../GameObjects/Characters/SpawnPoint.h"
 #include "../../GameObjects/Characters/BossEnterWall.h"
+#include "../../GameObjects/Characters/Wolf.h"
+#include "../../GameObjects/Characters/LootBlock.h"
 
 GameObject* getRoomElement(int ID, int x, int y, int w, int h)
 {
@@ -26,6 +28,8 @@ GameObject* getRoomElement(int ID, int x, int y, int w, int h)
 		return new SpawnPoint(x, y, BlockType::BossSpawnPoint);
 	case 8:
 		return new BossEnterWall(x, y, w, h);
+	case 9:
+		return new SpawnPoint(x, y, BlockType::ElitEnemySpawn);
 	default:
 		break;
 	}
@@ -50,5 +54,23 @@ BlockType getRoomElementType(int ID)
 		return BlockType::BossSpawnPoint;
 	if (ID <= 8)
 		return BlockType::BossEnterWall;
+	if (ID <= 9)
+		return BlockType::ElitEnemySpawn;
 	return BlockType::NON;
+}
+
+GameObject* getObject(int ID, Rectangle pos)
+{
+	if (ID < 0)
+		return NULL;
+	switch (ID)
+	{
+	case 0:
+		return new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2);
+	case 1:
+		return new LootBlock(pos.x, pos.y);
+	default:
+		break;
+	}
+	return NULL;
 }

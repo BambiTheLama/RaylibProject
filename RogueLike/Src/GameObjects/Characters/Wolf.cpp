@@ -8,6 +8,8 @@
 Wolf::Wolf(float x, float y)
 {
 	pos = { x,y,64,32 };
+	pos.x -= pos.width / 2;
+	pos.y -= pos.height / 2;
 	collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height / 4, pos.width / 2, pos.height / 2 }));
 	//collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
 	type = ObjectType::Enemy;
@@ -23,7 +25,7 @@ Wolf::Wolf(float x, float y)
 
 void Wolf::destroy()
 {
-	Game::addObject(new ParticleText(pos.x, pos.y, "KURWA UMIERAM"));
+	//Game::addObject(new ParticleText(pos.x, pos.y, "KURWA UMIERAM"));
 }
 
 void Wolf::update(float deltaTime)
