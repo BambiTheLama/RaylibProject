@@ -10,7 +10,7 @@
 extern const float tileW;
 extern const float tileH;
 
-class Wall : public GameObject, public Collider, public Hitable {
+class Wall : public GameObject, public Collider{
 
 public:
     Wall(float x, float y, float w = tileW, float h = tileH);

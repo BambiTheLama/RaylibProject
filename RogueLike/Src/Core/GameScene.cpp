@@ -28,6 +28,7 @@ GameScene::~GameScene() {
 
 void GameScene::start() {
     Game::gameScene = this;
+    floor->start();
 
 }
 

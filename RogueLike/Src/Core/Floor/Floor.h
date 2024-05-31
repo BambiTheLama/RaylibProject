@@ -22,6 +22,8 @@ public:
 
     ~Floor();
 
+    void start();
+
     void setUpRooms(int startX, int startY, Room& room);
 
     void update(float deltaTime, Camera2D camera);

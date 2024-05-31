@@ -65,9 +65,9 @@ Floor::Floor(Rectangle pos)
             Room room = getRoom(type,ID);
             setUpRooms(startX, startY, room);
         }
-    //setUpObjects(std::vector<int>{ 0 }, 10, BlockType::EnemySpawnPoint);
-    //setUpObjects(std::vector<int>{ 1 }, 20, BlockType::LootSpawnPoint);
-    setUpObjects(std::vector<int>{ 1 }, 1, BlockType::ElitEnemySpawn);
+    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::EnemySpawnPoint);
+    setUpObjects(std::vector<int>{ 1 }, 20, BlockType::LootSpawnPoint);
+    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn);
     removeCloseEnemies();
 }
 
@@ -174,6 +174,12 @@ Floor::~Floor()
 
     toDelete.clear();
     delete tree;
+}
+
+void Floor::start()
+{
+    for (auto o : allGameObjects)
+        o->start();
 }
 
 bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
@@ -319,6 +325,8 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
             std::vector<SpawnPoint*> spawnPoints;
             for (auto o : gm)
             {
+                if (o->getType() != ObjectType::SpawnPoint)
+                    continue;
                 SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
                 if (!sp)
                     continue;

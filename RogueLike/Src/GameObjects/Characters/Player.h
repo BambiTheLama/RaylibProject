@@ -22,6 +22,8 @@ public:
 
     void draw();
 
+    void setPos(Vector2 point) { pos.x = point.x - pos.width / 2; pos.y = point.y - pos.height / 2; }
+
     void onCollisionEnter(Collider* collider) override;
 
     void onCollisionExit(Collider* collider) override;
