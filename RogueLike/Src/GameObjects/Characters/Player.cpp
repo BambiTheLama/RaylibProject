@@ -5,7 +5,7 @@
 #include "../AddisionalTypes/Hitable.h"
 
 Player::Player(float x, float y){
-    pos = {(float) x, (float) y, 48, 64};
+    pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;
     collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height /4, pos.width/2, pos.height/2}));

@@ -32,7 +32,7 @@ void BossEnterWall::start()
             continue;
         Rectangle p = sp->getPos();
         hasSpawnPoint = true;
-        spawnPoint = { p.x + p.width / 2,p.y + p.height };
+        spawnPoint = { p.x + p.width / 2,p.y + p.height / 2 };
         return;
     }
 }

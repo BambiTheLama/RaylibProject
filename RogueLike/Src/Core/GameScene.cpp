@@ -4,8 +4,10 @@
 #include <algorithm>
 #include "../GameObjects/Characters/Wall.h"
 #include "../GameObjects/Characters/Wolf.h"
+#include "../GameObjects/Characters/SpawnPoint.h"
 #include "Controller.h"
 #include "rlgl.h"
+#include "WaveCollapsFun.h"
 
 GameScene::GameScene() {
     Game::gameScene = this;
@@ -16,8 +18,30 @@ GameScene::GameScene() {
     floor = new Floor(pos);
     camera.target = { pos.width / 2,pos.height / 2 };
 
-    addObject(new Player(pos.width / 2, pos.height / 2));
+    std::list<GameObject*>objs = floor->getObjects({ pos.x + pos.width / 2 - 100,pos.y + pos.height / 2 - 100,200,200 });
+    float sx = pos.width / 2, sy = pos.height / 2;
+    for (auto o : objs)
+    {
+        if (o->getType() != ObjectType::SpawnPoint)
+            continue;
+        SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
+        if (!sp)
+            continue;
+        if (sp->getType() != BlockType::PlayerSpawnPoint)
+            continue;
+        Rectangle sPos = sp->getPos();
+        sx = sPos.x + sPos.width / 2;
+        sy = sPos.y + sPos.height / 2;
+        deleteObject(o);
+        break;
+    }
+
+    addObject(new Player(sx, sy));
     controller.setCharacterType(ObjectType::Player);
+
+    
+
+
 }
 
 GameScene::~GameScene() {

@@ -34,6 +34,8 @@ public:
 
     void onCollisionEnter(Collider* collider);
 
+    void setPos(Vector2 point) { pos.x = point.x - pos.width / 2; pos.y = point.y - pos.height / 2; }
+
     void destoryController();
 
     void onHit();

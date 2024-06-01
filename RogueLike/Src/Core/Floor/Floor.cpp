@@ -216,7 +216,7 @@ void Floor::update(float deltaTime,Camera2D camera)
     else
     {
         Vector2 camPos = camera.target;
-        Vector2 offset = { camera.offset.x * 1.0f / camera.zoom,camera.offset.y * 1.5f * 1.0f / camera.zoom };
+        Vector2 offset = { camera.offset.x * 1.0f / camera.zoom,camera.offset.y * 1.0f / camera.zoom };
         offset.x += 250;
         offset.y += 250;
         camPos.x -= offset.x;
