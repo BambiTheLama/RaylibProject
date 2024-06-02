@@ -4,10 +4,12 @@
 #include "../../GameObjects/AddisionalTypes/Collider/Collider.h"
 #include "../QuadTree.h"
 #include <vector>
+#include "../WaveCollapsFun.h"
 
 class Room;
 extern enum class ObjectType :int;
 extern enum class BlockType :char;
+
 class Floor
 {
     std::list<GameObject*> allGameObjects;
@@ -41,7 +43,7 @@ public:
     void removeObject(GameObject* obj);
 
 private:
-    void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type);
+    void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid);
 
     void removeCloseEnemies();
 

@@ -7,6 +7,7 @@
 #include "../../GameObjects/Characters/LootBlock.h"
 #include "../../GameObjects/Characters/SpawnPoint.h"
 #include "../../GameObjects/Characters/Wolf.h"
+#include "raylib.hpp"
 
 FloorRooms getFloorRooms()
 {
@@ -65,13 +66,11 @@ Floor::Floor(Rectangle pos)
             Room room = getRoom(type,ID);
             setUpRooms(startX, startY, room);
         }
-    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::EnemySpawnPoint);
-    setUpObjects(std::vector<int>{ 1 }, 20, BlockType::LootSpawnPoint);
-    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn);
+    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::EnemySpawnPoint,roomGrid);
+    setUpObjects(std::vector<int>{ 1 }, 20, BlockType::LootSpawnPoint,roomGrid);
+    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn,roomGrid);
     removeCloseEnemies();
 }
-
-
 
 void Floor::setUpRooms(int startX, int startY, Room& room)
 {
@@ -105,9 +104,13 @@ void Floor::setUpRooms(int startX, int startY, Room& room)
                 {
                     if (type == BlockType::Wall || type == BlockType::BossEnterWall)
                         break;
-                    GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
-                    if (b)
-                        addObject(b);
+                    if (type == BlockType::PlayerSpawnPoint)
+                    {
+                        GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
+                        if (b)
+                            addObject(b);
+                    }
+
                 }
 
                 sX = x;
@@ -307,13 +310,15 @@ void Floor::removeObject(GameObject* obj)
     tree->removeObj(obj);
 }
 
-void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type)
+void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid)
 {
     if (objects.size() <= 0)
         return;
-    Rectangle thisP = { 0,0,1600,900 };
-    float w = pos.width / thisP.width;
-    float h = pos.height / thisP.height;
+    const int sw = 50;
+    const int sh = 50;
+    Rectangle thisP = { 0,0,tileW * sw,tileH * sh };
+    const float w = pos.width / thisP.width;
+    const float h = pos.height / thisP.height;
 
     for (int x = 0; x < w; x++)
         for (int y = 0; y < h; y++)
@@ -321,39 +326,48 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
             thisP.x = x * thisP.width;
             thisP.y = y * thisP.height;
             int elements = numberOfObjects;
-            std::list<GameObject*> gm = tree->getObjects(thisP);
-            std::vector<SpawnPoint*> spawnPoints;
-            for (auto o : gm)
+
+            std::vector<Vector2> elementsPos;
+
+
+            for (int i = 0; i < sw; i++)
+                for (int j = 0; j < sh; j++)
+                {
+                    const int sx = x * sw + i;
+                    const int sy = y * sh + j;
+                    const int gx = sx / roomSize;
+                    const int gy = sy / roomSize;
+                    const int rx = sx % roomSize;
+                    const int ry = sy % roomSize;
+                    if (roomGrid.size() <= gy || roomGrid[0].size() <= gx)
+                        continue;
+                    int ID = roomGrid[gy][gx].ID;
+                    RoomType rType = roomGrid[gy][gx].type;
+                    Room r = getRoom(rType, ID);
+                    int bID = r.getBlockID(rx, ry);
+                    if (getRoomElementType(bID) == type)
+                        elementsPos.push_back({ (float)sx * tileW,(float)sy * tileH });
+                }
+
+            if (elementsPos.size() <= elements)
             {
-                if (o->getType() != ObjectType::SpawnPoint)
-                    continue;
-                SpawnPoint* sp = dynamic_cast<SpawnPoint*>(o);
-                if (!sp)
-                    continue;
-                if (sp->getType() != type)
-                    continue;
-                spawnPoints.push_back(sp);
-            }
-            for (auto o : spawnPoints)
-                deleteObject(o);
-            if (spawnPoints.size() <= elements)
-            {
-                for (auto o : spawnPoints)
+                for (auto o : elementsPos)
                 {
                     int ID = objects[rand() % objects.size()];
-                    addObject(getObject(ID, o->getPos()));
+                    Rectangle pos = { o.x,o.y,tileW,tileH };
+                    addObject(getObject(ID, pos));
                 }
             }
             else
             {
-                for (; elements > 0 && spawnPoints.size() > 0; elements--)
+                for (; elements > 0 && elementsPos.size() > 0; elements--)
                 {
-                    int e = rand() % spawnPoints.size();
-                    Rectangle pos = spawnPoints[e]->getPos();
+                    int e = rand() % elementsPos.size();
+                    Vector2 vPos = elementsPos[e];
+                    Rectangle pos = { vPos.x,vPos.y,tileW,tileH };
                     int ID = objects[rand() % objects.size()];
                     addObject(getObject(ID, pos));
-                    spawnPoints.erase(spawnPoints.begin() + e);
-
+                    elementsPos.erase(elementsPos.begin() + e);
                 }
             }
         }

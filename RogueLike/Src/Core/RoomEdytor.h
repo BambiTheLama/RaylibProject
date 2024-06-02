@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include <vector>
 #include "Floor/Room.h"
-#include "raylib.h"
+#include "raylib.hpp"
 
 class RoomEdytor :
     public Scene
