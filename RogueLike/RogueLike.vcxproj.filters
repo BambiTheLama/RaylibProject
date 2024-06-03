@@ -118,7 +118,9 @@
     <ClInclude Include="Src\GameObjects\Characters\SpawnPoint.h">
       <Filter>GameObjects\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\LootBlock.h" />
+    <ClInclude Include="Src\GameObjects\Characters\LootBlock.h">
+      <Filter>GameObjects\Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -207,7 +209,12 @@
     <ClCompile Include="Src\GameObjects\Characters\SpawnPoint.cpp">
       <Filter>GameObjects\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp">
+      <Filter>GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller.cpp">
+      <Filter>Core\Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

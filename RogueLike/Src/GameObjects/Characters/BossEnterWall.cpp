@@ -3,6 +3,9 @@
 #include "../Game.h"
 #include "SpawnPoint.h"
 #include "../../Core/WaveCollapsFun.h"
+#include "../AddisionalTypes/Character.h"
+#include "../AddisionalTypes/CharacterController.h"
+#include "raymath.h"
 
 BossEnterWall::BossEnterWall(float x, float y, float w, float h)
 {
@@ -47,8 +50,40 @@ void BossEnterWall::onCollisionEnter(Collider* collider)
     GameObject* gm = collider->getThisObj();
     if (!gm || gm->getType() != ObjectType::Player)
         return;
-    if(hasSpawnPoint)
-        gm->setPos(spawnPoint);
+    if (!hasSpawnPoint)
+        return;
+
+    Character* ch = dynamic_cast<Character*>(gm);
+    if (!ch)
+        return;
+    CharacterController* controller = ch->getCharacterController();
+    if (!controller)
+        return;
+    ControllAction* action1 = new ControllAction;
+    ControllAction* action2 = new ControllAction;
+    ControllAction* action3 = new ControllAction;
+    float speed = gm->getSpeed();
+    Rectangle pos = gm->getPos();
+    Vector2 gmPoint = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
+    float dist = Vector2Distance(spawnPoint, gmPoint);
+
+    action1->action = Action::TrigerOn;
+    action1->nextAcction = action2;
+
+    action2->time = dist / speed;
+    action2->dir = Vector2Normalize(Vector2Subtract(spawnPoint, gmPoint));
+    action2->action = Action::GoTo;
+    action2->nextAcction = action3;
+
+    action3->action = Action::TrigerOff;
+
+    if (!controller->setControllAction(action1))
+    {
+        delete action1;
+        delete action2;
+        delete action3;
+    }
+
     printf("KURWA\n");
 
 }

@@ -2,6 +2,12 @@
 #include <math.h>
 #include "raymath.h"
 void KeyBoardController::update(float deltaTime) {
+    if (controllAction)
+    {
+        Controller::update(deltaTime);
+        return;
+    }
+
     moveDir = {0, 0};
     inputs.clear();
     for (int i = 0; i < ControllsSize; i++) {

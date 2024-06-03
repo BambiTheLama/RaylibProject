@@ -50,8 +50,8 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaT
         for (auto c2: collider->collisionElemnets)
             if (c->isCollidiongWith(pos, c2, otherPos)) {
 
-                
-                ///TODO POPRAWIC DZia³anie
+                if (trigger || collider->trigger)
+                    return true;
                 float massAdd = mass + collider->mass;
                 Vector2 dirVector = Vector2Subtract(pos, otherPos);
                 dirVector = Vector2Normalize(dirVector);
@@ -128,11 +128,32 @@ void Collider::checkCollision(float deltaTime) {
         if (isColliding(collider, o,deltaTime)) {
             find = std::find(lastFrameColliders.begin(), lastFrameColliders.end(), collider);
             if (find == lastFrameColliders.end()) {
-                onCollisionEnter(collider);
-                collider->onCollisionEnter(this);
+                if (trigger || collider->trigger)
+                {
+                    if (trigger)
+                        onTriggerEnter(collider);
+                    if (collider->trigger)
+                        collider->onTriggerEnter(this);
+                }
+                else
+                {
+                    onCollisionEnter(collider);
+                    collider->onCollisionEnter(this);
+                }
             } else {
-                onCollision(collider);
-                collider->onCollision(this);
+                if (trigger || collider->trigger)
+                {
+                    if (trigger)
+                        onTrigger(collider);
+                    if (collider->trigger)
+                        collider->onTrigger(this);
+                }
+                else
+                {
+                    onCollision(collider);
+                    collider->onCollision(this);
+                }
+
             }
             collider->colliders.push_back(this);
             colliders.push_back(collider);

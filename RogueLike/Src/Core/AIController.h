@@ -3,14 +3,7 @@
 
 class GameObject;
 
-enum class Action
-{
-    NON    = 0b0000,
-    Run    = 0b0001,
-    Attack = 0b0010,
-    GoTo   = 0b0100,
-    IDE    = 0b1000,
-};
+
 class AIController :
     public Controller
 {

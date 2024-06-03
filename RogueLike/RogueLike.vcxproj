@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\AIController.cpp" />
+    <ClCompile Include="Src\Core\Controller.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
     <ClCompile Include="Src\Core\Floor\Floor.cpp" />
     <ClCompile Include="Src\Core\Floor\Room.cpp" />

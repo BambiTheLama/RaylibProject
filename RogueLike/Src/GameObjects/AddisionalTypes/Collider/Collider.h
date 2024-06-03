@@ -33,6 +33,15 @@ public:
     virtual void onCollisionExit(Collider *collider) {
     }
 
+    virtual void onTriggerEnter(Collider* collider) {
+    }
+
+    virtual void onTrigger(Collider* collider) {
+    }
+
+    virtual void onTriggerExit(Collider* collider) {
+    }
+
     bool isTrigger() { return trigger; }
 
     GameObject* getThisObj();
@@ -44,6 +53,7 @@ public:
 #endif
     friend class GameScene;
     friend class Floor;
+    friend class Controller;
 private:
     void clearCollider();
 

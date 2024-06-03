@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.hpp"
 #include "../../Core/Controller.h"
+//#include "CharacterController.h"
 
 class GameObject;
 class CharacterController;
@@ -17,6 +18,8 @@ public:
     bool canBeControllerd(CharacterController* c);
 
     void setController(CharacterController* c);
+
+    CharacterController* getCharacterController() { return controllBy; }
 
     virtual void destoryController();
 };

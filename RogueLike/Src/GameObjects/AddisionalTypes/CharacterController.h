@@ -20,6 +20,8 @@ public:
 
     void setController(Controller* controller);
 
+    bool setControllAction(ControllAction* action);
+
     void destoryController();
 
     bool hasController() { return controller; }

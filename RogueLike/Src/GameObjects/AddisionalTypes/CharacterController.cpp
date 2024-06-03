@@ -36,14 +36,16 @@ void CharacterController::update(float deltaTime) {
 void CharacterController::setCharacter(Character* character) 
 { 
     this->character = character; 
-    if(character)
+    if (character)
         character->setController(this); 
     GameObject* gm = dynamic_cast<GameObject*>(character);
     if (gm)
     {
         this->gm = gm;
         gm->setType(type);
+
     }
+    controller->setGameObject(gm);
 
 }
 
@@ -54,6 +56,13 @@ void CharacterController::setController(Controller* controller)
     if (this->controller)
         delete this->controller;
     this->controller = controller; 
+}
+
+bool CharacterController::setControllAction(ControllAction* action)
+{
+    if (!controller)
+        return false;
+    return controller->setControllAction(action);
 }
 
 void CharacterController::destoryController()

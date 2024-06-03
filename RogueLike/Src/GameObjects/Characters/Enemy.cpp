@@ -31,7 +31,7 @@ void Enemy::update(float deltaTime)
 		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
 		float distance = Vector2Length(Vector2Subtract(posV , otherPosV));
 		if (distance < 100)
-			ai->action = (int)Action::Run;
+			ai->action = (int)Action::RunFrom;
 		else if (distance > 200)
 			ai->action = (int)Action::GoTo;
 	}
