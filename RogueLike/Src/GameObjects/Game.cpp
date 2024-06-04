@@ -31,3 +31,11 @@ void Game::deleteObject(GameObject *obj) {
 }
 
 
+void Game::removeObject(GameObject* obj)
+{
+    if (!obj)
+        return;
+    if (!gameScene)
+        return;
+    gameScene->removeObject(obj);
+}

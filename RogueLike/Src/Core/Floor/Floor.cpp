@@ -66,9 +66,9 @@ Floor::Floor(Rectangle pos)
             Room room = getRoom(type,ID);
             setUpRooms(startX, startY, room);
         }
-    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::EnemySpawnPoint,roomGrid);
-    setUpObjects(std::vector<int>{ 1 }, 20, BlockType::LootSpawnPoint,roomGrid);
-    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn,roomGrid);
+    setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid);
+    setUpObjects(std::vector<int>{ 1 }, 40, BlockType::LootSpawnPoint, roomGrid);
+    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn, roomGrid);
     removeCloseEnemies();
 }
 

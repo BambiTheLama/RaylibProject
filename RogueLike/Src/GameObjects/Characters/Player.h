@@ -7,7 +7,7 @@
 
 
 class Player : public GameObject, public Character, public Collider,public Hitable {
-    float speed = 500;
+    float speed = 600;
 
 public:
     Player(float x,float y);

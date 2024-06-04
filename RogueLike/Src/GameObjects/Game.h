@@ -19,6 +19,8 @@ public:
 
     static void deleteObject(GameObject *obj);
 
+    static void removeObject(GameObject* obj);
+
     static bool addObject(GameObject *obj);
 
     friend class GameScene;

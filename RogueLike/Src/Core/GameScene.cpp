@@ -14,7 +14,7 @@ GameScene::GameScene() {
     camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
-    Rectangle pos = { 0,0,9000,6000 };
+    Rectangle pos = { 0,0,16000,9000 };
     floor = new Floor(pos);
     camera.target = { pos.width / 2,pos.height / 2 };
 
@@ -106,6 +106,12 @@ void GameScene::deleteObject(GameObject* obj)
 {
     if (floor)
         floor->deleteObject(obj);
+}
+
+void GameScene::removeObject(GameObject* obj)
+{
+    if (floor)
+        floor->removeObject(obj);
 }
 
 void GameScene::draw() {

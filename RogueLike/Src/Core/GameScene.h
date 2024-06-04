@@ -26,5 +26,7 @@ public:
     bool addObject(GameObject *obj);
 
     void deleteObject(GameObject* obj);
+
+    void removeObject(GameObject* obj);
 };
 
