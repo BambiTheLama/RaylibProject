@@ -121,17 +121,49 @@ static void setSpecialRooms(std::vector<std::vector<RoomData>>& roomGrid, std::v
 
 static bool isPossibleRoom(std::vector<std::vector<RoomData>>& roomGrid, RoomData& room, int x, int y) {
 	if (x - 1 >= 0)
+	{
 		if (!roomGrid[y][x - 1].isMaching(Dir::Right, room.left))
 			return false;
+	}
+	else
+	{
+		if (!roomGrid[y][roomGrid[0].size() - 1].isMaching(Dir::Right, room.left))
+			return false;
+	}
+
 	if (x + 1 < roomGrid[0].size())
+	{
 		if (!roomGrid[y][x + 1].isMaching(Dir::Left, room.right))
 			return false;
+	}
+	else
+	{
+		if (!roomGrid[y][0].isMaching(Dir::Left, room.right))
+			return false;
+	}
+
 	if (y - 1 >= 0)
+	{
 		if (!roomGrid[y - 1][x].isMaching(Dir::Down, room.up))
 			return false;
+	}
+	else
+	{
+		if (!roomGrid[roomGrid.size() - 1][x].isMaching(Dir::Down, room.up))
+			return false;
+	}
+
 	if (y + 1 < roomGrid.size())
+	{
 		if (!roomGrid[y + 1][x].isMaching(Dir::Up, room.down))
 			return false;
+	}
+	else
+	{
+		if (!roomGrid[0][x].isMaching(Dir::Up, room.down))
+			return false;
+	}
+
 	
 	return true;
 }
