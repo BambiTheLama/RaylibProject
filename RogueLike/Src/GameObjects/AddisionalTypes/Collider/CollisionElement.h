@@ -23,6 +23,8 @@ public:
 
     virtual Dir getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
 
+    Vector2 getCollisionVectorDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
+
     virtual Rectangle getBox(Vector2 pos) {
         return {0, 0, 0, 0};
     }

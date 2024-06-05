@@ -20,6 +20,15 @@ Player::~Player() {
 
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
+    Collider::update(deltaTime);
+    if (IsKeyPressed(KEY_ONE))
+    {
+        Rectangle pos = getPos();
+        Vector2 mouse = GetMousePosition();
+        mouse.x -= GetScreenWidth() / 2;
+        mouse.y -= GetScreenHeight() / 2;
+        addForce({ -mouse.x, -mouse.y }, 10, 1);
+    }
 }
 
 void Player::move(Vector2 dir, float deltaTime) {

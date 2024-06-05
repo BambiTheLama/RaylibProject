@@ -35,6 +35,8 @@ public:
 
     virtual void setPos(Vector2 point) { pos.x = point.x; pos.y = point.y; }
 
+    void move(Vector2 move) { pos.x += move.x; pos.y += move.y; }
+
     int getDrawOrder() { return drawOrder; }
 
     ObjectType getType() { return type; }

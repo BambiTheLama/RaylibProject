@@ -12,7 +12,7 @@ class Collider {
     std::list<Collider *> colliders;
     std::list<Collider *> lastFrameColliders;
     GameObject* thisObj = nullptr;
-
+    std::list<Vector3*> allForces;
 
 protected:
     std::vector<CollisionElement *> collisionElemnets;
@@ -23,6 +23,10 @@ public:
     Collider();
 
     virtual ~Collider();
+
+    void update(float deltaTime);
+
+    void addForce(Vector2 dir, float power, float time);
 
     virtual void onCollisionEnter(Collider *collider) {
     }
@@ -45,8 +49,6 @@ public:
     bool isTrigger() { return trigger; }
 
     GameObject* getThisObj();
-
-
 
 #ifdef showColliders
     void draw();

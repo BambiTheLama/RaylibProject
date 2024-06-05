@@ -2,11 +2,30 @@
 #include <math.h>
 #include "raylib.hpp"
 #include "../../../Core/WaveCollapsFun.h"
-
+#include "raymath.h"
 
 Dir CollisionElement::getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
 {
     return Dir::NON;
+}
+
+Vector2 CollisionElement::getCollisionVectorDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
+{
+    Dir dir = getCollisionDir(thisPos, collisionElement, collisionElementPos);
+    switch (dir)
+    {
+    case Dir::Up:
+        return { 0,-1 };
+    case Dir::Down:
+        return { 0,1 };
+    case Dir::Left:
+        return { -1,0 };
+    case Dir::Right:
+        return { 1,0 };
+
+    }
+    Vector2 dirVector = Vector2Subtract(thisPos, collisionElementPos);
+    return Vector2Normalize(dirVector);
 }
 
 bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end) {

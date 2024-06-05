@@ -1,5 +1,6 @@
 #include "Collider.h"
-#include "raymath.h"
+#include "raylib.hpp"
+#include "raymath.hpp"
 #include <algorithm>
 #include <cstdio>
 #include "../../GameObject.h"
@@ -14,6 +15,38 @@ Collider::~Collider() {
     for (auto c: collisionElemnets)
         delete c;
     collisionElemnets.clear();
+    for (auto f : allForces)
+        delete f;
+}
+
+bool removeIf(Vector3* vec)
+{
+    if (vec->z <= 0.0f)
+    {
+        delete vec;
+        return true;
+    }
+    return false;
+}
+
+void Collider::update(float deltaTime)
+{
+    if (!thisObj)
+        return;
+    const float constForce = 100;
+    for (auto f : allForces)
+    {
+        Vector2 dir = { f->x * deltaTime * f->z * constForce,f->y * deltaTime * f->z * constForce };
+        thisObj->move(dir);
+        f->z -= deltaTime*3;
+    }
+    allForces.remove_if(removeIf);
+}
+
+void Collider::addForce(Vector2 dir, float power,float time)
+{
+    dir = Vector2Normalize(dir);
+    allForces.push_back(new Vector3{ dir.x*power, dir.y*power, time });
 }
 
 GameObject* Collider::getThisObj()
@@ -53,30 +86,7 @@ bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaT
                 if (trigger || collider->trigger)
                     return true;
                 float massAdd = mass + collider->mass;
-                Vector2 dirVector = Vector2Subtract(pos, otherPos);
-                dirVector = Vector2Normalize(dirVector);
-                Dir dir = c->getCollisionDir(pos, c2, otherPos);
-                switch (dir)
-                {
-                case Dir::Up:
-                    dirVector.x = 0;
-                    dirVector.y = -1;
-                    break;
-                case Dir::Down:
-                    dirVector.x = 0;
-                    dirVector.y = 1;
-                    break;
-                case Dir::Left:
-                    dirVector.x = -1;
-                    dirVector.y = 0;
-                    break;
-                case Dir::Right:
-                    dirVector.x = 1;
-                    dirVector.y = 0;
-                    break;
-
-                }
-
+                Vector2 dirVector = c->getCollisionVectorDir(pos, c2, otherPos);
 
                 const float moveMultyplay = 0.02f;
 
