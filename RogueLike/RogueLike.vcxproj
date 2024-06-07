@@ -52,6 +52,7 @@
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
     <ClInclude Include="Src\GameObjects\ParticleText.h" />
+    <ClInclude Include="Src\GameObjects\Weapon\Sword.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\AIController.cpp" />
@@ -85,6 +86,7 @@
     <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
     <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
+    <ClCompile Include="Src\GameObjects\Weapon\Sword.cpp" />
     <ClCompile Include="Src\main.cpp" />
   </ItemGroup>
   <ItemGroup>

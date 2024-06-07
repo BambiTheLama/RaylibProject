@@ -26,7 +26,7 @@ void Player::update(float deltaTime) {
         Vector2 mouse = GetMousePosition();
         mouse.x -= GetScreenWidth() / 2;
         mouse.y -= GetScreenHeight() / 2;
-        addForce({ -mouse.x, -mouse.y }, 10, 1.25);
+        addForce({ -mouse.x, -mouse.y }, 16.9f, 1.0);
     }
 }
 

@@ -7,6 +7,9 @@
 #include "../AddisionalTypes/CharacterController.h"
 #include "raymath.h"
 
+bool BossEnterWall::wasEnter = false;
+bool BossEnterWall::openDoor = false;
+
 BossEnterWall::BossEnterWall(float x, float y, float w, float h)
 {
     solidObject = true;
@@ -19,8 +22,8 @@ BossEnterWall::BossEnterWall(float x, float y, float w, float h)
 void BossEnterWall::start()
 {
     Rectangle getPos;
-    getPos.width = 300;
-    getPos.height = 300;
+    getPos.width = 1600;
+    getPos.height = 1600;
     getPos.x = pos.x + pos.width / 2 - getPos.width / 2;
     getPos.y = pos.y + pos.height / 2 - getPos.height / 2;
     std::list<GameObject*> gms = Game::getObjects(getPos);
@@ -41,12 +44,22 @@ void BossEnterWall::start()
 }
 
 void BossEnterWall::draw() {
+    openDoor = IsKeyDown(KEY_Q);
+    trigger = openDoor;
+    if (openDoor)
+    {
+        wasEnter = false;
+        return;
+    }
+
     DrawRectangleRec(pos, RED);
     DrawRectangleLinesEx(pos, 3, BLACK);
 }
 
 void BossEnterWall::onCollisionEnter(Collider* collider)
 {
+    if (wasEnter)
+        return;
     GameObject* gm = collider->getThisObj();
     if (!gm || gm->getType() != ObjectType::Player)
         return;
@@ -83,7 +96,7 @@ void BossEnterWall::onCollisionEnter(Collider* collider)
         delete action2;
         delete action3;
     }
-
+    wasEnter = true;
     printf("KURWA\n");
 
 }

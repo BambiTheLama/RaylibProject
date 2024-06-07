@@ -47,6 +47,10 @@ public:
 
     virtual float getSpeed() { return 0; }
 
+    virtual float getAngle() { return 0; }
+
+    virtual Vector2 getRotationPoint() { return { 0,0 }; }
+
     friend class Collider;
 };
 

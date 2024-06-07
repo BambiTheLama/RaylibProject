@@ -9,7 +9,7 @@
 #include <math.h>
 
 Collider::Collider(){
-
+    thisObj = dynamic_cast<GameObject*>(this);
 }
 
 Collider::~Collider() {
@@ -42,6 +42,8 @@ float getSpeedFromTime(float time)
 
 void Collider::update(float deltaTime)
 {
+    for (auto c : collisionElemnets)
+        c->update(thisObj);
     if (!thisObj)
         return;
     if (trigger)
@@ -94,9 +96,26 @@ void Collider::clearCollider() {
 
 }
 
-
-bool Collider::isColliding(Collider *collider, GameObject *otherObj,float deltaTime) {
+Vector2 Collider::getCollisionDir(Collider* collider)
+{
     Vector2 pos = thisObj->getPosPoint();
+    GameObject* otherObj = collider->getThisObj();
+    if (!otherObj)
+        return { 0,0 };
+    Vector2 otherPos = otherObj->getPosPoint();
+    for (auto c : collisionElemnets)
+        for (auto c2 : collider->collisionElemnets)
+            if (c->isCollidiongWith(pos, c2, otherPos)) {
+                return c->getCollisionVectorDir(pos, c2, otherPos);
+            }
+    return { 0,0 };
+}
+
+bool Collider::isColliding(Collider *collider,float deltaTime) {
+    Vector2 pos = thisObj->getPosPoint();
+    GameObject* otherObj = collider->getThisObj();
+    if (!otherObj)
+        return false;
     Vector2 otherPos = otherObj->getPosPoint();
     for (auto c: collisionElemnets)
         for (auto c2: collider->collisionElemnets)
@@ -154,7 +173,7 @@ void Collider::checkCollision(float deltaTime) {
         auto find = std::find(colliders.begin(), colliders.end(), collider);
         if (find != colliders.end())
             continue;
-        if (isColliding(collider, o,deltaTime)) {
+        if (isColliding(collider, deltaTime)) {
             find = std::find(lastFrameColliders.begin(), lastFrameColliders.end(), collider);
             if (find == lastFrameColliders.end()) {
                 if (trigger || collider->trigger)
@@ -194,10 +213,19 @@ void Collider::checkCollision(float deltaTime) {
 #ifdef showColliders
 
 void Collider::draw() {
-    GameObject *obj = dynamic_cast<GameObject *>(this);
+
+    if (!thisObj)
+        return;
+    for (auto o : allForces)
+    {
+        Rectangle pos = thisObj->getPos();
+        Vector2 start = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
+        float t = getSpeedFromTime(o->z);
+        DrawLineEx(start, { start.x + o->x * 10 * t,start.y + o->y * 10 * t }, 5, BLACK);
+    }
 
     for (auto c: collisionElemnets)
-        c->draw(obj);
+        c->draw(thisObj);
 }
 #endif
 

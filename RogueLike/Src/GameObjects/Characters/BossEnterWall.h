@@ -9,6 +9,8 @@ extern const float tileH;
 class BossEnterWall :
     public GameObject, public Collider
 {
+    static bool wasEnter;
+    static bool openDoor;
     bool hasSpawnPoint = false;
     Vector2 spawnPoint;
 public:
@@ -19,6 +21,5 @@ public:
     void draw();
 
     void onCollisionEnter(Collider* collider) override;
-
 };
 

@@ -22,6 +22,9 @@
     <Filter Include="Core\Floor">
       <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Weapons">
+      <UniqueIdentifier>{faae65cd-67a7-41dc-8364-14658b62f4c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -121,6 +124,9 @@
     <ClInclude Include="Src\GameObjects\Characters\LootBlock.h">
       <Filter>GameObjects\Characters</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Weapon\Sword.h">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -214,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="Src\Core\Controller.cpp">
       <Filter>Core\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Weapon\Sword.cpp">
+      <Filter>GameObjects\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

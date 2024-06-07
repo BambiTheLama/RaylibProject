@@ -50,6 +50,8 @@ public:
 
     GameObject* getThisObj();
 
+    Vector2 getCollisionDir(Collider* collider);
+
 #ifdef showColliders
     void draw();
 #endif
@@ -59,7 +61,7 @@ public:
 private:
     void clearCollider();
 
-    bool isColliding(Collider *collider, GameObject *otherObj, float deltaTime);
+    bool isColliding(Collider *collider, float deltaTime);
 
     void checkCollision(float deltaTime);
 

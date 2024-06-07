@@ -1,14 +1,30 @@
 #include "CollisionElementLines.h"
 #include "../../../Core/WaveCollapsFun.h"
+#include "../../GameObject.h"
 
 CollisionElementLines::CollisionElementLines(std::vector<Vector2> lines): CollisionElement(CollisionType::Line) {
     this->lines = lines;
 }
 
+void CollisionElementLines::update(GameObject* gm)
+{
+    if (!gm)
+        return;
+    angle = gm->getAngle();
+    rotationPoint = gm->getRotationPoint();
+}
+
 std::vector<Vector2> CollisionElementLines::getLines(Vector2 pos) {
+
     std::vector<Vector2> linesToRet;
-    for (auto l: lines)
-        linesToRet.push_back({ l.x + pos.x, l.y + pos.y });
+    int angle = this->angle * 3.14159f / 180;
+    for (auto l : lines)
+    {
+        float x = cos(angle) * (l.x - rotationPoint.x) - sin(angle) * (l.y - rotationPoint.y) + rotationPoint.x;
+        float y = sin(angle) * (l.x - rotationPoint.x) + cos(angle) * (l.y - rotationPoint.y) + rotationPoint.y;
+        linesToRet.push_back({ x + pos.x, y + pos.y });
+    }
+
     return linesToRet;
 }
 

@@ -17,6 +17,8 @@ class CollisionElement {
 public:
     CollisionElement(CollisionType type) { this->type = type; }
 
+    virtual void update(GameObject* gm){}
+
     CollisionType getType() { return type; }
 
     virtual bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos) = 0;
