@@ -6,6 +6,7 @@
 #include "../../GameObject.h"
 #include "../../Game.h"
 #include "../../../Core/WaveCollapsFun.h"
+#include <math.h>
 
 Collider::Collider(){
 
@@ -29,14 +30,32 @@ bool removeIf(Vector3* vec)
     return false;
 }
 
+float getSpeedFromTime(float time)
+{
+    if (time >= 1)
+        return 1.0f;
+
+    return time * time;
+
+        
+}
+
 void Collider::update(float deltaTime)
 {
     if (!thisObj)
         return;
+    if (trigger)
+    {
+        for (auto f : allForces)
+            delete f;
+        allForces.clear();
+        return;
+    }
     const float constForce = 100;
     for (auto f : allForces)
     {
-        Vector2 dir = { f->x * deltaTime * f->z * constForce,f->y * deltaTime * f->z * constForce };
+        float t = getSpeedFromTime(f->z);
+        Vector2 dir = { f->x * deltaTime * t * constForce,f->y * deltaTime * t * constForce };
         thisObj->move(dir);
         f->z -= deltaTime*3;
     }

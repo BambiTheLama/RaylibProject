@@ -229,6 +229,8 @@ void Floor::update(float deltaTime,Camera2D camera)
         Rectangle pos = { camPos.x,camPos.y,offset.x,offset.y };
         closeObjects = tree->getObjects(pos);
     }
+    for (auto o : colliders)
+        o->update(deltaTime);
     for (auto o : closeObjects)
     {
         o->update(deltaTime);
