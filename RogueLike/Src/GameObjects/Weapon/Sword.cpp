@@ -45,7 +45,7 @@ void Sword::onTriggerEnter(Collider* collider)
 	GameObject* gm = collider->getThisObj();
 	if (gm == owner || !gm)
 		return;
-	if (gm->getType() == ObjectType::Loot)
-		Game::deleteObject(gm);
+	if (gm->getType() == ObjectType::Enemy)
+		collider->addForce(getCollisionDir(collider), 20, 1);
 
 }
