@@ -3,7 +3,6 @@
 #include "raymath.hpp"
 #include <algorithm>
 #include <cstdio>
-#include "../GameObject.h"
 #include "../Game.h"
 #include "../../Core/WaveCollapsFun.h"
 #include <math.h>

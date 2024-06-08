@@ -1,8 +1,9 @@
 #include "CollisionElement.h"
 #include <math.h>
 #include "raylib.hpp"
-#include "../../Core/WaveCollapsFun.h"
 #include "raymath.h"
+#include "../../Core/WaveCollapsFun.h"
+
 
 Dir CollisionElement::getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
 {

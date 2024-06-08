@@ -10,7 +10,7 @@ enum class CollisionType {
 };
 
 class GameObject;
-enum class Dir :char;
+extern enum class Dir :char;
 class CollisionElement {
     CollisionType type;
 
