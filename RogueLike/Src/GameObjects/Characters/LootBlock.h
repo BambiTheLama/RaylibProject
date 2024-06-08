@@ -1,6 +1,6 @@
 #pragma once
 #include "../GameObject.h"
-#include "../AddisionalTypes/Collider/Collider.h"
+#include "../Collider/Collider.h"
 extern const float tileW;
 extern const float tileH;
 

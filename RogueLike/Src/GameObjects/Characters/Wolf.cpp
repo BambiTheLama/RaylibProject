@@ -1,6 +1,6 @@
 #include "Wolf.h"
-#include "../AddisionalTypes/Collider/CollisionElementBox.h"
-#include "../AddisionalTypes/Collider/CollisionElementCircle.h"
+#include "../Collider/CollisionElementBox.h"
+#include "../Collider/CollisionElementCircle.h"
 #include "raymath.h"
 #include "../Game.h"
 #include "../ParticleText.h"

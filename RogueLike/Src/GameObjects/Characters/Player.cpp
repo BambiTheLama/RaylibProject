@@ -1,9 +1,9 @@
 #include "Player.h"
-#include "../AddisionalTypes/Collider/CollisionElementLines.h"
-#include "../AddisionalTypes/Collider/CollisionElementBox.h"
-#include "../AddisionalTypes/Collider/CollisionElementCircle.h"
+#include "../Collider/CollisionElementLines.h"
+#include "../Collider/CollisionElementBox.h"
+#include "../Collider/CollisionElementCircle.h"
 #include "../AddisionalTypes/Hitable.h"
-
+#include "../Game.h"
 Player::Player(float x, float y){
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
@@ -12,22 +12,28 @@ Player::Player(float x, float y){
     //drawOrder = 10;
     type = ObjectType::Player;
     mass = 10;
+    s = new Sword(this);
+    trigger = false;
+    Game::addObject(s);
 }
 
 Player::~Player() {
+
 }
 
 
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
-    if (IsKeyPressed(KEY_ONE))
-    {
-        Rectangle pos = getPos();
-        Vector2 mouse = GetMousePosition();
-        mouse.x -= GetScreenWidth() / 2;
-        mouse.y -= GetScreenHeight() / 2;
-        addForce({ -mouse.x, -mouse.y }, 16.9f, 1.0);
-    }
+    s->update(deltaTime);
+   
+    //if (IsKeyPressed(KEY_ONE))
+    //{
+    //    Rectangle pos = getPos();
+    //    Vector2 mouse = GetMousePosition();
+    //    mouse.x -= GetScreenWidth() / 2;
+    //    mouse.y -= GetScreenHeight() / 2;
+    //    addForce({ -mouse.x, -mouse.y }, 16.9f, 1.0);
+    //}
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
@@ -43,6 +49,7 @@ void Player::draw() {
     DrawRectangleRec(pos,BLUE);
     DrawRectangleLinesEx(pos, 2, BLACK);
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
+    s->draw();
 }
 
 void Player::onCollisionEnter(Collider* collider) { 

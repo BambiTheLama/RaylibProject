@@ -2,7 +2,7 @@
 #include "../GameObject.h"
 #include "../AddisionalTypes/Character.h"
 #include "../AddisionalTypes/CharacterController.h"
-#include "../AddisionalTypes/Collider/Collider.h"
+#include "../Collider/Collider.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../../Core/AIController.h"
 class Wolf :

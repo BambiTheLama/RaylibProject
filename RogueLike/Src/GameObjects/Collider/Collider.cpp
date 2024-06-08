@@ -3,9 +3,9 @@
 #include "raymath.hpp"
 #include <algorithm>
 #include <cstdio>
-#include "../../GameObject.h"
-#include "../../Game.h"
-#include "../../../Core/WaveCollapsFun.h"
+#include "../GameObject.h"
+#include "../Game.h"
+#include "../../Core/WaveCollapsFun.h"
 #include <math.h>
 
 Collider::Collider(){
@@ -162,8 +162,12 @@ void Collider::checkCollision(float deltaTime) {
         if (!thisObj)
             return;
     }
-
-    std::list<GameObject *> objects = Game::getObjects(thisObj->getPos());
+    Rectangle getCollsionArea = thisObj->getPos();
+    getCollsionArea.width *= 2.5f;
+    getCollsionArea.height *= 2.5f;
+    getCollsionArea.x -= getCollsionArea.width/2;
+    getCollsionArea.y -= getCollsionArea.height / 2;
+    std::list<GameObject *> objects = Game::getObjects(getCollsionArea);
     objects.remove(thisObj);
 
     for (auto o: objects) {

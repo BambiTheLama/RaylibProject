@@ -1,8 +1,8 @@
 #pragma once
 #include "../GameObject.h"
-#include "../AddisionalTypes/Collider/Collider.h"
-#include "../AddisionalTypes/Collider/CollisionElementBox.h"
-#include "../AddisionalTypes/Collider/CollisionElementLines.h"
+#include "../Collider/Collider.h"
+#include "../Collider/CollisionElementBox.h"
+#include "../Collider/CollisionElementLines.h"
 #include "iostream"
 #include "../AddisionalTypes/Hitable.h"
 #include <vector>

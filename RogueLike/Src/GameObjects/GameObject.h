@@ -4,11 +4,12 @@
 
 enum class ObjectType :int
 {
-    NON        = 0b0000,
-    Enemy      = 0b0001,
-    Player     = 0b0010,
-    Wall       = 0b0100,
-    SpawnPoint = 0b1000
+    NON        = 0b0,
+    Enemy      = 0b1,
+    Player     = 0b10,
+    Wall       = 0b100,
+    SpawnPoint = 0b1000,
+    Loot       = 0b10000,
 };
 
 class GameObject {

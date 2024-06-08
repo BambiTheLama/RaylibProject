@@ -1,5 +1,5 @@
 #include "BossEnterWall.h"
-#include "../AddisionalTypes/Collider/CollisionElementBox.h"
+#include "../Collider/CollisionElementBox.h"
 #include "../Game.h"
 #include "SpawnPoint.h"
 #include "../../Core/WaveCollapsFun.h"

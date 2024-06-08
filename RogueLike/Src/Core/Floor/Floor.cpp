@@ -259,12 +259,13 @@ void Floor::draw()
     }
 
 #ifdef showColliders
+    if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_ONE))
     for (auto o : colliders) {
         o->draw();
     }
 #endif
 
-    if (IsKeyDown(KEY_TAB))
+    if (IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyDown(KEY_TWO))
         tree->draw();
 }
 

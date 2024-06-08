@@ -1,7 +1,7 @@
 #include "CollisionElement.h"
 #include <math.h>
 #include "raylib.hpp"
-#include "../../../Core/WaveCollapsFun.h"
+#include "../../Core/WaveCollapsFun.h"
 #include "raymath.h"
 
 Dir CollisionElement::getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
@@ -108,7 +108,7 @@ bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines
 }
 
 #ifdef showColliders
-#include "../../GameObject.h"
+#include "../GameObject.h"
 
 void CollisionElement::draw(GameObject *obj) {
     Vector3 circle;

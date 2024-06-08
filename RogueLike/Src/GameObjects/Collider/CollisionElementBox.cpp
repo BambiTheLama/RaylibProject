@@ -1,5 +1,5 @@
 #include "CollisionElementBox.h"
-#include "../../../Core/WaveCollapsFun.h"
+#include "../../Core/WaveCollapsFun.h"
 CollisionElementBox::CollisionElementBox(Rectangle col) : CollisionElement(CollisionType::Box) {
     this->col = col;
 }

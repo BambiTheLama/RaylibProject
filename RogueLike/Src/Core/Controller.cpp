@@ -1,6 +1,6 @@
 #include "Controller.h"
 #include "../GameObjects/GameObject.h"
-#include "../GameObjects/AddisionalTypes/Collider/Collider.h"
+#include "../GameObjects/Collider/Collider.h"
 
 void Controller::update(float deltaTime)
 {

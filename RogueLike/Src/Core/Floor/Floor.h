@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 #include "../../GameObjects/GameObject.h"
-#include "../../GameObjects/AddisionalTypes/Collider/Collider.h"
+#include "../../GameObjects/Collider/Collider.h"
 #include "../QuadTree.h"
 #include <vector>
 #include "../WaveCollapsFun.h"

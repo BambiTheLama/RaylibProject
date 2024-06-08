@@ -2,13 +2,13 @@
 #include <iostream>
 #include "../GameObject.h"
 #include "../AddisionalTypes/Character.h"
-#include "../AddisionalTypes/Collider/Collider.h"
+#include "../Collider/Collider.h"
 #include "../AddisionalTypes/Hitable.h"
-
+#include "../Weapon/Sword.h"
 
 class Player : public GameObject, public Character, public Collider,public Hitable {
     float speed = 600;
-
+    Sword* s;
 public:
     Player(float x,float y);
 

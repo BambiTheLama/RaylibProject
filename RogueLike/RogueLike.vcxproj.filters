@@ -10,9 +10,6 @@
     <Filter Include="GameObjects\AddisionalTypes">
       <UniqueIdentifier>{cf6bd629-9c31-45fc-a3cf-4304654f0622}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\AddisionalTypes\Colliders">
-      <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Controllers">
       <UniqueIdentifier>{f7078cd4-35c3-49c1-9020-3b51887552ef}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     </Filter>
     <Filter Include="GameObjects\Weapons">
       <UniqueIdentifier>{faae65cd-67a7-41dc-8364-14658b62f4c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Colliders">
+      <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,21 +50,6 @@
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h">
       <Filter>GameObjects\AddisionalTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\Collider.h">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElement.h">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementBox.h">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.h">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.h">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller.h">
       <Filter>Core\Controllers</Filter>
@@ -127,6 +112,24 @@
     <ClInclude Include="Src\GameObjects\Weapon\Sword.h">
       <Filter>GameObjects\Weapons</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Weapon\Weapon.h">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Collider\Collider.h">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Collider\CollisionElement.h">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Collider\CollisionElementBox.h">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Collider\CollisionElementCircle.h">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -140,21 +143,6 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp">
       <Filter>GameObjects\AddisionalTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\Collider.cpp">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElement.cpp">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementBox.cpp">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementCircle.cpp">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\Collider\CollisionElementLines.cpp">
-      <Filter>GameObjects\AddisionalTypes\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Core\GamePadController.cpp">
@@ -223,6 +211,24 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\Sword.cpp">
       <Filter>GameObjects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Weapon\Weapon.cpp">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Collider\Collider.cpp">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Collider\CollisionElement.cpp">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Collider\CollisionElementBox.cpp">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp">
+      <Filter>GameObjects\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp">
+      <Filter>GameObjects\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
