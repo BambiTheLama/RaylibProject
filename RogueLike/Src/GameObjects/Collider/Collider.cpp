@@ -55,8 +55,8 @@ void Collider::update(float deltaTime)
     const float constForce = 100;
     for (auto f : allForces)
     {
-        float t = getSpeedFromTime(f->z);
-        Vector2 dir = { f->x * deltaTime * t * constForce,f->y * deltaTime * t * constForce };
+        float t = getSpeedFromTime(f->z) * deltaTime * constForce / mass;
+        Vector2 dir = { f->x * t ,f->y * t };
         thisObj->move(dir);
         f->z -= deltaTime*3;
     }
@@ -224,7 +224,7 @@ void Collider::draw() {
         Rectangle pos = thisObj->getPos();
         Vector2 start = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
         float t = getSpeedFromTime(o->z);
-        DrawLineEx(start, { start.x + o->x * 10 * t,start.y + o->y * 10 * t }, 5, BLACK);
+        DrawLineEx(start, { start.x + o->x/mass * 10 * t,start.y + o->y/mass * 10 * t }, 5, BLACK);
     }
 
     for (auto c: collisionElemnets)

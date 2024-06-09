@@ -3,11 +3,13 @@
 #include "../Collider/CollisionElementBox.h"
 #include "../Game.h"
 #include "raymath.h"
+#include "../AddisionalTypes/Hitable.h"
+
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
 	pos = { 0,0,69,69 };
-	collisionElemnets.push_back(new CollisionElementLines(std::vector<Vector2>{{0, 0}, { 0,pos.height }, { pos.width,0 } }));
+	collisionElemnets.push_back(new CollisionElementLines(std::vector<Vector2>{{0, 0}, { 0,pos.height }, { pos.width,pos.height }, { pos.width,0 } }));
 	Collider::getThisObj();
 	trigger = true;
 	rotationPoint = { 0,0 };
@@ -15,20 +17,20 @@ Sword::Sword(GameObject* owner)
 
 void Sword::update(float deltaTime)
 {
-
-	Vector2 mouse = GetMousePosition();
-	mouse.x -= GetScreenWidth() / 2;
-	mouse.y -= GetScreenHeight() / 2;
-	mouse = Vector2Normalize(mouse);
-
 	if (owner)
 	{
 		Rectangle p = owner->getPos();
 		pos.x = p.x + p.width / 2;
 		pos.y = p.y + p.height / 2;
 	}
-	angle = Vector2Angle({ 0.0000001f,0.0000001f }, mouse) * 180 / 3.14159f;
-	printf("%lf\n", angle);
+	if (useTime > 0)
+	{
+		if (left)
+			angle += deltaTime / useTimeMax * angleAttack;
+		else
+			angle -= deltaTime / useTimeMax * angleAttack;
+		useTime -= deltaTime;
+	}
 
 }
 
@@ -43,7 +45,17 @@ void Sword::draw()
 
 void Sword::use(Vector2 dir, float deltaTime)
 {
+	if (useTime <= 0)
+	{
+		left = !left;
+		useTime = useTimeMax;
+		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / 3.14159f;
+		if (left)
+			angle -= angleAttack / 2;
+		else
+			angle += angleAttack / 2;
 
+	}
 }
 
 void Sword::onTriggerEnter(Collider* collider)
@@ -56,8 +68,9 @@ void Sword::onTriggerEnter(Collider* collider)
 		Rectangle pos = gm->getPos();
 		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
-
-		collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 4, 2);
+		Hitable* hit = dynamic_cast<Hitable*>(collider);
+		if (hit && hit->dealDamage(0))
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 800, 1);
 	}
 
 

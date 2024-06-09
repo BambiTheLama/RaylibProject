@@ -4,6 +4,8 @@
 #include "../Collider/CollisionElementCircle.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../Game.h"
+#include "raymath.h"
+
 Player::Player(float x, float y){
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
@@ -25,6 +27,14 @@ Player::~Player() {
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
     s->update(deltaTime);
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {
+        Vector2 mouse = GetMousePosition();
+        mouse.x -= GetScreenWidth() / 2;
+        mouse.y -= GetScreenHeight() / 2;
+        mouse = Vector2Normalize(mouse);
+        s->use(mouse, deltaTime);
+    }
    
     //if (IsKeyPressed(KEY_ONE))
     //{
@@ -49,7 +59,8 @@ void Player::draw() {
     DrawRectangleRec(pos,BLUE);
     DrawRectangleLinesEx(pos, 2, BLACK);
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
-    s->draw();
+    if(s->isUsing())
+        s->draw();
 }
 
 void Player::onCollisionEnter(Collider* collider) { 

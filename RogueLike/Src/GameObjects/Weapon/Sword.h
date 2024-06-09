@@ -7,6 +7,10 @@ class Sword:public GameObject,public Weapon,public Collider
 	Vector2 rotationPoint;
 	float angle;
 	GameObject* owner;
+	float useTime = 0.0f;
+	float useTimeMax = 0.5f;
+	float angleAttack = 360;
+	bool left = false;
 public:
 	Sword(GameObject* owner);
 
@@ -21,5 +25,7 @@ public:
 	Vector2 getRotationPoint() { return rotationPoint; }
 
 	void onTriggerEnter(Collider* collider);
+
+	bool isUsing() { return useTime > 0; }
 };
 
