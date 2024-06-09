@@ -21,7 +21,7 @@ Wolf::Wolf(float x, float y)
 	controller.setController(ai);
 	controller.setCharacter(this);
 	controller.setCharacterType(ObjectType::Enemy);
-	mass = 100;
+	mass = 10;
 }
 
 void Wolf::destroy()

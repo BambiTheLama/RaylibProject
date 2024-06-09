@@ -1,0 +1,191 @@
+[
+  {
+    "Item0": [
+      0,
+      1
+    ],
+    "finalItemID": 1,
+    "howManyItems": 4,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      16
+    ],
+    "Item1": [
+      6,
+      6
+    ],
+    "finalItemID": 7,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      3,
+      8
+    ],
+    "finalItemID": 8,
+    "howManyItems": 16,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      1,
+      10
+    ],
+    "finalItemID": 9,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      4
+    ],
+    "Item1": [
+      1,
+      10
+    ],
+    "finalItemID": 10,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      4
+    ],
+    "Item1": [
+      1,
+      10
+    ],
+    "finalItemID": 11,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      4
+    ],
+    "Item1": [
+      1,
+      10
+    ],
+    "finalItemID": 12,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      4
+    ],
+    "Item1": [
+      1,
+      10
+    ],
+    "finalItemID": 13,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      1,
+      1
+    ],
+    "finalItemID": 5,
+    "howManyItems": 4,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      3,
+      10
+    ],
+    "finalItemID": 14,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      3,
+      10
+    ],
+    "finalItemID": 15,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      3,
+      10
+    ],
+    "finalItemID": 16,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      3,
+      10
+    ],
+    "finalItemID": 17,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      5,
+      8
+    ],
+    "Item1": [
+      3,
+      10
+    ],
+    "finalItemID": 18,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      1,
+      16
+    ],
+    "finalItemID": 20,
+    "howManyItems": 8,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      3,
+      1
+    ],
+    "finalItemID": 21,
+    "howManyItems": 1,
+    "whereToCraft": 0
+  },
+  {
+    "Item0": [
+      0,
+      1
+    ],
+    "finalItemID": 23,
+    "whereToCraft": 0
+  }
+]

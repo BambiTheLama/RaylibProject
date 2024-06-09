@@ -1,0 +1,6 @@
+{
+  "Ammo": "%s(%d)\n\nSpeed %0.2lf\n\nRange %0.2lf\n\n",
+  "Bow": "%s\n\nCharge time %0.2lf\n\nSpeed multiplier %0.2lf\n\nRange multiplayer %0.2lf\n\nProjectals %d\n\n",
+  "StackItem": "%s(%d)",
+  "ToolItem": "%s\n\nDamage %0.2lf\n\nToolPower %d\n\nUse Time %0.2lf\n\n"
+}

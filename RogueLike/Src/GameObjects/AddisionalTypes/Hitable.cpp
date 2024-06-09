@@ -3,7 +3,7 @@
 #include "../ParticleText.h"
 #include <string>
 
-int Hitable::showParticle = 0b11111;
+int Hitable::showParticle = 0;//0b11111;
 
 Hitable::Hitable(int hp)
 {

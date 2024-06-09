@@ -1,0 +1,38 @@
+{
+  "Ammo": "%s(%d)\n\nSzybkosc %.1lf\n\nZasieg %.1lf\n\n",
+  "Arrow": "Strzala",
+
+  "Axe": "Siekiera",
+  "Bow": "%s\n\nCzas ladowania %0.2lf\n\nMnoznik szybkosci %0.2lf\n\nMnoznik zasiegu %0.2lf\n\nIlosc pociskow %d\n\n",
+  "WoodBow": "Drewninay Luk",
+  "Dirt": "Ziemia",
+
+  "Hoe": "Motyka",
+  "Pickaxe": "Kilof",
+  "Plank": "Deska",
+  "Sand": "Piasek",
+  "Shovel": "Lopata",
+  "WoodSword": "Drewniany Miecz",
+  "WoodShovel": "Drewniana Lopata",
+  "WoodHoe": "Drewniana Motyka",
+  "WoodPickaxe": "Drewniany Kilof",
+  "WoodArrow": "Drewniana Strzala",
+  "WoodAxe": "Drewniana Siekiera",
+  "WoodWall":"Drewniana Sciana",
+  "StoneSword": "Kamienny Miecz",
+  "StoneShovel": "Kamienna Lopata",
+  "StoneHoe": "Kamienna Motyka",
+  "StonePickaxe": "Kamienny Kilof",
+  "StoneArrow": "Kamienna Strzala",
+  "StoneAxe": "Kamienna Siekiera",
+  "Sapling":"Sadzonka",
+
+  "StackItem": "%s(%d)",
+  "Stick": "Patyk",
+  "Stone": "Kamien",
+  "Sword": "Miecz",
+
+  "ToolItem": "%s\n\nObrazenia %0.2lf\n\nMoc narzedzia %d\n\nCzas uzycia %0.2lf\n\n",
+  "Weeb": "Siec",
+  "Wood": "Drewno"
+}

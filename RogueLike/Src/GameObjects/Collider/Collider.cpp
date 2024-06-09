@@ -24,6 +24,7 @@ bool removeIf(Vector3* vec)
     if (vec->z <= 0.0f)
     {
         delete vec;
+        printf("USUWAM KURWA\n");
         return true;
     }
     return false;
@@ -57,8 +58,13 @@ void Collider::update(float deltaTime)
     {
         float t = getSpeedFromTime(f->z) * deltaTime * constForce / mass;
         Vector2 dir = { f->x * t ,f->y * t };
+        float len = Vector2Length(dir);
+        if (len > 6)
+        {
+            dir = Vector2Scale(Vector2Normalize(dir), 6);
+        }
         thisObj->move(dir);
-        f->z -= deltaTime*3;
+        f->z -= deltaTime;
     }
     allForces.remove_if(removeIf);
 }

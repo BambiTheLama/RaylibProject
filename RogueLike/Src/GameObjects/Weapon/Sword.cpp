@@ -9,10 +9,11 @@ Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
 	pos = { 0,0,69,69 };
-	collisionElemnets.push_back(new CollisionElementLines(std::vector<Vector2>{{0, 0}, { 0,pos.height }, { pos.width,pos.height }, { pos.width,0 } }));
+	collisionElemnets.push_back(new CollisionElementLines(std::vector<Vector2>{{0, 0}, { pos.width*3.0f/8.0f,pos.height/2 }, { pos.width*13.0f/16.0f,pos.height }, { pos.width,pos.height }, { pos.width,pos.height * 13.0f / 16.0f }, { pos.width / 2.0f,pos.height * 3.0f / 8.0f } }));
 	Collider::getThisObj();
 	trigger = true;
 	rotationPoint = { 0,0 };
+	texture = LoadTexture("Res/Weapons/StoneSword.png");
 }
 
 void Sword::update(float deltaTime)
@@ -39,7 +40,8 @@ void Sword::draw()
 	Rectangle pos = getPos();
 	pos.x += rotationPoint.x;
 	pos.y += rotationPoint.y;
-	DrawRectanglePro(pos, rotationPoint, angle, PINK);
+	//DrawRectanglePro(pos, rotationPoint, angle, PINK);
+	DrawTexturePro(texture, { 0,0,(float)texture.width,(float)-texture.height }, pos, rotationPoint, angle, WHITE);
 	Collider::draw();
 }
 
@@ -60,6 +62,8 @@ void Sword::use(Vector2 dir, float deltaTime)
 
 void Sword::onTriggerEnter(Collider* collider)
 {
+	if (!isUsing())
+		return;
 	GameObject* gm = collider->getThisObj();
 	if (gm == owner || !gm)
 		return;
