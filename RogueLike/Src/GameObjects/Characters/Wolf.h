@@ -30,7 +30,7 @@ public:
 
     void move(Vector2 dir, float deltaTime);
 
-    void action(Input input, Vector2 dir, float deltaTime);
+    void action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime);
 
     void onCollisionEnter(Collider* collider);
 

@@ -28,9 +28,10 @@ void CharacterController::update(float deltaTime) {
     }
 
     std::vector<Input> inputs = controller->getInputs();
-
+    Vector2 moveDir = controller->getMoveDir();
+    Vector2 inputDir = controller->getInputDir();
     for (auto i : inputs)
-        character->action(i, controller->getMoveDir(), deltaTime);
+        character->action(i, moveDir, inputDir, deltaTime);
 }
 
 void CharacterController::setCharacter(Character* character) 

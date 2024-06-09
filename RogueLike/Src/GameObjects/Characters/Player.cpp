@@ -27,14 +27,7 @@ Player::~Player() {
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
     s->update(deltaTime);
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-    {
-        Vector2 mouse = GetMousePosition();
-        mouse.x -= GetScreenWidth() / 2;
-        mouse.y -= GetScreenHeight() / 2;
-        mouse = Vector2Normalize(mouse);
-        s->use(mouse, deltaTime);
-    }
+
    
     //if (IsKeyPressed(KEY_ONE))
     //{
@@ -51,7 +44,21 @@ void Player::move(Vector2 dir, float deltaTime) {
     pos.y += dir.y * deltaTime * speed;
 }
 
-void Player::action(Input input, Vector2 dir,float deltaTime) {
+void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime) {
+    switch (input)
+    {
+    case Input::Interact:
+        break;
+    case Input::Attack1:
+        s->use(cursorDir, deltaTime);
+        break;
+    case Input::Attack2:
+        break;
+    case Input::IDE:
+        break;
+    default:
+        break;
+    }
 }
 
 

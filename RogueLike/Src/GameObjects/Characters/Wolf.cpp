@@ -112,14 +112,14 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	}
 }
 
-void Wolf::action(Input input, Vector2 dir,float deltaTime)
+void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
 
 	if (input == Input::Attack1 && attackTime <= 0.0f)
 	{
-		if (abs(dir.x) <= 0.1 && abs(dir.y) < 0.1)
+		if (abs(movedir.x) <= 0.1 && abs(movedir.y) < 0.1)
 			return;
-		attackDir = Vector2Normalize(dir);
+		attackDir = Vector2Normalize(movedir);
 
 		attackTime = attackTimeMax;
 	}

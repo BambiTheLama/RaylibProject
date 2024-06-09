@@ -23,4 +23,15 @@ void KeyBoardController::update(float deltaTime) {
             inputs.push_back(Input::Attack1);
     }
     moveDir = Vector2Normalize(moveDir);
+
+
+    inputDir = GetMousePosition();
+    inputDir.x -= GetScreenWidth() / 2;
+    inputDir.y -= GetScreenHeight() / 2;
+    inputDir = Vector2Normalize(inputDir);
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {
+
+        inputs.push_back(Input::Attack1);
+    }
 }

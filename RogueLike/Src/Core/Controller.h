@@ -31,6 +31,7 @@ class Controller {
 protected:
     GameObject* gm;
     Vector2 moveDir = { 0,0 };
+    Vector2 inputDir = { 0,0 };
     std::vector<Input> inputs;
     ControllAction* controllAction = nullptr;
 public:
@@ -41,6 +42,8 @@ public:
     Vector2 getMoveDir() const { return moveDir; }
 
     std::vector<Input> getInputs() const { return inputs; }
+
+    Vector2 getInputDir()const { return inputDir; }
 
     void setGameObject(GameObject* gm) { this->gm = gm; }
 
