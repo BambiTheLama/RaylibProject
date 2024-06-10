@@ -1,0 +1,21 @@
+ten tydzień:
+	Bronie:
+		Łuk
+		Kusza 
+		Różdzka
+		
+	Mechaniki Broni:
+		Statystyki
+		Sloty na mechaniki
+		Machanika dodawania elementów do broni:
+			StatBust
+			Efekty
+
+Kolejny tydzień
+	Dodanie możliwości zdobydania broni
+	Dodanie możliwości zdobywania upgradów
+	
+				
+
+			
+			
