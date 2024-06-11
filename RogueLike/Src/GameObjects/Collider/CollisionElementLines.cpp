@@ -37,6 +37,6 @@ bool CollisionElementLines::isCollidiongWith(Vector2 thisPos, CollisionElement *
     }
     if (collisionElement->getType() == CollisionType::Circle) {
         Vector3 sCircle = collisionElement->getCircle(collisionElementPos);
-        return CheckCollisionCircleLines({sCircle.x, sCircle.y}, sCircle.z, points);
+        return CheckCollisionCircleLines({ sCircle.x, sCircle.y }, sCircle.z, points, dir, depht);
     }
 }

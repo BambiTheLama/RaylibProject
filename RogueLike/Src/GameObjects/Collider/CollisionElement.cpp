@@ -109,33 +109,6 @@ int closestPointToCricle(Vector2 v, std::vector<Vector2> lines)
     return index;
 }
 
-bool CheckCollisionCircleLines(Vector2 v, float radius, std::vector<Vector2> lines) {
-    if (lines.size() <= 0)
-        return false;
-    float minA, maxA;
-    float minB, maxB;
-    Vector2 axies;
-    for (int i = 0; i < lines.size(); i++) {
-        Vector2 l1 = lines[i];
-        Vector2 l2 = lines[(i + 1) % lines.size()];
-        Vector2 edge = Vector2Subtract(l2, l1);
-
-        axies = { -edge.y,edge.x };
-        projectalVertices(lines, axies, &minA, &maxA);
-        projectalCircle(v, radius, axies, &minB, &maxB);
-        if (minA >= maxB || minB >= maxA)
-            return false;
-
-    }
-    int closest = closestPointToCricle(v, lines);
-    Vector2 c = lines[closest];
-    axies = Vector2Subtract(c, v);
-    projectalVertices(lines, axies, &minA, &maxA);
-    projectalCircle(v, radius, axies, &minB, &maxB);
-    if (minA >= maxB || minB >= maxA)
-        return false;
-    return true;
-}
 Vector2 getCenter(std::vector<Vector2> lines)
 {
     Vector2 v = { 0,0 };
@@ -148,11 +121,63 @@ Vector2 getCenter(std::vector<Vector2> lines)
     return { v.x / lines.size(),v.y / lines.size() };
 
 }
-bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines2,Vector2* dir,float *depth) {
+
+bool CheckCollisionCircleLines(Vector2 v, float radius, std::vector<Vector2> lines, Vector2* dir, float* depth) {
+    if (lines.size() <= 0)
+        return false;
     Vector2 dirV = { 0,0 };
     float dephtV = std::numeric_limits<float>::max();
+    float minA, maxA;
+    float minB, maxB;
+    Vector2 axies;
+    float axiesMin;
+    for (int i = 0; i < lines.size(); i++) {
+        Vector2 l1 = lines[i];
+        Vector2 l2 = lines[(i + 1) % lines.size()];
+        Vector2 edge = Vector2Subtract(l2, l1);
+
+        axies = Vector2Normalize({ -edge.y,edge.x });
+        projectalVertices(lines, axies, &minA, &maxA);
+        projectalCircle(v, radius, axies, &minB, &maxB);
+        if (minA >= maxB || minB >= maxA)
+            return false;
+        axiesMin = fminf(maxB - minA, maxA - minB);
+        if (axiesMin < dephtV)
+        {
+            dephtV = axiesMin;
+            dirV = axies;
+        }
+    }
+    int closest = closestPointToCricle(v, lines);
+    Vector2 c = lines[closest];
+    axies = Vector2Normalize(Vector2Subtract(c, v));
+    projectalVertices(lines, axies, &minA, &maxA);
+    projectalCircle(v, radius, axies, &minB, &maxB);
+    if (minA >= maxB || minB >= maxA)
+        return false;
+    axiesMin = fminf(maxB - minA, maxA - minB);
+    if (axiesMin < dephtV)
+    {
+        dephtV = axiesMin;
+        dirV = axies;
+    }
+    Vector2 poliDir = Vector2Subtract(getCenter(lines), v);
+    if (Vector2DotProduct(poliDir, dirV) < 0)
+        dirV = { -dirV.x,-dirV.y };
+
+    if (dir)
+        *dir = dirV;
+    if (depth)
+        *depth = dephtV;
+    return true;
+}
+
+bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines2,Vector2* dir,float *depth) {
+
     if (lines1.size() <= 0 || lines2.size() <= 0)
         return false;
+    Vector2 dirV = { 0,0 };
+    float dephtV = std::numeric_limits<float>::max();
     for (int i = 0; i < lines1.size(); i++) {
         Vector2 l1 = lines1[i];
         Vector2 l2 = lines1[(i + 1) % lines1.size()];

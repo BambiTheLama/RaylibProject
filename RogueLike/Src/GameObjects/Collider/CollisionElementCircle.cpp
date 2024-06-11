@@ -11,7 +11,7 @@ bool CollisionElementCircle::isCollidiongWith(Vector2 thisPos, CollisionElement 
 
     if (collisionElement->getType() == CollisionType::Line) {
         std::vector<Vector2> points = collisionElement->getLines(collisionElementPos);
-        return CheckCollisionCircleLines({circle.x, circle.y}, circle.z, points);
+        return CheckCollisionCircleLines({ circle.x, circle.y }, circle.z, points, dir, depht);
     }
     if (collisionElement->getType() == CollisionType::Circle) {
         Vector3 sCircle = collisionElement->getCircle(collisionElementPos);
