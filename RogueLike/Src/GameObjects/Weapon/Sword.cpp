@@ -74,7 +74,7 @@ void Sword::onTriggerEnter(Collider* collider)
 		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
 		Hitable* hit = dynamic_cast<Hitable*>(collider);
 		if (hit && hit->dealDamage(0))
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 800, 1);
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 80, 1);
 	}
 
 
