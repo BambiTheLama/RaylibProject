@@ -11,57 +11,18 @@ Vector2 CollisionElement::getCollisionVectorDir(Vector2 thisPos, CollisionElemen
     return Vector2Normalize(dirVector);
 }
 
-bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end) {
-    Vector2 point;
-    if (CheckCollisionLines(start, end, {rec.x, rec.y}, {rec.x, rec.y + rec.height}, &point))
+bool CheckCollisionCircles(Vector3 p1, Vector3 p2, Vector2* dir, float* depth) {
+    if (CheckCollisionCircles({ p1.x, p1.y }, p1.z, { p2.x, p2.y }, p2.z))
+    {
+        float depthV = p1.z + p2.z - Vector2Distance({ p1.x,p1.y }, { p2.x,p2.y });
+        Vector2 dirV = Vector2Normalize(Vector2Subtract({ p1.x,p1.y }, { p2.x,p2.y }));
+        if (dir)
+            *dir = dirV;
+        if (depth)
+            *depth = depthV;
         return true;
-    if (CheckCollisionLines(start, end, {rec.x, rec.y}, {rec.x + rec.width, rec.y}, &point))
-        return true;
-    if (CheckCollisionLines(start, end, {rec.x + rec.width, rec.y}, {rec.x + rec.width, rec.y + rec.height}, &point))
-        return true;
-    if (CheckCollisionLines(start, end, {rec.x, rec.y + rec.height}, {rec.x + rec.width, rec.y + rec.height}, &point))
-        return true;
-    if (CheckCollisionLines(start, end, {rec.x + rec.width, rec.y}, {rec.x, rec.y + rec.height}, &point))
-        return true;
-    if (CheckCollisionLines(start, end, {rec.x, rec.y}, {rec.x + rec.width, rec.y + rec.height}, &point))
-        return true;
+    }
     return false;
-}
-
-Dir CheckCollisionRecLineDir(Rectangle rec, Vector2 start, Vector2 end) {
-    Vector2 point;
-    if (CheckCollisionLines(start, end, { rec.x, rec.y }, { rec.x, rec.y + rec.height }, &point))
-        return Dir::Left;
-    if (CheckCollisionLines(start, end, { rec.x, rec.y }, { rec.x + rec.width, rec.y }, &point))
-        return Dir::Up;
-    if (CheckCollisionLines(start, end, { rec.x + rec.width, rec.y }, { rec.x + rec.width, rec.y + rec.height }, &point))
-        return Dir::Right;
-    if (CheckCollisionLines(start, end, { rec.x, rec.y + rec.height }, { rec.x + rec.width, rec.y + rec.height }, &point))
-        return Dir::Down;
-    return Dir::NON;
-}
-
-bool CheckCollisionCircles(Vector3 p1, Vector3 p2) {
-    return CheckCollisionCircles({p1.x, p1.y}, p1.z, {p2.x, p2.y}, p2.z);
-}
-
-float distance(float x1, float y1, float x2, float y2) {
-    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-}
-
-bool CheckCollisionCircleLine(Vector2 v, float radius, Vector2 p1, Vector2 p2) {
-    float len = distance(p1.x, p1.y, p2.x, p2.y);
-    float dot = (((v.x - p2.x) * (p1.x - p2.x)) + ((v.y - p2.y) * (p1.y - p2.y))) / pow(len, 2);
-
-    float closestX = p2.x + (dot * (p1.x - p2.x));
-    float closestY = p2.y + (dot * (p1.y - p2.y));
-
-    if (!CheckCollisionPointLine({closestX, closestY}, p1, p2, 1))
-        return false;
-    float distX = closestX - v.x;
-    float distY = closestY - v.y;
-    float distance = sqrt(pow(distX, 2) + pow(distY, 2));
-    return distance <= radius;
 }
 
 void projectalCircle(Vector2 v, float radius, Vector2 axies, float* min, float* max)
@@ -93,6 +54,7 @@ void projectalVertices(std::vector<Vector2> lines,Vector2 axies, float* min, flo
             *max = dot;
     }
 }
+
 int closestPointToCricle(Vector2 v, std::vector<Vector2> lines)
 {
     int index = 0;

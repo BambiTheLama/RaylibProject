@@ -39,14 +39,7 @@ public:
     void draw(GameObject *obj);
 #endif
 };
-
-bool CheckCollisionRecLine(Rectangle rec, Vector2 start, Vector2 end);
-
-Dir CheckCollisionRecLineDir(Rectangle rec, Vector2 start, Vector2 end);
-
-bool CheckCollisionCircles(Vector3 p1, Vector3 p2);
-
-bool CheckCollisionCircleLine(Vector2 v, float radius, Vector2 p1, Vector2 p2);
+bool CheckCollisionCircles(Vector3 p1, Vector3 p2, Vector2* dir, float* depth);
 
 bool CheckCollisionCircleLines(Vector2 v, float radius, std::vector<Vector2> points, Vector2* dir, float* depth);
 
