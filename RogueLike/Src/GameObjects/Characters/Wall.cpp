@@ -8,7 +8,14 @@ Wall::Wall(float x, float y, float w, float h)
     moving = false;
     mass = 10000;
     pos = { x, y, w, h };
-    collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
+    std::vector<Vector2> col{
+        {0,         0},
+        {pos.width, 0},
+        {pos.width, pos.height},
+        {0,         pos.height }
+    };
+    collisionElemnets.push_back(new CollisionElementLines(col));
+
 }
 
 Wall::~Wall()

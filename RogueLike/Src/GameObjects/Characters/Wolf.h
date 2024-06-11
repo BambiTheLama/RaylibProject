@@ -19,6 +19,7 @@ class Wolf :
     CharacterController controller;
     AIController* ai;
     Vector2 dir;
+    bool col = false;
 public:
     Wolf(float x,float y);
 
@@ -32,7 +33,7 @@ public:
 
     void action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime);
 
-    void onCollisionEnter(Collider* collider);
+    void onCollision(Collider* collider);
 
     void setPos(Vector2 point) { pos.x = point.x - pos.width / 2; pos.y = point.y - pos.height / 2; }
 

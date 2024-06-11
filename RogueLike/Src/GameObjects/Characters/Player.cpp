@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "../Collider/CollisionElementLines.h"
-#include "../Collider/CollisionElementBox.h"
 #include "../Collider/CollisionElementCircle.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../Game.h"
@@ -10,7 +9,14 @@ Player::Player(float x, float y){
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;
-    collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height /4, pos.width/2, pos.height/2}));
+    std::vector<Vector2> col{
+        {pos.width / 4,					pos.height / 4},
+        {pos.width / 4 + pos.width / 2,	pos.height / 4},
+        {pos.width / 4 + pos.width / 2,	pos.height / 4 + pos.height / 2},
+        {pos.width / 4,					pos.height / 4 + pos.height / 2}
+    };
+    collisionElemnets.push_back(new CollisionElementLines(col));
+
     //drawOrder = 10;
     type = ObjectType::Player;
     mass = 10;

@@ -1,6 +1,6 @@
 #include "Wolf.h"
-#include "../Collider/CollisionElementBox.h"
 #include "../Collider/CollisionElementCircle.h"
+#include "../Collider/CollisionElementLines.h"
 #include "raymath.h"
 #include "../Game.h"
 #include "../ParticleText.h"
@@ -10,7 +10,13 @@ Wolf::Wolf(float x, float y)
 	pos = { x,y,64,32 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
-	collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height / 4, pos.width / 2, pos.height / 2 }));
+	std::vector<Vector2> col{
+		{pos.width / 4,					pos.height / 4},
+		{pos.width / 4 + pos.width / 2,	pos.height / 4},
+		{pos.width / 4 + pos.width / 2,	pos.height / 4 + pos.height / 2},
+		{pos.width / 4,					pos.height / 4 + pos.height / 2}
+	};
+	collisionElemnets.push_back(new CollisionElementLines(col));
 	//collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
 	type = ObjectType::Enemy;
 	ai = new AIController();
@@ -31,6 +37,8 @@ void Wolf::destroy()
 
 void Wolf::update(float deltaTime)
 {
+	col = false;
+	return;
 	Hitable::update(deltaTime);
 	controller.update(deltaTime);
 	if (ai)
@@ -62,7 +70,7 @@ void Wolf::update(float deltaTime)
 
 void Wolf::draw()
 {
-	DrawRectangleRec(pos, LIGHTGRAY);
+	DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 	DrawLineEx({ dir.x*75 + pos.x + pos.width / 2,dir.y*75 + pos.y + pos.height / 2 }, { pos.x + pos.width / 2,pos.y + pos.height / 2 }, 3, BLACK);
 	if (!ai)
@@ -126,8 +134,10 @@ void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTi
 
 }
 
-void Wolf::onCollisionEnter(Collider* collider)
+void Wolf::onCollision(Collider* collider)
 {
+	col = true;
+	return;
 	GameObject* gm = collider->getThisObj();
 	if (((int)gm->getType() & target) != 0) {
 		Hitable* hit = dynamic_cast<Hitable*>(gm);

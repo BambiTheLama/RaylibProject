@@ -110,9 +110,14 @@ Vector2 Collider::getCollisionDir(Collider* collider)
     Vector2 otherPos = otherObj->getPosPoint();
     for (auto c : collisionElemnets)
         for (auto c2 : collider->collisionElemnets)
-            if (c->isCollidiongWith(pos, c2, otherPos)) {
-                return c->getCollisionVectorDir(pos, c2, otherPos);
+        {
+            Vector2 dir;
+            float dist;
+            if (c->isCollidiongWith(pos, c2, otherPos,&dir,&dist)) {
+                return dir;
             }
+        }
+
     return { 0,0 };
 }
 
@@ -123,38 +128,38 @@ bool Collider::isColliding(Collider *collider,float deltaTime) {
         return false;
     Vector2 otherPos = otherObj->getPosPoint();
     for (auto c: collisionElemnets)
-        for (auto c2: collider->collisionElemnets)
-            if (c->isCollidiongWith(pos, c2, otherPos)) {
+        for (auto c2 : collider->collisionElemnets)
+        {
+            Vector2 dir;
+            float dist;
+            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist)) {
 
                 if (trigger || collider->trigger)
                     return true;
                 float massAdd = mass + collider->mass;
-                Vector2 dirVector = c->getCollisionVectorDir(pos, c2, otherPos);
-
-                const float moveMultyplay = 0.02f;
-
-
 
                 if (!solidObject)
                 {
-                    float speed = thisObj->getSpeed();
-                    if (speed <= 0)
-                        speed = 1;
-                    thisObj->pos.x += dirVector.x * (collider->mass / massAdd) * moveMultyplay * speed;
-                    thisObj->pos.y += dirVector.y * (collider->mass / massAdd) * moveMultyplay * speed;
+                    float massMove = 1;
+                    if (!collider->solidObject)
+                        massMove = (collider->mass / massAdd);
+                    thisObj->pos.x += dir.x * massMove * dist;
+                    thisObj->pos.y += dir.y * massMove * dist;
                 }
 
                 if (!collider->solidObject)
                 {
-                    float speed = otherObj->getSpeed();
-                    if (speed <= 0)
-                        speed = 1;
-                    otherObj->pos.x -= dirVector.x * (mass / massAdd) *  moveMultyplay * speed;
-                    otherObj->pos.y -= dirVector.y * (mass / massAdd) *  moveMultyplay * speed;
+                    float massMove = 1;
+                    if (!solidObject)
+                        massMove = (mass / massAdd);
+                    otherObj->pos.x -= dir.x * massMove * dist;
+                    otherObj->pos.y -= dir.y * massMove * dist;
                 }
-                
+
                 return true;
             }
+        }
+            
 
 
     return false;

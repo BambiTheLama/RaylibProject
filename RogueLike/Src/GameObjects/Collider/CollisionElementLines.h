@@ -17,8 +17,7 @@ public:
 
     void setRotationPoint(Vector2 point) { this->rotationPoint = point; }
 
-    bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos) override;
+    bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos, Vector2* dir, float* depht) override;
 
-    Dir getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
 };
 

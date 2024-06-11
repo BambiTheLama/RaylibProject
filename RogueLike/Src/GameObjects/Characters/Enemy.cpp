@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "../../Core/AIController.h"
 #include "raymath.h"
-#include "../Collider/CollisionElementBox.h"
+#include "../Collider/CollisionElementLines.h"
 
 Enemy::Enemy(float x, float y)
 {
@@ -16,7 +16,13 @@ Enemy::Enemy(float x, float y)
 	controller.setController(ai);
 	controller.setCharacter(this);
 	type = ObjectType::Enemy;
-	collisionElemnets.push_back(new CollisionElementBox({ pos.width / 4, pos.height / 4, pos.width / 2, pos.height / 2 }));
+	std::vector<Vector2> col{
+		{pos.width / 4,					pos.height / 4},
+		{pos.width / 4 + pos.width / 2,	pos.height / 4},
+		{pos.width / 4 + pos.width / 2,	pos.height / 4 + pos.height / 2},
+		{pos.width / 4,					pos.height / 4 + pos.height / 2}
+	};
+	collisionElemnets.push_back(new CollisionElementLines(col));
 }
 
 void Enemy::update(float deltaTime)

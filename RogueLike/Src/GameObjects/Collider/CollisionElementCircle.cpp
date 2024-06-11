@@ -6,12 +6,9 @@ CollisionElementCircle::CollisionElementCircle(Vector2 point, float radius) : Co
 }
 
 bool CollisionElementCircle::isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement,
-                                              Vector2 collisionElementPos) {
+                                              Vector2 collisionElementPos, Vector2* dir, float* depht) {
     Vector3 circle = getCircle(thisPos);
-    if (collisionElement->getType() == CollisionType::Box) {
-        Rectangle rec = collisionElement->getBox(collisionElementPos);
-        return CheckCollisionCircleRec({circle.x, circle.y}, circle.z, rec);
-    }
+
     if (collisionElement->getType() == CollisionType::Line) {
         std::vector<Vector2> points = collisionElement->getLines(collisionElementPos);
         return CheckCollisionCircleLines({circle.x, circle.y}, circle.z, points);

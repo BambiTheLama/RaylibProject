@@ -121,9 +121,6 @@
     <ClInclude Include="Src\GameObjects\Collider\CollisionElement.h">
       <Filter>GameObjects\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Collider\CollisionElementBox.h">
-      <Filter>GameObjects\Colliders</Filter>
-    </ClInclude>
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementCircle.h">
       <Filter>GameObjects\Colliders</Filter>
     </ClInclude>
@@ -219,9 +216,6 @@
       <Filter>GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\CollisionElement.cpp">
-      <Filter>GameObjects\Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Collider\CollisionElementBox.cpp">
       <Filter>GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp">

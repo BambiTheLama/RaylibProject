@@ -6,7 +6,7 @@
 #define showColliders
 
 enum class CollisionType {
-    Line, Box, Circle
+    Line, Circle
 };
 
 class GameObject;
@@ -21,18 +21,12 @@ public:
 
     CollisionType getType() { return type; }
 
-    virtual bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos) = 0;
-
-    virtual Dir getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
+    virtual bool isCollidiongWith(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos, Vector2* dir, float* depht) = 0;
 
     Vector2 getCollisionVectorDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
 
-    virtual Rectangle getBox(Vector2 pos) {
-        return {0, 0, 0, 0};
-    }
-
     virtual Vector3 getCircle(Vector2 pos) {
-        return {0, 0};
+        return { 0, 0,0 };
     }
 
     virtual std::vector<Vector2> getLines(Vector2 pos) {
@@ -56,5 +50,5 @@ bool CheckCollisionCircleLine(Vector2 v, float radius, Vector2 p1, Vector2 p2);
 
 bool CheckCollisionCircleLines(Vector2 v, float radius, std::vector<Vector2> points);
 
-bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines2);
+bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines2, Vector2* dir, float* depth);
 

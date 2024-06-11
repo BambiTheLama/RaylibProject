@@ -46,7 +46,6 @@
     <ClInclude Include="Src\GameObjects\Characters\Wolf.h" />
     <ClInclude Include="Src\GameObjects\Collider\Collider.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElement.h" />
-    <ClInclude Include="Src\GameObjects\Collider\CollisionElementBox.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementCircle.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
@@ -82,7 +81,6 @@
     <ClCompile Include="Src\GameObjects\Characters\Wolf.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\Collider.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElement.cpp" />
-    <ClCompile Include="Src\GameObjects\Collider\CollisionElementBox.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />

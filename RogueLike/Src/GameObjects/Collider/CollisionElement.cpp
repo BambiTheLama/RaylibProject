@@ -3,28 +3,10 @@
 #include "raylib.hpp"
 #include "raymath.h"
 #include "../../Core/WaveCollapsFun.h"
-
-
-Dir CollisionElement::getCollisionDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
-{
-    return Dir::NON;
-}
+#include <limits>
 
 Vector2 CollisionElement::getCollisionVectorDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos)
 {
-    Dir dir = getCollisionDir(thisPos, collisionElement, collisionElementPos);
-    switch (dir)
-    {
-    case Dir::Up:
-        return { 0,-1 };
-    case Dir::Down:
-        return { 0,1 };
-    case Dir::Left:
-        return { -1,0 };
-    case Dir::Right:
-        return { 1,0 };
-
-    }
     Vector2 dirVector = Vector2Subtract(thisPos, collisionElementPos);
     return Vector2Normalize(dirVector);
 }
@@ -82,30 +64,142 @@ bool CheckCollisionCircleLine(Vector2 v, float radius, Vector2 p1, Vector2 p2) {
     return distance <= radius;
 }
 
-bool CheckCollisionCircleLines(Vector2 v, float radius, std::vector<Vector2> points) {
-    if (points.size() <= 1)
-        return false;
-    for (int i = 0; i < points.size() - 1; i++)
-        if (CheckCollisionCircleLine(v, radius, points[i], points[i + 1]))
-            return true;
-    return CheckCollisionCircleLine(v, radius, points[0], points[points.size() - 1]);
+void projectalCircle(Vector2 v, float radius, Vector2 axies, float* min, float* max)
+{
+    Vector2 dir = Vector2Scale(Vector2Normalize(axies), radius);
+    Vector2 p1 = Vector2Subtract(v, dir);
+    Vector2 p2 = Vector2Add(v, dir);
+    *min = Vector2DotProduct(p1, axies);
+    *max = Vector2DotProduct(p2, axies);
+    if (*min > *max)
+    {
+        float t = *min;
+        *min = *max;
+        *max = t;
+    }
 }
 
-bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines2) {
-    Vector2 line;
-    if (lines1.size() <= 1 || lines2.size() <= 1)
+void projectalVertices(std::vector<Vector2> lines,Vector2 axies, float* min, float* max)
+{
+    float dot = Vector2DotProduct(lines[0], axies);
+    *min = dot;
+    *max = dot;
+    for (int i = 1; i < lines.size(); i++)
+    {
+        dot = Vector2DotProduct(lines[i], axies);
+        if (dot < *min)
+            *min = dot;
+        if (dot > *max)
+            *max = dot;
+    }
+}
+int closestPointToCricle(Vector2 v, std::vector<Vector2> lines)
+{
+    int index = 0;
+    float dist = Vector2Distance(v, lines[0]);
+    for (int i = 1; i < lines.size(); i++)
+    {
+        float d = Vector2Distance(v, lines[i]);
+        if (d < dist)
+        {
+            dist = d;
+            index = i;
+        }
+    }
+    return index;
+}
+
+bool CheckCollisionCircleLines(Vector2 v, float radius, std::vector<Vector2> lines) {
+    if (lines.size() <= 0)
+        return false;
+    float minA, maxA;
+    float minB, maxB;
+    Vector2 axies;
+    for (int i = 0; i < lines.size(); i++) {
+        Vector2 l1 = lines[i];
+        Vector2 l2 = lines[(i + 1) % lines.size()];
+        Vector2 edge = Vector2Subtract(l2, l1);
+
+        axies = { -edge.y,edge.x };
+        projectalVertices(lines, axies, &minA, &maxA);
+        projectalCircle(v, radius, axies, &minB, &maxB);
+        if (minA >= maxB || minB >= maxA)
+            return false;
+
+    }
+    int closest = closestPointToCricle(v, lines);
+    Vector2 c = lines[closest];
+    axies = Vector2Subtract(c, v);
+    projectalVertices(lines, axies, &minA, &maxA);
+    projectalCircle(v, radius, axies, &minB, &maxB);
+    if (minA >= maxB || minB >= maxA)
+        return false;
+    return true;
+}
+Vector2 getCenter(std::vector<Vector2> lines)
+{
+    Vector2 v = { 0,0 };
+    if (lines.size() <= 0)
+        return v;
+    for (auto l : lines)
+    {
+        v = Vector2Add(v, l);
+    }
+    return { v.x / lines.size(),v.y / lines.size() };
+
+}
+bool CheckCollisionLines(std::vector<Vector2> lines1, std::vector<Vector2> lines2,Vector2* dir,float *depth) {
+    Vector2 dirV = { 0,0 };
+    float dephtV = std::numeric_limits<float>::max();
+    if (lines1.size() <= 0 || lines2.size() <= 0)
         return false;
     for (int i = 0; i < lines1.size(); i++) {
         Vector2 l1 = lines1[i];
         Vector2 l2 = lines1[(i + 1) % lines1.size()];
-        for (int j = 0; j < lines2.size() - 1; j++) {
-            if (CheckCollisionLines(l1, l2, lines2[j], lines2[j + 1], &line))
-                return true;
+        Vector2 edge = Vector2Subtract(l2, l1);
+        float minA, maxA;
+        float minB, maxB;
+        Vector2 axies = Vector2Normalize({ -edge.y,edge.x });
+        projectalVertices(lines1, axies, &minA, &maxA);
+        projectalVertices(lines2, axies, &minB, &maxB);
+        if (minA >= maxB || minB >= maxA)
+            return false;
+        float axiesMin = fminf(maxB - minA, maxA - minB);
+        if (axiesMin < dephtV)
+        {
+            dephtV = axiesMin;
+            dirV = axies;
         }
-        if (CheckCollisionLines(l1, l2, lines2[0], lines2[lines2.size() - 1], &line))
-            return true;
+
     }
-    return false;
+    for (int i = 0; i < lines2.size(); i++) {
+        Vector2 l1 = lines2[i];
+        Vector2 l2 = lines2[(i + 1) % lines2.size()];
+        Vector2 edge = Vector2Subtract(l2, l1);
+        float minA, maxA;
+        float minB, maxB;
+        Vector2 axies = Vector2Normalize({ -edge.y,edge.x });
+        projectalVertices(lines1, axies, &minB, &maxB);
+        projectalVertices(lines2, axies, &minA, &maxA);
+        if (minA >= maxB || minB >= maxA)
+            return false;
+        float axiesMin = fminf(maxB - minA, maxA - minB);
+        if (axiesMin < dephtV)
+        {
+            dephtV = axiesMin;
+            dirV = axies;
+        }
+    }
+
+    Vector2 poliDir = Vector2Subtract(getCenter(lines1), getCenter(lines2));
+    if (Vector2DotProduct(poliDir, dirV) < 0)
+        dirV = { -dirV.x,-dirV.y };
+
+    if (dir)
+        *dir = dirV;
+    if (depth)
+        *depth = dephtV;
+    return true;
 }
 
 #ifdef showColliders
@@ -115,10 +209,7 @@ void CollisionElement::draw(GameObject *obj) {
     Vector3 circle;
     std::vector<Vector2> points;
     switch (type) {
-        case CollisionType::Box:
-            DrawRectangleRec(getBox(obj->getPosPoint()),{255,0,0,128});
-            DrawRectangleLinesEx(getBox(obj->getPosPoint()), 3, { 0,0,0,128 });
-            break;
+
         case CollisionType::Circle:
             circle = getCircle(obj->getPosPoint());
             DrawCircleV({circle.x, circle.y}, circle.z, { 255,0,0,128 });
@@ -129,8 +220,9 @@ void CollisionElement::draw(GameObject *obj) {
             for (auto i = 0; i < points.size(); i++) {
                 Vector2 p1 = points[i];
                 Vector2 p2 = points[(i + 1) % points.size()];
-                DrawLineEx(p1, p2, 7, { 0,0,0,128 });
-                DrawLineEx(p1, p2, 3, { 255,0,0,128 });
+                DrawLineEx(p1, p2, 7, { 0,0,0,255 });
+                DrawLineEx(p1, p2, 5, { 255,0,0,255 });
+                DrawLineEx(p1, p2, 3, { 255,255,0,255 });
             }
 
             break;

@@ -1,10 +1,10 @@
 #include "BossEnterWall.h"
-#include "../Collider/CollisionElementBox.h"
 #include "../Game.h"
 #include "SpawnPoint.h"
 #include "../../Core/WaveCollapsFun.h"
 #include "../AddisionalTypes/Character.h"
 #include "../AddisionalTypes/CharacterController.h"
+#include "../Collider/CollisionElementLines.h"
 #include "raymath.h"
 
 bool BossEnterWall::wasEnter = false;
@@ -16,7 +16,13 @@ BossEnterWall::BossEnterWall(float x, float y, float w, float h)
 	moving = false;
 	pos = Rectangle{ x, y, w, h };
     mass = 1000;
-    collisionElemnets.push_back(new CollisionElementBox({ 0, 0, pos.width, pos.height }));
+    std::vector<Vector2> col{
+        {0,         0},
+        {pos.width, 0},
+        {pos.width, pos.height},
+        {0,         pos.height }
+    };
+    collisionElemnets.push_back(new CollisionElementLines(col));
 }
 
 void BossEnterWall::start()
