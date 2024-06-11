@@ -28,6 +28,7 @@ Wolf::Wolf(float x, float y)
 	controller.setCharacter(this);
 	controller.setCharacterType(ObjectType::Enemy);
 	mass = 10;
+	trigger = true;
 }
 
 void Wolf::destroy()
@@ -37,8 +38,6 @@ void Wolf::destroy()
 
 void Wolf::update(float deltaTime)
 {
-	col = false;
-	return;
 	Hitable::update(deltaTime);
 	controller.update(deltaTime);
 	if (ai)
@@ -136,8 +135,6 @@ void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTi
 
 void Wolf::onCollision(Collider* collider)
 {
-	col = true;
-	return;
 	GameObject* gm = collider->getThisObj();
 	if (((int)gm->getType() & target) != 0) {
 		Hitable* hit = dynamic_cast<Hitable*>(gm);

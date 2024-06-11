@@ -46,22 +46,15 @@ void Collider::update(float deltaTime)
         c->update(thisObj);
     if (!thisObj)
         return;
-    if (trigger)
-    {
-        for (auto f : allForces)
-            delete f;
-        allForces.clear();
-        return;
-    }
-    const float constForce = 100;
+
     for (auto f : allForces)
     {
-        float t = getSpeedFromTime(f->z) * deltaTime * constForce / mass;
+        float t = getSpeedFromTime(f->z) * deltaTime*100.0f/ mass;
         Vector2 dir = { f->x * t ,f->y * t };
         float len = Vector2Length(dir);
-        if (len > 6)
+        if (len > 16)
         {
-            dir = Vector2Scale(Vector2Normalize(dir), 6);
+            dir = Vector2Scale(Vector2Normalize(dir), 16);
         }
         thisObj->move(dir);
         f->z -= deltaTime;
@@ -71,8 +64,19 @@ void Collider::update(float deltaTime)
 
 void Collider::addForce(Vector2 dir, float power,float time)
 {
+    if (resistToforces)
+        return;
     dir = Vector2Normalize(dir);
     allForces.push_back(new Vector3{ dir.x*power, dir.y*power, time });
+}
+
+void Collider::isResistToForces(bool isResist)
+{
+    if (isResist)
+    {
+        this->resistToforces = isResist;
+        allForces.clear();
+    }
 }
 
 GameObject* Collider::getThisObj()
@@ -113,7 +117,7 @@ Vector2 Collider::getCollisionDir(Collider* collider)
         {
             Vector2 dir;
             float dist;
-            if (c->isCollidiongWith(pos, c2, otherPos,&dir,&dist)) {
+            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist)) {
                 return dir;
             }
         }

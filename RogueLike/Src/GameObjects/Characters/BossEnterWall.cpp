@@ -81,26 +81,36 @@ void BossEnterWall::onCollisionEnter(Collider* collider)
     ControllAction* action1 = new ControllAction;
     ControllAction* action2 = new ControllAction;
     ControllAction* action3 = new ControllAction;
+    ControllAction* action4 = new ControllAction;
+    ControllAction* action5 = new ControllAction;
     float speed = gm->getSpeed();
     Rectangle pos = gm->getPos();
     Vector2 gmPoint = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
     float dist = Vector2Distance(spawnPoint, gmPoint);
 
-    action1->action = Action::TrigerOn;
+    action1->action = Action::ForcesOff;
     action1->nextAcction = action2;
 
-    action2->time = dist / speed;
-    action2->dir = Vector2Normalize(Vector2Subtract(spawnPoint, gmPoint));
-    action2->action = Action::GoTo;
+    action2->action = Action::TrigerOn;
     action2->nextAcction = action3;
 
-    action3->action = Action::TrigerOff;
+    action3->time = dist / speed;
+    action3->dir = Vector2Normalize(Vector2Subtract(spawnPoint, gmPoint));
+    action3->action = Action::GoTo;
+    action3->nextAcction = action4;
+
+    action4->action = Action::TrigerOff;
+    action4->nextAcction = action5;
+
+    action5->action = Action::ForcesOn;
 
     if (!controller->setControllAction(action1))
     {
         delete action1;
         delete action2;
         delete action3;
+        delete action4;
+        delete action5;
     }
     wasEnter = true;
     printf("KURWA\n");

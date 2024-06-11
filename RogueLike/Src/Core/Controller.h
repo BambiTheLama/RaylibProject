@@ -9,13 +9,15 @@ enum class Input {
 
 enum class Action
 {
-    NON       = 0b000000,
-    RunFrom   = 0b000001,
-    Attack    = 0b000010,
-    GoTo      = 0b000100,
-    IDE       = 0b001000,
-    TrigerOn  = 0b010000,
+    NON       = 0b0,
+    RunFrom   = 0b1,
+    Attack    = 0b10,
+    GoTo      = 0b100,
+    IDE       = 0b1000,
+    TrigerOn  = 0b10000,
     TrigerOff = 0b100000,
+    ForcesOff = 0b1000000, 
+    ForcesOn  = 0b10000000,
 };
 
 struct ControllAction

@@ -36,6 +36,16 @@ void Controller::update(float deltaTime)
                 controllAction->time = -1;
             }
             break;
+        case Action::ForcesOff:
+        case Action::ForcesOn:
+            if (gm)
+            {
+                Collider* c = dynamic_cast<Collider*>(gm);
+                if (c)
+                    c->isResistToForces(Action::ForcesOff == controllAction->action);
+                controllAction->time = -1;
+            }
+            break;
         default:
             break;
         }

@@ -13,12 +13,13 @@ class Collider {
     std::list<Collider *> lastFrameColliders;
     GameObject* thisObj = nullptr;
     std::list<Vector3*> allForces;
-
+    bool resistToforces = false;
 protected:
     std::vector<CollisionElement *> collisionElemnets;
     bool solidObject = false;
     bool trigger = false;
     int mass = 1;
+
 public:
     Collider();
 
@@ -27,6 +28,10 @@ public:
     void update(float deltaTime);
 
     void addForce(Vector2 dir, float power, float time);
+
+    void clearForces() { allForces.clear(); }
+
+    void isResistToForces(bool isResist);
 
     virtual void onCollisionEnter(Collider *collider) {
     }
