@@ -9,6 +9,7 @@
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
+	const char* colType = "Axe";
 	pos = { 0,0,69,69 };
 	std::ifstream reader;
 
@@ -18,19 +19,19 @@ Sword::Sword(GameObject* owner)
 	{
 		nlohmann::json j;
 		reader >> j;
-		if (j.contains("Sword"))
+		if (j.contains(colType))
 		{
 			int w, h;
-			w = j["Sword"]["Size"][0];
-			h = j["Sword"]["Size"][1];
+			w = j[colType]["Size"][0];
+			h = j[colType]["Size"][1];
 			float scaleW = pos.width / w;
 			float scaleH = pos.height / h;
-			if (j["Sword"].contains("Col"))
+			if (j[colType].contains("Col"))
 			{
-				for (int i = 0; i < j["Sword"]["Col"].size(); i++)
+				for (int i = 0; i < j[colType]["Col"].size(); i++)
 				{
-					int x = j["Sword"]["Col"][i][0];
-					int y = j["Sword"]["Col"][i][1];
+					int x = j[colType]["Col"][i][0];
+					int y = j[colType]["Col"][i][1];
 					col.push_back({ x * scaleW,y * scaleH });
 				}
 			}
@@ -39,13 +40,11 @@ Sword::Sword(GameObject* owner)
 	}
 	if(col.size()<=0)
 	{
-		col = { 
-				{0, 0}, 
-				{ pos.width * 3.0f / 8.0f,pos.height / 2 }, 
-				{ pos.width * 13.0f / 16.0f,pos.height }, 
-				{ pos.width,pos.height }, 
-				{ pos.width,pos.height * 13.0f / 16.0f }, 
-				{ pos.width / 2.0f,pos.height * 3.0f / 8.0f } 
+		col = {
+				{0, 0},
+				{ pos.width,0 },
+				{ pos.width,pos.height },
+				{ 0,pos.height }
 		};
 	}
 
@@ -53,7 +52,7 @@ Sword::Sword(GameObject* owner)
 	Collider::getThisObj();
 	trigger = true;
 	rotationPoint = { 0,0 };
-	texture = LoadTexture("Res/Weapons/StoneSword.png");
+	texture = LoadTexture("Res/Weapons/StoneAxe.png");
 }
 
 void Sword::update(float deltaTime)
