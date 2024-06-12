@@ -48,6 +48,7 @@ void Player::update(float deltaTime) {
 void Player::move(Vector2 dir, float deltaTime) {
     pos.x += dir.x * deltaTime * speed;
     pos.y += dir.y * deltaTime * speed;
+    s->update(0);
 }
 
 void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime) {

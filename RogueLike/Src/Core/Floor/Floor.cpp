@@ -230,15 +230,15 @@ void Floor::update(float deltaTime,Camera2D camera)
         closeObjects.clear();
         closeObjects = tree->getObjects(pos);
     }
-    for (auto o : colliders)
-        o->update(deltaTime);
+
     for (auto o : closeObjects)
     {
         o->update(deltaTime);
         if(o->movingObject())
             tree->updatePos(o);
     }
-
+    for (auto o : colliders)
+        o->update(deltaTime);
     //tree->update();
 
     for (auto o : colliders)
