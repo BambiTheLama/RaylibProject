@@ -3,12 +3,53 @@
 #include "../Game.h"
 #include "raymath.h"
 #include "../AddisionalTypes/Hitable.h"
+#include "json.hpp"
+#include <fstream>
 
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
 	pos = { 0,0,69,69 };
-	collisionElemnets.push_back(new CollisionElementLines(std::vector<Vector2>{{0, 0}, { pos.width*3.0f/8.0f,pos.height/2 }, { pos.width*13.0f/16.0f,pos.height }, { pos.width,pos.height }, { pos.width,pos.height * 13.0f / 16.0f }, { pos.width / 2.0f,pos.height * 3.0f / 8.0f } }));
+	std::ifstream reader;
+
+	std::vector<Vector2> col;
+	reader.open("Res/Weapon.json");
+	if (reader.is_open())
+	{
+		nlohmann::json j;
+		reader >> j;
+		if (j.contains("Sword"))
+		{
+			int w, h;
+			w = j["Sword"]["Size"][0];
+			h = j["Sword"]["Size"][1];
+			float scaleW = pos.width / w;
+			float scaleH = pos.height / h;
+			if (j["Sword"].contains("Col"))
+			{
+				for (int i = 0; i < j["Sword"]["Col"].size(); i++)
+				{
+					int x = j["Sword"]["Col"][i][0];
+					int y = j["Sword"]["Col"][i][1];
+					col.push_back({ x * scaleW,y * scaleH });
+				}
+			}
+		}
+		reader.close();
+	}
+	if(col.size()<=0)
+	{
+		col = { 
+				{0, 0}, 
+				{ pos.width * 3.0f / 8.0f,pos.height / 2 }, 
+				{ pos.width * 13.0f / 16.0f,pos.height }, 
+				{ pos.width,pos.height }, 
+				{ pos.width,pos.height * 13.0f / 16.0f }, 
+				{ pos.width / 2.0f,pos.height * 3.0f / 8.0f } 
+		};
+	}
+
+	collisionElemnets.push_back(new CollisionElementLines(col));
 	Collider::getThisObj();
 	trigger = true;
 	rotationPoint = { 0,0 };

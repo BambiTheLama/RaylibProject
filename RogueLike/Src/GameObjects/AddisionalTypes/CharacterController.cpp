@@ -4,8 +4,8 @@
 
 
 CharacterController::CharacterController() {
-    //setController(new KeyBoardController());
-    setController(new GamePadController());
+    setController(new KeyBoardController());
+    //setController(new GamePadController());
     this->type = type;
 }
 

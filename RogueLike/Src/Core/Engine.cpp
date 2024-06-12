@@ -14,7 +14,7 @@ Engine::Engine() {
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
-    std::string path = "rooms.json";
+    std::string path = "Res/Rooms.json";
     std::ifstream reader(path.c_str());
     if (reader.is_open())
     {
@@ -35,9 +35,13 @@ Engine::Engine() {
             setScene(new RoomEdytor());
 
 
+
+
         float deltaTime = GetFrameTime();
-        if (deltaTime > 1.0f / 60.0f)
-            deltaTime = 1.0f / 60.0f;
+        if (deltaTime > 1.0f / 30.0f)
+            deltaTime = 1.0f / 30.0f;
+        if (IsKeyDown(KEY_LEFT_SHIFT))
+            deltaTime = 0.001f;
         s->update(deltaTime);
         BeginDrawing();
         ClearBackground(RAYWHITE);
