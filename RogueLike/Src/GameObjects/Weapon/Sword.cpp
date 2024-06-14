@@ -80,7 +80,17 @@ void Sword::draw()
 	pos.x += rotationPoint.x;
 	pos.y += rotationPoint.y;
 	//DrawRectanglePro(pos, rotationPoint, angle, PINK);
-	DrawTexturePro(texture, { 0,0,(float)texture.width,(float)-texture.height }, pos, rotationPoint, angle, WHITE);
+	Vector2 rotationPoint = this->rotationPoint;
+	Rectangle textPos = { 0,0,(float)texture.width,(float)-texture.height };
+	float angle = this->angle;
+	if (mirror)
+	{
+		rotationPoint = { pos.width,0 };
+		textPos.width = -textPos.width;
+		angle -= 90;
+	}
+
+	DrawTexturePro(texture, textPos, pos, rotationPoint, angle, WHITE);
 	Collider::draw();
 }
 
@@ -95,6 +105,7 @@ void Sword::use(Vector2 dir, float deltaTime)
 			angle -= angleAttack / 2;
 		else
 			angle += angleAttack / 2;
+		mirror = left;
 
 	}
 }

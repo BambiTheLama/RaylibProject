@@ -17,7 +17,7 @@ class CollisionElement {
 public:
     CollisionElement(CollisionType type) { this->type = type; }
 
-    virtual void update(GameObject* gm){}
+    virtual void update(GameObject* gm,bool mirror){}
 
     CollisionType getType() { return type; }
 

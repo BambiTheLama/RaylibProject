@@ -43,7 +43,7 @@ float getSpeedFromTime(float time)
 void Collider::update(float deltaTime)
 {
     for (auto c : collisionElemnets)
-        c->update(thisObj);
+        c->update(thisObj, mirror);
     if (!thisObj)
         return;
 

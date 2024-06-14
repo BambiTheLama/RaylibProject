@@ -6,10 +6,11 @@ class CollisionElementLines : public CollisionElement {
     std::vector<Vector2> lines;
     float angle = 0.0f;
     Vector2 rotationPoint;
+    bool mirror = false;
 public:
     CollisionElementLines(std::vector<Vector2> lines);
 
-    void update(GameObject* gm);
+    void update(GameObject* gm, bool mirror);
 
     std::vector<Vector2> getLines(Vector2 pos) override;
 

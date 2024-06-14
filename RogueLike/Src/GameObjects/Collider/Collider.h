@@ -19,6 +19,7 @@ protected:
     bool solidObject = false;
     bool trigger = false;
     int mass = 1;
+    bool mirror = false;
 
 public:
     Collider();
