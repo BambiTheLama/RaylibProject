@@ -8,8 +8,8 @@ class Sword:public GameObject,public Weapon,public Collider
 	float angle;
 	GameObject* owner;
 	float useTime = 0.0f;
-	float useTimeMax = 0.5f;
-	float angleAttack = 180;
+	float useTimeMax = 1.0f;
+	float angleAttack = 360;
 	bool left = false;
 	Texture2D texture;
 public:
@@ -23,7 +23,7 @@ public:
 
 	float getAngle() { return angle; }
 
-	Vector2 getRotationPoint() { return rotationPoint; }
+	Vector2 getRotationPoint();
 
 	void onTriggerEnter(Collider* collider);
 

@@ -51,6 +51,7 @@ Sword::Sword(GameObject* owner)
 	collisionElemnets.push_back(new CollisionElementLines(col));
 	Collider::getThisObj();
 	trigger = true;
+	//rotationPoint = { pos.width,pos.height };
 	rotationPoint = { 0,0 };
 	texture = LoadTexture("Res/Weapons/StoneAxe.png");
 }
@@ -71,7 +72,6 @@ void Sword::update(float deltaTime)
 			angle -= deltaTime / useTimeMax * angleAttack;
 		useTime -= deltaTime;
 	}
-
 }
 
 void Sword::draw()
@@ -85,7 +85,7 @@ void Sword::draw()
 	float angle = this->angle;
 	if (mirror)
 	{
-		rotationPoint = { pos.width,0 };
+		rotationPoint.x = pos.width - rotationPoint.x;
 		textPos.width = -textPos.width;
 		angle -= 90;
 	}
@@ -108,6 +108,10 @@ void Sword::use(Vector2 dir, float deltaTime)
 		mirror = left;
 
 	}
+}
+Vector2 Sword::getRotationPoint() 
+{ 
+	return rotationPoint;
 }
 
 void Sword::onTriggerEnter(Collider* collider)

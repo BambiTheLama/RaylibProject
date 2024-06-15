@@ -23,14 +23,24 @@ void CollisionElementLines::update(GameObject* gm, bool mirror)
 std::vector<Vector2> CollisionElementLines::getLines(Vector2 pos) {
 
     std::vector<Vector2> linesToRet;
+    Vector2 rotationPoint = this->rotationPoint;
+
+    if (mirror)
+        rotationPoint.x = -rotationPoint.x;
+
     for (auto l : lines)
     {
         if (mirror)
+        {
             l.x = -l.x;
+        }
+
         float x = cos(angle) * (l.x - rotationPoint.x) - sin(angle) * (l.y - rotationPoint.y) + rotationPoint.x;
         float y = sin(angle) * (l.x - rotationPoint.x) + cos(angle) * (l.y - rotationPoint.y) + rotationPoint.y;
-
-        linesToRet.push_back({ x + pos.x, y + pos.y });
+        Vector2 p = { x + pos.x, y + pos.y };
+        if (mirror)
+            p.x -= rotationPoint.x * 2;
+        linesToRet.push_back(p);
 
 
     }
