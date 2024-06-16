@@ -9,7 +9,7 @@
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
-	const char* colType = "Axe";
+	const char* colType = "Pickaxe";
 	pos = { 0,0,69,69 };
 	std::ifstream reader;
 
@@ -53,7 +53,7 @@ Sword::Sword(GameObject* owner)
 	trigger = true;
 	//rotationPoint = { pos.width,pos.height };
 	rotationPoint = { 0,0 };
-	texture = LoadTexture("Res/Weapons/StoneAxe.png");
+	texture = LoadTexture("Res/Weapons/StonePickaxe.png");
 }
 
 void Sword::update(float deltaTime)
@@ -128,7 +128,7 @@ void Sword::onTriggerEnter(Collider* collider)
 		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
 		Hitable* hit = dynamic_cast<Hitable*>(collider);
 		if (hit && hit->dealDamage(1))
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 80, 1);
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 160, 1);
 	}
 
 

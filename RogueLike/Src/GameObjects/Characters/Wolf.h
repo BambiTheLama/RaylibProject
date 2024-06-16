@@ -15,6 +15,7 @@ class Wolf :
     float recoveryTime = 0;
     float recoveryTimeMax = 0.5;
     float speed = 0;
+    float speedMax = 200;
     Vector2 attackDir;
     CharacterController controller;
     AIController* ai;

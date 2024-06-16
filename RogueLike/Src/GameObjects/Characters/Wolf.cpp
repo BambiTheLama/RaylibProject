@@ -7,7 +7,7 @@
 
 Wolf::Wolf(float x, float y)
 {
-	pos = { x,y,64,32 };
+	pos = { x,y,64,64 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
 	std::vector<Vector2> col{
@@ -91,7 +91,7 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	this->dir = dir;
 	if (recoveryTime > 0)
 	{
-		speed = 20;
+		speed = speedMax * 0.1f;
 		recoveryTime -= deltaTime;
 		pos.x += dir.x * deltaTime * speed;
 		pos.y += dir.y * deltaTime * speed;
@@ -100,7 +100,7 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	}
 	if (attackTime <= 0)
 	{
-		speed = 100;
+		speed = speedMax;
 		pos.x += dir.x * deltaTime * speed;
 		pos.y += dir.y * deltaTime * speed;
 		attackDir = dir;
@@ -110,7 +110,7 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	{
 		attackDir = Vector2Normalize(Vector2Add({ dir.x * deltaTime * 2,dir.y * deltaTime * 2 }, attackDir));
 		attackTime -= deltaTime;
-		speed = 200;
+		speed = speedMax * 2;
 		pos.x += attackDir.x * deltaTime * speed;
 		pos.y += attackDir.y * deltaTime * speed;
 		if (attackTime <= 0)
