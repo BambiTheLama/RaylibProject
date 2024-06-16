@@ -17,7 +17,7 @@ Wolf::Wolf(float x, float y)
 		{pos.width / 4,					pos.height / 4 + pos.height / 2}
 	};
 	//collisionElemnets.push_back(new CollisionElementLines(col));
-	collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
+	collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 4));
 	type = ObjectType::Enemy;
 	ai = new AIController();
 	ai->thisObj = this;
