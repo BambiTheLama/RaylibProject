@@ -8,8 +8,8 @@ class Sword:public GameObject,public Weapon,public Collider
 	float angle;
 	GameObject* owner;
 	float useTime = 0.0f;
-	float useTimeMax = 1.0f;
-	float angleAttack = 360;
+	float useTimeMax = 0.5f;
+	float angleAttack = 180;
 	bool left = false;
 	Texture2D texture;
 public:

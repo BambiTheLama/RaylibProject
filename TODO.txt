@@ -14,8 +14,3 @@ ten tydzień:
 Kolejny tydzień
 	Dodanie możliwości zdobydania broni
 	Dodanie możliwości zdobywania upgradów
-	
-				
-
-			
-			

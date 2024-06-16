@@ -113,6 +113,5 @@ void BossEnterWall::onCollisionEnter(Collider* collider)
         delete action5;
     }
     wasEnter = true;
-    printf("KURWA\n");
 
 }

@@ -24,7 +24,6 @@ bool removeIf(Vector3* vec)
     if (vec->z <= 0.0f)
     {
         delete vec;
-        printf("USUWAM KURWA\n");
         return true;
     }
     return false;
