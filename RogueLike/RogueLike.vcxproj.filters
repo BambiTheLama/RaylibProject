@@ -127,6 +127,9 @@
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h">
       <Filter>GameObjects\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Weapon\WeaponNode.h">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp">
       <Filter>GameObjects\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Weapon\WeaponNode.cpp">
+      <Filter>GameObjects\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
