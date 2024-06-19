@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include "WeaponStats.h"
 
 enum class WeaponNodeType
 {
@@ -11,5 +13,22 @@ enum class WeaponNodeActivation
 
 class WeaponNode
 {
+	std::vector<WeaponNode> nextNode;
+	WeaponNodeType type;
+	WeaponNodeActivation activateTrigger;
+	WeaponStats stats;
+public:
+	WeaponNode(WeaponNodeActivation activateTrigger, WeaponStats stats, WeaponNodeType type);
+
+	WeaponStats getNextStats(WeaponNode node);
+
+	void addToEndNode(WeaponNode node);
+
+	std::vector<WeaponNode> getNextWeaponNode();
+
+	WeaponNodeType getType() { return type; }
+
+	WeaponNodeActivation getActivationTrigger() { return activateTrigger; }
+
 };
 
