@@ -7,6 +7,7 @@
 class RoomEdytor :
     public Scene
 {
+    std::string path;
     int ID = 0;
     RoomType type = RoomType::Normal;
     int bossW = 1;

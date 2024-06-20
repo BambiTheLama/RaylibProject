@@ -16,14 +16,14 @@
     <Filter Include="GameObjects\Characters">
       <UniqueIdentifier>{4bf0bcaa-2ad6-4acc-956d-3a1ce35dc194}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Floor">
-      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Weapons">
       <UniqueIdentifier>{faae65cd-67a7-41dc-8364-14658b62f4c9}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\Colliders">
       <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Floor">
+      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -233,5 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Res\Rooms.json" />
+    <None Include="Res\Weapon.json" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 
 RoomEdytor::RoomEdytor()
 {
-	std::string path = "Res/Rooms.json";
+	path = "Res/Rooms.json";
 	std::ifstream reader(path.c_str());
 	nlohmann::json j;
 	if (reader.is_open())
@@ -88,7 +88,7 @@ RoomEdytor::~RoomEdytor()
 				j["ROOM"][i][y][x] = normalRoom[i][y][x];
 	}
 
-	std::string path = "rooms.json";
+
 	std::ofstream writer(path.c_str());
 
 
