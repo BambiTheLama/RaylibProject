@@ -25,6 +25,9 @@
     <Filter Include="Core\Floor">
       <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Projectal">
+      <UniqueIdentifier>{1e008653-3f97-4845-9249-6a57a9d9ca31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -130,6 +133,18 @@
     <ClInclude Include="Src\GameObjects\Weapon\WeaponNode.h">
       <Filter>GameObjects\Weapons</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Weapon\WeaponNodeTrigger.h">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Projectal\Projectal.h">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Projectal\ProjectalFactory.h">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Projectal\StandardProjectal.h">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -229,6 +244,18 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\WeaponNode.cpp">
       <Filter>GameObjects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Weapon\WeaponNodeTrigger.cpp">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Projectal\ProjectalFactory.cpp">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Projectal\StandardProjectal.cpp">
+      <Filter>GameObjects\Projectal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

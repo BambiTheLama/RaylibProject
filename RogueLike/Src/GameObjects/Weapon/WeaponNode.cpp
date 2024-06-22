@@ -1,10 +1,19 @@
 #include "WeaponNode.h"
 
-WeaponNode::WeaponNode(WeaponNodeActivation activateTrigger, WeaponStats stats, WeaponNodeType type)
+WeaponNode::WeaponNode(WeaponStats stats)
+{
+	this->activateTrigger = WeaponNodeActivation::NON;
+	this->stats = stats;
+	this->type = WeaponNodeType::Stat;
+	this->spawnID = -1;
+}
+
+WeaponNode::WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID)
 {
 	this->activateTrigger = activateTrigger;
 	this->stats = stats;
-	this->type = type;
+	this->type = WeaponNodeType::Spawn;
+	this->spawnID = spawnID;
 }
 
 WeaponStats WeaponNode::getNextStats(WeaponNode node)
@@ -18,14 +27,4 @@ WeaponStats WeaponNode::getNextStats(WeaponNode node)
 	stats.useTime += stats.useTimeMultiplier * lastStats.useTime;
 	stats.reloadTime += stats.reloadTimeMultiplier * lastStats.reloadTime;
 	return stats;
-}
-
-void WeaponNode::addToEndNode(WeaponNode node)
-{
-	nextNode.push_back(node);
-}
-
-std::vector<WeaponNode> WeaponNode::getNextWeaponNode()
-{
-	return nextNode;
 }

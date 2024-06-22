@@ -35,13 +35,13 @@ GameScene::GameScene() {
         deleteObject(o);
         break;
     }
-
-    addObject(new Player(sx, sy));
     controller.setCharacterType(ObjectType::Player);
-
-    
-
-
+    Player* gm = new Player(sx, sy);
+    if (gm)
+    {
+        addObject(gm);
+        controller.setCharacter(gm);
+    }
 }
 
 GameScene::~GameScene() {
@@ -70,7 +70,8 @@ void GameScene::update(float deltaTime) {
         for (int i = 0; i < 1; i++)
             addObject(new Wolf(cursor.x + i, cursor.y + i));
     }
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+
+    if (false && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         std::list<GameObject*> objects = getObjects({ cursor.x - 1,cursor.y - 1,3,3 });
         for(auto o:objects)
             if (CheckCollisionPointRec(cursor, o->getPos()))

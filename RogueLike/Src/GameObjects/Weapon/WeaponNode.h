@@ -8,27 +8,29 @@ enum class WeaponNodeType
 };
 enum class WeaponNodeActivation
 {
-	OnHit,OnUse,OnKill
+	NON,OnHit,OnUse,OnKill
 };
 
 class WeaponNode
 {
-	std::vector<WeaponNode> nextNode;
+	int spawnID = -1;
 	WeaponNodeType type;
 	WeaponNodeActivation activateTrigger;
 	WeaponStats stats;
 public:
-	WeaponNode(WeaponNodeActivation activateTrigger, WeaponStats stats, WeaponNodeType type);
+	WeaponNode(WeaponStats stats);
+
+	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID);
 
 	WeaponStats getNextStats(WeaponNode node);
-
-	void addToEndNode(WeaponNode node);
-
-	std::vector<WeaponNode> getNextWeaponNode();
 
 	WeaponNodeType getType() { return type; }
 
 	WeaponNodeActivation getActivationTrigger() { return activateTrigger; }
+
+	int getSpawnID() { return spawnID; }
+
+	WeaponStats getStats() { return stats; }
 
 };
 

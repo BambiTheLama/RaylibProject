@@ -285,7 +285,10 @@ bool Floor::addObject(GameObject* obj)
         return false;
     auto find = std::find(allGameObjects.begin(), allGameObjects.end(), obj);
     if (find != allGameObjects.end())
+    {
+        tree->updatePos(obj);
         return true;
+    }
     allGameObjects.push_back(obj);
     Collider* collider = dynamic_cast<Collider*>(obj);
     if (collider)

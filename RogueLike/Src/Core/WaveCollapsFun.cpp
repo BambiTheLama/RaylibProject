@@ -237,7 +237,7 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 			n = roomGrid[p.y][p.x].posibleRoom.size();
 			if (n <= 0)
 			{
-				printf("KURWA NIE MA POKOJU %d %d\n", p.x, p.y);
+				printf("NIE MA POKOJU %d %d\n", p.x, p.y);
 			}
 			else
 			{

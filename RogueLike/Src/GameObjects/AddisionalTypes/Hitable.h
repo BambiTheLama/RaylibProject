@@ -22,5 +22,7 @@ public:
     float getProcentHp() { return hp / maxHp; }
 
     void draw(Rectangle pos);
+
+    bool isAlive() { return hp > 0; }
 };
 

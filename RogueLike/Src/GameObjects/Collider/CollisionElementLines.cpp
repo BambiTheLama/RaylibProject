@@ -10,11 +10,11 @@ void CollisionElementLines::update(GameObject* gm, bool mirror)
 {
     if (!gm)
         return;
-    angle = gm->getAngle() * 3.14159f / 180;
+    angle = gm->getAngle() * PI / 180;
     this->mirror = mirror;
     if (mirror)
     {
-        angle -= 90 * 3.14159f / 180;
+        angle -= 90 * PI / 180;
 
     }
     rotationPoint = gm->getRotationPoint();

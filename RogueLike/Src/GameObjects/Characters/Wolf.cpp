@@ -33,7 +33,7 @@ Wolf::Wolf(float x, float y)
 
 void Wolf::destroy()
 {
-	//Game::addObject(new ParticleText(pos.x, pos.y, "KURWA UMIERAM"));
+
 }
 
 void Wolf::update(float deltaTime)

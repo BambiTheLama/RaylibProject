@@ -8,11 +8,13 @@
 
 class Player : public GameObject, public Character, public Collider,public Hitable {
     float speed = 600;
-    Sword* s;
+    Weapon* weapon;
 public:
     Player(float x,float y);
 
     ~Player();
+
+    void start() override;
 
     void update(float deltaTime) override;
 

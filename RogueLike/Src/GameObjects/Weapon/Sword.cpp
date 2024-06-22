@@ -54,6 +54,11 @@ Sword::Sword(GameObject* owner)
 	//rotationPoint = { pos.width,pos.height };
 	rotationPoint = { 0,0 };
 	texture = LoadTexture("Res/Weapons/StonePickaxe.png");
+	WeaponNodeTrigger wnt;
+	WeaponNode wn(WeaponStats(), WeaponNodeActivation::OnHit, 1);
+	wnt.pushBackNodeTrigger(wn);
+	wnt.pushBackNodeTrigger(wn);
+	setWeaponNodeTrigger(wnt);
 }
 
 void Sword::update(float deltaTime)
@@ -79,7 +84,6 @@ void Sword::draw()
 	Rectangle pos = getPos();
 	pos.x += rotationPoint.x;
 	pos.y += rotationPoint.y;
-	//DrawRectanglePro(pos, rotationPoint, angle, PINK);
 	Vector2 rotationPoint = this->rotationPoint;
 	Rectangle textPos = { 0,0,(float)texture.width,(float)-texture.height };
 	float angle = this->angle;
@@ -91,16 +95,17 @@ void Sword::draw()
 	}
 
 	DrawTexturePro(texture, textPos, pos, rotationPoint, angle, WHITE);
-	Collider::draw();
+	//Collider::draw();
 }
 
 void Sword::use(Vector2 dir, float deltaTime)
 {
 	if (useTime <= 0)
 	{
+		triggerNode(WeaponNodeActivation::OnUse);
 		left = !left;
 		useTime = useTimeMax;
-		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / 3.14159f;
+		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 		if (left)
 			angle -= angleAttack / 2;
 		else
@@ -127,9 +132,16 @@ void Sword::onTriggerEnter(Collider* collider)
 		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
 		Hitable* hit = dynamic_cast<Hitable*>(collider);
-		if (hit && hit->dealDamage(1))
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 160, 1);
+		if (hit && hit->dealDamage(stats.damage))
+		{
+			if (!hit->isAlive())
+				triggerNode(WeaponNodeActivation::OnKill);
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 80, 1);
+			triggerNode(WeaponNodeActivation::OnHit);
+		}
+
 	}
 
 
 }
+
