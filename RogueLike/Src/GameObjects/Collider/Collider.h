@@ -52,6 +52,8 @@ public:
     virtual void onTriggerExit(Collider* collider) {
     }
 
+    void scaleColliderElements(float scale);
+
     bool isTrigger() { return trigger; }
 
     GameObject* getThisObj();

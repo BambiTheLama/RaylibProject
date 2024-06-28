@@ -13,25 +13,31 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 		return false;
 	if (!weapon)
 		return false;
-	Projectal* projectal = ProjectalFactory::getProjectal(n.getSpawnID());
-	if (!projectal)
-		return false;
-	GameObject* gm = dynamic_cast<GameObject*>(projectal);
-	if (!gm)
+	WeaponStats stats = n.getStats();
+	for (int i = 0; i < stats.countOfUse; i++)
 	{
-		delete projectal;
-		return false;
+		Projectal* projectal = ProjectalFactory::getProjectal(n.getSpawnID());
+		if (!projectal)
+			return false;
+		GameObject* gm = dynamic_cast<GameObject*>(projectal);
+		if (!gm)
+		{
+			delete projectal;
+			return false;
+		}
+		gm->setPos(weapon->getPosPoint());
+		projectal->setWeaponNodeTrigger(getNextTriggerNode());
+		projectal->setWeaponStats(n.getStats());
+		float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().angle / 2;
+		float angle = (weapon->getAngle() + angleDiff) * PI / 180;
+		Vector2 dir;
+		dir.x = cos(angle) - sin(angle);
+		dir.y = sin(angle) + cos(angle);
+		projectal->setDir(dir);
+		Game::addObject(gm);
 	}
-	gm->setPos(weapon->getPosPoint());
-	projectal->setWeaponNodeTrigger(getNextTriggerNode());
-	projectal->setWeaponStats(n.getStats());
-	float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().angle;
-	float angle = weapon->getAngle() * PI / 180;;
-	Vector2 dir;
-	dir.x = cos(angle) - sin(angle);
-	dir.y = sin(angle) + cos(angle);
-	projectal->setDir(dir);
-	return Game::addObject(gm);
+
+	return true;
 }
 
 WeaponNodeTrigger WeaponNodeTrigger::getNextTriggerNode()

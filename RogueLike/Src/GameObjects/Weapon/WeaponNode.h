@@ -8,7 +8,7 @@ enum class WeaponNodeType
 };
 enum class WeaponNodeActivation
 {
-	NON,OnHit,OnUse,OnKill
+	NON,OnHit,OnUse,OnKill,OnEffectEnd,
 };
 
 class WeaponNode

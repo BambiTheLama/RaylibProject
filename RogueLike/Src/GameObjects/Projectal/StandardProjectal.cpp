@@ -2,6 +2,7 @@
 #include "../Collider/CollisionElementCircle.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../Game.h"
+#include "raymath.h"
 
 StandardProjectal::StandardProjectal()
 {
@@ -16,8 +17,12 @@ void StandardProjectal::update(float deltaTime)
 	pos.x += dir.x * stats.speed * deltaTime;
 	pos.y += dir.y * stats.speed * deltaTime;
 	time -= deltaTime;
-	if(time<=0)
+	if (time <= 0)
+	{
+		triggerNode(WeaponNodeActivation::OnEffectEnd);
 		Game::deleteObject(this);
+	}
+
 }
 
 void StandardProjectal::draw()
@@ -50,4 +55,9 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		dir.x = -dir.x;
 		dir.y = -dir.y;
 	}
+}
+
+float StandardProjectal::getAngle()
+{
+	return Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 }

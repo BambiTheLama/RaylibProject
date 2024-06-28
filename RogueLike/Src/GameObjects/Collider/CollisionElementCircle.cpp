@@ -1,4 +1,5 @@
 #include "CollisionElementCircle.h"
+#include "raymath.h"
 
 CollisionElementCircle::CollisionElementCircle(Vector2 point, float radius) : CollisionElement(CollisionType::Circle) {
     this->point = point;
@@ -24,4 +25,9 @@ bool CollisionElementCircle::isCollidiongWith(Vector2 thisPos, CollisionElement 
         return CheckCollisionCircles(circle, sCircle,dir,depht);
     }
     return false;
+}
+void CollisionElementCircle::scaleElement(float scale)
+{
+    point = Vector2Scale(point, scale);
+    radius *= scale;
 }

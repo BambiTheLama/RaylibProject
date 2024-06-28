@@ -1,6 +1,7 @@
 #include "CollisionElementLines.h"
 #include "../../Core/WaveCollapsFun.h"
 #include "../GameObject.h"
+#include "raymath.h"
 
 CollisionElementLines::CollisionElementLines(std::vector<Vector2> lines): CollisionElement(CollisionType::Line) {
     this->lines = lines;
@@ -60,4 +61,13 @@ bool CollisionElementLines::isCollidiongWith(Vector2 thisPos, CollisionElement *
         Vector3 sCircle = collisionElement->getCircle(collisionElementPos);
         return CheckCollisionCircleLines({ sCircle.x, sCircle.y }, sCircle.z, points, dir, depht);
     }
+}
+void CollisionElementLines::scaleElement(float scale)
+{
+    std::vector<Vector2> newLines;
+    for (auto l : lines)
+    {
+        newLines.push_back(Vector2Scale(l, scale));
+    }
+    lines = newLines;
 }

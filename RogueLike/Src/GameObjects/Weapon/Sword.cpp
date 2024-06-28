@@ -5,7 +5,7 @@
 #include "../AddisionalTypes/Hitable.h"
 #include "json.hpp"
 #include <fstream>
-
+#include <math.h>
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
@@ -55,8 +55,9 @@ Sword::Sword(GameObject* owner)
 	rotationPoint = { 0,0 };
 	texture = LoadTexture("Res/Weapons/StonePickaxe.png");
 	WeaponNodeTrigger wnt;
-	WeaponNode wn(WeaponStats(), WeaponNodeActivation::OnHit, 1);
+	WeaponNode wn(WeaponStats(), WeaponNodeActivation::OnUse, 1);
 	wnt.pushBackNodeTrigger(wn);
+	wn = WeaponNode(WeaponStats(), WeaponNodeActivation::OnEffectEnd, 1);
 	wnt.pushBackNodeTrigger(wn);
 	setWeaponNodeTrigger(wnt);
 }
@@ -69,13 +70,32 @@ void Sword::update(float deltaTime)
 		pos.x = p.x + p.width / 2;
 		pos.y = p.y + p.height / 2;
 	}
+	if (reloadTime > 0)
+	{
+		reloadTime -= deltaTime;
+		return;
+	}
 	if (useTime > 0)
 	{
 		if (left)
-			angle += deltaTime / useTimeMax * angleAttack;
+			angle += deltaTime / stats.useTime * stats.angle;
 		else
-			angle -= deltaTime / useTimeMax * angleAttack;
+			angle -= deltaTime / stats.useTime * stats.angle;
+		if (!used && useTime < stats.useTime / 2)
+		{
+			triggerNode(WeaponNodeActivation::OnUse);
+			used = true;
+		}
 		useTime -= deltaTime;
+		if (useTime <= 0.0f)
+		{
+			numberOfUse--;
+			if (numberOfUse <= 0)
+			{
+				reloadTime = stats.reloadTime;
+				numberOfUse = stats.countOfUse;
+			}
+		}
 	}
 }
 
@@ -100,18 +120,21 @@ void Sword::draw()
 
 void Sword::use(Vector2 dir, float deltaTime)
 {
-	if (useTime <= 0)
+	if (useTime <= 0 && reloadTime <= 0)
 	{
-		triggerNode(WeaponNodeActivation::OnUse);
 		left = !left;
-		useTime = useTimeMax;
+		useTime = stats.useTime;
 		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 		if (left)
-			angle -= angleAttack / 2;
+			angle -= stats.angle / 2;
 		else
-			angle += angleAttack / 2;
+			angle += stats.angle / 2;
 		mirror = left;
-
+		used = false;
+		float scale = (stats.range * stats.rangeMultiplier) / pos.width;
+		pos.width *= scale;
+		pos.height *= scale;
+		scaleColliderElements(scale);
 	}
 }
 Vector2 Sword::getRotationPoint() 

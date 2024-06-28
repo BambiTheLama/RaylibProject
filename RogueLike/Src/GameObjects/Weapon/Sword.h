@@ -2,14 +2,18 @@
 #include "Weapon.h"
 #include "../GameObject.h"
 #include "../Collider/Collider.h"
+#include "WeaponStats.h"
+
 class Sword:public GameObject,public Weapon,public Collider
 {
 	Vector2 rotationPoint;
-	float angle;
 	GameObject* owner;
+	WeaponStats stats;
+	float angle;
+	float reloadTime = 0.0f;
 	float useTime = 0.0f;
-	float useTimeMax = 0.5f;
-	float angleAttack = 180;
+	float numberOfUse = 0;
+	bool used = false;
 	bool left = false;
 	Texture2D texture;
 public:

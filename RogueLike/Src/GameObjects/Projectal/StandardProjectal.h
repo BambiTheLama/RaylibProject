@@ -17,6 +17,8 @@ public:
 	void draw();
 
 	void onTriggerEnter(Collider* collider);
+
+	float getAngle();
 	
 };
 

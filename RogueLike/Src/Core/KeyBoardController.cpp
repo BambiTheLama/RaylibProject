@@ -31,7 +31,6 @@ void KeyBoardController::update(float deltaTime) {
     inputDir = Vector2Normalize(inputDir);
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     {
-
         inputs.push_back(Input::Attack1);
     }
 }

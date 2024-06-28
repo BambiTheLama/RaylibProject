@@ -78,6 +78,12 @@ void Collider::isResistToForces(bool isResist)
     }
 }
 
+void Collider::scaleColliderElements(float scale)
+{
+    for (auto e : collisionElemnets)
+        e->scaleElement(scale);
+}
+
 GameObject* Collider::getThisObj()
 {
     if (!thisObj) 

@@ -20,5 +20,6 @@ public:
 
     bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos, Vector2* dir, float* depht) override;
 
+    void scaleElement(float scale);
 };
 

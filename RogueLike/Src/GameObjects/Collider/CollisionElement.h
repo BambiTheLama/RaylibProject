@@ -33,7 +33,7 @@ public:
         return std::vector<Vector2>();
     }
 
-
+    virtual void scaleElement(float scale){}
 
 #ifdef showColliders
     void draw(GameObject *obj);
