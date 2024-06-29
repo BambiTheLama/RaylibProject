@@ -7,6 +7,7 @@ BossWall::BossWall()
     solidObject = true;
     moving = false;
     mass = 10000;
+    type = ObjectType::Wall;
 }
 
 BossWall::BossWall(float x, float y):BossWall()

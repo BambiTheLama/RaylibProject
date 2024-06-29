@@ -16,7 +16,7 @@ public:
 
 	virtual void use(Vector2 dir, float deltaTime) = 0;
 
-	bool triggerNode(WeaponNodeActivation activation);
+	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 	void setWeaponNodeTrigger(WeaponNodeTrigger trigger) { weaponNodeTrigger = trigger; }
 private:

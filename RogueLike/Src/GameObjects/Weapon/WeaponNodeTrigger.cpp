@@ -4,7 +4,7 @@
 #include "../Projectal/ProjectalFactory.h"
 #include <raymath.hpp>
 
-bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObject* weapon)
+bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObject* weapon,WeaponStats weaponStats)
 {
 	if (nodes.size() <= 0)
 		return false;
@@ -27,7 +27,7 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 		}
 		gm->setPos(weapon->getPosPoint());
 		projectal->setWeaponNodeTrigger(getNextTriggerNode());
-		projectal->setWeaponStats(n.getStats());
+		projectal->setWeaponStats(n.getNextStats(weaponStats));
 		float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().angle / 2;
 		float angle = (weapon->getAngle() + angleDiff) * PI / 180;
 		Vector2 dir;

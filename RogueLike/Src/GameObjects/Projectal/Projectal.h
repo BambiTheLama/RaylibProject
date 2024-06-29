@@ -14,15 +14,17 @@ protected:
 public:
 	void setWeaponNodeTrigger(WeaponNodeTrigger trigger) { this->weaponNodeTrigger = trigger; }
 
-	virtual void setWeaponStats(WeaponStats stats) { this->stats = stats; }
+	void setWeaponStats(WeaponStats stats) { this->stats = stats; updateStatsAfterSetStats(); }
 
 	void setDir(Vector2 dir) { this->dir = dir; }
 
-	bool triggerNode(WeaponNodeActivation activation);
+	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 	virtual void update(){}
 
 private:
 	bool findThisObject();
+
+	virtual void updateStatsAfterSetStats() {}
 };
 

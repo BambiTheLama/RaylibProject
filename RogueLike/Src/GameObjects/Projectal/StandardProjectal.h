@@ -5,12 +5,11 @@
 
 class StandardProjectal:public Projectal,public GameObject,public Collider
 {
-	float time = 1;
+	float range = 1.0f;
 	int pirce = 1;
+	int bounce = 1;
 public:
 	StandardProjectal();
-
-	virtual void setWeaponStats(WeaponStats stats) { Projectal::setWeaponStats(stats); time = stats.useTime; pirce = stats.countOfUse; }
 
 	void update(float deltaTime);
 
@@ -19,6 +18,8 @@ public:
 	void onTriggerEnter(Collider* collider);
 
 	float getAngle();
-	
+
+private:
+	virtual void updateStatsAfterSetStats();
 };
 

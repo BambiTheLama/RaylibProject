@@ -1,11 +1,11 @@
 #include "Projectal.h"
 #include "../GameObject.h"
 
-bool Projectal::triggerNode(WeaponNodeActivation activation)
+bool Projectal::triggerNode(WeaponNodeActivation activation,WeaponStats stats)
 {
 	if (!thisObj && !findThisObject())
 		return false;
-	return weaponNodeTrigger.activateTrigger(activation, thisObj);
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats);
 }
 
 bool Projectal::findThisObject()

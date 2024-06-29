@@ -9,7 +9,7 @@
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
-	const char* colType = "Pickaxe";
+	const char* colType = "Sword";
 	pos = { 0,0,69,69 };
 	std::ifstream reader;
 
@@ -51,15 +51,28 @@ Sword::Sword(GameObject* owner)
 	collisionElemnets.push_back(new CollisionElementLines(col));
 	Collider::getThisObj();
 	trigger = true;
-	//rotationPoint = { pos.width,pos.height };
+
 	rotationPoint = { 0,0 };
-	texture = LoadTexture("Res/Weapons/StonePickaxe.png");
+	texture = LoadTexture("Res/Weapons/StoneSword.png");
 	WeaponNodeTrigger wnt;
-	WeaponNode wn(WeaponStats(), WeaponNodeActivation::OnUse, 1);
+	WeaponStats wnStats;
+	wnStats.range = 0;
+	wnStats.rangeMultiplier = 1;
+	wnStats.bounce = 3;
+	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
 	wnt.pushBackNodeTrigger(wn);
-	wn = WeaponNode(WeaponStats(), WeaponNodeActivation::OnEffectEnd, 1);
+	wnStats.angle = 360;
+	wnStats.countOfUse = 5;
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
+	wnt.pushBackNodeTrigger(wn);
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
 	wnt.pushBackNodeTrigger(wn);
 	setWeaponNodeTrigger(wnt);
+	stats.angle = 180;
+	stats.countOfUse = 3;
+	stats.useTime = 0.3;
+	stats.rangeMultiplier = 1.0f;
+	stats.range = pos.width / stats.rangeMultiplier * 1.25f;
 }
 
 void Sword::update(float deltaTime)
@@ -83,17 +96,24 @@ void Sword::update(float deltaTime)
 			angle -= deltaTime / stats.useTime * stats.angle;
 		if (!used && useTime < stats.useTime / 2)
 		{
-			triggerNode(WeaponNodeActivation::OnUse);
+			triggerNode(WeaponNodeActivation::OnUse, stats);
 			used = true;
 		}
 		useTime -= deltaTime;
 		if (useTime <= 0.0f)
 		{
 			numberOfUse--;
+
 			if (numberOfUse <= 0)
 			{
 				reloadTime = stats.reloadTime;
 				numberOfUse = stats.countOfUse;
+			}
+			else
+			{
+				useTime = stats.useTime;
+				used = false;
+				left = !left;
 			}
 		}
 	}
@@ -122,6 +142,7 @@ void Sword::use(Vector2 dir, float deltaTime)
 {
 	if (useTime <= 0 && reloadTime <= 0)
 	{
+		numberOfUse = stats.countOfUse;
 		left = !left;
 		useTime = stats.useTime;
 		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
@@ -158,9 +179,9 @@ void Sword::onTriggerEnter(Collider* collider)
 		if (hit && hit->dealDamage(stats.damage))
 		{
 			if (!hit->isAlive())
-				triggerNode(WeaponNodeActivation::OnKill);
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), 80, 1);
-			triggerNode(WeaponNodeActivation::OnHit);
+				triggerNode(WeaponNodeActivation::OnKill, stats);
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.knockback * stats.knockbackMultiplier, 1);
+			triggerNode(WeaponNodeActivation::OnHit, stats);
 		}
 
 	}

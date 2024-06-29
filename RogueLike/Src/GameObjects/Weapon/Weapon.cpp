@@ -14,14 +14,14 @@ void Weapon::update()
 		findThisObject();
 }
 
-bool Weapon::triggerNode(WeaponNodeActivation activation)
+bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 {
 	if (!thisObj)
 		findThisObject();
 	if (!thisObj)
 		return false;
 	printf("U¿yto %d\n", (int)activation);
-	return weaponNodeTrigger.activateTrigger(activation, thisObj);
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats);
 	return false;
 }
 

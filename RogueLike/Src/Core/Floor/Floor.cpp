@@ -305,7 +305,8 @@ bool Floor::addObject(GameObject* obj)
 void Floor::deleteObject(GameObject* obj)
 {
     removeObject(obj);
-    toDelete.push_back(obj);
+    if (std::find(toDelete.begin(), toDelete.end(), obj) == toDelete.end())
+        toDelete.push_back(obj);
 }
 
 void Floor::removeObject(GameObject* obj)

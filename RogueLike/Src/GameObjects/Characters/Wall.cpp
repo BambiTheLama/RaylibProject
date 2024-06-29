@@ -15,6 +15,7 @@ Wall::Wall(float x, float y, float w, float h)
         {0,         pos.height }
     };
     collisionElemnets.push_back(new CollisionElementLines(col));
+    type = ObjectType::Wall;
 
 }
 
