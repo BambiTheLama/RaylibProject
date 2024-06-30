@@ -32,5 +32,8 @@ public:
 	void onTriggerEnter(Collider* collider);
 
 	bool isUsing() { return useTime > 0; }
+
+private:
+	void updateWeaponSize();
 };
 

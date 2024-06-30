@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "WeaponNode.h"
+#include "raylib.h"
+
 class GameObject;
 class WeaponNodeTrigger
 {
@@ -10,7 +12,7 @@ public:
 
 	void pushBackNodeTrigger(WeaponNode node) { nodes.push_back(node); }
 
-	bool activateTrigger(WeaponNodeActivation activation, GameObject* weapon, WeaponStats stats);
+	bool activateTrigger(WeaponNodeActivation activation, GameObject* weapon, WeaponStats stats, Vector2 spawnOffset=Vector2());
 
 	WeaponNodeTrigger getNextTriggerNode();
 };

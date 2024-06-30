@@ -1,5 +1,6 @@
 #include "ProjectalFactory.h"
 #include "StandardProjectal.h"
+#include "Explosion.h"
 
 Projectal* ProjectalFactory::getProjectal(int ID)
 {
@@ -9,6 +10,8 @@ Projectal* ProjectalFactory::getProjectal(int ID)
 	{
 	case 1:
 		return new StandardProjectal();
+	case 2:
+		return new Explosion();
 	default:
 		break;
 	}

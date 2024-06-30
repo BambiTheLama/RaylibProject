@@ -62,10 +62,6 @@ void GameScene::update(float deltaTime) {
         camera.zoom += deltaTime;
     if (IsKeyDown(KEY_DOWN))
         camera.zoom -= deltaTime;
-    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
-        for(int i=0;i<10;i++)
-        addObject(new Wall(cursor.x+i, cursor.y+i));
-    }
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
         for (int i = 0; i < 1; i++)
             addObject(new Wolf(cursor.x + i, cursor.y + i));

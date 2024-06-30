@@ -21,18 +21,16 @@ Sword::Sword(GameObject* owner)
 		reader >> j;
 		if (j.contains(colType))
 		{
-			int w, h;
-			w = j[colType]["Size"][0];
-			h = j[colType]["Size"][1];
-			float scaleW = pos.width / w;
-			float scaleH = pos.height / h;
+
+			pos.width = j[colType]["Size"][0];
+			pos.height = j[colType]["Size"][1];
 			if (j[colType].contains("Col"))
 			{
 				for (int i = 0; i < j[colType]["Col"].size(); i++)
 				{
 					int x = j[colType]["Col"][i][0];
 					int y = j[colType]["Col"][i][1];
-					col.push_back({ x * scaleW,y * scaleH });
+					col.push_back({ (float)x,(float)y });
 				}
 			}
 		}
@@ -56,23 +54,31 @@ Sword::Sword(GameObject* owner)
 	texture = LoadTexture("Res/Weapons/StoneSword.png");
 	WeaponNodeTrigger wnt;
 	WeaponStats wnStats;
-	wnStats.range = 0;
+	wnStats.range = 100;
 	wnStats.rangeMultiplier = 1;
 	wnStats.bounce = 3;
 	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
 	wnt.pushBackNodeTrigger(wn);
+	wnStats.range = 0;
+	wnStats.rangeMultiplier = 0.5;
 	wnStats.angle = 360;
-	wnStats.countOfUse = 5;
+	wnStats.countOfUse = 1;
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
+	wnt.pushBackNodeTrigger(wn);
+	wnStats.range = 100;
+	wnStats.countOfUse = 20;
 	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
 	wnt.pushBackNodeTrigger(wn);
-	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
+	wnStats.countOfUse = 1;
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
 	wnt.pushBackNodeTrigger(wn);
 	setWeaponNodeTrigger(wnt);
 	stats.angle = 180;
-	stats.countOfUse = 3;
+	stats.countOfUse = 1;
 	stats.useTime = 0.3;
 	stats.rangeMultiplier = 1.0f;
-	stats.range = pos.width / stats.rangeMultiplier * 1.25f;
+	stats.range = pos.width / stats.rangeMultiplier * 2;
+	updateWeaponSize();
 }
 
 void Sword::update(float deltaTime)
@@ -152,10 +158,7 @@ void Sword::use(Vector2 dir, float deltaTime)
 			angle += stats.angle / 2;
 		mirror = left;
 		used = false;
-		float scale = (stats.range * stats.rangeMultiplier) / pos.width;
-		pos.width *= scale;
-		pos.height *= scale;
-		scaleColliderElements(scale);
+		updateWeaponSize();
 	}
 }
 Vector2 Sword::getRotationPoint() 
@@ -187,5 +190,12 @@ void Sword::onTriggerEnter(Collider* collider)
 	}
 
 
+}
+void Sword::updateWeaponSize()
+{
+	float scale = (stats.range * stats.rangeMultiplier) / pos.width;
+	pos.width *= scale;
+	pos.height *= scale;
+	scaleColliderElements(scale);
 }
 

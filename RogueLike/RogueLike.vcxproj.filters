@@ -148,6 +148,9 @@
     <ClInclude Include="Src\GameObjects\Weapon\WeaponStats.h">
       <Filter>GameObjects\Weapons</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Projectal\Explosion.h">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -258,6 +261,9 @@
       <Filter>GameObjects\Projectal</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\StandardProjectal.cpp">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp">
       <Filter>GameObjects\Projectal</Filter>
     </ClCompile>
   </ItemGroup>

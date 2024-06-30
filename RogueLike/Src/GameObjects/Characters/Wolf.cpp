@@ -91,7 +91,7 @@ void Wolf::move(Vector2 dir, float deltaTime)
 	this->dir = dir;
 	if (recoveryTime > 0)
 	{
-		speed = speedMax * 0.1f;
+		speed = speedMax * 0.3f;
 		recoveryTime -= deltaTime;
 		pos.x += dir.x * deltaTime * speed;
 		pos.y += dir.y * deltaTime * speed;

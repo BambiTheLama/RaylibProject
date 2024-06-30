@@ -51,6 +51,7 @@
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
     <ClInclude Include="Src\GameObjects\ParticleText.h" />
+    <ClInclude Include="Src\GameObjects\Projectal\Explosion.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Projectal.h" />
     <ClInclude Include="Src\GameObjects\Projectal\ProjectalFactory.h" />
     <ClInclude Include="Src\GameObjects\Projectal\StandardProjectal.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
     <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
+    <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\ProjectalFactory.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\StandardProjectal.cpp" />
