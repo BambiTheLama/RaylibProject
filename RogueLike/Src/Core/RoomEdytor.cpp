@@ -136,7 +136,7 @@ void RoomEdytor::update(float deltaTime)
 	else
 	{
 
-		usingBlock += m;
+		usingBlock += (int)m;
 		if (usingBlock < 0)
 			usingBlock = 0;
 		else if (usingBlock > 100)

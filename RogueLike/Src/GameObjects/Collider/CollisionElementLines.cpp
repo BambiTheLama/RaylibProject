@@ -61,6 +61,7 @@ bool CollisionElementLines::isCollidiongWith(Vector2 thisPos, CollisionElement *
         Vector3 sCircle = collisionElement->getCircle(collisionElementPos);
         return CheckCollisionCircleLines({ sCircle.x, sCircle.y }, sCircle.z, points, dir, depht);
     }
+    return false;
 }
 void CollisionElementLines::scaleElement(float scale)
 {

@@ -9,12 +9,9 @@ class GameScene;
 class Game {
     static GameScene *gameScene;
 
-    Game() {
-    }
+    Game() {}
 
 public:
-    static GameObject *getObject(Rectangle pos);
-
     static std::list<GameObject *> getObjects(Rectangle pos);
 
     static void deleteObject(GameObject *obj);

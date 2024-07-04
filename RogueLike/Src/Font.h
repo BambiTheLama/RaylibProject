@@ -13,5 +13,5 @@ namespace MyFont {
 
 	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor);
 
-	int getFontSize();
+	float getFontSize();
 }

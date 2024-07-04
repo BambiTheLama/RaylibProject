@@ -35,8 +35,8 @@ namespace MyFont
 		}
 	}
 
-	int getFontSize()
+	float getFontSize()
 	{
-		return 64;
+		return 64.0f;
 	}
 }

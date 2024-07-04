@@ -5,7 +5,7 @@
 
 class GameObject {
 protected:
-    Rectangle pos;
+    Rectangle pos = { 0.0f,0.0f,1.0f,1.0f };
     int drawOrder = 0;
     bool moving = true;
     ObjectType type = ObjectType::NON;

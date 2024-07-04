@@ -34,8 +34,8 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 		float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().angle / 2;
 		float angle = (weapon->getAngle() + angleDiff) * PI / 180;
 		Vector2 dir;
-		dir.x = cos(angle) - sin(angle);
-		dir.y = sin(angle) + cos(angle);
+		dir.x = cosf(angle) - sinf(angle);
+		dir.y = sinf(angle) + cosf(angle);
 		projectal->setDir(dir);
 		Game::addObject(gm);
 	}

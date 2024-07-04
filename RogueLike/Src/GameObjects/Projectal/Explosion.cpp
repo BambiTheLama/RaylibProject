@@ -14,7 +14,7 @@ Explosion::Explosion()
 void Explosion::update(float deltaTime)
 {
 	time -= deltaTime;
-	float procent = pow(sin(time * 3.0f / timeMax), 4);
+	float procent = powf(sinf(time * 3.0f / timeMax), 4.0f);
 	float lastRange = range;
 	range = procent * (stats.range - minRange) + minRange;
 	pos.width = range;
@@ -37,7 +37,7 @@ void Explosion::draw()
 	Color c = WHITE;
 	c.b = 0;
 	c.g = 0;
-	c.r = 255 * damage / stats.damage;
+	c.r = (unsigned char)(255 * damage / stats.damage);
 	DrawCircleV({ pos.x, pos.y }, range, c);
 	//DrawRectangleRec(pos, { 0,0,0,128 });
 }

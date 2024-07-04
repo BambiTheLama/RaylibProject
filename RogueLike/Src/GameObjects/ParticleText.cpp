@@ -22,6 +22,6 @@ void ParticleText::update(float deltaTime)
 void ParticleText::draw()
 {
 	Color c = color;
-	c.a = 255 * lifeTime / lifeTimeMax;
+	c.a = (unsigned char)(255 * lifeTime / lifeTimeMax);
 	MyFont::DrawTextWithOutline(text.c_str(), pos.x, pos.y, MyFont::getFontSize(), c, {0,0,0,c.a});
 }

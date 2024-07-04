@@ -3,11 +3,6 @@
 
 GameScene *Game::gameScene = nullptr;
 
-GameObject *Game::getObject(Rectangle pos) {
-    if (!gameScene)
-        return nullptr;
-}
-
 std::list<GameObject *> Game::getObjects(Rectangle pos) {
     if (!gameScene)
         return std::list<GameObject *>();
