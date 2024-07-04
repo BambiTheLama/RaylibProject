@@ -4,9 +4,9 @@
 
 class QuadTree
 {
-	Rectangle pos;
+	Rectangle pos = { 0.0f,0.0f,0.0f,0.0f };
 	std::list<GameObject*> objects;
-	QuadTree* roots[4];
+	QuadTree* roots[4] = { nullptr,nullptr,nullptr,nullptr };
 public:
 	QuadTree(Rectangle pos);
 

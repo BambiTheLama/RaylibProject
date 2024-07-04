@@ -9,7 +9,7 @@ protected:
 public:
     static int showParticle;
 
-    Hitable(int hp = 10);
+    Hitable(float hp = 10.0f);
 
     bool dealDamage(float damage, float invisibleFrames = 0.1f);
 

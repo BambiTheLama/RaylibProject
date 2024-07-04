@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\AIController.h" />
+    <ClInclude Include="Src\Core\BlockType.h" />
     <ClInclude Include="Src\Core\Controller.h" />
+    <ClInclude Include="Src\Core\Dir.h" />
     <ClInclude Include="Src\Core\Engine.h" />
     <ClInclude Include="Src\Core\Floor\Floor.h" />
     <ClInclude Include="Src\Core\Floor\Room.h" />
@@ -30,6 +32,7 @@
     <ClInclude Include="Src\Core\KeyBoardController.h" />
     <ClInclude Include="Src\Core\QuadTree.h" />
     <ClInclude Include="Src\Core\RoomEdytor.h" />
+    <ClInclude Include="Src\Core\RoomType.h" />
     <ClInclude Include="Src\Core\Scene.h" />
     <ClInclude Include="Src\Core\WaveCollapsFun.h" />
     <ClInclude Include="Src\Font.h" />
@@ -50,6 +53,7 @@
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
+    <ClInclude Include="Src\GameObjects\ObjectType.h" />
     <ClInclude Include="Src\GameObjects\ParticleText.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Explosion.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Projectal.h" />

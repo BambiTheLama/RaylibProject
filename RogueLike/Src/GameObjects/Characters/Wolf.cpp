@@ -7,7 +7,7 @@
 
 Wolf::Wolf(float x, float y)
 {
-	pos = { x,y,64,64 };
+	pos = { x,y,64.0f,64.0f };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
 	std::vector<Vector2> col{
@@ -76,13 +76,13 @@ void Wolf::draw()
 		return;
 	
 	return;
-	float range = ai->range;
+	float range = (float)ai->range;
 	Color c = { 0,0,0,25 };
 	if ((ai->action & (int)Action::GoTo) != 0)
 		c.g = 255;
 	if ((ai->action & (int)Action::Attack) != 0)
 		c.r = 255;
-	DrawRectangle(pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2, c);
+	DrawRectangleRec({ pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2 }, c);
 	
 }
 

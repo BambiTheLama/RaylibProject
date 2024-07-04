@@ -16,10 +16,10 @@ class Wolf :
     float recoveryTimeMax = 0.5;
     float speed = 0;
     float speedMax = 200;
-    Vector2 attackDir;
+    Vector2 attackDir = { 0.0f,0.0f };
     CharacterController controller;
     AIController* ai;
-    Vector2 dir;
+    Vector2 dir = { 0.0f,0.0f };
     bool col = false;
 public:
     Wolf(float x,float y);

@@ -7,11 +7,11 @@ namespace MyFont {
 
 	void ClearFont();
 
-	void DrawText(const char* text, int x, int y, int size, Color color);
+	void DrawText(const char* text, float x, float y, float size, Color color);
 
-	Vector2 TextSize(const char* text, int size, int spacing);
+	Vector2 TextSize(const char* text, float size, float spacing);
 
-	void DrawTextWithOutline(const char* text, int x, int y, int fontSize, Color textColor, Color outlineColor);
+	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor);
 
 	int getFontSize();
 }

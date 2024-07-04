@@ -68,10 +68,10 @@ static bool hasRoomsAt(std::vector<std::vector<RoomData>>& roomGrid, int x, int 
 
 static void setBoosRoom(std::vector<std::vector<RoomData>>& roomGrid, std::vector<std::vector<RoomData>>& bossRoom)
 {
-	const int bossRoomSizeW = bossRoom[0].size();
-	const int bossRoomSizeH = bossRoom.size();
-	const int gridW = roomGrid[0].size();
-	const int gridH = roomGrid.size();
+	const int bossRoomSizeW = (int)bossRoom[0].size();
+	const int bossRoomSizeH = (int)bossRoom.size();
+	const int gridW = (int)roomGrid[0].size();
+	const int gridH = (int)roomGrid.size();
 	if (bossRoomSizeH <= 0 || bossRoomSizeW <= 0)
 		return;
 	int x = 0;
@@ -222,7 +222,7 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 	{
 		Vector2 p = roomsToFill.back();
 		roomsToFill.pop_back();
-		int n = roomGrid[p.y][p.x].posibleRoom.size();
+		int n = (int)roomGrid[p.y][p.x].posibleRoom.size();
 		int ID = 0;
 		if (n > 0)
 		{
@@ -234,7 +234,7 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 		{
 
 			setPossibleRooms(roomGrid, rooms, p.x, p.y);
-			n = roomGrid[p.y][p.x].posibleRoom.size();
+			n = (int)roomGrid[p.y][p.x].posibleRoom.size();
 			if (n <= 0)
 			{
 				printf("NIE MA POKOJU %d %d\n", p.x, p.y);

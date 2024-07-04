@@ -145,7 +145,7 @@ bool Collider::isColliding(Collider *collider,float deltaTime) {
 
                 if (trigger || collider->trigger)
                     return true;
-                float massAdd = mass + collider->mass;
+                float massAdd = (float)mass + collider->mass;
 
                 if (!solidObject)
                 {

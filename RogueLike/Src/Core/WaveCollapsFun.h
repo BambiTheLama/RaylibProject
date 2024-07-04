@@ -1,19 +1,9 @@
 #pragma once
 #include <vector>
+#include "Dir.h"
+#include "BlockType.h"
+#include "RoomType.h"
 
-enum class BlockType :char
-{
-	NON, Wall, PlayerSpawnPoint, ChestSpawnPoint, EnemySpawnPoint, LootSpawnPoint, BossSpawnPoint, BossEnterWall, ElitEnemySpawn
-};
-
-enum class Dir :char
-{
-	Up, Down, Left, Right, NON
-};
-enum class RoomType
-{
-	Normal, Boss, Special
-};
 struct RoomData {
 	int ID = -1;
 	char rotate = 0;

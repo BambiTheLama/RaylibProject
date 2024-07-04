@@ -1,7 +1,7 @@
 #pragma once
 #include "../GameObject.h"
+#include "../../Core/BlockType.h"
 
-extern enum class BlockType :char;
 extern const float tileW;
 extern const float tileH;
 

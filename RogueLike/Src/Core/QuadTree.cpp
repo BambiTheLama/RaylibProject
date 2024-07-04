@@ -144,7 +144,7 @@ void QuadTree::draw()
 	else
 	{
 		DrawRectangleLinesEx(pos, 2, BLACK);
-		DrawText(TextFormat("%d", objects.size()), pos.x, pos.y, 32, RED);
+		DrawText(TextFormat("%d", objects.size()), (int)pos.x, (int)pos.y, 32, RED);
 	}
 }
 

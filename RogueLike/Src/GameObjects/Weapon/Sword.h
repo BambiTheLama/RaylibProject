@@ -12,7 +12,7 @@ class Sword:public GameObject,public Weapon,public Collider
 	float angle;
 	float reloadTime = 0.0f;
 	float useTime = 0.0f;
-	float numberOfUse = 0;
+	int numberOfUse = 0;
 	bool used = false;
 	bool left = false;
 	Texture2D texture;

@@ -23,13 +23,13 @@ void loadRoom(std::vector<std::vector<int>> &blocks, nlohmann::json& j)
 		{
 			data.push_back(j[y][x]);
 		}
-		for (int x = j[y].size(); x < roomSize; x++)
+		for (int x = (int)j[y].size(); x < roomSize; x++)
 		{
 			data.push_back(0);
 		}
 		blocks.push_back(data);
 	}
-	for (int y = j.size(); y < roomSize; y++)
+	for (int y = (int)j.size(); y < roomSize; y++)
 	{
 		std::vector<int> data;
 		for (int x = 0; x < roomSize; x++)
@@ -156,11 +156,11 @@ int getRoomSize(RoomType type)
 	switch (type)
 	{
 	case RoomType::Normal:
-		return normalRooms.size();
+		return (int)normalRooms.size();
 	case RoomType::Boss:
-		return bossRooms.size();
+		return (int)bossRooms.size();
 	case RoomType::Special:
-		return specialRooms.size();
+		return (int)specialRooms.size();
 	}
 	return 0;
 }

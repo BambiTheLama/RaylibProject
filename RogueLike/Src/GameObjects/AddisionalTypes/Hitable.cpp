@@ -5,7 +5,7 @@
 
 int Hitable::showParticle = 0;//0b11111;
 
-Hitable::Hitable(int hp)
+Hitable::Hitable(float hp)
 {
 	maxHp = hp;
 	this->hp = maxHp;

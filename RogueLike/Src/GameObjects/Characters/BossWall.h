@@ -10,7 +10,7 @@ class BossWall :
 public:
     BossWall(float x, float y);
 
-    BossWall(int x, int y, int w, int h);
+    BossWall(float x, float y, float w, float h);
 
     void update(float deltaTime);
 

@@ -6,12 +6,12 @@
 class Explosion :
     public Projectal, public GameObject, public Collider
 {
-	float damage;
-	float time;
-	float timeMax;
-	float range=1.0f;
-	const float minRange = 1;
-	Vector2 center;
+	float damage = 1.0f;
+	float time = 1.0f;
+	float timeMax = 1.0f;
+	float range = 1.0f;
+	const float minRange = 1.0f;
+	Vector2 center = { 0.0f,0.0f };
 public:
 	Explosion();
 

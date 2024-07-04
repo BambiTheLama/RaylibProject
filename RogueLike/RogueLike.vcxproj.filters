@@ -151,6 +151,18 @@
     <ClInclude Include="Src\GameObjects\Projectal\Explosion.h">
       <Filter>GameObjects\Projectal</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\BlockType.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Dir.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\RoomType.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\ObjectType.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">

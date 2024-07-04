@@ -15,16 +15,16 @@ namespace MyFont
 		UnloadFont(diffFont);
 	}
 
-	void DrawText(const char* text, int x, int y, int size, Color color)
+	void DrawText(const char* text, float x, float y, float size, Color color)
 	{
-		DrawTextPro(diffFont, text, { (float)x,(float)y }, { 0,0 }, 0, size, 0, color);
+		DrawTextPro(diffFont, text, { (float)x,(float)y }, { 0.0f,0.0f }, 0.0f, size, 0.0f, color);
 	}
-	Vector2 TextSize(const char* text, int size, int spacing)
+	Vector2 TextSize(const char* text, float size, float spacing)
 	{
 		return MeasureTextEx(diffFont, text, size, spacing);
 	}
 
-	void DrawTextWithOutline(const char* text, int x, int y, int fontSize, Color textColor, Color outlineColor) {
+	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor) {
 		for (int ox = -1; ox <= 1; ox++) {
 			for (int oy = -1; oy <= 1; oy++) {
 				if (ox != 0 || oy != 0) {

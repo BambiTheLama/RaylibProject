@@ -66,7 +66,7 @@ void AIController::lookForTarget() {
 	pos.height += range * 2;
 	std::list<GameObject*> objcts = Game::getObjects(pos);
 	objcts.remove(thisObj);
-	float dist = range * 2;
+	float dist = range * 2.0f;
 	for (auto o : objcts)
 	{
 		if (((int)o->getType() & targerType) != 0)

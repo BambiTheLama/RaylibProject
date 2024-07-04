@@ -73,11 +73,11 @@ Sword::Sword(GameObject* owner)
 	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
 	wnt.pushBackNodeTrigger(wn);
 	setWeaponNodeTrigger(wnt);
-	stats.angle = 180;
+	stats.angle = 180.0f;
 	stats.countOfUse = 1;
-	stats.useTime = 0.3;
+	stats.useTime = 0.3f;
 	stats.rangeMultiplier = 1.0f;
-	stats.range = pos.width / stats.rangeMultiplier * 2;
+	stats.range = pos.width / stats.rangeMultiplier * 2.0f;
 	updateWeaponSize();
 }
 
@@ -173,7 +173,7 @@ void Sword::onTriggerEnter(Collider* collider)
 	GameObject* gm = collider->getThisObj();
 	if (gm == owner || !gm)
 		return;
-	if (gm->getType() == ObjectType::Enemy)
+	if ((int)gm->getType() & (int)ObjectType::Enemy)
 	{
 		Rectangle pos = gm->getPos();
 		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };

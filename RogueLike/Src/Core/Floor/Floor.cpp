@@ -38,27 +38,27 @@ FloorRooms getFloorRooms()
 
 Floor::Floor(Rectangle pos)
 {
-    pos.width = ((int)pos.width / (int)roomW) * (int)roomW;
-    pos.height = ((int)pos.height / (int)roomH) * (int)roomH;
+    pos.width = (float)(((int)pos.width / (int)roomW) * (int)roomW);
+    pos.height = (float)(((int)pos.height / (int)roomH) * (int)roomH);
     this->pos = pos;
 
-    tree = new QuadTree({ pos.x - 100,pos.y - 100,pos.width + 200,pos.height + 200 });
-    addObject(new BossWall(pos.x - 100, pos.y - 100, 100, pos.height + 200));
-    addObject(new BossWall(pos.x - 100, pos.y - 100, pos.width + 200, 100));
-    addObject(new BossWall(pos.x + pos.width, pos.y - 100, 100, pos.height + 200));
-    addObject(new BossWall(pos.x - 100, pos.y + pos.height, pos.width + 200, 100));
+    tree = new QuadTree({ pos.x - 100.0f,pos.y - 100.0f,pos.width + 200.0f,pos.height + 200.0f });
+    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
+    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, pos.width + 200.0f, 100.0f));
+    addObject(new BossWall(pos.x + pos.width, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
+    addObject(new BossWall(pos.x - 100.0f, pos.y + pos.height, pos.width + 200.0f, 100.0f));
 
 
     FloorRooms floorRooms = getFloorRooms();
 
-    int floorW = pos.width / roomW;
-    int floorH = pos.height / roomH;
+    int floorW = (int)(pos.width / roomW);
+    int floorH = (int)(pos.height / roomH);
     std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
     for (int i = 0; i < floorW; i++)
         for (int j = 0; j < floorH; j++)
         {
-            int startX = roomW * i;
-            int startY = roomH * j;
+            int startX = (int)roomW * i;
+            int startY = (int)roomH * j;
             int ID = roomGrid[j][i].ID;
             RoomType type = roomGrid[j][i].type;
             if (ID < 0)
@@ -106,7 +106,7 @@ void Floor::setUpRooms(int startX, int startY, Room& room)
                         break;
                     if (type == BlockType::PlayerSpawnPoint)
                     {
-                        GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
+                        GameObject* b = getRoomElement(lrID, startX + sX *tileW, startY + sY * tileH, tileW * sW, tileH * sH);
                         if (b)
                             addObject(b);
                     }

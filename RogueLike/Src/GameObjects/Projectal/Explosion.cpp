@@ -38,7 +38,7 @@ void Explosion::draw()
 	c.b = 0;
 	c.g = 0;
 	c.r = 255 * damage / stats.damage;
-	DrawCircle(pos.x, pos.y, range, c);
+	DrawCircleV({ pos.x, pos.y }, range, c);
 	//DrawRectangleRec(pos, { 0,0,0,128 });
 }
 

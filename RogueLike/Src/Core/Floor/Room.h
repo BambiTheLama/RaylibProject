@@ -13,7 +13,7 @@ class GameObject;
 
 class Room
 {
-	int ID;
+	int ID=0;
 	int blockID[roomSize][roomSize];
 	std::vector<GameObject*> objects;
 	RoomType type;

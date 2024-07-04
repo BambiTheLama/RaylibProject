@@ -4,7 +4,7 @@
 
 class GameObject;
 
-GameObject* getRoomElement(int ID, int x, int y, int w, int h);
+GameObject* getRoomElement(int ID, float x, float y, float w, float h);
 
 GameObject* getObject(int ID, Rectangle pos);
 

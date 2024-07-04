@@ -23,9 +23,9 @@ BossWall::BossWall(float x, float y):BossWall()
     collisionElemnets.push_back(new CollisionElementLines(col));
 }
 
-BossWall::BossWall(int x, int y, int w, int h):BossWall()
+BossWall::BossWall(float x, float y, float w, float h) :BossWall()
 {
-    pos = { (float)x, (float)y, (float)w, (float)h };
+    pos = { x, y, w, h };
     std::vector<Vector2> col{
         {0,         0},
         {pos.width, 0},

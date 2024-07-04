@@ -111,22 +111,22 @@ void RoomEdytor::update(float deltaTime)
 		if (IsKeyDown(KEY_TAB))
 			ID = 1000;
 		save();
-		ID += m;
+		ID += (int)m;
 		if (ID < 0)
 			ID = 0;
 		else switch (type)
 		{
 		case RoomType::Normal:
-			if (ID >= normalRoom.size())
-				ID = normalRoom.size() - 1;
+			if (ID >= (int)normalRoom.size())
+				ID = (int)normalRoom.size() - 1;
 			break;
 		case RoomType::Boss:
-			if (ID >= bossRoom.size())
-				ID = bossRoom.size() - 1;
+			if (ID >= (int)bossRoom.size())
+				ID = (int)bossRoom.size() - 1;
 			break;
 		case RoomType::Special:
-			if (ID >= specialRoom.size())
-				ID = specialRoom.size() - 1;
+			if (ID >= (int)specialRoom.size())
+				ID = (int)specialRoom.size() - 1;
 			break;
 		default:
 			break;
@@ -150,8 +150,8 @@ void RoomEdytor::update(float deltaTime)
 		Vector2 mouse = GetMousePosition();
 		mouse.x -= startRoom.x;
 		mouse.y -= startRoom.y;
-		int x = mouse.x / sizeRoom.x;
-		int y = mouse.y / sizeRoom.y;
+		int x = (int)(mouse.x / sizeRoom.x);
+		int y = (int)(mouse.y / sizeRoom.y);
 		room[y][x] = usingBlock;
 		save();
 	}

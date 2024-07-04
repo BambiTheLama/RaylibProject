@@ -1,7 +1,7 @@
 #include "ParticleText.h"
 #include "Game.h"
 
-ParticleText::ParticleText(int x, int y, std::string text,Color color)
+ParticleText::ParticleText(float x, float y, std::string text,Color color)
 {
 	this->color = color;
 	this->text = text.c_str();

@@ -31,7 +31,7 @@ struct ControllAction
 class GameObject;
 class Controller {
 protected:
-    GameObject* gm;
+    GameObject* gm = nullptr;
     Vector2 moveDir = { 0,0 };
     Vector2 inputDir = { 0,0 };
     std::vector<Input> inputs;

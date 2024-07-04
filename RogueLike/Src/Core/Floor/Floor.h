@@ -7,8 +7,7 @@
 #include "../WaveCollapsFun.h"
 
 class Room;
-extern enum class ObjectType :int;
-extern enum class BlockType :char;
+
 
 class Floor
 {

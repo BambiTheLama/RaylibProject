@@ -1,17 +1,7 @@
 #pragma once
 #include "raylib.hpp"
 #include "../Font.h"
-
-enum class ObjectType :int
-{
-    NON             = 0b0,
-    Enemy           = 0b1,
-    Player          = 0b10,
-    Wall            = 0b100,
-    SpawnPoint      = 0b1000,
-    Loot            = 0b10000,
-
-};
+#include "ObjectType.h"
 
 class GameObject {
 protected:
@@ -47,11 +37,11 @@ public:
 
     bool movingObject() { return moving; }
 
-    virtual float getSpeed() { return 0; }
+    virtual float getSpeed() { return 0.0f; }
 
-    virtual float getAngle() { return 0; }
+    virtual float getAngle() { return 0.0f; }
 
-    virtual Vector2 getRotationPoint() { return { 0,0 }; }
+    virtual Vector2 getRotationPoint() { return { 0.0f,0.0f }; }
 
     friend class Collider;
 };

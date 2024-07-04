@@ -6,14 +6,14 @@
 #include "../../GameObjects/Characters/Wolf.h"
 #include "../../GameObjects/Characters/LootBlock.h"
 
-GameObject* getRoomElement(int ID, int x, int y, int w, int h)
+GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 {
 	if (ID <= 0)
 		return NULL;
 	switch (ID)
 	{
 	case 1:
-		return new Wall(x, y,w,h);
+		return new Wall(x, y, w, h);
 	case 2:
 		return new BossWall(x, y, w, h);
 	case 3:

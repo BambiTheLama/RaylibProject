@@ -28,7 +28,7 @@ void StandardProjectal::update(float deltaTime)
 
 void StandardProjectal::draw()
 {
-	DrawCircle(pos.x + pos.width / 2, pos.y + pos.height / 2, pos.height / 2, BLACK);
+	DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
 }
 
 void StandardProjectal::onTriggerEnter(Collider* collider)
@@ -36,7 +36,7 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 	GameObject* colObj = collider->getThisObj();
 	if (!colObj)
 		return;
-	if (colObj->getType() == ObjectType::Enemy)
+	if ((int)colObj->getType() & (int)ObjectType::Enemy)
 	{
 		Hitable* hit = dynamic_cast<Hitable*>(colObj);
 		if (hit)
@@ -55,7 +55,7 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		}
 
 	}
-	else if (colObj->getType() == ObjectType::Wall)
+	else if ((int)colObj->getType() & (int)ObjectType::Wall)
 	{
 		dir.x = -dir.x;
 		dir.y = -dir.y;
