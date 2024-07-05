@@ -11,7 +11,7 @@ public:
 
     Hitable(float hp = 10.0f);
 
-    bool dealDamage(float damage, float invisibleFrames = 0.1f);
+    bool dealDamage(float damage, float invisibleFrames = 0.01f);
 
     void update(float deltaTime);
 
