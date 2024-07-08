@@ -27,7 +27,7 @@ bool Hitable::dealDamage(float damage, float invisibleFrames)
 			std::string text = std::to_string(damage);
 			for (int i = 0; i < 4; i++)
 				text.pop_back();
-			Game::addObject(new ParticleText(pos.x, pos.y, text));
+			Game::addObject(new ParticleText(pos.x, pos.y,1, text));
 		}
 
 	}
