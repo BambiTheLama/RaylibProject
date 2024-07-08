@@ -13,7 +13,9 @@ ParticleText::ParticleText(float x, float y, std::string text,Color color)
 
 void ParticleText::update(float deltaTime)
 {
-	pos.y -= deltaTime * 10;
+	float procent = powf((lifeTime*4) / lifeTimeMax, 4.0f);
+	
+	pos.y -= deltaTime * procent * 2;
 	lifeTime -= deltaTime;
 	if (lifeTime <= 0)
 		Game::deleteObject(this);

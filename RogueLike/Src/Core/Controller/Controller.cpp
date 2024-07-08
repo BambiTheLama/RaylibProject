@@ -1,6 +1,7 @@
 #include "Controller.h"
-#include "../GameObjects/GameObject.h"
-#include "../GameObjects/Collider/Collider.h"
+#include "../../GameObjects/GameObject.h"
+#include "../../GameObjects/Collider/Collider.h"
+
 
 void Controller::update(float deltaTime)
 {
@@ -32,7 +33,7 @@ void Controller::update(float deltaTime)
             {
                 Collider* c = dynamic_cast<Collider*>(gm);
                 if (c)
-                    c->trigger = (Action::TrigerOn == controllAction->action);
+                    c->trigger = ((int)Action::TrigerOn & (int)controllAction->action);
                 controllAction->time = -1;
             }
             break;
@@ -42,7 +43,7 @@ void Controller::update(float deltaTime)
             {
                 Collider* c = dynamic_cast<Collider*>(gm);
                 if (c)
-                    c->isResistToForces(Action::ForcesOff == controllAction->action);
+                    c->isResistToForces((int)Action::ForcesOff & (int)controllAction->action);
                 controllAction->time = -1;
             }
             break;

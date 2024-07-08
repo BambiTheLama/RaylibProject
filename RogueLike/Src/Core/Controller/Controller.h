@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-
 #include "raylib.hpp"
 
 enum class Input {

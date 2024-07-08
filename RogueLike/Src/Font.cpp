@@ -3,6 +3,7 @@
 
 namespace MyFont
 {
+
 	static Font diffFont;
 
 	void SetUpFont()
@@ -26,8 +27,8 @@ namespace MyFont
 
 	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor) {
 		outlineColor.a = outlineColor.a / 9 + (outlineColor.a % 9 > 0 ? 1 : 0);
-		for (int ox = -2; ox <= 2; ox += 2) {
-			for (int oy = -2; oy <= 2; oy += 2) {
+		for (int ox = -OutlineSpacing; ox <= OutlineSpacing; ox += 2) {
+			for (int oy = -OutlineSpacing; oy <= OutlineSpacing; oy += 2) {
 				MyFont::DrawText(text, x + ox, y + oy, fontSize, outlineColor);
 			}
 		}
