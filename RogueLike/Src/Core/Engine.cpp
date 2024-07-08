@@ -5,6 +5,7 @@
 #include "../Font.h"
 #include <time.h>
 #include <fstream>
+#include "Controller/TextureController.h"
 
 Engine::Engine() {
     srand((unsigned int)time(NULL));
@@ -23,7 +24,7 @@ Engine::Engine() {
         reader.close();
         loadRooms(j);
     }
-
+    TextureController::setUpTexture("Res/");
     //SetTargetFPS(60);
     MyFont::SetUpFont();
     setScene(new GameScene());
@@ -52,6 +53,7 @@ Engine::Engine() {
     if (s)
         delete s;
     MyFont::ClearFont();
+    TextureController::clearTextures();
     CloseWindow();
 }
 

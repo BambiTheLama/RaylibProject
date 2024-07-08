@@ -5,7 +5,7 @@
 #include "../GameObjects/Characters/Wall.h"
 #include "../GameObjects/Characters/Wolf.h"
 #include "../GameObjects/Characters/SpawnPoint.h"
-#include "Controller.h"
+#include "Controller/Controller.h"
 #include "rlgl.h"
 #include "WaveCollapsFun.h"
 

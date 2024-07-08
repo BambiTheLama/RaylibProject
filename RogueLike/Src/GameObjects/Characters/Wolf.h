@@ -4,7 +4,7 @@
 #include "../AddisionalTypes/CharacterController.h"
 #include "../Collider/Collider.h"
 #include "../AddisionalTypes/Hitable.h"
-#include "../../Core/AIController.h"
+#include "../../Core/Controller/AIController.h"
 class Wolf :
     public GameObject,public Hitable,public Collider,public Character
 {

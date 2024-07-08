@@ -1,6 +1,6 @@
 #include "CharacterController.h"
-#include "../../Core/GamePadController.h"
-#include "../../Core/KeyBoardController.h"
+#include "../../Core/Controller/GamePadController.h"
+#include "../../Core/Controller/KeyBoardController.h"
 
 
 CharacterController::CharacterController() {

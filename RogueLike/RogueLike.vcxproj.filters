@@ -54,18 +54,6 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h">
       <Filter>GameObjects\AddisionalTypes</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Controller.h">
-      <Filter>Core\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\GamePadController.h">
-      <Filter>Core\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\KeyBoardController.h">
-      <Filter>Core\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\AIController.h">
-      <Filter>Core\Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="Src\GameObjects\Characters\Wolf.h">
       <Filter>GameObjects\Characters</Filter>
     </ClInclude>
@@ -163,6 +151,21 @@
     <ClInclude Include="Src\GameObjects\ObjectType.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Controller\AIController.h">
+      <Filter>Core\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Controller\Controller.h">
+      <Filter>Core\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Controller\GamePadController.h">
+      <Filter>Core\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Controller\KeyBoardController.h">
+      <Filter>Core\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Controller\TextureController.h">
+      <Filter>Core\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -178,15 +181,6 @@
       <Filter>GameObjects\AddisionalTypes</Filter>
     </ClCompile>
     <ClCompile Include="Src\main.cpp" />
-    <ClCompile Include="Src\Core\GamePadController.cpp">
-      <Filter>Core\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\KeyBoardController.cpp">
-      <Filter>Core\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\AIController.cpp">
-      <Filter>Core\Controllers</Filter>
-    </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp">
       <Filter>GameObjects\AddisionalTypes</Filter>
     </ClCompile>
@@ -239,9 +233,6 @@
     <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp">
       <Filter>GameObjects\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Controller.cpp">
-      <Filter>Core\Controllers</Filter>
-    </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\Sword.cpp">
       <Filter>GameObjects\Weapons</Filter>
     </ClCompile>
@@ -277,6 +268,21 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp">
       <Filter>GameObjects\Projectal</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller\AIController.cpp">
+      <Filter>Core\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller\Controller.cpp">
+      <Filter>Core\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller\GamePadController.cpp">
+      <Filter>Core\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller\KeyBoardController.cpp">
+      <Filter>Core\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller\TextureController.cpp">
+      <Filter>Core\Controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

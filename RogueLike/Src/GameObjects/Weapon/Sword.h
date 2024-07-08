@@ -15,7 +15,7 @@ class Sword:public GameObject,public Weapon,public Collider
 	int numberOfUse = 0;
 	bool used = false;
 	bool left = false;
-	Texture2D texture;
+	TextureController texture;
 public:
 	Sword(GameObject* owner);
 

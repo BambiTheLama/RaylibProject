@@ -19,17 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Core\AIController.h" />
     <ClInclude Include="Src\Core\BlockType.h" />
-    <ClInclude Include="Src\Core\Controller.h" />
+    <ClInclude Include="Src\Core\Controller\AIController.h" />
+    <ClInclude Include="Src\Core\Controller\Controller.h" />
+    <ClInclude Include="Src\Core\Controller\GamePadController.h" />
+    <ClInclude Include="Src\Core\Controller\KeyBoardController.h" />
+    <ClInclude Include="Src\Core\Controller\TextureController.h" />
     <ClInclude Include="Src\Core\Dir.h" />
     <ClInclude Include="Src\Core\Engine.h" />
     <ClInclude Include="Src\Core\Floor\Floor.h" />
     <ClInclude Include="Src\Core\Floor\Room.h" />
     <ClInclude Include="Src\Core\Floor\RoomElements.h" />
-    <ClInclude Include="Src\Core\GamePadController.h" />
     <ClInclude Include="Src\Core\GameScene.h" />
-    <ClInclude Include="Src\Core\KeyBoardController.h" />
     <ClInclude Include="Src\Core\QuadTree.h" />
     <ClInclude Include="Src\Core\RoomEdytor.h" />
     <ClInclude Include="Src\Core\RoomType.h" />
@@ -66,15 +67,16 @@
     <ClInclude Include="Src\GameObjects\Weapon\WeaponStats.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Core\AIController.cpp" />
-    <ClCompile Include="Src\Core\Controller.cpp" />
+    <ClCompile Include="Src\Core\Controller\AIController.cpp" />
+    <ClCompile Include="Src\Core\Controller\Controller.cpp" />
+    <ClCompile Include="Src\Core\Controller\GamePadController.cpp" />
+    <ClCompile Include="Src\Core\Controller\KeyBoardController.cpp" />
+    <ClCompile Include="Src\Core\Controller\TextureController.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
     <ClCompile Include="Src\Core\Floor\Floor.cpp" />
     <ClCompile Include="Src\Core\Floor\Room.cpp" />
     <ClCompile Include="Src\Core\Floor\RoomElements.cpp" />
-    <ClCompile Include="Src\Core\GamePadController.cpp" />
     <ClCompile Include="Src\Core\GameScene.cpp" />
-    <ClCompile Include="Src\Core\KeyBoardController.cpp" />
     <ClCompile Include="Src\Core\QuadTree.cpp" />
     <ClCompile Include="Src\Core\RoomEdytor.cpp" />
     <ClCompile Include="Src\Core\WaveCollapsFun.cpp" />

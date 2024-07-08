@@ -2,6 +2,7 @@
 #include "raylib.hpp"
 #include "../Font.h"
 #include "ObjectType.h"
+#include "../Core/Controller/TextureController.h"
 
 class GameObject {
 protected:

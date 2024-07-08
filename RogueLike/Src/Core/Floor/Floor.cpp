@@ -220,10 +220,8 @@ void Floor::update(float deltaTime,Camera2D camera)
     else
     {
         Vector2 camPos = camera.target;
+        Vector2 offset = { camera.offset.x * 2.2f / camera.zoom + 300.0f,camera.offset.y * 2.2f / camera.zoom + 300.0f };
 
-        Vector2 offset = { camera.offset.x * 2.2f / camera.zoom,camera.offset.y * 2.2f / camera.zoom};
-        //const float distance = 300;
-        //offset = Vector2AddValue(offset, distance);
         camPos = Vector2Subtract(camPos, Vector2Scale(offset, 0.5f));
 
         Rectangle pos = { camPos.x,camPos.y,offset.x,offset.y };

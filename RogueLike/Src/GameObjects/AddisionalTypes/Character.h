@@ -1,6 +1,6 @@
 #pragma once
 #include "raylib.hpp"
-#include "../../Core/Controller.h"
+#include "../../Core/Controller/Controller.h"
 //#include "CharacterController.h"
 
 class GameObject;

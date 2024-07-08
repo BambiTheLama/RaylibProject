@@ -6,6 +6,7 @@
 #include "json.hpp"
 #include <fstream>
 #include <math.h>
+
 Sword::Sword(GameObject* owner)
 {
 	this->owner = owner;
@@ -51,7 +52,7 @@ Sword::Sword(GameObject* owner)
 	trigger = true;
 
 	rotationPoint = { 0,0 };
-	texture = LoadTexture("Res/Weapons/StoneSword.png");
+	texture = TextureController("Weapons/StoneSword.png");
 	WeaponNodeTrigger wnt;
 	WeaponStats wnStats;
 	wnStats.range = 100;
@@ -127,21 +128,18 @@ void Sword::update(float deltaTime)
 
 void Sword::draw()
 {
-	Rectangle pos = getPos();
+	Rectangle pos = getPos();	
+	Vector2 rotationPoint = this->rotationPoint;
 	pos.x += rotationPoint.x;
 	pos.y += rotationPoint.y;
-	Vector2 rotationPoint = this->rotationPoint;
-	Rectangle textPos = { 0,0,(float)texture.width,(float)-texture.height };
 	float angle = this->angle;
+
 	if (mirror)
 	{
 		rotationPoint.x = pos.width - rotationPoint.x;
-		textPos.width = -textPos.width;
 		angle -= 90;
 	}
-
-	DrawTexturePro(texture, textPos, pos, rotationPoint, angle, WHITE);
-	//Collider::draw();
+	texture.draw(pos, mirror, true, 0, rotationPoint, angle);
 }
 
 void Sword::use(Vector2 dir, float deltaTime)

@@ -1,6 +1,6 @@
 #pragma once
 #include "Character.h"
-#include "../../Core/Controller.h"
+#include "../../Core/Controller/Controller.h"
 #include "../GameObject.h"
 
 class CharacterController {

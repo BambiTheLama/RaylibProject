@@ -1,6 +1,6 @@
 #include "AIController.h"
-#include "../GameObjects/GameObject.h"
-#include "../GameObjects/Game.h"
+#include "../../GameObjects/GameObject.h"
+#include "../../GameObjects/Game.h"
 #include "raymath.h"
 
 void AIController::update(float deltaTime)
