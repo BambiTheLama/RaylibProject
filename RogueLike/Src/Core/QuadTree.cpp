@@ -1,5 +1,6 @@
 #include "QuadTree.h"
 #include <algorithm>
+#include "raymath.h"
 
 QuadTree::QuadTree(Rectangle pos)
 {
@@ -87,45 +88,38 @@ void QuadTree::removeObj(GameObject* o)
 		closeTree();
 }
 
+bool isRectangleEqual(Rectangle r1, Rectangle r2)
+{
+	return r1.x == r2.x && r1.y == r2.y && r1.width == r2.width && r1.height == r2.height;
+}
+
 std::list<GameObject*> QuadTree::getObjects(Rectangle pos)
 {
 	std::list<GameObject*> objs;
-	if (roots[0])
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			if (roots[i]->isThisPart(pos))
-				roots[i]->getObjects(objs, pos);
-		}
-	}
-	else
-	{
-		addToList(objs, pos);
-	}
+	getObjects(objs, pos);
 	return objs;
 }
 
 void QuadTree::getObjects(std::list<GameObject*>& list, Rectangle &pos)
 {
-	if (roots[0])
+	if (!roots[0])
 	{
-		Rectangle collision = GetCollisionRec(pos, this->pos);
-		if (collision.width == this->pos.width && collision.height == this->pos.height)
-		{
-			for (auto o : objects)
-				if (std::find(list.begin(), list.end(), o) == list.end())
-					list.push_back(o);
-			return;
-		}
+		addToList(list, pos);
+		return;
+	}
+	if (isRectangleEqual(GetCollisionRec(this->pos, pos), this->pos))
+	{
+		for (auto o : objects)
+			if (std::find(list.begin(), list.end(), o) == list.end())
+				list.push_back(o);
+	}
+	else
+	{
 		for (int i = 0; i < 4; i++)
 		{
 			if (roots[i]->isThisPart(pos))
 				roots[i]->getObjects(list, pos);
 		}
-	}
-	else
-	{
-		addToList(list, pos);
 	}
 }
 

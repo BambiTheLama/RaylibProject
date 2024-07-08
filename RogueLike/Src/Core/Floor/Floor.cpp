@@ -8,6 +8,7 @@
 #include "../../GameObjects/Characters/SpawnPoint.h"
 #include "../../GameObjects/Characters/Wolf.h"
 #include "raylib.hpp"
+#include "raymath.h"
 
 FloorRooms getFloorRooms()
 {
@@ -219,13 +220,12 @@ void Floor::update(float deltaTime,Camera2D camera)
     else
     {
         Vector2 camPos = camera.target;
-        Vector2 offset = { camera.offset.x * 1.0f / camera.zoom,camera.offset.y * 1.0f / camera.zoom };
-        offset.x += 1000;
-        offset.y += 1000;
-        camPos.x -= offset.x;
-        camPos.y -= offset.y;
-        offset.x *= 2;
-        offset.y *= 2;
+
+        Vector2 offset = { camera.offset.x * 2.2f / camera.zoom,camera.offset.y * 2.2f / camera.zoom};
+        //const float distance = 300;
+        //offset = Vector2AddValue(offset, distance);
+        camPos = Vector2Subtract(camPos, Vector2Scale(offset, 0.5f));
+
         Rectangle pos = { camPos.x,camPos.y,offset.x,offset.y };
         closeObjects.clear();
         closeObjects = tree->getObjects(pos);
@@ -239,8 +239,6 @@ void Floor::update(float deltaTime,Camera2D camera)
     }
     for (auto o : colliders)
         o->update(deltaTime);
-    //tree->update();
-
     for (auto o : colliders)
         o->clearCollider();
     for (auto o : colliders)
@@ -258,12 +256,11 @@ void Floor::draw()
         o->draw();
     }
 
-#ifdef showColliders
     if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_ONE))
-    for (auto o : colliders) {
-        o->draw();
-    }
-#endif
+        for (auto o : colliders) {
+            o->draw();
+        }
+
 
     if (IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyDown(KEY_TWO))
         tree->draw();

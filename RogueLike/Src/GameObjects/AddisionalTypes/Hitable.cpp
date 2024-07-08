@@ -3,7 +3,7 @@
 #include "../ParticleText.h"
 #include <string>
 
-int Hitable::showParticle = 0;//0b11111;
+int Hitable::showParticle = 0b11111;
 
 Hitable::Hitable(float hp)
 {
@@ -21,11 +21,15 @@ bool Hitable::dealDamage(float damage, float invisibleFrames)
 	GameObject* gm = dynamic_cast<GameObject*>(this);
 	if (gm && ((int)gm->getType() & showParticle) != 0)
 	{
-		Vector2 pos = gm->getPosPoint();
-		std::string text = std::to_string(damage);
-		for(int i=0;i<4;i++)
-			text.pop_back();
-		Game::addObject(new ParticleText(pos.x, pos.y, text));
+		if (damage >= 0.01)
+		{
+			Vector2 pos = gm->getPosPoint();
+			std::string text = std::to_string(damage);
+			for (int i = 0; i < 4; i++)
+				text.pop_back();
+			Game::addObject(new ParticleText(pos.x, pos.y, text));
+		}
+
 	}
 
 	if (hp <= 0)

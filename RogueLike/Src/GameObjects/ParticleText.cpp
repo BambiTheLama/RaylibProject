@@ -22,6 +22,11 @@ void ParticleText::update(float deltaTime)
 void ParticleText::draw()
 {
 	Color c = color;
-	c.a = (unsigned char)(255 * lifeTime / lifeTimeMax);
+	float procent = powf((lifeTime * 2) / lifeTimeMax, 6.0f);
+	if (procent > 1.0f)
+		procent = 1.0f;
+	else if (procent < 0.0f)
+		procent = 0.0f;
+	c.a = (unsigned char)(255 * procent);
 	MyFont::DrawTextWithOutline(text.c_str(), pos.x, pos.y, MyFont::getFontSize(), c, {0,0,0,c.a});
 }

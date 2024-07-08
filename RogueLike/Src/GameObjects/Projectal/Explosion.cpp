@@ -48,7 +48,7 @@ void Explosion::dealDamage(Collider* collider)
 	Hitable* hit = dynamic_cast<Hitable*>(obj);
 	if (!hit)
 		return;
-	float damageTick = 1 / 60.0f;
+	float damageTick = 1 / 30.0f;
 	hit->dealDamage(damage * damageTick, damageTick);
 	triggerNode(WeaponNodeActivation::OnHit, stats);
 	if(!hit->isAlive())

@@ -25,14 +25,13 @@ namespace MyFont
 	}
 
 	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor) {
-		for (int ox = -1; ox <= 1; ox++) {
-			for (int oy = -1; oy <= 1; oy++) {
-				if (ox != 0 || oy != 0) {
-					MyFont::DrawText(text, x + ox, y + oy, fontSize, outlineColor);
-				}
+		outlineColor.a = outlineColor.a / 9 + (outlineColor.a % 9 > 0 ? 1 : 0);
+		for (int ox = -2; ox <= 2; ox += 2) {
+			for (int oy = -2; oy <= 2; oy += 2) {
+				MyFont::DrawText(text, x + ox, y + oy, fontSize, outlineColor);
 			}
-			MyFont::DrawText(text, x, y, fontSize, textColor);
 		}
+		MyFont::DrawText(text, x, y, fontSize, textColor);
 	}
 
 	float getFontSize()
