@@ -4,9 +4,9 @@
 
 nlohmann::json Weapon::weaponData;
 
-Weapon::Weapon(GameObject* owner)
+Weapon::Weapon()
 {
-	this->owner = owner;
+
 }
 
 void Weapon::update() 

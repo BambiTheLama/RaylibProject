@@ -10,8 +10,7 @@
 
 class Player : public GameObject, public Character, public Collider,public Hitable,public DrawUI {
     float speed = 600;
-    Weapon* weapon;
-    Inventory invertory;
+    Inventory inventory;
 public:
     Player(float x,float y);
 

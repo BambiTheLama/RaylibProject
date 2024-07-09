@@ -6,8 +6,9 @@
 #include <fstream>
 #include <math.h>
 
-Sword::Sword(GameObject* owner, std::string weaponType, int variant):Weapon(owner)
+Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 {
+	setOwner(owner);
 	pos = { 0,0,32,32 };
 	std::vector<Vector2> col;
 	std::string texturePath = "Weapons/StoneSword.png";
@@ -54,7 +55,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant):Weapon(owne
 	wnt.pushBackNodeTrigger(wn);
 	setWeaponNodeTrigger(wnt);
 	*/
-
+	canBeDeleted = false;
 }
 
 void Sword::update(float deltaTime)
@@ -64,6 +65,7 @@ void Sword::update(float deltaTime)
 		Rectangle p = owner->getPos();
 		pos.x = p.x + p.width / 2;
 		pos.y = p.y + p.height / 2;
+		Game::addObject(this);
 	}
 	if (reloadTime > 0)
 	{

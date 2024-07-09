@@ -163,7 +163,10 @@ void Floor::setUpRooms(int startX, int startY, Room& room)
 Floor::~Floor()
 {
     for (auto o : allGameObjects)
+    {
         deleteObject(o);
+    }
+
     colliders.clear();
     for (auto o : toDelete)
     {
@@ -200,7 +203,7 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
 
 void Floor::update(float deltaTime,Camera2D camera)
 {
-    for (auto o : toDelete)
+    for (auto o : toRemove)
     {
         tree->removeObj(o);
         allGameObjects.remove(o);
@@ -210,10 +213,13 @@ void Floor::update(float deltaTime,Camera2D camera)
             for (auto c : colliders)
                 c->removeObject(collider);
         }
+    }
+    toRemove.clear();
+    for (auto o : toDelete)
+    {
         o->destroy();
         delete o;
     }
-
     toDelete.clear();
     //std::list<GameObject*> gameObjects;
     if (!tree)
@@ -242,9 +248,7 @@ void Floor::update(float deltaTime,Camera2D camera)
         o->clearCollider();
     for (auto o : colliders)
         o->checkCollision(deltaTime);
-    for (auto c : collidersToRemove)
-        colliders.remove(c);
-    collidersToRemove.clear();
+
     closeObjects.sort(sortGameObjectCondiction);
 }
 
@@ -307,6 +311,8 @@ bool Floor::addObject(GameObject* obj)
 
 void Floor::deleteObject(GameObject* obj)
 {
+    if (!obj)
+        return;
     removeObject(obj);
     if (std::find(toDelete.begin(), toDelete.end(), obj) == toDelete.end())
         toDelete.push_back(obj);
@@ -314,11 +320,10 @@ void Floor::deleteObject(GameObject* obj)
 
 void Floor::removeObject(GameObject* obj)
 {
-    Collider* collider = dynamic_cast<Collider*>(obj);
-    if (collider) {
-        collidersToRemove.remove(collider);
-    }
-    tree->removeObj(obj);
+    if (!obj)
+        return;
+    if (std::find(toRemove.begin(), toRemove.end(), obj) == toRemove.end())
+        toRemove.push_back(obj);
 }
 
 void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid)

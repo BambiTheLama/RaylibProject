@@ -14,8 +14,8 @@ class Floor
     std::list<GameObject*> allGameObjects;
     std::list<GameObject*> closeObjects;
     std::list<GameObject*> toDelete;
+    std::list<GameObject*> toRemove;
     std::list<Collider*> colliders;
-    std::list<Collider*> collidersToRemove;
     QuadTree* tree;
     Rectangle pos;
 public:

@@ -20,11 +20,10 @@ Player::Player(float x, float y){
     //drawOrder = 10;
     type = ObjectType::Player;
     mass = 10;
-    Sword* s = new Sword(this, "Axe", 1);   
-    weapon = s;
-    Game::addObject(s);
     trigger = false;
-
+    inventory = Inventory(this);
+    for (int i = 0; i < 2; i++)
+        inventory.addItem(dynamic_cast<Item*>(new Sword(this, "Axe", i)));
 }
 
 Player::~Player() {
@@ -32,19 +31,18 @@ Player::~Player() {
 }
 
 void Player::start() {
-    weapon->update();
-    invertory.addItem(dynamic_cast<Item*>(weapon));
-    Game::addObject(dynamic_cast<GameObject*>(weapon));
+
 }
 
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
+    inventory.update(deltaTime);
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
     pos.x += dir.x * deltaTime * speed;
     pos.y += dir.y * deltaTime * speed;
-    weapon->update();
+    inventory.update(0.0f);
 }
 
 void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime) {
@@ -54,17 +52,17 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         break;
     case Input::Attack1:
         //weapon->use(cursorDir, deltaTime);
-        invertory.use(cursorDir, deltaTime);
+        inventory.use(cursorDir, deltaTime);
         break;
     case Input::Attack2:
         break;
     case Input::IDE:
         break;
     case Input::NextItem:
-        invertory.nextItem();
+        inventory.nextItem();
         break;
     case Input::PrivItem:
-        invertory.privItem();
+        inventory.privItem();
         break;
     default:
         break;
@@ -81,7 +79,7 @@ void Player::draw() {
 
 void Player::drawUI()
 {
-    invertory.draw();
+    inventory.draw();
 }
 
 void Player::onCollisionEnter(Collider* collider) { 

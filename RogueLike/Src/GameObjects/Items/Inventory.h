@@ -7,13 +7,18 @@
 
 class Inventory
 {
+	GameObject* owner;
 	Vector2 ItemsStartPos = { 32,32 };
 	Vector2 ItemsSize = { 64,64 };
 	Vector2 ItemsSpaceing = { 70,0 };
 	Item* items[InventorySize];
 	int usingItem = 0;
 public:
-	Inventory();
+	Inventory(GameObject* owner = nullptr);
+
+	~Inventory();
+
+	void update(float deltaTime);
 
 	void nextItem();
 

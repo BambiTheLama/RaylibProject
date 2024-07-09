@@ -97,7 +97,6 @@ std::list<GameObject*> GameScene::getObjects(Rectangle pos)
     return std::list<GameObject*>();
 }
 bool GameScene::addObject(GameObject *obj) {
-
     if (floor)
         return floor->addObject(obj);
     return false;
