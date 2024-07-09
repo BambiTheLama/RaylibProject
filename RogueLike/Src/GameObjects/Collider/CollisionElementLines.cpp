@@ -38,9 +38,7 @@ std::vector<Vector2> CollisionElementLines::getLines(Vector2 pos) {
 
         float x = cosf(angle) * (l.x - rotationPoint.x) - sinf(angle) * (l.y - rotationPoint.y) + rotationPoint.x;
         float y = sinf(angle) * (l.x - rotationPoint.x) + cosf(angle) * (l.y - rotationPoint.y) + rotationPoint.y;
-        Vector2 p = { x + pos.x, y + pos.y };
-        if (mirror)
-            p.x -= rotationPoint.x * 2;
+        Vector2 p = { x + pos.x - rotationPoint.x, y + pos.y - rotationPoint.y };
         linesToRet.push_back(p);
 
 

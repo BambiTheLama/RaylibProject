@@ -11,10 +11,12 @@ class Weapon
 	GameObject* thisObj = nullptr;
 	WeaponNodeTrigger weaponNodeTrigger;
 protected:
+	int weaponTier = 0;
 	WeaponStats stats;
 	static nlohmann::json weaponData;
+	GameObject* owner;
 public:
-	Weapon();
+	Weapon(GameObject* owner = nullptr);
 
 	void update();
 
@@ -23,6 +25,8 @@ public:
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 	void setWeaponNodeTrigger(WeaponNodeTrigger trigger) { weaponNodeTrigger = trigger; }
+
+	void setOwner(GameObject* owner) { this->owner = owner; }
 
 	friend class GameScene;
 private:

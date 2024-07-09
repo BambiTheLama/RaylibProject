@@ -284,6 +284,9 @@
     <ClCompile Include="Src\Core\Controller\TextureController.cpp">
       <Filter>Core\Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="Src\GameObjects\Weapon\WeaponStats.cpp">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

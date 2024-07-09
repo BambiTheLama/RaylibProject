@@ -1,0 +1,138 @@
+#include "WeaponStats.h"
+
+static const char* statsJsonName = "Stats";
+
+void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int& stat)
+{
+	if (!json[statsJsonName].contains(statProperty))
+		return;
+	int statsSize = json[statsJsonName][statProperty].size();
+	if (statsSize <= 0)
+		return;
+	if (tier >= statsSize)
+		tier = statsSize - 1;
+	int min = json[statsJsonName][statProperty][tier][0];
+	int max = json[statsJsonName][statProperty][tier][1];
+	float procent = (rand() % 1000) / 1000.0f;
+	stat = min + (max - min) * procent;
+}
+
+void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat)
+{
+	if (!json[statsJsonName].contains(statProperty))
+		return;
+	int statsSize = json[statsJsonName][statProperty].size();
+	if (statsSize <= 0)
+		return;
+	if (tier >= statsSize)
+		tier = statsSize - 1;
+	float min = json[statsJsonName][statProperty][tier][0];
+	float max = json[statsJsonName][statProperty][tier][1];
+	float procent = (rand() % 1000) / 1000.0f;
+	stat = min + (max - min) * procent;
+}
+
+void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat, float& statMultiplier)
+{
+	if (!json[statsJsonName].contains(statProperty))
+		return;
+	int statsSize = json[statsJsonName][statProperty].size();
+	if (statsSize <= 0)
+		return;
+	if (tier >= statsSize)
+		tier = statsSize - 1;
+	float min = json[statsJsonName][statProperty][tier][0][0];
+	float max = json[statsJsonName][statProperty][tier][0][1];
+	float procent = (rand() % 1000) / 1000.0f;
+	stat = min + (max - min) * procent;
+	min = json[statsJsonName][statProperty][tier][1][0];
+	max = json[statsJsonName][statProperty][tier][1][1];
+	procent = (rand() % 1000) / 1000.0f;
+	statMultiplier = min + (max - min) * procent;
+}
+
+void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
+{
+	if (!json.contains(statsJsonName))
+		return;
+
+	readStatFromWeapon(json, "Damage"    ,tier, damage, damageMultiplier);
+	readStatFromWeapon(json, "UseTime"   , tier, useTime, useTimeMultiplier);
+	readStatFromWeapon(json, "ReloadTime", tier, reloadTime, reloadTimeMultiplier);
+	readStatFromWeapon(json, "Speed"     , tier, speed, speedMultiplier);
+	readStatFromWeapon(json, "Range"     , tier, range, rangeMultiplier);
+	readStatFromWeapon(json, "Knockback" , tier, knockback, knockbackMultiplier);
+	readStatFromWeapon(json, "Angle"     , tier, angle);
+	readStatFromWeapon(json, "CountOfUse", tier, countOfUse);
+	readStatFromWeapon(json, "Bounce"    , tier, bounce);
+	readStatFromWeapon(json, "Pirce"     , tier, pirce);
+}
+
+void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& statMultiplier)
+{
+	if (!json[statsJsonName].contains(statProperty))
+		return;
+	stat = json[statsJsonName][statProperty][0];
+	statMultiplier = json[statsJsonName][statProperty][1];
+}
+
+void WeaponStats::readStats(nlohmann::json json)
+{
+	readStat(json, "Damage", damage, damageMultiplier);
+	readStat(json, "UseTime", useTime, useTimeMultiplier);
+	readStat(json, "ReloadTime", reloadTime, reloadTimeMultiplier);
+	readStat(json, "Speed", speed, speedMultiplier);
+	readStat(json, "Range", range, rangeMultiplier);
+	readStat(json, "Knockback", useTime, useTimeMultiplier);
+	readStat(json, "UseTime", useTime, useTimeMultiplier);
+	if (json[statsJsonName].contains("Angle"))
+		angle = json[statsJsonName]["Angle"];
+	if (json[statsJsonName].contains("CountOfUse"))
+		countOfUse = json[statsJsonName]["CountOfUse"];
+	if (json[statsJsonName].contains("Bounce"))
+		bounce = json[statsJsonName]["Bounce"];
+	if (json[statsJsonName].contains("Pirce"))
+		pirce = json[statsJsonName]["Pirce"];
+}
+
+void WeaponStats::saveStats(nlohmann::json& json)
+{
+	json[statsJsonName]["Damage"] = { damage ,damageMultiplier };
+	json[statsJsonName]["UseTime"] = { useTime ,useTimeMultiplier };
+	json[statsJsonName]["ReloadTime"] = { reloadTime ,reloadTimeMultiplier };
+	json[statsJsonName]["Speed"] = { speed ,speedMultiplier };
+	json[statsJsonName]["Range"] = { range ,rangeMultiplier };
+	json[statsJsonName]["Angle"] = angle;
+	json[statsJsonName]["Knockback"] = { knockback ,knockbackMultiplier };
+	json[statsJsonName]["CountOfUse"] = countOfUse;
+	json[statsJsonName]["Bounce"] = bounce;
+	json[statsJsonName]["Pirce"] = pirce;
+}
+
+void addToStringData(std::string &data,float value, std::string name)
+{
+	std::string dataValue = std::to_string(value);
+	dataValue.erase(dataValue.size() - 5, 5);
+	data += "{" + name + "}: " + dataValue + std::string("\n");
+}
+
+void addToStringData(std::string& data, int value, std::string name)
+{
+	data += "{" + name + "}: " + std::to_string(value) + std::string("\n");
+}
+
+std::string WeaponStats::toString()
+{
+	std::string data="";
+	addToStringData(data, damage, "Damage");
+	addToStringData(data, useTime, "UseTime");
+	addToStringData(data, reloadTime, "ReloadTime");
+	addToStringData(data, speed, "Speed");
+	addToStringData(data, range, "Range");
+	addToStringData(data, angle, "Angle");
+	addToStringData(data, knockback, "Knockback");
+	addToStringData(data, countOfUse, "CountOfUse");
+	addToStringData(data, bounce, "Bounce");
+	addToStringData(data, pirce, "Pirce");
+	return data;
+}

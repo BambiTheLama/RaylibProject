@@ -7,7 +7,6 @@
 class Sword:public GameObject,public Weapon,public Collider
 {
 	Vector2 rotationPoint;
-	GameObject* owner;
 	WeaponStats stats;
 	float angle;
 	float reloadTime = 0.0f;
@@ -17,7 +16,7 @@ class Sword:public GameObject,public Weapon,public Collider
 	bool left = false;
 	TextureController texture;
 public:
-	Sword(GameObject* owner, std::string weaponType, int variant = 0);
+	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
 
 	void update(float deltaTime);
 
@@ -35,5 +34,7 @@ public:
 
 private:
 	void updateWeaponSize();
+
+	void readFromWeaponData(std::string weaponType, int variant, std::vector<Vector2>& col, std::string& texturePath);
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "json.hpp"
 
 struct WeaponStats
 {
@@ -18,4 +19,12 @@ struct WeaponStats
 	int countOfUse = 1;
 	int	bounce = 1;
 	int pirce = 1;
+
+	void readStats(nlohmann::json json);
+	
+	void readStatsFromWeapon(nlohmann::json json, int tier);
+	
+	void saveStats(nlohmann::json& json);
+	
+	std::string toString();
 };

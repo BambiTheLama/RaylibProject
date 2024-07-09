@@ -6,39 +6,12 @@
 #include <fstream>
 #include <math.h>
 
-Sword::Sword(GameObject* owner, std::string weaponType, int variant)
+Sword::Sword(GameObject* owner, std::string weaponType, int variant):Weapon(owner)
 {
-	this->owner = owner;
 	pos = { 0,0,32,32 };
-	const char* cstrWeapon = weaponType.c_str();
 	std::vector<Vector2> col;
 	std::string texturePath = "Weapons/StoneSword.png";
-	if (weaponData.contains(cstrWeapon))
-	{
-
-		pos.width = weaponData[cstrWeapon]["Size"][0];
-		pos.height = weaponData[cstrWeapon]["Size"][1];
-		if (weaponData[cstrWeapon].contains("Col"))
-		{
-			for (int i = 0; i < weaponData[cstrWeapon]["Col"].size(); i++)
-			{
-				int x = weaponData[cstrWeapon]["Col"][i][0];
-				int y = weaponData[cstrWeapon]["Col"][i][1];
-				col.push_back({ (float)x,(float)y });
-			}
-		}
-		if (weaponData[cstrWeapon].contains("Textures"))
-		{
-			int numberOfTextures = weaponData[cstrWeapon]["Textures"].size();
-			if (numberOfTextures > 0)
-			{
-				int textureId = variant % numberOfTextures;
-				texturePath = weaponData[cstrWeapon]["Textures"][textureId];
-			}
-				
-
-		}
-	}
+	readFromWeaponData(weaponType, variant, col, texturePath);
 	if(col.size()<=0)
 	{
 		col = {
@@ -52,16 +25,36 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	collisionElemnets.push_back(new CollisionElementLines(col));
 	Collider::getThisObj();
 	trigger = true;
-
-	rotationPoint = { 0,0 };
 	texture = TextureController(texturePath);
 
-	stats.angle = 180.0f;
-	stats.countOfUse = 1;
-	stats.useTime = 0.3f;
-	stats.rangeMultiplier = 1.0f;
-	stats.range = pos.width / stats.rangeMultiplier * 2.0f;
 	updateWeaponSize();
+
+	printf(stats.toString().c_str());
+
+	/*
+	WeaponNodeTrigger wnt;
+	WeaponStats wnStats;
+	wnStats.range = 100;
+	wnStats.rangeMultiplier = 1;
+	wnStats.bounce = 3;
+	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
+	wnt.pushBackNodeTrigger(wn);
+	wnStats.range = 0;
+	wnStats.rangeMultiplier = 0.5;
+	wnStats.angle = 360;
+	wnStats.countOfUse = 1;
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
+	wnt.pushBackNodeTrigger(wn);
+	wnStats.range = 100;
+	wnStats.countOfUse = 20;
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
+	wnt.pushBackNodeTrigger(wn);
+	wnStats.countOfUse = 1;
+	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
+	wnt.pushBackNodeTrigger(wn);
+	setWeaponNodeTrigger(wnt);
+	*/
+
 }
 
 void Sword::update(float deltaTime)
@@ -112,8 +105,8 @@ void Sword::draw()
 {
 	Rectangle pos = getPos();	
 	Vector2 rotationPoint = this->rotationPoint;
-	pos.x += rotationPoint.x;
-	pos.y += rotationPoint.y;
+	//pos.x += rotationPoint.x;
+	//pos.y += rotationPoint.y;
 	float angle = this->angle;
 
 	if (mirror)
@@ -176,6 +169,42 @@ void Sword::updateWeaponSize()
 	float scale = (stats.range * stats.rangeMultiplier) / pos.width;
 	pos.width *= scale;
 	pos.height *= scale;
+	rotationPoint.x *= scale;
+	rotationPoint.y *= scale;
 	scaleColliderElements(scale);
+
 }
 
+void Sword::readFromWeaponData(std::string weaponType,int variant, std::vector<Vector2>& col, std::string &texturePath)
+{
+	if (!weaponData.contains(weaponType))
+		return;
+	
+	pos.width = weaponData[weaponType]["Size"][0];
+	pos.height = weaponData[weaponType]["Size"][1];
+	if (weaponData[weaponType].contains("Col"))
+	{
+		for (int i = 0; i < weaponData[weaponType]["Col"].size(); i++)
+		{
+			int x = weaponData[weaponType]["Col"][i][0];
+			int y = weaponData[weaponType]["Col"][i][1];
+			col.push_back({ (float)x,(float)y });
+		}
+	}
+	if (weaponData[weaponType].contains("Textures"))
+	{
+		int numberOfTextures = weaponData[weaponType]["Textures"].size();
+		if (numberOfTextures > 0)
+		{
+			int textureId = variant % numberOfTextures;
+			texturePath = weaponData[weaponType]["Textures"][textureId];
+		}
+	}
+	if (weaponData[weaponType].contains("RotationPoint"))
+	{
+		rotationPoint.x = weaponData[weaponType]["RotationPoint"][0];
+		rotationPoint.y = weaponData[weaponType]["RotationPoint"][1];
+	}
+	stats.readStatsFromWeapon(weaponData[weaponType], 0);
+	
+}
