@@ -97,6 +97,7 @@ void Sword::update(float deltaTime)
 				used = false;
 				left = !left;
 			}
+			mirror = left;
 		}
 	}
 }
@@ -115,6 +116,23 @@ void Sword::draw()
 		angle -= 90;
 	}
 	texture.draw(pos, mirror, true, 0, rotationPoint, angle);
+}
+
+void Sword::drawIcone(Rectangle pos)
+{
+	texture.draw(pos, false, false, 0, rotationPoint, 0.0f);
+	Color c = { 128,128,128,200 };
+	float procent = 0.0f;
+	if (reloadTime > 0)
+		procent = reloadTime / stats.reloadTime;
+	else if (useTime > 0)
+	{
+		procent = (useTime + stats.useTime * (numberOfUse - 1)) / (stats.useTime * stats.countOfUse);
+		c.b = 255;
+	}
+	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
+	DrawRingLines({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, BLACK);
+
 }
 
 void Sword::use(Vector2 dir, float deltaTime)

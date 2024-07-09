@@ -3,8 +3,10 @@
 #include "../GameObject.h"
 #include "../Collider/Collider.h"
 #include "WeaponStats.h"
+#include "../Items/Item.h"
 
-class Sword:public GameObject,public Weapon,public Collider
+
+class Sword:public GameObject,public Weapon,public Collider,public Item
 {
 	Vector2 rotationPoint;
 	WeaponStats stats;
@@ -18,19 +20,23 @@ class Sword:public GameObject,public Weapon,public Collider
 public:
 	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
 
-	void update(float deltaTime);
+	void update(float deltaTime) override;
 
-	void draw();
+	void draw() override;
 
-	void use(Vector2 dir, float deltaTime);
+	void drawIcone(Rectangle pos) override;
 
-	float getAngle() { return angle; }
+	void use(Vector2 dir, float deltaTime) override;
+
+	float getAngle() override { return angle; }
 
 	Vector2 getRotationPoint();
 
-	void onTriggerEnter(Collider* collider);
+	void onTriggerEnter(Collider* collider) override;
 
 	bool isUsing() { return useTime > 0; }
+
+	bool canSwap() override { return useTime <= 0.0f && reloadTime <= 0.0f; }
 
 private:
 	void updateWeaponSize();

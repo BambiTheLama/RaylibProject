@@ -9,6 +9,7 @@
 #include "../../GameObjects/Characters/Wolf.h"
 #include "raylib.hpp"
 #include "raymath.h"
+#include "../../GameObjects/AddisionalTypes/DrawUI.h"
 
 FloorRooms getFloorRooms()
 {
@@ -267,6 +268,13 @@ void Floor::draw()
 void Floor::drawUI()
 {
     MyFont::DrawTextWithOutline(TextFormat("%d/%d", closeObjects.size(), allGameObjects.size()), 0, 64, 32, WHITE, BLACK);
+    for (auto o : closeObjects)
+    {
+        DrawUI* ui = dynamic_cast<DrawUI*>(o);
+        if (ui)
+            ui->drawUI();
+    }
+
 }
 
 std::list<GameObject*> Floor::getObjects(Rectangle pos) 

@@ -26,9 +26,9 @@ namespace MyFont
 	}
 
 	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint, float angle) {
-		outlineColor.a = (outlineColor.a / 9) + (outlineColor.a % 9 > 0 ? 1 : 0);
-		for (int ox = -OutlineSpacing; ox <= OutlineSpacing; ox += 2) {
-			for (int oy = -OutlineSpacing; oy <= OutlineSpacing; oy += 2) {
+		outlineColor.a = (outlineColor.a / 3);
+		for (int ox = -OutlineSpacing; ox <= OutlineSpacing; ox += OutlineSpacing) {
+			for (int oy = -OutlineSpacing; oy <= OutlineSpacing; oy += OutlineSpacing) {
 				MyFont::DrawText(text, x + ox, y + oy, fontSize, outlineColor, rotationPoint, angle);
 			}
 		}

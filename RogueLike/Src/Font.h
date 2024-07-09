@@ -2,7 +2,7 @@
 #include "raylib.hpp"
 
 namespace MyFont {
-#define OutlineSpacing 5
+#define OutlineSpacing 2
 	void SetUpFont();
 
 	void ClearFont();

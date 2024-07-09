@@ -39,6 +39,7 @@
     <ClInclude Include="Src\Font.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Character.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\CharacterController.h" />
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\DrawUI.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
@@ -54,6 +55,8 @@
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
+    <ClInclude Include="Src\GameObjects\Items\Inventory.h" />
+    <ClInclude Include="Src\GameObjects\Items\Item.h" />
     <ClInclude Include="Src\GameObjects\ObjectType.h" />
     <ClInclude Include="Src\GameObjects\ParticleText.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Explosion.h" />
@@ -83,6 +86,7 @@
     <ClCompile Include="Src\Font.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\DrawUI.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
@@ -97,6 +101,8 @@
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
+    <ClCompile Include="Src\GameObjects\Items\Inventory.cpp" />
+    <ClCompile Include="Src\GameObjects\Items\Item.cpp" />
     <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp" />
@@ -111,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Res\Rooms.json" />
+    <None Include="Res\Textures.json" />
     <None Include="Res\Weapon.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -20,7 +20,7 @@ Player::Player(float x, float y){
     //drawOrder = 10;
     type = ObjectType::Player;
     mass = 10;
-    Sword* s = new Sword(this, "Bow", 1);   
+    Sword* s = new Sword(this, "Axe", 1);   
     weapon = s;
     Game::addObject(s);
     trigger = false;
@@ -33,6 +33,7 @@ Player::~Player() {
 
 void Player::start() {
     weapon->update();
+    invertory.addItem(dynamic_cast<Item*>(weapon));
     Game::addObject(dynamic_cast<GameObject*>(weapon));
 }
 
@@ -52,11 +53,18 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::Interact:
         break;
     case Input::Attack1:
-        weapon->use(cursorDir, deltaTime);
+        //weapon->use(cursorDir, deltaTime);
+        invertory.use(cursorDir, deltaTime);
         break;
     case Input::Attack2:
         break;
     case Input::IDE:
+        break;
+    case Input::NextItem:
+        invertory.nextItem();
+        break;
+    case Input::PrivItem:
+        invertory.privItem();
         break;
     default:
         break;
@@ -69,6 +77,11 @@ void Player::draw() {
     DrawRectangleLinesEx(pos, 2, BLACK);
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 
+}
+
+void Player::drawUI()
+{
+    invertory.draw();
 }
 
 void Player::onCollisionEnter(Collider* collider) { 

@@ -1,0 +1,35 @@
+#pragma once
+#include "raylib.hpp"
+#include "Item.h"
+#include <vector>
+
+#define InventorySize 10
+
+class Inventory
+{
+	Vector2 ItemsStartPos = { 32,32 };
+	Vector2 ItemsSize = { 64,64 };
+	Vector2 ItemsSpaceing = { 70,0 };
+	Item* items[InventorySize];
+	int usingItem = 0;
+public:
+	Inventory();
+
+	void nextItem();
+
+	void privItem();
+
+	void use(Vector2 dir, float deltaTime);
+
+	bool hasThisItem(Item* item);
+
+	bool addItem(Item* item);
+
+	void draw();
+
+private:
+	void hideItem();
+
+	void showItem();
+};
+

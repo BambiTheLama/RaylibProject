@@ -1,14 +1,16 @@
 #pragma once
 #include "Controller.h"
 #include "raylib.hpp"
-#define ControllsSize 2
+#define ControllsSize 1
 
 class KeyBoardController : public Controller {
-    int keyUP[ControllsSize] = {KEY_W, KEY_UP};
-    int keyDown[ControllsSize] = {KEY_S, KEY_DOWN};
-    int keyLeft[ControllsSize] = {KEY_A, KEY_LEFT};
-    int keyRight[ControllsSize] = {KEY_D, KEY_RIGHT};
-    int keyAttack1[ControllsSize] = { KEY_E, KEY_SPACE };
+    int keyUP = KEY_W;
+    int keyDown = KEY_S;
+    int keyLeft = KEY_A;
+    int keyRight = KEY_D;
+    int keyAttack1 =  KEY_SPACE;
+    int keyNextItem =  KEY_E;
+    int keyPrivItem =  KEY_Q;
 public:
     void update(float deltaTime) override;
 };

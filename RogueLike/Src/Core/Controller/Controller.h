@@ -3,7 +3,7 @@
 #include "raylib.hpp"
 
 enum class Input {
-    Interact, Attack1, Attack2, IDE
+    Interact, Attack1, Attack2, IDE, NextItem, PrivItem,
 };
 
 enum class Action
