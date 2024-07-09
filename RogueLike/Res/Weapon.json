@@ -98,6 +98,7 @@
   "Bow": {
     "ShootPoint": [ 0, 0 ],
     "Size": [32,32],
+	"RotationPoint":[16,16],
 	"Textures":
 	[
 		"Weapons/WoodBow.png"
@@ -111,7 +112,6 @@
       [ 18, 24 ]
     ],
     "Size": [ 32, 32 ],
-	"RotationPoint":[-32,-32],
 	"Textures":
 	[
 		"Weapons/WoodArrow.png"

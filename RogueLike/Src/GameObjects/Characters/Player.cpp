@@ -20,7 +20,7 @@ Player::Player(float x, float y){
     //drawOrder = 10;
     type = ObjectType::Player;
     mass = 10;
-    Sword* s = new Sword(this, "Arrow", 1);   
+    Sword* s = new Sword(this, "Bow", 1);   
     weapon = s;
     Game::addObject(s);
     trigger = false;
