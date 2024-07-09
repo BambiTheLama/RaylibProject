@@ -34,5 +34,5 @@ void ParticleText::draw()
 		procent = 0.0f;
 
 	c.a = (unsigned char)(255 * procent);
-	MyFont::DrawTextWithOutline(text.c_str(), pos.x, pos.y, MyFont::getFontSize(), c, { 0,0,0,255 }, { pos.width/2,pos.height/2 }, angle);
+	MyFont::DrawTextWithOutline(text.c_str(), pos.x, pos.y, MyFont::getFontSize(), c, { 0,0,0,c.a }, { pos.width/2,pos.height/2 }, angle);
 }

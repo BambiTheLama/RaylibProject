@@ -3,39 +3,41 @@
 #include "../Game.h"
 #include "raymath.h"
 #include "../AddisionalTypes/Hitable.h"
-#include "json.hpp"
 #include <fstream>
 #include <math.h>
 
-Sword::Sword(GameObject* owner)
+Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 {
 	this->owner = owner;
-	const char* colType = "Sword";
-	pos = { 0,0,69,69 };
-	std::ifstream reader;
-
+	pos = { 0,0,32,32 };
+	const char* cstrWeapon = weaponType.c_str();
 	std::vector<Vector2> col;
-	reader.open("Res/Weapon.json");
-	if (reader.is_open())
+	std::string texturePath = "Weapons/StoneSword.png";
+	if (weaponData.contains(cstrWeapon))
 	{
-		nlohmann::json j;
-		reader >> j;
-		if (j.contains(colType))
-		{
 
-			pos.width = j[colType]["Size"][0];
-			pos.height = j[colType]["Size"][1];
-			if (j[colType].contains("Col"))
+		pos.width = weaponData[cstrWeapon]["Size"][0];
+		pos.height = weaponData[cstrWeapon]["Size"][1];
+		if (weaponData[cstrWeapon].contains("Col"))
+		{
+			for (int i = 0; i < weaponData[cstrWeapon]["Col"].size(); i++)
 			{
-				for (int i = 0; i < j[colType]["Col"].size(); i++)
-				{
-					int x = j[colType]["Col"][i][0];
-					int y = j[colType]["Col"][i][1];
-					col.push_back({ (float)x,(float)y });
-				}
+				int x = weaponData[cstrWeapon]["Col"][i][0];
+				int y = weaponData[cstrWeapon]["Col"][i][1];
+				col.push_back({ (float)x,(float)y });
 			}
 		}
-		reader.close();
+		if (weaponData[cstrWeapon].contains("Textures"))
+		{
+			int numberOfTextures = weaponData[cstrWeapon]["Textures"].size();
+			if (numberOfTextures > 0)
+			{
+				int textureId = variant % numberOfTextures;
+				texturePath = weaponData[cstrWeapon]["Textures"][textureId];
+			}
+				
+
+		}
 	}
 	if(col.size()<=0)
 	{
@@ -52,28 +54,8 @@ Sword::Sword(GameObject* owner)
 	trigger = true;
 
 	rotationPoint = { 0,0 };
-	texture = TextureController("Weapons/StoneSword.png");
-	WeaponNodeTrigger wnt;
-	WeaponStats wnStats;
-	wnStats.range = 100;
-	wnStats.rangeMultiplier = 1;
-	wnStats.bounce = 3;
-	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
-	wnt.pushBackNodeTrigger(wn);
-	wnStats.range = 0;
-	wnStats.rangeMultiplier = 0.5;
-	wnStats.angle = 360;
-	wnStats.countOfUse = 1;
-	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
-	wnt.pushBackNodeTrigger(wn);
-	wnStats.range = 100;
-	wnStats.countOfUse = 20;
-	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
-	wnt.pushBackNodeTrigger(wn);
-	wnStats.countOfUse = 1;
-	wn = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
-	wnt.pushBackNodeTrigger(wn);
-	setWeaponNodeTrigger(wnt);
+	texture = TextureController(texturePath);
+
 	stats.angle = 180.0f;
 	stats.countOfUse = 1;
 	stats.useTime = 0.3f;

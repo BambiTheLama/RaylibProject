@@ -1,5 +1,8 @@
 #include "Weapon.h"
 #include "../GameObject.h"
+#include <fstream>
+
+nlohmann::json Weapon::weaponData;
 
 Weapon::Weapon()
 {
@@ -28,4 +31,15 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 void Weapon::findThisObject()
 {
 	thisObj = dynamic_cast<GameObject*>(this);
+}
+
+void Weapon::loadWeaponData(std::string weaponDataPath)
+{
+	std::ifstream reader;
+	reader.open(weaponDataPath);
+	if (reader.is_open())
+	{
+		reader >> weaponData;
+		reader.close();
+	}
 }

@@ -17,7 +17,7 @@ class Sword:public GameObject,public Weapon,public Collider
 	bool left = false;
 	TextureController texture;
 public:
-	Sword(GameObject* owner);
+	Sword(GameObject* owner, std::string weaponType, int variant = 0);
 
 	void update(float deltaTime);
 

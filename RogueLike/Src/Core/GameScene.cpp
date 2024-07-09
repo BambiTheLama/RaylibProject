@@ -8,9 +8,11 @@
 #include "Controller/Controller.h"
 #include "rlgl.h"
 #include "WaveCollapsFun.h"
+#include "../GameObjects/Weapon/Weapon.h"
 
 GameScene::GameScene() {
     Game::gameScene = this;
+    Weapon::loadWeaponData("Res/Weapon.json");
     camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
@@ -51,6 +53,7 @@ GameScene::~GameScene() {
 
 
 void GameScene::start() {
+
     Game::gameScene = this;
     floor->start();
 

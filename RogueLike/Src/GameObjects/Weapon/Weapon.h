@@ -2,6 +2,9 @@
 #include "raylib.hpp"
 #include <vector>
 #include "WeaponNodeTrigger.h"
+#include "json.hpp"
+#include <string>
+
 class GameObject;
 class Weapon
 {
@@ -9,6 +12,7 @@ class Weapon
 	WeaponNodeTrigger weaponNodeTrigger;
 protected:
 	WeaponStats stats;
+	static nlohmann::json weaponData;
 public:
 	Weapon();
 
@@ -19,7 +23,11 @@ public:
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 	void setWeaponNodeTrigger(WeaponNodeTrigger trigger) { weaponNodeTrigger = trigger; }
+
+	friend class GameScene;
 private:
 	void findThisObject();
+
+	static void loadWeaponData(std::string weaponDataPath);
 };
 

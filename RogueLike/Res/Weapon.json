@@ -9,7 +9,12 @@
       [19,11],
       [18,16]
     ],
-    "Size": [32,32]
+    "Size": [32,32],
+	"Textures":
+	[
+		"Weapons/StoneAxe.png",
+		"Weapons/WoodAxe.png"
+	]
   },
   "Sword": {
     "Col": [
@@ -19,7 +24,12 @@
       [31,25],
       [12,7]
     ],
-    "Size": [32,32]
+    "Size": [32,32],
+	"Textures":
+	[
+		"Weapons/StoneSword.png",
+		"Weapons/WoodSword.png"
+	]
   },
   "Pickaxe": {
     "Col": [
@@ -30,10 +40,19 @@
       [ 4, 28 ],
       [ 21, 22 ]
     ],
-    "Size": [ 32, 32 ]
+    "Size": [ 32, 32 ],
+	"Textures":
+	[
+		"Weapons/StonePickaxe.png",
+		"Weapons/WoodPickaxe.png"
+	]
   },
   "Bow": {
     "ShootPoint": [ 0, 0 ],
-    "Size": [32,32]
+    "Size": [32,32],
+	"Textures":
+	[
+		"Weapons/WoodBow.png"
+	]
   }
 }

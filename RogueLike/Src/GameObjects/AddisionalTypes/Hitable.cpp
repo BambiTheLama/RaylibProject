@@ -21,13 +21,13 @@ bool Hitable::dealDamage(float damage, float invisibleFrames)
 	GameObject* gm = dynamic_cast<GameObject*>(this);
 	if (gm && ((int)gm->getType() & showParticle) != 0)
 	{
-		if (damage >= 0.01)
+		if (damage >= 0.1)
 		{
-			Vector2 pos = gm->getPosPoint();
+			Rectangle pos = gm->getPos();
 			std::string text = std::to_string(damage);
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 5; i++)
 				text.pop_back();
-			Game::addObject(new ParticleText(pos.x, pos.y,1, text));
+			Game::addObject(new ParticleText(pos.x + pos.width / 2, pos.y + pos.height / 2, 1, text));
 		}
 
 	}
