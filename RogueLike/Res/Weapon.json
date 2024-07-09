@@ -12,8 +12,9 @@
     "Size": [32,32],
 	"Textures":
 	[
-		"Weapons/StoneAxe.png",
-		"Weapons/WoodAxe.png"
+		"Weapons/WoodAxe.png",
+		"Weapons/StoneAxe.png"
+
 	]
   },
   "Sword": {
@@ -27,8 +28,9 @@
     "Size": [32,32],
 	"Textures":
 	[
-		"Weapons/StoneSword.png",
-		"Weapons/WoodSword.png"
+		"Weapons/WoodSword.png",
+		"Weapons/StoneSword.png"
+
 	]
   },
   "Pickaxe": {
@@ -43,8 +45,9 @@
     "Size": [ 32, 32 ],
 	"Textures":
 	[
-		"Weapons/StonePickaxe.png",
-		"Weapons/WoodPickaxe.png"
+		"Weapons/WoodPickaxe.png",
+		"Weapons/StonePickaxe.png"
+
 	]
   },
   "Bow": {
