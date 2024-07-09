@@ -31,3 +31,13 @@ void CollisionElementCircle::scaleElement(float scale)
     point = Vector2Scale(point, scale);
     radius *= scale;
 }
+
+Vector2 CollisionElementCircle::getMinPos()
+{
+    return { point.x - radius,point.y - radius };
+}
+
+Vector2 CollisionElementCircle::getMaxPos()
+{
+    return { point.x + radius,point.y + radius };
+}

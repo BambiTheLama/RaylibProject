@@ -73,5 +73,7 @@ private:
 
     void checkCollision(float deltaTime);
 
+    Rectangle getCollisionArea(Rectangle pos);
+
     void removeObject(Collider* c);
 };

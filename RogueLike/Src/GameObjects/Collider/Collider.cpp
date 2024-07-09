@@ -181,12 +181,8 @@ void Collider::checkCollision(float deltaTime) {
         if (!thisObj)
             return;
     }
-    Rectangle getCollsionArea = thisObj->getPos();
-    getCollsionArea.width *= 2.5f;
-    getCollsionArea.height *= 2.5f;
-    getCollsionArea.x -= getCollsionArea.width/2;
-    getCollsionArea.y -= getCollsionArea.height / 2;
-    std::list<GameObject *> objects = Game::getObjects(getCollsionArea);
+    Rectangle collsionArea = getCollisionArea(thisObj->getPos());
+    std::list<GameObject *> objects = Game::getObjects(collsionArea);
     objects.remove(thisObj);
 
     for (auto o: objects) {
@@ -232,7 +228,27 @@ void Collider::checkCollision(float deltaTime) {
     }
 }
 
+Rectangle Collider::getCollisionArea(Rectangle pos)
+{
+    Vector2 minV = collisionElemnets[0]->getMinPos();
+    Vector2 maxV = collisionElemnets[0]->getMaxPos();
+    for (int i = 1; i < collisionElemnets.size(); i++)
+    {
+        CollisionElement* e = collisionElemnets[i];
+        Vector2 tmp = e->getMinPos();
+        if (tmp.x < minV.x)
+            minV.x = tmp.x;
+        if (tmp.y < minV.y)
+            minV.y = tmp.y;
+        tmp = e->getMaxPos();
+        if (tmp.x > maxV.x)
+            maxV.x = tmp.x;
+        if (tmp.y > maxV.y)
+            maxV.y = tmp.y;
 
+    }
+    return { pos.x + minV.x,pos.y + minV.y,maxV.x - minV.x,maxV.y - minV.y };
+}
 #ifdef showColliders
 
 void Collider::draw() {
@@ -246,6 +262,7 @@ void Collider::draw() {
         float t = getSpeedFromTime(o->z);
         DrawLineEx(start, { start.x + o->x/mass * 10 * t,start.y + o->y/mass * 10 * t }, 5, BLACK);
     }
+    DrawRectangleRec(getCollisionArea(thisObj->getPos()), { 0,0,255,100 });
 
     for (auto c: collisionElemnets)
         c->draw(thisObj);

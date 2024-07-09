@@ -111,7 +111,7 @@
       [ 18, 24 ]
     ],
     "Size": [ 32, 32 ],
-	"RotationPoint":[0,0],
+	"RotationPoint":[-32,-32],
 	"Textures":
 	[
 		"Weapons/WoodArrow.png"

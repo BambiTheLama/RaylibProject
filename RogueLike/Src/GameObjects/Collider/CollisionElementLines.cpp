@@ -70,3 +70,35 @@ void CollisionElementLines::scaleElement(float scale)
     }
     lines = newLines;
 }
+
+Vector2 CollisionElementLines::getMinPos()
+{
+    if (lines.size() <= 0)
+        return { 0.0f,0.0f };
+    std::vector<Vector2> lines = getLines({ 0,0 });
+    Vector2 minV = lines[0];
+    for (int i = 1; i < lines.size(); i++)
+    {
+        if (lines[i].x < minV.x)
+            minV.x = lines[i].x;
+        if (lines[i].y < minV.y)
+            minV.y = lines[i].y;
+    }
+    return minV;
+}
+
+Vector2 CollisionElementLines::getMaxPos()
+{
+    if (lines.size() <= 0)
+        return { 0.0f,0.0f };
+    std::vector<Vector2> lines = getLines({ 0,0 });
+    Vector2 maxV = lines[0];
+    for (int i = 1; i < lines.size(); i++)
+    {
+        if (lines[i].x > maxV.x)
+            maxV.x = lines[i].x;
+        if (lines[i].y > maxV.y)
+            maxV.y = lines[i].y;
+    }
+    return maxV;
+}

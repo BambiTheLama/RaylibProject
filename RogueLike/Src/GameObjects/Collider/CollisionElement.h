@@ -35,6 +35,10 @@ public:
 
     virtual void scaleElement(float scale){}
 
+    virtual Vector2 getMinPos() { return{ 0.0f,0.0f }; }
+
+    virtual Vector2 getMaxPos() { return{ 0.0f,0.0f }; }
+
 #ifdef showColliders
     void draw(GameObject *obj);
 #endif
