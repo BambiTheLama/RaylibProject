@@ -16,7 +16,7 @@ Inventory::~Inventory()
 {
 	for (int i = 0; i < InventorySize; i++)
 	{
-		if (items[i])
+		if (items[i] && i != usingItem)
 		{
 			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
 			if (gm && Game::deleteObject(gm))
@@ -27,6 +27,16 @@ Inventory::~Inventory()
 				delete items[i];
 		}
 	}
+	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
+	if (gm)
+	{
+		Game::deleteObject(gm);
+	}
+	else if(items[usingItem])
+	{
+		delete items[usingItem];
+	}
+
 }
 
 void Inventory::update(float deltaTime)

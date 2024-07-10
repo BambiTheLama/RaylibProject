@@ -47,8 +47,9 @@ GameScene::GameScene() {
 }
 
 GameScene::~GameScene() {
+
     Game::gameScene = nullptr;
-    Floor *f = floor;
+    Floor* f = floor;
     floor = nullptr;
     delete f;
 }
@@ -58,6 +59,11 @@ void GameScene::start() {
 
     Game::gameScene = this;
     floor->start();
+
+}
+
+void GameScene::onDestroy()
+{
 
 }
 

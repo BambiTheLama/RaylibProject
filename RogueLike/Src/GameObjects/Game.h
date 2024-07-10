@@ -20,6 +20,8 @@ public:
 
     static bool addObject(GameObject *obj);
 
+    static bool isGameScene() { return gameScene; }
+
     friend class GameScene;
 };
 

@@ -223,12 +223,15 @@ void Floor::update(float deltaTime,Camera2D camera)
         closeObjects.clear();
         closeObjects = tree->getObjects(pos);
     }
-
+    colliders.clear();
     for (auto o : closeObjects)
     {
         o->update(deltaTime);
         if(o->movingObject())
             tree->updatePos(o);
+        Collider* col = dynamic_cast<Collider*>(o);
+        if (col)
+            colliders.push_back(col);
     }
     for (auto o : colliders)
         o->update(deltaTime);
@@ -403,9 +406,11 @@ void Floor::removeObj(GameObject* o)
     tree->removeObj(o);
     allGameObjects.remove(o);
     Collider* collider = dynamic_cast<Collider*>(o);
-    if (collider) {
-        colliders.remove(collider);
-        for (auto c : colliders)
-            c->removeObject(collider);
-    }
+    if (!collider)
+        return;
+
+    colliders.remove(collider);
+    for (auto c : colliders)
+        c->removeObject(collider);
+    
 }

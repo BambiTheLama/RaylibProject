@@ -109,6 +109,48 @@ void WeaponStats::saveStats(nlohmann::json& json)
 	json[statsJsonName]["Pirce"] = pirce;
 }
 
+WeaponStats& WeaponStats::operator+=(const WeaponStats& ws)
+{
+	damage					+= ws.damage;
+	damageMultiplier		+= ws.damageMultiplier;
+	useTime					+= ws.useTime;
+	useTimeMultiplier		+= ws.useTimeMultiplier;
+	reloadTime				+= ws.reloadTime;
+	reloadTimeMultiplier	+= ws.reloadTimeMultiplier;
+	speed					+= ws.speed;
+	speedMultiplier			+= ws.speedMultiplier;
+	range					+= ws.range;
+	rangeMultiplier			+= ws.rangeMultiplier;
+	angle					+= ws.angle;
+	knockback				+= ws.knockback;
+	knockbackMultiplier		+= ws.knockbackMultiplier;
+	countOfUse				+= ws.countOfUse;
+	bounce					+= ws.bounce;
+	pirce					+= ws.pirce;
+	return *this;
+}
+
+WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
+{
+	damage -= ws.damage;
+	damageMultiplier -= ws.damageMultiplier;
+	useTime -= ws.useTime;
+	useTimeMultiplier -= ws.useTimeMultiplier;
+	reloadTime -= ws.reloadTime;
+	reloadTimeMultiplier -= ws.reloadTimeMultiplier;
+	speed -= ws.speed;
+	speedMultiplier -= ws.speedMultiplier;
+	range -= ws.range;
+	rangeMultiplier -= ws.rangeMultiplier;
+	angle -= ws.angle;
+	knockback -= ws.knockback;
+	knockbackMultiplier -= ws.knockbackMultiplier;
+	countOfUse -= ws.countOfUse;
+	bounce -= ws.bounce;
+	pirce -= ws.pirce;
+	return *this;
+}
+
 void addToStringData(std::string &data,float value, std::string name)
 {
 	std::string dataValue = std::to_string(value);

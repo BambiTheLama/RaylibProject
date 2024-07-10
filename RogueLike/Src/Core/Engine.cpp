@@ -60,8 +60,12 @@ Engine::Engine() {
 void Engine::setScene(Scene *s) {
     if (!s)
         return;
-    if(this->s)
+    if (this->s)
+    {
+        this->s->onDestroy();
         delete this->s;
+    }
+
 
     this->s = s;
     s->start();

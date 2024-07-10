@@ -4,11 +4,16 @@
 
 enum class WeaponNodeType
 {
-	Stat,Spawn
+	Stat,
+	Spawn,
 };
 enum class WeaponNodeActivation
 {
-	NON,OnHit,OnUse,OnKill,OnEffectEnd,
+	NON = 0,
+	OnHit,
+	OnUse,
+	OnKill,
+	OnEffectEnd,
 };
 
 class WeaponNode
@@ -23,6 +28,8 @@ public:
 	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID);
 
 	WeaponStats getNextStats(WeaponNode node);
+
+	void addToStats(WeaponStats stats);
 
 	WeaponNodeType getType() { return type; }
 

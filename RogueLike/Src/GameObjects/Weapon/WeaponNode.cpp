@@ -28,3 +28,8 @@ WeaponStats WeaponNode::getNextStats(WeaponNode node)
 	stats.reloadTime += stats.reloadTimeMultiplier * lastStats.reloadTime;
 	return stats;
 }
+
+void WeaponNode::addToStats(WeaponStats stats)
+{
+	this->stats += stats;
+}

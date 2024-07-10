@@ -26,6 +26,8 @@ public:
 
     void start();
 
+    void onDestroy(){}
+
     void update(float deltaTime);
 
     void save();

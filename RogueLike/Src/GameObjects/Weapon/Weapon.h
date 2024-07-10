@@ -10,6 +10,7 @@ class Weapon
 {
 	GameObject* thisObj = nullptr;
 	WeaponNodeTrigger weaponNodeTrigger;
+	std::vector<WeaponNode*> weaponSlots;
 protected:
 	int weaponTier = 0;
 	WeaponStats stats;
@@ -23,12 +24,19 @@ public:
 
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
-	void setWeaponNodeTrigger(WeaponNodeTrigger trigger) { weaponNodeTrigger = trigger; }
+	WeaponNode* removeSlot(int slot);
+
+	bool addSlot(int slot, WeaponNode* node);
 
 	friend class GameScene;
 private:
 	void findThisObject();
 
 	static void loadWeaponData(std::string weaponDataPath);
+
+	void updateWeaponNodesEfects();
+protected:
+	void setNumberOfSlots(int slots);
+
 };
 
