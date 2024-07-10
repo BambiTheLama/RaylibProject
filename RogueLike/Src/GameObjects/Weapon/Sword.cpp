@@ -55,7 +55,6 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	wnt.pushBackNodeTrigger(wn);
 	setWeaponNodeTrigger(wnt);
 	*/
-	canBeDeleted = false;
 }
 
 void Sword::update(float deltaTime)

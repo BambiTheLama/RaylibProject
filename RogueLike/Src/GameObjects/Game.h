@@ -14,7 +14,7 @@ class Game {
 public:
     static std::list<GameObject *> getObjects(Rectangle pos);
 
-    static void deleteObject(GameObject *obj);
+    static bool deleteObject(GameObject *obj);
 
     static void removeObject(GameObject* obj);
 

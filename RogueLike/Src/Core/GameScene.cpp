@@ -48,7 +48,9 @@ GameScene::GameScene() {
 
 GameScene::~GameScene() {
     Game::gameScene = nullptr;
-    delete floor;
+    Floor *f = floor;
+    floor = nullptr;
+    delete f;
 }
 
 
@@ -101,10 +103,11 @@ bool GameScene::addObject(GameObject *obj) {
         return floor->addObject(obj);
     return false;
 }
-void GameScene::deleteObject(GameObject* obj)
+bool GameScene::deleteObject(GameObject* obj)
 {
     if (floor)
-        floor->deleteObject(obj);
+        return floor->deleteObject(obj);
+    return false;
 }
 
 void GameScene::removeObject(GameObject* obj)

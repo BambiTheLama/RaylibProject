@@ -170,13 +170,7 @@ Floor::~Floor()
     colliders.clear();
     for (auto o : toDelete)
     {
-        allGameObjects.remove(o);
-        Collider* collider = dynamic_cast<Collider*>(o);
-        if (collider) {
-            colliders.remove(collider);
-            for (auto c : colliders)
-                c->removeObject(collider);
-        }
+        removeObj(o);
         delete o;
     }
 
@@ -205,18 +199,12 @@ void Floor::update(float deltaTime,Camera2D camera)
 {
     for (auto o : toRemove)
     {
-        tree->removeObj(o);
-        allGameObjects.remove(o);
-        Collider* collider = dynamic_cast<Collider*>(o);
-        if (collider) {
-            colliders.remove(collider);
-            for (auto c : colliders)
-                c->removeObject(collider);
-        }
+        removeObj(o);
     }
     toRemove.clear();
     for (auto o : toDelete)
     {
+        removeObj(o);
         o->destroy();
         delete o;
     }
@@ -309,18 +297,22 @@ bool Floor::addObject(GameObject* obj)
     return true;
 }
 
-void Floor::deleteObject(GameObject* obj)
+bool Floor::deleteObject(GameObject* obj)
 {
     if (!obj)
-        return;
-    removeObject(obj);
+        return true;
+    if (std::find(allGameObjects.begin(), allGameObjects.end(), obj) == allGameObjects.end())
+        return false;
     if (std::find(toDelete.begin(), toDelete.end(), obj) == toDelete.end())
         toDelete.push_back(obj);
+    return true;
 }
 
 void Floor::removeObject(GameObject* obj)
 {
     if (!obj)
+        return;
+    if (std::find(toDelete.begin(), toDelete.end(), obj) != toDelete.end())
         return;
     if (std::find(toRemove.begin(), toRemove.end(), obj) == toRemove.end())
         toRemove.push_back(obj);
@@ -404,5 +396,16 @@ void Floor::removeCloseEnemies()
             continue;
         deleteObject(o);
 
+    }
+}
+void Floor::removeObj(GameObject* o)
+{
+    tree->removeObj(o);
+    allGameObjects.remove(o);
+    Collider* collider = dynamic_cast<Collider*>(o);
+    if (collider) {
+        colliders.remove(collider);
+        for (auto c : colliders)
+            c->removeObject(collider);
     }
 }

@@ -17,12 +17,12 @@ bool Game::addObject(GameObject *obj) {
     return gameScene->addObject(obj);
 }
 
-void Game::deleteObject(GameObject *obj) {
+bool Game::deleteObject(GameObject *obj) {
     if (!obj)
-        return;
+        return true;
     if (!gameScene)
-        return;
-    gameScene->deleteObject(obj);
+        return false;
+    return gameScene->deleteObject(obj);
 }
 
 

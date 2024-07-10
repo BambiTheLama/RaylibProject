@@ -37,7 +37,7 @@ public:
 
     bool addObject(GameObject* obj);
 
-    void deleteObject(GameObject* obj);
+    bool deleteObject(GameObject* obj);
 
     void removeObject(GameObject* obj);
 
@@ -45,6 +45,8 @@ private:
     void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid);
 
     void removeCloseEnemies();
+
+    void removeObj(GameObject* o);
 
 };
 

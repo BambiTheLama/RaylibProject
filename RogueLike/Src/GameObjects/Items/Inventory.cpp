@@ -14,14 +14,17 @@ Inventory::Inventory(GameObject* owner)
 
 Inventory::~Inventory()
 {
-	//hideItem();
 	for (int i = 0; i < InventorySize; i++)
 	{
 		if (items[i])
 		{
 			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
-			if (gm)
-				Game::removeObject(gm);
+			if (gm && Game::deleteObject(gm))
+			{
+				printf("JEJ\n");
+			}
+			else
+				delete items[i];
 		}
 	}
 }

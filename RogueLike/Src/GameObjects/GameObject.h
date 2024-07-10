@@ -10,7 +10,6 @@ protected:
     int drawOrder = 0;
     bool moving = true;
     ObjectType type = ObjectType::NON;
-    bool canBeDeleted = true;
 public:
     virtual ~GameObject() {
     }
@@ -44,8 +43,6 @@ public:
     virtual float getAngle() { return 0.0f; }
 
     virtual Vector2 getRotationPoint() { return { 0.0f,0.0f }; }
-
-    bool getCanBeDeleted() { return canBeDeleted; }
 
     friend class Collider;
 };
