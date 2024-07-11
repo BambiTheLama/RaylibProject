@@ -150,6 +150,7 @@ void Sword::drawDescription(Vector2 center, float wight)
 	const float border = 20.0f;
 	Rectangle rec = { x - border, y - border,wight + 2 * border, size.y + 2 * border };
 	DrawRectangleRounded(rec, 0.2, 1, RED);
+	DrawRectangleRoundedLines({ rec.x + 1,rec.y + 1,rec.width - 2,rec.height - 2 }, 0.2, 1, 5, BLACK);
 	DrawRectangle(x, y, wight, size.y, BLUE);
 	MyFont::DrawTextWithOutline(cDesc, x, y, textSize, WHITE, BLACK);
 }
