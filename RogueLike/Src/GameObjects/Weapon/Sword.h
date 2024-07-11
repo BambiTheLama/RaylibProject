@@ -20,7 +20,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 public:
 	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
 
-	~Sword() { printf("KURWA\n"); }
+	~Sword() {  }
 
 	void update(float deltaTime) override;
 

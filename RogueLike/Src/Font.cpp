@@ -10,8 +10,19 @@ namespace MyFont
 
 	void SetUpFont()
 	{
-		diffFont = LoadFont("Res/PatrickHand.ttf");
+		diffFont = LoadFontEx("Res/PatrickHand.ttf",256,0,255*2);
+		//diffFont = LoadFont("Res/PatrickHand.ttf");
 		icons.push_back(TextureController("Weapons/StoneSword.png"));
+		icons.push_back(TextureController("Weapons/WoodSword.png"));
+		icons.push_back(TextureController("Weapons/StoneSword.png"));
+		icons.push_back(TextureController("Weapons/WoodSword.png"));
+		icons.push_back(TextureController("Weapons/StoneSword.png"));
+		icons.push_back(TextureController("Weapons/WoodSword.png"));
+		icons.push_back(TextureController("Weapons/StoneSword.png"));
+		icons.push_back(TextureController("Weapons/WoodSword.png"));
+		icons.push_back(TextureController("Weapons/StoneSword.png"));
+		icons.push_back(TextureController("Weapons/StoneSword.png"));
+		icons.push_back(TextureController("Weapons/WoodSword.png"));
 		icons.push_back(TextureController("Weapons/WoodSword.png"));
 	}
 
@@ -106,7 +117,7 @@ namespace MyFont
 			std::string text = splitedLines[inTexty];
 			std::string textToMesure = text.substr(0, inTextx);
 			Vector2 textS = TextSize(textToMesure.c_str(), size, 0.0f);
-			Rectangle pos = { x + textS.x + bolder * size,y + bolder * size,(1.0f - bolder * 2) * size,(1.0f - bolder * 2) * size };
+			Rectangle pos = { x + textS.x + bolder * size,y + size * (stepHeight * inTexty + bolder),(1.0f - bolder * 2) * size,(1.0f - bolder * 2) * size };
 			icons[ID].draw(pos);
 		}
 	}

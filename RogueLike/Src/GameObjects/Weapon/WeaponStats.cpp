@@ -151,10 +151,12 @@ WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
 	return *this;
 }
 
-void addToStringData(std::string &data,float value, std::string name)
+void addToStringData(std::string& data, float value, std::string name, bool icon = false, int ID = 0)
 {
 	std::string dataValue = std::to_string(value);
 	dataValue.erase(dataValue.size() - 5, 5);
+	if (icon)
+		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
 	data += "{" + name + "}: " + dataValue + std::string("\n");
 }
 
@@ -166,15 +168,15 @@ void addToStringData(std::string& data, int value, std::string name)
 std::string WeaponStats::toString()
 {
 	std::string data="";
-	addToStringData(data, damage, "Damage{Icon:0}{Icon:1}");
-	addToStringData(data, useTime, "UseTime");
-	addToStringData(data, reloadTime, "ReloadTime");
-	addToStringData(data, speed, "Speed");
-	addToStringData(data, range, "Range");
-	addToStringData(data, angle, "Angle");
-	addToStringData(data, knockback, "Knockback");
-	addToStringData(data, countOfUse, "CountOfUse");
-	addToStringData(data, bounce, "Bounce");
-	addToStringData(data, pirce, "Pirce");
+	addToStringData(data, damage		, "Damage"		, true, 0);
+	addToStringData(data, useTime		, "UseTime"		, true, 1);
+	addToStringData(data, reloadTime	, "ReloadTime"	, true, 2);
+	addToStringData(data, speed			, "Speed"		, true, 3);
+	addToStringData(data, range			, "Range"		, true, 4);
+	addToStringData(data, angle			, "Angle"		, true, 5);
+	addToStringData(data, knockback		, "Knockback"	, true, 6);
+	addToStringData(data, countOfUse	, "CountOfUse"	, true, 7);
+	addToStringData(data, bounce		, "Bounce"		, true, 8);
+	addToStringData(data, pirce			, "Pirce"		, true, 9);
 	return data;
 }
