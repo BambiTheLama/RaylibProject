@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.hpp"
 #include "../GameObject.h"
+
 class Item
 {
 	GameObject* thisObj = nullptr;
@@ -15,7 +16,9 @@ public:
 
 	void update();
 
-	virtual void drawIcone(Rectangle pos){}
+	virtual void drawIcon(Rectangle pos){}
+
+	virtual void drawDescription(Vector2 center,float wight){}
 
 	virtual void use(Vector2 dir, float deltaTime){}
 

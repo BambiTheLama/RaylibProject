@@ -119,7 +119,7 @@ void Sword::draw()
 	texture.draw(pos, mirror, true, 0, rotationPoint, angle);
 }
 
-void Sword::drawIcone(Rectangle pos)
+void Sword::drawIcon(Rectangle pos)
 {
 	texture.draw(pos, false, false, 0, rotationPoint, 0.0f);
 	Color c = { 128,128,128,200 };
@@ -133,7 +133,25 @@ void Sword::drawIcone(Rectangle pos)
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
 	DrawRingLines({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, BLACK);
+	if (CheckCollisionPointRec(GetMousePosition(), pos))
+	{
+		drawDescription({ 800,500 }, 1000);
+	}
+}
 
+void Sword::drawDescription(Vector2 center, float wight)
+{
+	const float textSize = 32;
+	std::string desc = stats.toString();
+	const char* cDesc = desc.c_str();
+	Vector2 size = MyFont::TextSize(cDesc, textSize, 0);
+	int x = center.x - wight / 2;
+	int y = center.y - size.y;
+	const float border = 20.0f;
+	Rectangle rec = { x - border, y - border,wight + 2 * border, size.y + 2 * border };
+	DrawRectangleRounded(rec, 0.2, 1, RED);
+	DrawRectangle(x, y, wight, size.y, BLUE);
+	MyFont::DrawTextWithOutline(cDesc, x, y, textSize, WHITE, BLACK);
 }
 
 void Sword::use(Vector2 dir, float deltaTime)

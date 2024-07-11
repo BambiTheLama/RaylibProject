@@ -139,7 +139,7 @@ void Inventory::draw()
 		DrawRectangleRec(itemPos, i == usingItem ? RED : BLUE);
 		DrawRectangleLinesEx(itemPos, 2, BLACK);
 		if (items[i])
-			items[i]->drawIcone(itemPos);
+			items[i]->drawIcon(itemPos);
 		itemPos.x += ItemsSpaceing.x;
 		itemPos.y += ItemsSpaceing.y;
 	}

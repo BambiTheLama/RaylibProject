@@ -166,7 +166,7 @@ void addToStringData(std::string& data, int value, std::string name)
 std::string WeaponStats::toString()
 {
 	std::string data="";
-	addToStringData(data, damage, "Damage");
+	addToStringData(data, damage, "Damage{Icon:0}{Icon:1}");
 	addToStringData(data, useTime, "UseTime");
 	addToStringData(data, reloadTime, "ReloadTime");
 	addToStringData(data, speed, "Speed");

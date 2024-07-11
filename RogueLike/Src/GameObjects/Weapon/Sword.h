@@ -26,7 +26,9 @@ public:
 
 	void draw() override;
 
-	void drawIcone(Rectangle pos) override;
+	void drawIcon(Rectangle pos) override;
+
+	void drawDescription(Vector2 center, float wight) override;
 
 	void use(Vector2 dir, float deltaTime) override;
 
