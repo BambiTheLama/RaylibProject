@@ -57,6 +57,7 @@
     <ClInclude Include="Src\GameObjects\GameObject.h" />
     <ClInclude Include="Src\GameObjects\Items\Inventory.h" />
     <ClInclude Include="Src\GameObjects\Items\Item.h" />
+    <ClInclude Include="Src\GameObjects\Items\WeaponNodeItem.h" />
     <ClInclude Include="Src\GameObjects\ObjectType.h" />
     <ClInclude Include="Src\GameObjects\ParticleText.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Explosion.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="Src\GameObjects\Game.cpp" />
     <ClCompile Include="Src\GameObjects\Items\Inventory.cpp" />
     <ClCompile Include="Src\GameObjects\Items\Item.cpp" />
+    <ClCompile Include="Src\GameObjects\Items\WeaponNodeItem.cpp" />
     <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp" />

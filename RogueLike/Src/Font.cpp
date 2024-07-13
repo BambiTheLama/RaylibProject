@@ -1,6 +1,7 @@
 #include "Font.h"
 #include <sstream>
 #include "Core/Controller/TextureController.h"
+#include "raymath.hpp"
 
 namespace MyFont
 {
@@ -142,4 +143,43 @@ namespace MyFont
 	{
 		return 64.0f;
 	}
+}
+
+Rectangle getRectangleFromVectors(Vector2 start, Vector2 dir,float range)
+{
+	Rectangle rec;
+	rec.x = start.x;
+	rec.y = start.y;
+	rec.width = dir.x * range;
+	rec.height = dir.y * range;
+	if (rec.width < 0)
+	{
+		rec.x += rec.width;
+		rec.width = -rec.width;
+	}
+	if (rec.height < 0)
+	{
+		rec.y += rec.height;
+		rec.height = -rec.height;
+	}
+	return rec;
+}
+
+void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, float range, int segments, Color color)
+{
+	Rectangle rec=getRectangleFromVectors(start,dir,range);
+	BeginScissorMode(rec.x, rec.y, rec.width, rec.height);
+	Vector2 dirDiff = { (dir.x * range) / (2 * segments),(dir.y * range) / (2 * segments) };
+	Vector2 sv = Vector2Subtract(start, { dirDiff.x * 3,dirDiff.y * 3 });
+	sv.x += frame * dirDiff.x/segments;
+	sv.y += frame * dirDiff.y/segments;
+	Vector2 ev = Vector2Add(sv, dirDiff);
+	for (int i = 0; i < segments+2; i++)
+	{
+		DrawLineEx(sv, ev, lineSize, color);
+		sv = Vector2Add(ev, dirDiff);
+		ev = Vector2Add(sv, dirDiff);
+	}
+	DrawCircleV(Vector2Add(start, { dir.x * range,dir.y * range }), 10, RED);
+	EndScissorMode();
 }

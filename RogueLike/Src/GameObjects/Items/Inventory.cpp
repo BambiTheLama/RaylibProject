@@ -1,7 +1,7 @@
 #include "Inventory.h"
 #include "../GameObject.h"
 #include "../Game.h"
-
+#include "../Weapon/Weapon.h"
 Inventory::Inventory(GameObject* owner)
 {
 	for (int i = 0; i < InventorySize; i++)
@@ -148,4 +148,14 @@ void Inventory::draw()
 		itemPos.x += ItemsSpaceing.x;
 		itemPos.y += ItemsSpaceing.y;
 	}
+}
+
+float Inventory::getRange()
+{
+	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem])
+		return 0.0f;
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (!w)
+		return 0.0f;
+	return w->getRange();
 }

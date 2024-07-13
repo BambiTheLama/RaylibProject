@@ -4,13 +4,15 @@
 #include "WeaponNodeTrigger.h"
 #include "json.hpp"
 #include <string>
+#include "../Items/WeaponNodeItem.h"
+
 
 class GameObject;
 class Weapon
 {
 	GameObject* thisObj = nullptr;
 	WeaponNodeTrigger weaponNodeTrigger;
-	std::vector<WeaponNode*> weaponSlots;
+	std::vector<WeaponNodeItem*> weaponSlots;
 protected:
 	int weaponTier = 0;
 	WeaponStats stats;
@@ -26,9 +28,11 @@ public:
 
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
-	WeaponNode* removeSlot(int slot);
+	WeaponNodeItem* removeSlot(int slot);
 
-	bool addSlot(int slot, WeaponNode* node);
+	bool addSlot(int slot, WeaponNodeItem* node);
+
+	float getRange() { return stats.range; }
 
 	friend class GameScene;
 private:

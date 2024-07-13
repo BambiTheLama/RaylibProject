@@ -39,21 +39,6 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	wnStats.rangeMultiplier = 1;
 	wnStats.bounce = 3;
 
-	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
-	addSlot(0, &wn);
-	wnStats.range = 0;
-	wnStats.rangeMultiplier = 0.5;
-	wnStats.angle = 360;
-	wnStats.countOfUse = 1;
-	WeaponNode wn2 = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
-	addSlot(1, &wn2);
-	wnStats.range = 100;
-	wnStats.countOfUse = 20;
-	WeaponNode wn3 = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
-	addSlot(2, &wn3);
-	wnStats.countOfUse = 1;
-	WeaponNode wn4 = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 2);
-	addSlot(3, &wn4);
 	
 }
 

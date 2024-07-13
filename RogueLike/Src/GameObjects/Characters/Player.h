@@ -11,6 +11,8 @@
 class Player : public GameObject, public Character, public Collider,public Hitable,public DrawUI {
     float speed = 600;
     Inventory inventory;
+    Vector2 useDir = { 0.0f,0.0f };
+    float timer=0.0f;
 public:
     Player(float x,float y);
 

@@ -7,7 +7,8 @@ void Controller::update(float deltaTime)
 {
     if (controllAction)
     {
-        inputs.clear();
+        clearInputs();
+
         controllAction->time -= deltaTime;
         moveDir = { 0,0 };
         switch (controllAction->action)
@@ -65,4 +66,9 @@ bool Controller::setControllAction(ControllAction* action)
         return false;
     controllAction = action;
     return true;
+}
+
+void Controller::clearInputs()
+{
+    inputs = { Input::NON };
 }

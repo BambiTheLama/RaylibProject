@@ -33,19 +33,19 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 	return false;
 }
 
-WeaponNode* Weapon::removeSlot(int slot)
+WeaponNodeItem* Weapon::removeSlot(int slot)
 {
 	if (slot < 0 || slot >= weaponSlots.size())
 		return nullptr;
 	if(!weaponSlots[slot])
 		return nullptr;
-	WeaponNode* node = weaponSlots[slot];
+	WeaponNodeItem* node = weaponSlots[slot];
 	weaponSlots[slot] = nullptr;
 	updateWeaponNodesEfects();
 	return node;
 }
 
-bool Weapon::addSlot(int slot, WeaponNode* node)
+bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 {
 	if (slot < 0 || slot >= weaponSlots.size())
 		return false;
@@ -74,10 +74,14 @@ void Weapon::loadWeaponData(std::string weaponDataPath)
 void Weapon::updateWeaponNodesEfects()
 {
 	std::vector<WeaponNode> activationNodes;
-	for (auto wn: weaponSlots)
+	for (auto wni: weaponSlots)
 	{
+		if (!wni)
+			continue;
+		WeaponNode* wn = wni->getWeaponNode();
 		if (!wn)
 			continue;
+
 		if (WeaponNodeType::Stat == wn->getType())
 		{
 			if (activationNodes.size() <= 0)

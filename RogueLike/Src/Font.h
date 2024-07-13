@@ -19,3 +19,5 @@ namespace MyFont {
 
 	float getFontSize();
 }
+
+void DrawSegmentLine(Vector2 start, Vector2 dir, float lineSize, float frame, float range, int segments, Color color);

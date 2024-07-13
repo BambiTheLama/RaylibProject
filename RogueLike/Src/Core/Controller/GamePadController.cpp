@@ -2,7 +2,7 @@
 
 
 void GamePadController::update(float deltaTime) {
-    inputs.clear();
+    clearInputs();
     if (controllAction)
     {
         Controller::update(deltaTime);

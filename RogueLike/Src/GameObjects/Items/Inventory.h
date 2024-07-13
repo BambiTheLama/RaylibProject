@@ -32,6 +32,8 @@ public:
 
 	void draw();
 
+	float getRange();
+
 private:
 	void hideItem();
 

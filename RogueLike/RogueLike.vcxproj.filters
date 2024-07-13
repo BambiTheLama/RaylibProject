@@ -178,6 +178,9 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\DrawUI.h">
       <Filter>GameObjects\AddisionalTypes</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Items\WeaponNodeItem.h">
+      <Filter>GameObjects\Invertory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -307,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\DrawUI.cpp">
       <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Items\WeaponNodeItem.cpp">
+      <Filter>GameObjects\Invertory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

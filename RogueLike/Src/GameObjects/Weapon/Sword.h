@@ -17,6 +17,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool used = false;
 	bool left = false;
 	TextureController texture;
+
 public:
 	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
 
