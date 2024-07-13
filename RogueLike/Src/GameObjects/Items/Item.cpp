@@ -1,9 +1,9 @@
 #include "Item.h"
 
-void Item::update() 
+void Item::update(float deltaTime) 
 {
 	if (thisObj)
-		thisObj->update(0.0f);
+		thisObj->update(deltaTime);
 	else
 		findThisObject();
 }

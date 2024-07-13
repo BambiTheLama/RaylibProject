@@ -135,24 +135,14 @@ void Sword::drawIcon(Rectangle pos)
 	DrawRingLines({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, BLACK);
 	if (CheckCollisionPointRec(GetMousePosition(), pos))
 	{
-		drawDescription({ 800,500 }, 1000);
+		drawDescription({ 100,100,300,300 },32);
 	}
 }
 
-void Sword::drawDescription(Vector2 center, float wight)
+void Sword::drawDescription(Rectangle pos, float textSize)
 {
-	const float textSize = 32;
-	std::string desc = stats.toString();
-	const char* cDesc = desc.c_str();
-	Vector2 size = MyFont::TextSize(cDesc, textSize, 0);
-	int x = center.x - wight / 2;
-	int y = center.y - size.y;
-	const float border = 20.0f;
-	Rectangle rec = { x - border, y - border,wight + 2 * border, size.y + 2 * border };
-	DrawRectangleRounded(rec, 0.2, 1, RED);
-	DrawRectangleRoundedLines({ rec.x + 1,rec.y + 1,rec.width - 2,rec.height - 2 }, 0.2, 1, 5, BLACK);
-	DrawRectangle(x, y, wight, size.y, BLUE);
-	MyFont::DrawTextWithOutline(cDesc, x, y, textSize, WHITE, BLACK);
+	drawWeaponDescription(pos, textSize);
+	DrawRectangleRec(pos, BLUE);
 }
 
 void Sword::use(Vector2 dir, float deltaTime)
@@ -231,7 +221,7 @@ void Sword::readFromWeaponData(std::string weaponType,int variant, std::vector<V
 	}
 	if (weaponData[weaponType].contains("Textures"))
 	{
-		int numberOfTextures = weaponData[weaponType]["Textures"].size();
+		int numberOfTextures = (int)weaponData[weaponType]["Textures"].size();
 		if (numberOfTextures > 0)
 		{
 			int textureId = variant % numberOfTextures;

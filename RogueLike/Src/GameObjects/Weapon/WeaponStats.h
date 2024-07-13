@@ -1,5 +1,6 @@
 #pragma once
 #include "json.hpp"
+#include "raylib.hpp"
 
 struct WeaponStats
 {
@@ -31,4 +32,6 @@ struct WeaponStats
 	WeaponStats& operator-=(const WeaponStats& ws);
 	
 	std::string toString();
+
+	void draw(Rectangle pos, float textSize, bool flexBox = false);
 };

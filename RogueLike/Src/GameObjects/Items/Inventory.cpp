@@ -42,7 +42,7 @@ Inventory::~Inventory()
 void Inventory::update(float deltaTime)
 {
 	if(items[usingItem])
-		items[usingItem]->update();
+		items[usingItem]->update(deltaTime);
 }
 
 void Inventory::nextItem() 
@@ -83,7 +83,7 @@ void Inventory::showItem()
 		return;
 	
 	items[usingItem]->setOwner(owner);
-	items[usingItem]->update();
+	items[usingItem]->update(0.0f);
 
 	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
 	if (!gm)
@@ -123,7 +123,12 @@ bool Inventory::addItem(Item* item)
 		if (items[i])
 		{
 			items[i]->setOwner(owner);
-			items[i]->update();
+			items[i]->update(0.0f);
+
+			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
+			if (gm)
+				Game::removeObject(gm);
+			
 		}
 
 		return true;

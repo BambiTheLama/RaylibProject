@@ -31,6 +31,8 @@ void StandardProjectal::draw()
 	DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
 }
 
+
+
 void StandardProjectal::onTriggerEnter(Collider* collider)
 {
 	GameObject* colObj = collider->getThisObj();
@@ -57,6 +59,12 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 	}
 	else if ((int)colObj->getType() & (int)ObjectType::Wall)
 	{
+		Vector2 thisCenter = { pos.x + pos.width / 2 ,pos.y + pos.height / 2 };
+		Rectangle wallPos = colObj->getPos();
+		Vector2 wallCenter = { wallPos.x + wallPos.width / 2 ,wallPos.y + wallPos.height / 2 };
+		Vector2 dirObj = Vector2Subtract(thisCenter, wallCenter);
+		Vector2 dirObjNormal = Vector2Normalize(dirObj);
+		float pixelRate = wallPos.width / wallPos.height;
 		dir.x = -dir.x;
 		dir.y = -dir.y;
 		bounce--;

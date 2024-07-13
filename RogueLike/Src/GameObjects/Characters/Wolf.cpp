@@ -140,7 +140,7 @@ void Wolf::onCollision(Collider* collider)
 		Hitable* hit = dynamic_cast<Hitable*>(gm);
 		if (hit)
 		{
-			hit->dealDamage(damge, 0.2);
+			hit->dealDamage(damge, 0.2f);
 		}
 	}
 

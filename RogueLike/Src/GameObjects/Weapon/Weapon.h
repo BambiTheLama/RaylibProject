@@ -22,6 +22,8 @@ public:
 
 	virtual void use(Vector2 dir, float deltaTime) = 0;
 
+	void drawWeaponDescription(Rectangle pos, float textSize);
+
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 	WeaponNode* removeSlot(int slot);

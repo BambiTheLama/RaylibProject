@@ -12,18 +12,16 @@ namespace MyFont
 	{
 		diffFont = LoadFontEx("Res/PatrickHand.ttf",256,0,255*2);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
-		icons.push_back(TextureController("Weapons/StoneSword.png"));
-		icons.push_back(TextureController("Weapons/WoodSword.png"));
-		icons.push_back(TextureController("Weapons/StoneSword.png"));
-		icons.push_back(TextureController("Weapons/WoodSword.png"));
-		icons.push_back(TextureController("Weapons/StoneSword.png"));
-		icons.push_back(TextureController("Weapons/WoodSword.png"));
-		icons.push_back(TextureController("Weapons/StoneSword.png"));
-		icons.push_back(TextureController("Weapons/WoodSword.png"));
-		icons.push_back(TextureController("Weapons/StoneSword.png"));
-		icons.push_back(TextureController("Weapons/StoneSword.png"));
-		icons.push_back(TextureController("Weapons/WoodSword.png"));
-		icons.push_back(TextureController("Weapons/WoodSword.png"));
+		icons.push_back(TextureController("Icons/DamageIcon.png"));
+		icons.push_back(TextureController("Icons/UseTimeIcon.png"));
+		icons.push_back(TextureController("Icons/ReloadIcon.png"));
+		icons.push_back(TextureController("Icons/SpeedIcon.png"));
+		icons.push_back(TextureController("Icons/RangeIcon.png"));
+		icons.push_back(TextureController("Icons/AngleIcon.png"));
+		icons.push_back(TextureController("Icons/KnockbackIcon.png"));
+		icons.push_back(TextureController("Icons/CountOfUseIcon.png"));
+		icons.push_back(TextureController("Icons/BounceIcon.png"));
+		icons.push_back(TextureController("Icons/PirceIcon.png"));
 	}
 
 	void ClearFont()
@@ -52,11 +50,11 @@ namespace MyFont
 			find = text.find(str2);
 			toErase = 0;
 			if (find != std::string::npos) {
-				for (int i = find; i < text.size(); i++)
+				for (int i = (int)find; i < text.size(); i++)
 				{
 					if (text[i] == '}')
 					{
-						toErase = i - find + 1;
+						toErase = i - (int)find + 1;
 						break;
 					}
 				}
@@ -94,7 +92,7 @@ namespace MyFont
 		return lines;
 	}
 	static float stepHeight = 1.0f;
-	void DrawText(const char* text, float x, float y, float size, Color color,Vector2 rotationPoint,float angle)
+	void DrawText(const char* text, float x, float y, float size, Color color,Vector2 rotationPoint,float angle,bool withIcons)
 	{
 		//DrawTextPro(diffFont, text, { (float)x,(float)y }, rotationPoint, angle, size, 0.0f, color);
 		//return;
@@ -106,19 +104,21 @@ namespace MyFont
 			DrawTextPro(diffFont, s.c_str(), charPos, rotationPoint, angle, size, 0.0f, color);
 			charPos.y += size * stepHeight;
 		}
+		if (!withIcons)
+			return;
 		const float bolder = 0.2f;
 		for (auto icon : iconsToDraw)
 		{
-			int inTextx = icon.x;
-			int inTexty = icon.y;
-			int ID = icon.z;
+			int inTextx = (int)icon.x;
+			int inTexty = (int)icon.y;
+			int ID = (int)icon.z;
 			if (ID < 0 || ID >= icons.size())
 				continue;
 			std::string text = splitedLines[inTexty];
 			std::string textToMesure = text.substr(0, inTextx);
 			Vector2 textS = TextSize(textToMesure.c_str(), size, 0.0f);
 			Rectangle pos = { x + textS.x + bolder * size,y + size * (stepHeight * inTexty + bolder),(1.0f - bolder * 2) * size,(1.0f - bolder * 2) * size };
-			icons[ID].draw(pos);
+			icons[ID].draw(pos, false, false, 0, { 0.0f,0.0f }, 0.0f, color);
 		}
 	}
 	Vector2 TextSize(const char* text, float size, float spacing)
@@ -135,6 +135,7 @@ namespace MyFont
 			}
 		}
 		MyFont::DrawText(text, x, y, fontSize, textColor, rotationPoint, angle);
+
 	}
 
 	float getFontSize()

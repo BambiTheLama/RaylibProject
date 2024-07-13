@@ -1,4 +1,5 @@
 #include "WeaponStats.h"
+#include "../../Font.h"
 
 static const char* statsJsonName = "Stats";
 
@@ -6,7 +7,7 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 {
 	if (!json[statsJsonName].contains(statProperty))
 		return;
-	int statsSize = json[statsJsonName][statProperty].size();
+	int statsSize = (int)json[statsJsonName][statProperty].size();
 	if (statsSize <= 0)
 		return;
 	if (tier >= statsSize)
@@ -14,14 +15,14 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 	int min = json[statsJsonName][statProperty][tier][0];
 	int max = json[statsJsonName][statProperty][tier][1];
 	float procent = (rand() % 1000) / 1000.0f;
-	stat = min + (max - min) * procent;
+	stat = (int)(min + (max - min) * procent);
 }
 
 void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat)
 {
 	if (!json[statsJsonName].contains(statProperty))
 		return;
-	int statsSize = json[statsJsonName][statProperty].size();
+	int statsSize = (int)json[statsJsonName][statProperty].size();
 	if (statsSize <= 0)
 		return;
 	if (tier >= statsSize)
@@ -36,7 +37,7 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 {
 	if (!json[statsJsonName].contains(statProperty))
 		return;
-	int statsSize = json[statsJsonName][statProperty].size();
+	int statsSize = (int)json[statsJsonName][statProperty].size();
 	if (statsSize <= 0)
 		return;
 	if (tier >= statsSize)
@@ -160,8 +161,10 @@ void addToStringData(std::string& data, float value, std::string name, bool icon
 	data += "{" + name + "}: " + dataValue + std::string("\n");
 }
 
-void addToStringData(std::string& data, int value, std::string name)
+void addToStringData(std::string& data, int value, std::string name, bool icon = false, int ID = 0)
 {
+	if (icon)
+		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
 	data += "{" + name + "}: " + std::to_string(value) + std::string("\n");
 }
 
@@ -179,4 +182,31 @@ std::string WeaponStats::toString()
 	addToStringData(data, bounce		, "Bounce"		, true, 8);
 	addToStringData(data, pirce			, "Pirce"		, true, 9);
 	return data;
+}
+
+void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec)
+{
+	std::string desc = toString();
+	const char* cDesc = desc.c_str();
+	Vector2 size = MyFont::TextSize(cDesc, textSize, 0);
+	const float border = 20.0f;
+	Rectangle rec = { pos.x - border, pos.y - border,pos.height + 2 * border, pos.height + 2 * border };
+	if (flexRec)
+	{
+		rec.width = size.x + 2 * border;
+		rec.height = size.y + 2 * border;
+	}
+	else
+	{
+		BeginScissorMode((int)pos.x, (int)pos.y, (int)pos.width, (int)pos.height);
+	}
+	DrawRectangleRounded(rec, 0.2f, 1, RED);
+	DrawRectangleRoundedLines({ rec.x + 1,rec.y + 1,rec.width - 2,rec.height - 2 }, 0.2f, 1, 5, BLACK);
+	//DrawRectangleRec(pos, BLUE);
+	MyFont::DrawTextWithOutline(cDesc, pos.x, pos.y, textSize, WHITE, BLACK);
+	if (!flexRec)
+	{
+		EndScissorMode();
+	}
+
 }

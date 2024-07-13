@@ -17,6 +17,11 @@ void Weapon::update()
 		findThisObject();
 }
 
+void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
+{
+	stats.draw({ pos.x+pos.width,pos.y,0,0 }, textSize,true);
+}
+
 bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 {
 	if (!thisObj)

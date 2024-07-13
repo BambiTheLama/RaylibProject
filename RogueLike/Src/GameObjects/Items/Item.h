@@ -6,7 +6,7 @@ class Item
 {
 	GameObject* thisObj = nullptr;
 protected:
-	GameObject* owner;
+	GameObject* owner = nullptr;
 public:
 	Item(){}
 
@@ -14,11 +14,11 @@ public:
 
 	void setOwner(GameObject* owner) { this->owner = owner; }
 
-	void update();
+	virtual void update(float deltaTime);
 
 	virtual void drawIcon(Rectangle pos){}
 
-	virtual void drawDescription(Vector2 center,float wight){}
+	virtual void drawDescription(Rectangle pos, float textSize){}
 
 	virtual void use(Vector2 dir, float deltaTime){}
 
