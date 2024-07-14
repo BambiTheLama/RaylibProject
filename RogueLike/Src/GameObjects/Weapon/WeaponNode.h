@@ -23,6 +23,8 @@ class WeaponNode
 	WeaponNodeActivation activateTrigger;
 	WeaponStats stats;
 public:
+	WeaponNode(){}
+
 	WeaponNode(WeaponStats stats);
 
 	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID);

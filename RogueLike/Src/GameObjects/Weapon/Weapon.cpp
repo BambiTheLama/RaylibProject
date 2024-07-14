@@ -19,7 +19,7 @@ void Weapon::update()
 
 void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 {
-	stats.draw({ pos.x+pos.width,pos.y,0,0 }, textSize,true);
+	stats.draw({ pos.x+pos.width,pos.y,0,0 }, textSize,true,false);
 }
 
 bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)

@@ -22,6 +22,8 @@ public:
 
     static bool isGameScene() { return gameScene; }
 
+    static Rectangle convertFromWorldToScrean(Rectangle pos);
+
     friend class GameScene;
 };
 

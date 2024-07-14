@@ -144,6 +144,7 @@ namespace MyFont
 		return 64.0f;
 	}
 }
+#include "GameObjects/Game.h"
 
 Rectangle getRectangleFromVectors(Vector2 start, Vector2 dir,float range)
 {
@@ -162,17 +163,18 @@ Rectangle getRectangleFromVectors(Vector2 start, Vector2 dir,float range)
 		rec.y += rec.height;
 		rec.height = -rec.height;
 	}
-	return rec;
+	return Game::convertFromWorldToScrean(rec);
 }
 
 void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, float range, int segments, Color color)
 {
 	Rectangle rec=getRectangleFromVectors(start,dir,range);
-	BeginScissorMode(rec.x, rec.y, rec.width, rec.height);
+	BeginScissorMode(rec.x - lineSize / 2, rec.y - lineSize / 2, rec.width + lineSize, rec.height + lineSize);
 	Vector2 dirDiff = { (dir.x * range) / (2 * segments),(dir.y * range) / (2 * segments) };
 	Vector2 sv = Vector2Subtract(start, { dirDiff.x * 3,dirDiff.y * 3 });
-	sv.x += frame * dirDiff.x/segments;
-	sv.y += frame * dirDiff.y/segments;
+	frame -= (int)frame;
+	sv.x += 2 * frame * dirDiff.x;
+	sv.y += 2 * frame * dirDiff.y;
 	Vector2 ev = Vector2Add(sv, dirDiff);
 	for (int i = 0; i < segments+2; i++)
 	{
@@ -180,6 +182,6 @@ void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, flo
 		sv = Vector2Add(ev, dirDiff);
 		ev = Vector2Add(sv, dirDiff);
 	}
-	DrawCircleV(Vector2Add(start, { dir.x * range,dir.y * range }), 10, RED);
+	//DrawCircleV(Vector2Add(start, { dir.x * range,dir.y * range }), 10, RED);
 	EndScissorMode();
 }

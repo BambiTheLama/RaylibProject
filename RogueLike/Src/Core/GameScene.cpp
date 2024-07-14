@@ -104,6 +104,17 @@ std::list<GameObject*> GameScene::getObjects(Rectangle pos)
         return floor->getObjects(pos); 
     return std::list<GameObject*>();
 }
+
+Rectangle GameScene::convertFromWorldToScrean(Rectangle pos)
+{
+    Vector2 v = GetWorldToScreen2D({ pos.x,pos.y }, camera);
+    pos.x = v.x;
+    pos.y = v.y;
+    pos.width *= camera.zoom;
+    pos.height *= camera.zoom;
+    return pos;
+}
+
 bool GameScene::addObject(GameObject *obj) {
     if (floor)
         return floor->addObject(obj);

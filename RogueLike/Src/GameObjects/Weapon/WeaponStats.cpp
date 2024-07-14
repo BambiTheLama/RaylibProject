@@ -184,7 +184,7 @@ std::string WeaponStats::toString()
 	return data;
 }
 
-void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec)
+void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame)
 {
 	std::string desc = toString();
 	const char* cDesc = desc.c_str();
@@ -200,8 +200,11 @@ void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec)
 	{
 		BeginScissorMode((int)pos.x, (int)pos.y, (int)pos.width, (int)pos.height);
 	}
-	DrawRectangleRounded(rec, 0.2f, 1, RED);
-	DrawRectangleRoundedLines({ rec.x + 1,rec.y + 1,rec.width - 2,rec.height - 2 }, 0.2f, 1, 5, BLACK);
+	if (frame)
+	{
+		DrawRectangleRounded(rec, 0.2f, 1, RED);
+		DrawRectangleRoundedLines({ rec.x + 1,rec.y + 1,rec.width - 2,rec.height - 2 }, 0.2f, 1, 5, BLACK);
+	}
 	//DrawRectangleRec(pos, BLUE);
 	MyFont::DrawTextWithOutline(cDesc, pos.x, pos.y, textSize, WHITE, BLACK);
 	if (!flexRec)

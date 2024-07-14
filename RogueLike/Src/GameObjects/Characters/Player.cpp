@@ -38,7 +38,7 @@ void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
     inventory.update(deltaTime);
     timer += deltaTime;
-    timer -= (float)((int)(timer / 10) * 10);
+    timer -= (float)((int)(timer / 1) * 1);
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
@@ -80,7 +80,7 @@ void Player::draw() {
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 
     float range = 50.0f;
-    float rangeMax = inventory.getRange()*3;
+    float rangeMax = inventory.getRange();
     const int minSegments = 5;
 
     int segments = rangeMax / (2 * range);
@@ -93,7 +93,7 @@ void Player::draw() {
 
     Vector2 starLine = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 
-    DrawSegmentLine(starLine, useDir, 10, timer, rangeMax, segments, BLACK);
+    DrawSegmentLine(starLine, useDir, 10, timer*3, rangeMax, segments, BLACK);
 
 }
 

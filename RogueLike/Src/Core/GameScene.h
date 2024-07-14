@@ -25,6 +25,8 @@ public:
 
     std::list<GameObject*> getObjects(Rectangle pos);
 
+    Rectangle convertFromWorldToScrean(Rectangle pos);
+
     bool addObject(GameObject *obj);
 
     bool deleteObject(GameObject* obj);
