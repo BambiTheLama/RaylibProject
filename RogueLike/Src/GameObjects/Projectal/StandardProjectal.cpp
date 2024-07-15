@@ -59,16 +59,12 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 	}
 	else if ((int)colObj->getType() & (int)ObjectType::Wall)
 	{
-		Vector2 thisCenter = { pos.x + pos.width / 2 ,pos.y + pos.height / 2 };
-		Rectangle wallPos = colObj->getPos();
-		Vector2 wallCenter = { wallPos.x + wallPos.width / 2 ,wallPos.y + wallPos.height / 2 };
-		Vector2 dirObj = Vector2Subtract(thisCenter, wallCenter);
-		Vector2 dirObjNormal = Vector2Normalize(dirObj);
-		float pixelRate = wallPos.width / wallPos.height;
-		dir.x = -dir.x;
-		dir.y = -dir.y;
-		bounce--;
-		if (bounce <= 0)
+		Vector2 collisonDir = getCollisionDir(collider);
+		if (abs(collisonDir.x) > abs(collisonDir.y))
+			dir.x = -dir.x;
+		else
+			dir.y = -dir.y;
+		if (bounce-- <= 0)
 		{
 			triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
 			Game::deleteObject(this);

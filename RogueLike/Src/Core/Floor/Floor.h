@@ -7,7 +7,7 @@
 #include "../WaveCollapsFun.h"
 
 class Room;
-
+using CreateObjectFun = GameObject * (*)(int, Rectangle);
 
 class Floor
 {
@@ -22,6 +22,8 @@ public:
     Floor(Rectangle pos);
 
     ~Floor();
+
+    void createFloor();
 
     void start();
 
@@ -42,7 +44,7 @@ public:
     void removeObject(GameObject* obj);
 
 private:
-    void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid);
+    void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun);
 
     void removeCloseEnemies();
 

@@ -20,6 +20,8 @@ protected:
 public:
 	Weapon();
 
+	~Weapon();
+
 	void update();
 
 	virtual void use(Vector2 dir, float deltaTime) = 0;

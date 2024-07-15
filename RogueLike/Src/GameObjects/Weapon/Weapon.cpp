@@ -9,6 +9,17 @@ Weapon::Weapon()
 
 }
 
+Weapon::~Weapon()
+{
+	printf("KURWA usuwam broñ\n");
+	for (auto wni : weaponSlots)
+	{
+		if(wni)
+			delete wni;
+	}
+	weaponSlots.clear();
+}
+
 void Weapon::update() 
 { 
 	if (thisObj)

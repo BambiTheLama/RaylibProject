@@ -59,7 +59,7 @@ BlockType getRoomElementType(int ID)
 	return BlockType::NON;
 }
 
-GameObject* getObject(int ID, Rectangle pos)
+GameObject* getEnemy(int ID, Rectangle pos)
 {
 	if (ID < 0)
 		return NULL;
@@ -67,7 +67,19 @@ GameObject* getObject(int ID, Rectangle pos)
 	{
 	case 0:
 		return new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2);
-	case 1:
+	default:
+		break;
+	}
+	return NULL;
+}
+
+GameObject* getObject(int ID, Rectangle pos)
+{
+	if (ID < 0)
+		return NULL;
+	switch (ID)
+	{
+	case 0:
 		return new LootBlock(pos.x, pos.y);
 	default:
 		break;

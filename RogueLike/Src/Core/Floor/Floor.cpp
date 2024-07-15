@@ -43,35 +43,7 @@ Floor::Floor(Rectangle pos)
     pos.width = (float)(((int)pos.width / (int)roomW) * (int)roomW);
     pos.height = (float)(((int)pos.height / (int)roomH) * (int)roomH);
     this->pos = pos;
-
     tree = new QuadTree({ pos.x - 100.0f,pos.y - 100.0f,pos.width + 200.0f,pos.height + 200.0f });
-    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
-    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, pos.width + 200.0f, 100.0f));
-    addObject(new BossWall(pos.x + pos.width, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
-    addObject(new BossWall(pos.x - 100.0f, pos.y + pos.height, pos.width + 200.0f, 100.0f));
-
-
-    FloorRooms floorRooms = getFloorRooms();
-
-    int floorW = (int)(pos.width / roomW);
-    int floorH = (int)(pos.height / roomH);
-    std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
-    for (int i = 0; i < floorW; i++)
-        for (int j = 0; j < floorH; j++)
-        {
-            int startX = (int)roomW * i;
-            int startY = (int)roomH * j;
-            int ID = roomGrid[j][i].ID;
-            RoomType type = roomGrid[j][i].type;
-            if (ID < 0)
-                continue;
-            Room room = getRoom(type,ID);
-            setUpRooms(startX, startY, room);
-        }
-    setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid);
-    setUpObjects(std::vector<int>{ 1 }, 40, BlockType::LootSpawnPoint, roomGrid);
-    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn, roomGrid);
-    removeCloseEnemies();
 }
 
 void Floor::setUpRooms(int startX, int startY, Room& room)
@@ -178,8 +150,43 @@ Floor::~Floor()
     delete tree;
 }
 
+
+void Floor::createFloor()
+{
+
+    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
+    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, pos.width + 200.0f, 100.0f));
+    addObject(new BossWall(pos.x + pos.width, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
+    addObject(new BossWall(pos.x - 100.0f, pos.y + pos.height, pos.width + 200.0f, 100.0f));
+
+
+    FloorRooms floorRooms = getFloorRooms();
+
+    int floorW = (int)(pos.width / roomW);
+    int floorH = (int)(pos.height / roomH);
+    std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
+    for (int i = 0; i < floorW; i++)
+        for (int j = 0; j < floorH; j++)
+        {
+            int startX = (int)roomW * i;
+            int startY = (int)roomH * j;
+            int ID = roomGrid[j][i].ID;
+            RoomType type = roomGrid[j][i].type;
+            if (ID < 0)
+                continue;
+            Room room = getRoom(type, ID);
+            setUpRooms(startX, startY, room);
+        }
+
+    setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy);
+    setUpObjects(std::vector<int>{ 0 }, 40, BlockType::LootSpawnPoint, roomGrid, getObject);
+    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy);
+    removeCloseEnemies();
+}
+
 void Floor::start()
 {
+    createFloor();
     for (auto o : allGameObjects)
         o->start();
 }
@@ -321,7 +328,7 @@ void Floor::removeObject(GameObject* obj)
         toRemove.push_back(obj);
 }
 
-void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid)
+void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun)
 {
     if (objects.size() <= 0)
         return;
@@ -366,7 +373,7 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
                 {
                     int ID = objects[rand() % objects.size()];
                     Rectangle pos = { o.x,o.y,tileW,tileH };
-                    addObject(getObject(ID, pos));
+                    addObject(fun(ID, pos));
                 }
             }
             else
@@ -377,7 +384,7 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
                     Vector2 vPos = elementsPos[e];
                     Rectangle pos = { vPos.x,vPos.y,tileW,tileH };
                     int ID = objects[rand() % objects.size()];
-                    addObject(getObject(ID, pos));
+                    addObject(fun(ID, pos));
                     elementsPos.erase(elementsPos.begin() + e);
                 }
             }
