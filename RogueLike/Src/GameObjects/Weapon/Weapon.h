@@ -32,9 +32,13 @@ public:
 
 	WeaponNodeItem* removeSlot(int slot);
 
+	void drawWeaponNodeStats(Rectangle pos, float textSize, bool flexBox);
+
 	bool addSlot(int slot, WeaponNodeItem* node);
 
 	float getRange() { return stats.range; }
+
+	static Rectangle getSlotPos(Rectangle pos, int slot, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
 
 	friend class GameScene;
 private:

@@ -33,3 +33,22 @@ void WeaponNode::addToStats(WeaponStats stats)
 {
 	this->stats += stats;
 }
+
+void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox)
+{
+	switch (type)
+	{
+	case WeaponNodeType::Stat:
+		stats.draw(pos, textSize, flexBox);
+		break;
+	case WeaponNodeType::Spawn:
+	{
+		std::string str = "{Spawn}:" + std::to_string(spawnID) + "\n";
+		stats.draw(pos, textSize, flexBox, true, str);
+	}
+		break;
+	default:
+		break;
+	}
+}
+

@@ -21,3 +21,13 @@ namespace MyFont {
 }
 
 void DrawSegmentLine(Vector2 start, Vector2 dir, float lineSize, float frame, float range, int segments, Color color);
+
+void DrawFrameRounded(Rectangle pos, Color frameColor = BLUE, Color outlineColor = BLACK);
+
+void DrawFrameRec(Rectangle pos, Color frameColor = BLUE, Color outlineColor = BLACK);
+
+float getFrameBolder();
+
+Rectangle RectangleIncreasSize(Rectangle rec, float v);
+
+Rectangle RectangleDecreasSize(Rectangle rec, float v);

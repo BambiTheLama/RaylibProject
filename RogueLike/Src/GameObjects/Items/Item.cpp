@@ -1,5 +1,7 @@
 #include "Item.h"
 
+bool Item::showDescriptions = false;
+
 void Item::update(float deltaTime) 
 {
 	if (thisObj)

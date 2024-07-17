@@ -32,7 +32,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 
 	printf(stats.toString().c_str());
 
-	setNumberOfSlots(4);
+	setNumberOfSlots(10);
 	
 	WeaponStats wnStats;
 	wnStats.range = 1000;
@@ -45,7 +45,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 
 
 	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
-	WeaponNodeItem* wni = new WeaponNodeItem();
+	WeaponNodeItem* wni = new WeaponNodeItem("Icons/AngleIcon.png");
 	wni->setWeaponNode(wn);
 	addSlot(0, wni);
 
@@ -55,7 +55,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	wnStats.angle = 360;
 	wnStats.countOfUse = 10;
 	WeaponNode wn2 = WeaponNode(wnStats, WeaponNodeActivation::OnEffectEnd, 1);
-	wni = new WeaponNodeItem();
+	wni = new WeaponNodeItem("Icons/DamageIcon.png");
 	wni->setWeaponNode(wn2);
 	addSlot(3, wni);
 	/*
@@ -132,9 +132,11 @@ void Sword::draw()
 	texture.draw(pos, mirror, true, 0, rotationPoint, angle);
 }
 
-void Sword::drawIcon(Rectangle pos)
+void Sword::drawIcon(Rectangle pos, bool onlyIcon)
 {
 	texture.draw(pos, false, false, 0, rotationPoint, 0.0f);
+	if (onlyIcon)
+		return;
 	Color c = { 128,128,128,200 };
 	float procent = 0.0f;
 	if (reloadTime > 0)
@@ -146,16 +148,22 @@ void Sword::drawIcon(Rectangle pos)
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
 	DrawRingLines({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, BLACK);
-	if (CheckCollisionPointRec(GetMousePosition(), pos))
-	{
-		drawDescription({ 100,100,300,300 },32);
-	}
 }
 
 void Sword::drawDescription(Rectangle pos, float textSize)
 {
-	drawWeaponDescription(pos, textSize);
-	DrawRectangleRec(pos, BLUE);
+	if (!Item::showDescriptions)
+		return;
+	float bolder = getFrameBolder();
+	drawWeaponNodeStats({ pos.x + pos.width + 2 * bolder,pos.y + bolder,0,0 }, textSize, true);
+	DrawFrameRounded(pos, BLUE, BLACK);
+	Rectangle iconPos = Weapon::getSlotPos(pos, 0);
+	DrawFrameRec(iconPos, YELLOW);
+	drawIcon(RectangleDecreasSize(iconPos, 2));
+
+	drawWeaponDescription({ pos.x,pos.y + iconPos.height + 10,pos.width,pos.height }, textSize);
+
+
 }
 
 void Sword::use(Vector2 dir, float deltaTime)

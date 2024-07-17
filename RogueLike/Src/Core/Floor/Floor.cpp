@@ -180,7 +180,7 @@ void Floor::createFloor()
 
     setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy);
     setUpObjects(std::vector<int>{ 0 }, 40, BlockType::LootSpawnPoint, roomGrid, getObject);
-    setUpObjects(std::vector<int>{ -1 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy);
+    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy);
     removeCloseEnemies();
 }
 

@@ -27,7 +27,7 @@ public:
 
 	void draw() override;
 
-	void drawIcon(Rectangle pos) override;
+	void drawIcon(Rectangle pos, bool onlyIcon = true) override;
 
 	void drawDescription(Rectangle pos,float textSize) override;
 

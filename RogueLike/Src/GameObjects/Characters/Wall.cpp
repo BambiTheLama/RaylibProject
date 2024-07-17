@@ -28,8 +28,7 @@ void Wall::update(float deltaTime) {
 }
 
 void Wall::draw(){ 
-    DrawRectangleRec(pos, RED); 
-    DrawRectangleLinesEx(pos,3, BLACK);
+    DrawFrameRec(pos, RED, BLACK);
 }
 
 void Wall::onCollisionEnter(Collider* collider) {

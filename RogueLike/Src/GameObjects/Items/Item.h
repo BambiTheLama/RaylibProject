@@ -6,7 +6,9 @@ class Item
 {
 	GameObject* thisObj = nullptr;
 protected:
+
 	GameObject* owner = nullptr;
+	static bool showDescriptions;
 public:
 	Item(){}
 
@@ -16,7 +18,7 @@ public:
 
 	virtual void update(float deltaTime);
 
-	virtual void drawIcon(Rectangle pos){}
+	virtual void drawIcon(Rectangle pos, bool onlyIcon = true) {}
 
 	virtual void drawDescription(Rectangle pos, float textSize){}
 
@@ -24,6 +26,9 @@ public:
 
 	virtual bool canSwap() { return true; }
 
+	static void swapVisibleDescriptions() { showDescriptions = !showDescriptions; }
+
+	friend class Inventory;
 private:
 
 	void findThisObject();

@@ -33,5 +33,5 @@ struct WeaponStats
 	
 	std::string toString();
 
-	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true);
+	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true, std::string title = "");
 };

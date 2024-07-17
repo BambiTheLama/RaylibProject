@@ -3,6 +3,7 @@
 
 static const char* statsJsonName = "Stats";
 
+
 void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int& stat)
 {
 	if (!json[statsJsonName].contains(statProperty))
@@ -79,13 +80,12 @@ void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& s
 
 void WeaponStats::readStats(nlohmann::json json)
 {
-	readStat(json, "Damage", damage, damageMultiplier);
-	readStat(json, "UseTime", useTime, useTimeMultiplier);
-	readStat(json, "ReloadTime", reloadTime, reloadTimeMultiplier);
-	readStat(json, "Speed", speed, speedMultiplier);
-	readStat(json, "Range", range, rangeMultiplier);
-	readStat(json, "Knockback", useTime, useTimeMultiplier);
-	readStat(json, "UseTime", useTime, useTimeMultiplier);
+	readStat(json, "Damage",		damage,		damageMultiplier);
+	readStat(json, "UseTime",		useTime,	useTimeMultiplier);
+	readStat(json, "ReloadTime",	reloadTime, reloadTimeMultiplier);
+	readStat(json, "Speed",			speed,		speedMultiplier);
+	readStat(json, "Range",			range,		rangeMultiplier);
+	readStat(json, "Knockback",		knockback,	knockbackMultiplier);
 	if (json[statsJsonName].contains("Angle"))
 		angle = json[statsJsonName]["Angle"];
 	if (json[statsJsonName].contains("CountOfUse"))
@@ -98,16 +98,16 @@ void WeaponStats::readStats(nlohmann::json json)
 
 void WeaponStats::saveStats(nlohmann::json& json)
 {
-	json[statsJsonName]["Damage"] = { damage ,damageMultiplier };
-	json[statsJsonName]["UseTime"] = { useTime ,useTimeMultiplier };
-	json[statsJsonName]["ReloadTime"] = { reloadTime ,reloadTimeMultiplier };
-	json[statsJsonName]["Speed"] = { speed ,speedMultiplier };
-	json[statsJsonName]["Range"] = { range ,rangeMultiplier };
-	json[statsJsonName]["Angle"] = angle;
-	json[statsJsonName]["Knockback"] = { knockback ,knockbackMultiplier };
-	json[statsJsonName]["CountOfUse"] = countOfUse;
-	json[statsJsonName]["Bounce"] = bounce;
-	json[statsJsonName]["Pirce"] = pirce;
+	json[statsJsonName]["Damage"]		= { damage ,damageMultiplier };
+	json[statsJsonName]["UseTime"]		= { useTime ,useTimeMultiplier };
+	json[statsJsonName]["ReloadTime"]	= { reloadTime ,reloadTimeMultiplier };
+	json[statsJsonName]["Speed"]		= { speed ,speedMultiplier };
+	json[statsJsonName]["Range"]		= { range ,rangeMultiplier };
+	json[statsJsonName]["Angle"]		= angle;
+	json[statsJsonName]["Knockback"]	= { knockback ,knockbackMultiplier };
+	json[statsJsonName]["CountOfUse"]	= countOfUse;
+	json[statsJsonName]["Bounce"]		= bounce;
+	json[statsJsonName]["Pirce"]		= pirce;
 }
 
 WeaponStats& WeaponStats::operator+=(const WeaponStats& ws)
@@ -133,23 +133,33 @@ WeaponStats& WeaponStats::operator+=(const WeaponStats& ws)
 
 WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
 {
-	damage -= ws.damage;
-	damageMultiplier -= ws.damageMultiplier;
-	useTime -= ws.useTime;
-	useTimeMultiplier -= ws.useTimeMultiplier;
-	reloadTime -= ws.reloadTime;
-	reloadTimeMultiplier -= ws.reloadTimeMultiplier;
-	speed -= ws.speed;
-	speedMultiplier -= ws.speedMultiplier;
-	range -= ws.range;
-	rangeMultiplier -= ws.rangeMultiplier;
-	angle -= ws.angle;
-	knockback -= ws.knockback;
-	knockbackMultiplier -= ws.knockbackMultiplier;
-	countOfUse -= ws.countOfUse;
-	bounce -= ws.bounce;
-	pirce -= ws.pirce;
+	damage					-= ws.damage;
+	damageMultiplier		-= ws.damageMultiplier;
+	useTime					-= ws.useTime;
+	useTimeMultiplier		-= ws.useTimeMultiplier;
+	reloadTime				-= ws.reloadTime;
+	reloadTimeMultiplier	-= ws.reloadTimeMultiplier;
+	speed					-= ws.speed;
+	speedMultiplier			-= ws.speedMultiplier;
+	range					-= ws.range;
+	rangeMultiplier			-= ws.rangeMultiplier;
+	angle					-= ws.angle;
+	knockback				-= ws.knockback;
+	knockbackMultiplier		-= ws.knockbackMultiplier;
+	countOfUse				-= ws.countOfUse;
+	bounce					-= ws.bounce;
+	pirce					-= ws.pirce;
 	return *this;
+}
+void addToStringData(std::string& data, float value,float valueMulti, std::string name, bool icon = false, int ID = 0)
+{
+	std::string dataValue = std::to_string(value);
+	std::string dataValueMulti = std::to_string(valueMulti);
+	dataValue.erase(dataValue.size() - 5, 5);
+	dataValueMulti.erase(dataValueMulti.size() - 4, 5);
+	if (icon)
+		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
+	data += "{" + name + "}: " + dataValue + std::string("(") + dataValueMulti + std::string(")\n");
 }
 
 void addToStringData(std::string& data, float value, std::string name, bool icon = false, int ID = 0)
@@ -171,30 +181,29 @@ void addToStringData(std::string& data, int value, std::string name, bool icon =
 std::string WeaponStats::toString()
 {
 	std::string data="";
-	addToStringData(data, damage		, "Damage"		, true, 0);
-	addToStringData(data, useTime		, "UseTime"		, true, 1);
-	addToStringData(data, reloadTime	, "ReloadTime"	, true, 2);
-	addToStringData(data, speed			, "Speed"		, true, 3);
-	addToStringData(data, range			, "Range"		, true, 4);
-	addToStringData(data, angle			, "Angle"		, true, 5);
-	addToStringData(data, knockback		, "Knockback"	, true, 6);
-	addToStringData(data, countOfUse	, "CountOfUse"	, true, 7);
-	addToStringData(data, bounce		, "Bounce"		, true, 8);
-	addToStringData(data, pirce			, "Pirce"		, true, 9);
+	addToStringData(data, damage		, damageMultiplier		, "Damage"		, true, 0);
+	addToStringData(data, useTime		, useTimeMultiplier		, "UseTime"		, true, 1);
+	addToStringData(data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, true, 2);
+	addToStringData(data, speed			, speedMultiplier		, "Speed"		, true, 3);
+	addToStringData(data, range			, rangeMultiplier		, "Range"		, true, 4);
+	addToStringData(data, angle									, "Angle"		, true, 5);
+	addToStringData(data, knockback		, knockbackMultiplier	, "Knockback"	, true, 6);
+	addToStringData(data, countOfUse							, "CountOfUse"	, true, 7);
+	addToStringData(data, bounce								, "Bounce"		, true, 8);
+	addToStringData(data, pirce									, "Pirce"		, true, 9);
 	return data;
 }
 
-void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame)
+void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame,std::string title)
 {
-	std::string desc = toString();
+	std::string desc = title + toString();
 	const char* cDesc = desc.c_str();
 	Vector2 size = MyFont::TextSize(cDesc, textSize, 0);
-	const float border = 20.0f;
-	Rectangle rec = { pos.x - border, pos.y - border,pos.height + 2 * border, pos.height + 2 * border };
+
 	if (flexRec)
 	{
-		rec.width = size.x + 2 * border;
-		rec.height = size.y + 2 * border;
+		pos.width = size.x;
+		pos.height = size.y;
 	}
 	else
 	{
@@ -202,8 +211,7 @@ void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame)
 	}
 	if (frame)
 	{
-		DrawRectangleRounded(rec, 0.2f, 1, RED);
-		DrawRectangleRoundedLines({ rec.x + 1,rec.y + 1,rec.width - 2,rec.height - 2 }, 0.2f, 1, 5, BLACK);
+		DrawFrameRounded(pos, BLUE, BLACK);
 	}
 	//DrawRectangleRec(pos, BLUE);
 	MyFont::DrawTextWithOutline(cDesc, pos.x, pos.y, textSize, WHITE, BLACK);

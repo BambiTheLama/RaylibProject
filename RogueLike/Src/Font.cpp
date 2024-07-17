@@ -169,7 +169,7 @@ Rectangle getRectangleFromVectors(Vector2 start, Vector2 dir,float range)
 void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, float range, int segments, Color color)
 {
 	Rectangle rec=getRectangleFromVectors(start,dir,range);
-	BeginScissorMode(rec.x - lineSize / 2, rec.y - lineSize / 2, rec.width + lineSize, rec.height + lineSize);
+	BeginScissorMode((int)(rec.x - lineSize / 2), (int)(rec.y - lineSize / 2), (int)(rec.width + lineSize), (int)(rec.height + lineSize));
 	Vector2 dirDiff = { (dir.x * range) / (2 * segments),(dir.y * range) / (2 * segments) };
 	Vector2 sv = Vector2Subtract(start, { dirDiff.x * 3,dirDiff.y * 3 });
 	frame -= (int)frame;
@@ -184,4 +184,33 @@ void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, flo
 	}
 	//DrawCircleV(Vector2Add(start, { dir.x * range,dir.y * range }), 10, RED);
 	EndScissorMode();
+}
+
+const float border = 20.0f;
+void DrawFrameRounded(Rectangle pos, Color frameColor, Color outlineColor)
+{
+	pos = RectangleIncreasSize(pos, border);
+	DrawRectangleRounded(pos, 0.2f, 1, frameColor);
+	DrawRectangleRoundedLines(RectangleDecreasSize(pos, 1), 0.2f, 1, 5, outlineColor);
+}
+void DrawFrameRec(Rectangle pos, Color frameColor, Color outlineColor)
+{
+	DrawRectangleRec(pos, frameColor);
+	DrawRectangleLinesEx(pos, 4, outlineColor);
+}
+
+
+float getFrameBolder()
+{
+	return border;
+}
+
+Rectangle RectangleIncreasSize(Rectangle rec, float v)
+{
+	return { rec.x - v,rec.y - v,rec.width + v * 2,rec.height + v * 2 };
+}
+
+Rectangle RectangleDecreasSize(Rectangle rec, float v)
+{
+	return { rec.x + v,rec.y + v,rec.width - v * 2,rec.height - v * 2 };
 }

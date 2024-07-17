@@ -25,6 +25,8 @@ void KeyBoardController::update(float deltaTime) {
             inputs.push_back(Input::NextItem);
         if (IsKeyPressed(keyPrivItem))
             inputs.push_back(Input::PrivItem);
+        if (IsKeyPressed(keySpawnDescriptionVisible))
+            inputs.push_back(Input::SwapDescriptionVisible);
     }
     moveDir = Vector2Normalize(moveDir);
 

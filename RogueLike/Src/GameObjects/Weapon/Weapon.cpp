@@ -3,6 +3,7 @@
 #include <fstream>
 
 nlohmann::json Weapon::weaponData;
+static Rectangle weaponSlotPos = { 0,0,0,0 };
 
 Weapon::Weapon()
 {
@@ -28,9 +29,19 @@ void Weapon::update()
 		findThisObject();
 }
 
+
+
 void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 {
-	stats.draw({ pos.x+pos.width,pos.y,0,0 }, textSize,true,false);
+	weaponSlotPos = pos;
+	int i = 0;
+	for (auto slot : weaponSlots)
+	{
+		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
+		DrawFrameRec(slotPos, RED, BLACK);
+		if (slot)
+			slot->drawIcon(RectangleDecreasSize(slotPos,4));
+	}
 }
 
 bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
@@ -56,6 +67,26 @@ WeaponNodeItem* Weapon::removeSlot(int slot)
 	return node;
 }
 
+void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
+{
+	Vector2 mouse = GetMousePosition();
+	if (!CheckCollisionPointRec(mouse, weaponSlotPos))
+	{
+		stats.draw(pos, textSize, flexBox);
+		return;
+	}
+	for (int i = 0; i < weaponSlots.size(); i++)
+	{
+		if (!CheckCollisionPointRec(mouse, getSlotPos(weaponSlotPos, i)))
+			continue;
+		if (!weaponSlots[i])
+			break;
+		weaponSlots[i]->drawNodeDescription(pos, textSize, flexBox);
+		return;
+	}
+	stats.draw(pos, textSize, flexBox);
+}
+
 bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 {
 	if (slot < 0 || slot >= weaponSlots.size())
@@ -64,6 +95,27 @@ bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 		return false;
 	weaponSlots[slot] = node;
 	updateWeaponNodesEfects();
+	return true;
+}
+
+Rectangle Weapon::getSlotPos(Rectangle pos,int slot,Vector2 slotSize, float itemSpaceing)
+{
+	Rectangle slotPos = { pos.x,pos.y,slotSize.x,slotSize.y };
+	float startSlotsX = (pos.width - (int)(pos.width / (slotPos.width + itemSpaceing)) * (slotPos.width + itemSpaceing)) / 2;
+	if (startSlotsX < 0)
+		startSlotsX = 0;
+	startSlotsX += pos.x;
+	slotPos.x = startSlotsX;
+	for (int i = 0; i < slot; i++)
+	{
+		slotPos.x += slotPos.width + itemSpaceing;
+		if (slotPos.x + slotPos.width > pos.x + pos.width)
+		{
+			slotPos.x = startSlotsX;
+			slotPos.y += slotPos.height + itemSpaceing;
+		}
+	}
+	return slotPos;
 }
 
 void Weapon::findThisObject()

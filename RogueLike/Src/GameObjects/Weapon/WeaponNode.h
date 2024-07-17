@@ -19,8 +19,8 @@ enum class WeaponNodeActivation
 class WeaponNode
 {
 	int spawnID = -1;
-	WeaponNodeType type;
-	WeaponNodeActivation activateTrigger;
+	WeaponNodeType type = WeaponNodeType::Stat;
+	WeaponNodeActivation activateTrigger = WeaponNodeActivation::NON;
 	WeaponStats stats;
 public:
 	WeaponNode(){}
@@ -41,5 +41,6 @@ public:
 
 	WeaponStats getStats() { return stats; }
 
+	void drawNodeDescription(Rectangle pos, float textSize, bool flexBox);
 };
 

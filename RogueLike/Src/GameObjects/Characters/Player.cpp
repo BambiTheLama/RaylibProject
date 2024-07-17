@@ -4,6 +4,7 @@
 #include "../AddisionalTypes/Hitable.h"
 #include "../Game.h"
 #include "raymath.h"
+#include "../Items/Item.h"
 
 Player::Player(float x, float y){
     pos = {(float) x, (float) y, 48, 48};
@@ -68,6 +69,9 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::PrivItem:
         inventory.privItem();
         break;
+    case Input::SwapDescriptionVisible:
+        Item::swapVisibleDescriptions();
+        break;
     default:
         break;
     }
@@ -75,15 +79,14 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
 
 
 void Player::draw() {
-    DrawRectangleRec(pos,BLUE);
-    DrawRectangleLinesEx(pos, 2, BLACK);
+    DrawFrameRec(pos, BLUE, BLACK);
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 
     float range = 50.0f;
     float rangeMax = inventory.getRange();
     const int minSegments = 5;
 
-    int segments = rangeMax / (2 * range);
+    int segments = (int)(rangeMax / (2 * range));
 
     if (segments < minSegments)
     {

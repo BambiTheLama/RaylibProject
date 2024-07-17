@@ -139,12 +139,22 @@ bool Inventory::addItem(Item* item)
 void Inventory::draw()
 {
 	Rectangle itemPos = { ItemsStartPos.x,ItemsStartPos.y,ItemsSize.x,ItemsSize.y };
+	const float diffPos = 10;
 	for (int i = 0; i < InventorySize; i++)
 	{
-		DrawRectangleRec(itemPos, i == usingItem ? RED : BLUE);
-		DrawRectangleLinesEx(itemPos, 2, BLACK);
+		if (i == usingItem)
+			itemPos = RectangleIncreasSize(itemPos, diffPos);
+
+		DrawFrameRec(itemPos, i == usingItem ? RED : BLUE);
 		if (items[i])
-			items[i]->drawIcon(itemPos);
+			items[i]->drawIcon(RectangleDecreasSize(itemPos, 2), false);
+
+		if (i == usingItem)
+		{
+			itemPos = RectangleDecreasSize(itemPos, diffPos);
+			if (items[i])
+				items[i]->drawDescription(descriptionPos, fontSize);
+		}
 		itemPos.x += ItemsSpaceing.x;
 		itemPos.y += ItemsSpaceing.y;
 	}

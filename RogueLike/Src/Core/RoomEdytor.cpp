@@ -348,9 +348,8 @@ void RoomEdytor::draw()
 			default:
 				break;
 			}
-			DrawRectangleRec(pos, c);
+			DrawFrameRec(pos, c, BLACK);
 			MyFont::DrawTextWithOutline(TextFormat("%d", room[y][x]), pos.x, pos.y, 32, WHITE, BLACK);
-			DrawRectangleLinesEx(pos, 2, BLACK);
 		}
 	std::string roomName="NON";
 	switch (type)
