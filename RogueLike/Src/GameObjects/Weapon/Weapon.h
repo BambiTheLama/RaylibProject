@@ -6,10 +6,11 @@
 #include <string>
 #include "../Items/WeaponNodeItem.h"
 
-
+class Inventory;
 class GameObject;
 class Weapon
 {
+	Inventory* inventory;
 	GameObject* thisObj = nullptr;
 	WeaponNodeTrigger weaponNodeTrigger;
 	std::vector<WeaponNodeItem*> weaponSlots;
@@ -24,7 +25,13 @@ public:
 
 	void update();
 
+	void clickAtInventory();
+
+	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
+
 	virtual void use(Vector2 dir, float deltaTime) = 0;
+
+	WeaponNodeItem* removeWeaponNodeItem(int n);
 
 	void drawWeaponDescription(Rectangle pos, float textSize);
 
@@ -38,7 +45,7 @@ public:
 
 	float getRange() { return stats.range; }
 
-	static Rectangle getSlotPos(Rectangle pos, int slot, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
+	static Rectangle getSlotPos(Rectangle pos, int slot = 0, int row = 0, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
 
 	friend class GameScene;
 private:

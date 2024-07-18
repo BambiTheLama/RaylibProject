@@ -18,6 +18,6 @@ public:
 
 	void drawIcon(Rectangle pos, bool onlyIcon = true) override;
 
-	void drawNodeDescription(Rectangle pos, float textSize, bool flexBox) { node.drawNodeDescription(pos, textSize, flexBox); }
+	void drawDescription(Rectangle pos, float textSize) override { node.drawNodeDescription(pos, textSize, true); }
 };
 

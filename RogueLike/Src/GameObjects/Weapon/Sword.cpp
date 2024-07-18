@@ -72,6 +72,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 
 void Sword::update(float deltaTime)
 {
+	Weapon::update();
 	if (owner)
 	{
 		Rectangle p = owner->getPos();
@@ -155,20 +156,18 @@ void Sword::drawDescription(Rectangle pos, float textSize)
 	if (!Item::showDescriptions)
 		return;
 	float bolder = getFrameBolder();
-	drawWeaponNodeStats({ pos.x + pos.width + 2 * bolder,pos.y + bolder,0,0 }, textSize, true);
+	drawWeaponNodeStats({ pos.x + pos.width + 3 * bolder,pos.y,0,0 }, textSize, true);
 	DrawFrameRounded(pos, BLUE, BLACK);
 	Rectangle iconPos = Weapon::getSlotPos(pos, 0);
 	DrawFrameRec(iconPos, YELLOW);
 	drawIcon(RectangleDecreasSize(iconPos, 2));
 
-	drawWeaponDescription({ pos.x,pos.y + iconPos.height + 10,pos.width,pos.height }, textSize);
-
-
+	drawWeaponDescription({ pos.x,Weapon::getSlotPos(pos, 0,1).y,pos.width,pos.height }, textSize);
 }
 
 void Sword::use(Vector2 dir, float deltaTime)
 {
-	if (useTime <= 0 && reloadTime <= 0)
+	if (useTime <= 0 && reloadTime <= 0 && !showDescriptions)
 	{
 		numberOfUse = stats.countOfUse;
 		left = !left;

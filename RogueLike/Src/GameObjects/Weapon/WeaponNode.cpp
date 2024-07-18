@@ -1,5 +1,25 @@
 #include "WeaponNode.h"
 
+std::string to_string(WeaponNodeActivation wna)
+{
+	switch (wna)
+	{
+	case WeaponNodeActivation::NON:
+		return "NON";
+	case WeaponNodeActivation::OnHit:
+		return "OnHit";
+	case WeaponNodeActivation::OnUse:
+		return "OnUse";
+	case WeaponNodeActivation::OnKill:
+		return "OnKill";
+	case WeaponNodeActivation::OnEffectEnd:
+		return "OnEffectEnd";
+	default:
+		break;
+	}
+	return "";
+}
+
 WeaponNode::WeaponNode(WeaponStats stats)
 {
 	this->activateTrigger = WeaponNodeActivation::NON;
@@ -43,7 +63,8 @@ void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox
 		break;
 	case WeaponNodeType::Spawn:
 	{
-		std::string str = "{Spawn}:" + std::to_string(spawnID) + "\n";
+		std::string str = "{Spawn}: " + std::to_string(spawnID) + "\n";
+		str += "{Activaction}: {" + to_string(activateTrigger) + "}\n";
 		stats.draw(pos, textSize, flexBox, true, str);
 	}
 		break;

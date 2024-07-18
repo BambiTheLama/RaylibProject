@@ -9,7 +9,6 @@
 class Sword:public GameObject,public Weapon,public Collider,public Item
 {
 	Vector2 rotationPoint;
-	WeaponStats stats;
 	float angle;
 	float reloadTime = 0.0f;
 	float useTime = 0.0f;
@@ -17,13 +16,14 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool used = false;
 	bool left = false;
 	TextureController texture;
-
 public:
 	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
 
 	~Sword() {  }
 
 	void update(float deltaTime) override;
+
+	void setInventory(Inventory* inventory) { Weapon::setInventory(inventory); Item::setInventory(inventory); }
 
 	void draw() override;
 

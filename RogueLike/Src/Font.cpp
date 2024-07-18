@@ -186,17 +186,23 @@ void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, flo
 	EndScissorMode();
 }
 
-const float border = 20.0f;
+const float border = 5.0f;
 void DrawFrameRounded(Rectangle pos, Color frameColor, Color outlineColor)
 {
+	const float randnes = 0.2f;
+	const int segments = 1;
+	const float lineSize = 3.0f;
 	pos = RectangleIncreasSize(pos, border);
-	DrawRectangleRounded(pos, 0.2f, 1, frameColor);
-	DrawRectangleRoundedLines(RectangleDecreasSize(pos, 1), 0.2f, 1, 5, outlineColor);
+	DrawRectangleRounded(pos, randnes, segments, frameColor);
+	DrawRectangleRoundedLines(RectangleDecreasSize(pos, lineSize), randnes, segments, lineSize, outlineColor);
 }
 void DrawFrameRec(Rectangle pos, Color frameColor, Color outlineColor)
 {
-	DrawRectangleRec(pos, frameColor);
-	DrawRectangleLinesEx(pos, 4, outlineColor);
+	const float randnes = 0.0f;
+	const int segments = 1;
+	const float lineSize = 3.0f;
+	DrawRectangleRounded(pos, randnes, segments, frameColor);
+	DrawRectangleRoundedLines(RectangleDecreasSize(pos, lineSize), randnes, segments, lineSize, outlineColor);
 }
 
 

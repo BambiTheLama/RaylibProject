@@ -11,6 +11,7 @@ class KeyBoardController : public Controller {
     int keyAttack1 =  KEY_SPACE;
     int keyNextItem =  KEY_E;
     int keyPrivItem =  KEY_Q;
+    int keyItemInHand = KEY_ONE;
     int keySpawnDescriptionVisible = KEY_TAB;
 public:
     void update(float deltaTime) override;

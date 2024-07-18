@@ -72,6 +72,9 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::SwapDescriptionVisible:
         Item::swapVisibleDescriptions();
         break;
+    case Input::SetItemInHand:
+        inventory.setItemToHand();
+        break;
     default:
         break;
     }

@@ -2,11 +2,12 @@
 #include "raylib.hpp"
 #include "../GameObject.h"
 
+class Inventory;
 class Item
 {
 	GameObject* thisObj = nullptr;
 protected:
-
+	Inventory* inventory;
 	GameObject* owner = nullptr;
 	static bool showDescriptions;
 public:
@@ -15,6 +16,8 @@ public:
 	virtual ~Item(){}
 
 	void setOwner(GameObject* owner) { this->owner = owner; }
+
+	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
 
 	virtual void update(float deltaTime);
 
@@ -29,6 +32,7 @@ public:
 	static void swapVisibleDescriptions() { showDescriptions = !showDescriptions; }
 
 	friend class Inventory;
+	friend class Weapon;
 private:
 
 	void findThisObject();

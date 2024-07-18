@@ -16,6 +16,9 @@ enum class WeaponNodeActivation
 	OnEffectEnd,
 };
 
+std::string to_string(WeaponNodeActivation wna);
+
+
 class WeaponNode
 {
 	int spawnID = -1;

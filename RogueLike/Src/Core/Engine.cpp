@@ -14,7 +14,7 @@ Engine::Engine() {
     const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-
+    //ToggleFullscreen();
     std::string path = "Res/Rooms.json";
     std::ifstream reader(path.c_str());
     if (reader.is_open())

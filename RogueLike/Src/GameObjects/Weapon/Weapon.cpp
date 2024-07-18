@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include "../GameObject.h"
 #include <fstream>
+#include "../Items/Inventory.h"
 
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
@@ -12,7 +13,6 @@ Weapon::Weapon()
 
 Weapon::~Weapon()
 {
-	printf("KURWA usuwam broñ\n");
 	for (auto wni : weaponSlots)
 	{
 		if(wni)
@@ -23,24 +23,51 @@ Weapon::~Weapon()
 
 void Weapon::update() 
 { 
-	if (thisObj)
-		thisObj->update(0.0f);
-	else
-		findThisObject();
+	if (!Item::showDescriptions || !inventory || !IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		return;
+	Vector2 mouse = GetMousePosition();
+	int i = 0;
+	for (auto slot : weaponSlots)
+	{
+		Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, i++);
+		if (!CheckCollisionPointRec(mouse, slotPos))
+			continue;
+		
+		Item* itemInHand = inventory->getHandItem();
+		WeaponNodeItem* wni = dynamic_cast<WeaponNodeItem*>(itemInHand);
+		if (!itemInHand || wni)
+		{
+			inventory->setHandItem(slot);
+			weaponSlots[i - 1] = wni;
+		}
+		break;
+
+	}
+	updateWeaponNodesEfects();
 }
 
-
+WeaponNodeItem* Weapon::removeWeaponNodeItem(int n)
+{
+	if (n<0 || n>weaponSlots.size())
+		return nullptr;
+	WeaponNodeItem* wni = weaponSlots[n];
+	weaponSlots[n] = nullptr;
+	return wni;
+}
 
 void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 {
 	weaponSlotPos = pos;
 	int i = 0;
+	Vector2 mouse = GetMousePosition();
 	for (auto slot : weaponSlots)
 	{
 		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
-		DrawFrameRec(slotPos, RED, BLACK);
+		bool isCursorAt = CheckCollisionPointRec(mouse, slotPos);
+		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
 		if (slot)
 			slot->drawIcon(RectangleDecreasSize(slotPos,4));
+
 	}
 }
 
@@ -81,7 +108,7 @@ void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 			continue;
 		if (!weaponSlots[i])
 			break;
-		weaponSlots[i]->drawNodeDescription(pos, textSize, flexBox);
+		weaponSlots[i]->drawDescription(pos, textSize);
 		return;
 	}
 	stats.draw(pos, textSize, flexBox);
@@ -98,23 +125,16 @@ bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 	return true;
 }
 
-Rectangle Weapon::getSlotPos(Rectangle pos,int slot,Vector2 slotSize, float itemSpaceing)
+Rectangle Weapon::getSlotPos(Rectangle pos, int slot, int row, Vector2 slotSize, float itemSpaceing)
 {
 	Rectangle slotPos = { pos.x,pos.y,slotSize.x,slotSize.y };
-	float startSlotsX = (pos.width - (int)(pos.width / (slotPos.width + itemSpaceing)) * (slotPos.width + itemSpaceing)) / 2;
+	int slotsInColumns = (int)(pos.width / (slotPos.width + itemSpaceing));
+	float startSlotsX = (pos.width - slotsInColumns * (slotPos.width + itemSpaceing)) / 2;
 	if (startSlotsX < 0)
 		startSlotsX = 0;
 	startSlotsX += pos.x;
-	slotPos.x = startSlotsX;
-	for (int i = 0; i < slot; i++)
-	{
-		slotPos.x += slotPos.width + itemSpaceing;
-		if (slotPos.x + slotPos.width > pos.x + pos.width)
-		{
-			slotPos.x = startSlotsX;
-			slotPos.y += slotPos.height + itemSpaceing;
-		}
-	}
+	slotPos.x = startSlotsX + (slot % slotsInColumns) * (slotPos.width + itemSpaceing) + itemSpaceing / 2;
+	slotPos.y += (row + (int)(slot / slotsInColumns)) * (slotPos.height + itemSpaceing) + itemSpaceing;
 	return slotPos;
 }
 
@@ -162,7 +182,7 @@ void Weapon::updateWeaponNodesEfects()
 		}
 	}
 	WeaponNodeTrigger wnt;
-	for (auto wn : activationNodes)
+	for (WeaponNode& wn : activationNodes)
 		wnt.pushBackNodeTrigger(wn);
 	weaponNodeTrigger = wnt;
 }

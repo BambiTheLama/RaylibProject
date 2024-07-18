@@ -38,11 +38,33 @@ Inventory::~Inventory()
 	}
 
 }
+void Inventory::updateClick()
+{
+	if (items[usingItem] && !items[usingItem]->canSwap())
+		return;
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (!w)
+		return;
+	
+}
+
+void Inventory::setItemToHand()
+{
+	if (items[usingItem] && !items[usingItem]->canSwap())
+		return;
+	hideItem();
+	Item* item = itemInHand;
+	itemInHand = items[usingItem];
+	items[usingItem] = item;
+	showItem();
+}
 
 void Inventory::update(float deltaTime)
 {
-	if(items[usingItem])
-		items[usingItem]->update(deltaTime);
+	updateClick();
+	if (!items[usingItem])
+		return;
+	items[usingItem]->update(deltaTime);
 }
 
 void Inventory::nextItem() 
@@ -123,6 +145,7 @@ bool Inventory::addItem(Item* item)
 		if (items[i])
 		{
 			items[i]->setOwner(owner);
+			items[i]->setInventory(this);
 			items[i]->update(0.0f);
 
 			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
@@ -158,6 +181,15 @@ void Inventory::draw()
 		itemPos.x += ItemsSpaceing.x;
 		itemPos.y += ItemsSpaceing.y;
 	}
+	if (itemInHand)
+	{
+		itemPos.x = 0;
+		itemPos.y = 0;
+		DrawFrameRec(itemPos, ORANGE);
+		itemInHand->drawIcon(itemPos);
+	}
+
+
 }
 
 float Inventory::getRange()
