@@ -13,6 +13,7 @@ class Weapon
 	Inventory* inventory;
 	GameObject* thisObj = nullptr;
 	WeaponNodeTrigger weaponNodeTrigger;
+	std::vector<WeaponStats> weaponSlotsDifoltStat;
 	std::vector<WeaponNodeItem*> weaponSlots;
 	WeaponStats difoltStats;
 protected:

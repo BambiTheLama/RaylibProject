@@ -36,9 +36,10 @@ struct WeaponStats
 
 	WeaponStats& operator-=(const WeaponStats& ws);
 	
-	std::string toString(bool skipZero = false);
+	std::string toString(bool skipZero = false, bool showProcent = false);
 
-	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true, std::string title = "", bool skipZero = false, bool colorStats = false);
+	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true, std::string title = "",
+		bool skipZero = false, bool colorStats = false, bool showProcent = false);
 	
 private:
 

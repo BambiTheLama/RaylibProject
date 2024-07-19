@@ -61,14 +61,14 @@ void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox
 	case WeaponNodeType::Stat:
 	{
 		std::string str = "     {Stats}\n";
-		stats.draw(pos, textSize, flexBox, true, str, true, true);
+		stats.draw(pos, textSize, flexBox, true, str, true, true,true);
 	}
 		break;
 	case WeaponNodeType::Spawn:
 	{
 		std::string str = "     {Spawn}: " + std::to_string(spawnID) + "\n";
 		str += "     {Activaction}: {" + to_string(activateTrigger) + "}\n";
-		stats.draw(pos, textSize, flexBox, true, str);
+		stats.draw(pos, textSize, flexBox, true, str, false, false, true);
 	}
 		break;
 	default:

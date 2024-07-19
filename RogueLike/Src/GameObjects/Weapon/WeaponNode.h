@@ -44,6 +44,8 @@ public:
 
 	WeaponStats getStats() { return stats; }
 
+	void setStats(WeaponStats ws) { this->stats = ws; }
+
 	void drawNodeDescription(Rectangle pos, float textSize, bool flexBox);
 };
 

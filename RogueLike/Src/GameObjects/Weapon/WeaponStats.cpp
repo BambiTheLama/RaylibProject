@@ -152,7 +152,7 @@ WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
 	return *this;
 }
 void addToStringData(std::string& data, float value, float valueMulti, std::string name, bool icon = false,
-	int ID = 0, bool skip = false)
+	int ID = 0, bool skip = false, bool showProcent = true)
 {
 	if (skip && fabs(value) < tolerance && fabs(valueMulti) < tolerance)
 		return;
@@ -162,7 +162,10 @@ void addToStringData(std::string& data, float value, float valueMulti, std::stri
 	dataValueMulti.erase(dataValueMulti.size() - 4, 5);
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
-	data += "{" + name + "}: " + dataValue + std::string("(") + dataValueMulti + std::string("%)\n");
+	data += "{" + name + "}: " + dataValue;
+	if (showProcent)
+		data += std::string("+") + dataValueMulti + std::string("%");
+	data += std::string("\n");
 }
 
 void addToStringData(std::string& data, float value, std::string name, bool icon = false, int ID = 0, bool skip = false)
@@ -186,17 +189,17 @@ void addToStringData(std::string& data, int value, std::string name, bool icon =
 }
 
 
-std::string WeaponStats::toString(bool skipZero)
+std::string WeaponStats::toString(bool skipZero,bool showProcent)
 {
 	std::string data="";
 
-	addToStringData(data, damage		, damageMultiplier		, "Damage"		, true, 0, skipZero);
-	addToStringData(data, useTime		, useTimeMultiplier		, "UseTime"		, true, 1, skipZero);
-	addToStringData(data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, true, 2, skipZero);
-	addToStringData(data, speed			, speedMultiplier		, "Speed"		, true, 3, skipZero);
-	addToStringData(data, range			, rangeMultiplier		, "Range"		, true, 4, skipZero);
+	addToStringData(data, damage		, damageMultiplier		, "Damage"		, true, 0, skipZero, showProcent);
+	addToStringData(data, useTime		, useTimeMultiplier		, "UseTime"		, true, 1, skipZero, showProcent);
+	addToStringData(data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, true, 2, skipZero, showProcent);
+	addToStringData(data, speed			, speedMultiplier		, "Speed"		, true, 3, skipZero, showProcent);
+	addToStringData(data, range			, rangeMultiplier		, "Range"		, true, 4, skipZero, showProcent);
 	addToStringData(data, angle									, "Angle"		, true, 5, skipZero);
-	addToStringData(data, knockback		, knockbackMultiplier	, "Knockback"	, true, 6, skipZero);
+	addToStringData(data, knockback		, knockbackMultiplier	, "Knockback"	, true, 6, skipZero, showProcent);
 	addToStringData(data, countOfUse							, "CountOfUse"	, true, 7, skipZero);
 	addToStringData(data, bounce								, "Bounce"		, true, 8, skipZero);
 	addToStringData(data, pirce									, "Pirce"		, true, 9, skipZero);
@@ -204,9 +207,9 @@ std::string WeaponStats::toString(bool skipZero)
 }
 
 void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame,std::string title,
-	bool skipZero,bool colorStats)
+	bool skipZero,bool colorStats, bool showProcent)
 {
-	std::string desc = title + toString(skipZero);
+	std::string desc = title + toString(skipZero, showProcent);
 	const char* cDesc = desc.c_str();
 	Vector2 size = MyFont::TextSize(cDesc, textSize, 0);
 

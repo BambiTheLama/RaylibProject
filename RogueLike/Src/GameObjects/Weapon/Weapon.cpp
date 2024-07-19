@@ -37,8 +37,8 @@ void Weapon::update()
 		WeaponNodeItem* wni = dynamic_cast<WeaponNodeItem*>(itemInHand);
 		if (!itemInHand || wni)
 		{
-			inventory->setHandItem(slot);
-			weaponSlots[i - 1] = wni;
+			inventory->setHandItem(removeSlot(i - 1));
+			addSlot(i - 1, wni);
 		}
 		break;
 
@@ -89,7 +89,10 @@ WeaponNodeItem* Weapon::removeSlot(int slot)
 	if(!weaponSlots[slot])
 		return nullptr;
 	WeaponNodeItem* node = weaponSlots[slot];
+	if (node)
+		node->getWeaponNode()->setStats(weaponSlotsDifoltStat[slot]);
 	weaponSlots[slot] = nullptr;
+	weaponSlotsDifoltStat[slot] = WeaponStats();
 	updateWeaponNodesEfects();
 	return node;
 }
@@ -108,11 +111,14 @@ void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 			continue;
 		if (!weaponSlots[i])
 			break;
+
 		weaponSlots[i]->drawDescription(pos, textSize);
 		return;
 	}
 	stats.draw(pos, textSize, flexBox);
 }
+
+
 
 bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 {
@@ -120,7 +126,10 @@ bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 		return false;
 	if (weaponSlots[slot])
 		return false;
+	if (!node)
+		return false;
 	weaponSlots[slot] = node;
+	weaponSlotsDifoltStat[slot] = node->getWeaponNode()->getStats();
 	updateWeaponNodesEfects();
 	return true;
 }
@@ -156,8 +165,14 @@ void Weapon::loadWeaponData(std::string weaponDataPath)
 
 void Weapon::updateWeaponNodesEfects()
 {
+	for (int i = 0; i < weaponSlots.size(); i++)
+	{
+		if (!weaponSlots[i])
+			continue;
+		weaponSlots[i]->getWeaponNode()->setStats(weaponSlotsDifoltStat[i]);
+	}
 	stats = difoltStats;
-	std::vector<WeaponNode> activationNodes;
+	std::vector<WeaponNode*> activationNodes;
 	for (auto wni: weaponSlots)
 	{
 		if (!wni)
@@ -174,17 +189,17 @@ void Weapon::updateWeaponNodesEfects()
 			}
 			else
 			{
-				activationNodes[activationNodes.size() - 1].addToStats(wn->getStats());
+				activationNodes[activationNodes.size() - 1]->addToStats(wn->getStats());
 			}
 		}
 		else
 		{
-			activationNodes.push_back(WeaponNode(*wn));
+			activationNodes.push_back(wn);
 		}
 	}
 	WeaponNodeTrigger wnt;
-	for (WeaponNode& wn : activationNodes)
-		wnt.pushBackNodeTrigger(wn);
+	for (WeaponNode* wn : activationNodes)
+		wnt.pushBackNodeTrigger(*wn);
 	weaponNodeTrigger = wnt;
 }
 
@@ -195,12 +210,20 @@ void Weapon::setNumberOfSlots(int slots)
 	if (weaponSlots.size() > slots)
 	{
 		while (weaponSlots.size() > slots)
+		{
 			weaponSlots.pop_back();
+			weaponSlotsDifoltStat.pop_back();
+		}
+
 	}
 	else
 	{
 		while (weaponSlots.size() < slots)
+		{
 			weaponSlots.push_back(nullptr);
+			weaponSlotsDifoltStat.push_back(WeaponStats());
+		}
+
 	}
 	updateWeaponNodesEfects();
 }
