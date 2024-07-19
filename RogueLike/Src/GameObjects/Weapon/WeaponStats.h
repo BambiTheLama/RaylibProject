@@ -2,6 +2,11 @@
 #include "json.hpp"
 #include "raylib.hpp"
 
+enum class StatType
+{
+	positive,negative,mix,neutral
+};
+
 struct WeaponStats
 {
 	float damage = 1.0f;
@@ -31,7 +36,15 @@ struct WeaponStats
 
 	WeaponStats& operator-=(const WeaponStats& ws);
 	
-	std::string toString();
+	std::string toString(bool skipZero = false);
 
-	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true, std::string title = "");
+	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true, std::string title = "", bool skipZero = false, bool colorStats = false);
+	
+private:
+
+	int getNumberOflines();
+
+	std::string getStringLine(int l, StatType& statType);
+
+	void drawColorStats(float x, float y, float textSize, Color negative, Color positive, Color line);
 };

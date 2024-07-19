@@ -156,6 +156,7 @@ void Weapon::loadWeaponData(std::string weaponDataPath)
 
 void Weapon::updateWeaponNodesEfects()
 {
+	stats = difoltStats;
 	std::vector<WeaponNode> activationNodes;
 	for (auto wni: weaponSlots)
 	{

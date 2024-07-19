@@ -42,5 +42,6 @@ void BossWall::update(float deltaTime)
 
 void BossWall::draw()
 {
-	DrawRectangleRec(getPos(), { 128,0,0,255 });
+    DrawRectangleRec(pos, RED);
+    DrawRectangleLinesEx(pos, 2, BLACK);
 }

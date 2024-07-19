@@ -14,6 +14,8 @@ Inventory::Inventory(GameObject* owner)
 
 Inventory::~Inventory()
 {
+	if (itemInHand)
+		delete itemInHand;
 	for (int i = 0; i < InventorySize; i++)
 	{
 		if (items[i] && i != usingItem)
@@ -40,11 +42,24 @@ Inventory::~Inventory()
 }
 void Inventory::updateClick()
 {
-	if (items[usingItem] && !items[usingItem]->canSwap())
+	if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		return;
-	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
-	if (!w)
+	Vector2 mouse = GetMousePosition();
+
+	for (int i = 0; i < InventorySize; i++)
+	{
+		if (!CheckCollisionPointRec(mouse, getItemPos(i)))
+			continue;
+		if (i == usingItem)
+			hideItem();
+		Item* item = items[i];
+		items[i] = itemInHand;
+		itemInHand = item;
+		if (i == usingItem)
+			showItem();
+		printf("ZMIANA %d\n", i);
 		return;
+	}
 	
 }
 
@@ -59,9 +74,14 @@ void Inventory::setItemToHand()
 	showItem();
 }
 
+Rectangle Inventory::getItemPos(int i)
+{
+	return { ItemsStartPos.x + ItemsSpaceing.x * i,ItemsStartPos.y + ItemsSpaceing.y * i,ItemsSize.x,ItemsSize.y };
+}
+
 void Inventory::update(float deltaTime)
 {
-	updateClick();
+	//updateClick();
 	if (!items[usingItem])
 		return;
 	items[usingItem]->update(deltaTime);
@@ -161,10 +181,11 @@ bool Inventory::addItem(Item* item)
 
 void Inventory::draw()
 {
-	Rectangle itemPos = { ItemsStartPos.x,ItemsStartPos.y,ItemsSize.x,ItemsSize.y };
+	Rectangle itemPos;
 	const float diffPos = 10;
 	for (int i = 0; i < InventorySize; i++)
 	{
+		itemPos = getItemPos(i);
 		if (i == usingItem)
 			itemPos = RectangleIncreasSize(itemPos, diffPos);
 
@@ -178,8 +199,7 @@ void Inventory::draw()
 			if (items[i])
 				items[i]->drawDescription(descriptionPos, fontSize);
 		}
-		itemPos.x += ItemsSpaceing.x;
-		itemPos.y += ItemsSpaceing.y;
+
 	}
 	if (itemInHand)
 	{

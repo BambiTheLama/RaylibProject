@@ -11,7 +11,7 @@ namespace MyFont
 
 	void SetUpFont()
 	{
-		diffFont = LoadFontEx("Res/PatrickHand.ttf",256,0,255*2);
+		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
 		icons.push_back(TextureController("Icons/DamageIcon.png"));
 		icons.push_back(TextureController("Icons/UseTimeIcon.png"));
@@ -186,7 +186,7 @@ void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, flo
 	EndScissorMode();
 }
 
-const float border = 5.0f;
+const float border = 20.0f;
 void DrawFrameRounded(Rectangle pos, Color frameColor, Color outlineColor)
 {
 	const float randnes = 0.2f;
@@ -198,11 +198,11 @@ void DrawFrameRounded(Rectangle pos, Color frameColor, Color outlineColor)
 }
 void DrawFrameRec(Rectangle pos, Color frameColor, Color outlineColor)
 {
-	const float randnes = 0.0f;
+	const float randnes = 0.5f;
 	const int segments = 1;
 	const float lineSize = 3.0f;
 	DrawRectangleRounded(pos, randnes, segments, frameColor);
-	DrawRectangleRoundedLines(RectangleDecreasSize(pos, lineSize), randnes, segments, lineSize, outlineColor);
+	DrawRectangleRoundedLines(RectangleDecreasSize(pos, lineSize - 1), randnes, segments, lineSize, outlineColor);
 }
 
 

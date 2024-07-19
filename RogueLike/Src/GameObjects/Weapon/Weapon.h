@@ -14,6 +14,7 @@ class Weapon
 	GameObject* thisObj = nullptr;
 	WeaponNodeTrigger weaponNodeTrigger;
 	std::vector<WeaponNodeItem*> weaponSlots;
+	WeaponStats difoltStats;
 protected:
 	int weaponTier = 0;
 	WeaponStats stats;
@@ -44,6 +45,8 @@ public:
 	bool addSlot(int slot, WeaponNodeItem* node);
 
 	float getRange() { return stats.range; }
+
+	void setStats(WeaponStats ws) { difoltStats = ws; stats = ws; }
 
 	static Rectangle getSlotPos(Rectangle pos, int slot = 0, int row = 0, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
 

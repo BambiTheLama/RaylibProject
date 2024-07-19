@@ -58,6 +58,13 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	wni = new WeaponNodeItem("Icons/DamageIcon.png");
 	wni->setWeaponNode(wn2);
 	addSlot(3, wni);
+	wnStats.rangeMultiplier = 0.0;
+	wnStats.damage = -1;
+	wnStats.countOfUse = -1;
+	WeaponNode wn3 = WeaponNode(wnStats);
+	wni = new WeaponNodeItem("Icons/DamageIcon.png");
+	wni->setWeaponNode(wn3);
+	addSlot(2, wni);
 	/*
 	wnStats.range = 100;
 	wnStats.countOfUse = 20;
@@ -254,5 +261,5 @@ void Sword::readFromWeaponData(std::string weaponType,int variant, std::vector<V
 		rotationPoint.y = weaponData[weaponType]["RotationPoint"][1];
 	}
 	stats.readStatsFromWeapon(weaponData[weaponType], 0);
-	
+	setStats(stats);
 }

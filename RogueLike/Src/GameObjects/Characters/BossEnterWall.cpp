@@ -58,7 +58,8 @@ void BossEnterWall::draw() {
         wasEnter = false;
         return;
     }
-    DrawFrameRec(pos, RED);
+    DrawRectangleRec(pos, PURPLE);
+    DrawRectangleLinesEx(pos, 2, BLACK);
 }
 
 void BossEnterWall::onCollisionEnter(Collider* collider)

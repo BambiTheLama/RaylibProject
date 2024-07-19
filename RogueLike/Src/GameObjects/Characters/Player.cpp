@@ -38,6 +38,7 @@ void Player::start() {
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
     inventory.update(deltaTime);
+    inventory.updateClick();
     timer += deltaTime;
     timer -= (float)((int)(timer / 1) * 1);
 }

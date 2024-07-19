@@ -366,7 +366,7 @@ void RoomEdytor::draw()
 	default:
 		break;
 	}
-	MyFont::DrawTextWithOutline(TextFormat("UsingBlock = %d\n\nRoomID = %d\n\nRoomType = [%s]", usingBlock,ID, roomName.c_str()), 0, 10, 32, WHITE, BLACK);
+	MyFont::DrawTextWithOutline(TextFormat("UsingBlock = %d\nRoomID = %d\nRoomType = [%s]", usingBlock,ID, roomName.c_str()), 0, 10, 32, WHITE, BLACK);
 
 	MyFont::DrawTextWithOutline(TextFormat("Boss = %d  [%dx%d]", bossRoom.size(),bossW,bossH), 1000, 200, 32, WHITE, BLACK);
 	MyFont::DrawTextWithOutline(TextFormat("Special = %d", specialRoom.size()), 1000, 250, 32, WHITE, BLACK);

@@ -2,7 +2,7 @@
 #include "../../Font.h"
 
 static const char* statsJsonName = "Stats";
-
+static const float tolerance = 0.1f;
 
 void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int& stat)
 {
@@ -151,19 +151,24 @@ WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
 	pirce					-= ws.pirce;
 	return *this;
 }
-void addToStringData(std::string& data, float value,float valueMulti, std::string name, bool icon = false, int ID = 0)
+void addToStringData(std::string& data, float value, float valueMulti, std::string name, bool icon = false,
+	int ID = 0, bool skip = false)
 {
+	if (skip && fabs(value) < tolerance && fabs(valueMulti) < tolerance)
+		return;
 	std::string dataValue = std::to_string(value);
-	std::string dataValueMulti = std::to_string(valueMulti);
+	std::string dataValueMulti = std::to_string(valueMulti*100);
 	dataValue.erase(dataValue.size() - 5, 5);
 	dataValueMulti.erase(dataValueMulti.size() - 4, 5);
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
-	data += "{" + name + "}: " + dataValue + std::string("(") + dataValueMulti + std::string(")\n");
+	data += "{" + name + "}: " + dataValue + std::string("(") + dataValueMulti + std::string("%)\n");
 }
 
-void addToStringData(std::string& data, float value, std::string name, bool icon = false, int ID = 0)
+void addToStringData(std::string& data, float value, std::string name, bool icon = false, int ID = 0, bool skip = false)
 {
+	if (skip && fabs(value) < tolerance)
+		return;
 	std::string dataValue = std::to_string(value);
 	dataValue.erase(dataValue.size() - 5, 5);
 	if (icon)
@@ -171,32 +176,37 @@ void addToStringData(std::string& data, float value, std::string name, bool icon
 	data += "{" + name + "}: " + dataValue + std::string("\n");
 }
 
-void addToStringData(std::string& data, int value, std::string name, bool icon = false, int ID = 0)
+void addToStringData(std::string& data, int value, std::string name, bool icon = false, int ID = 0, bool skip = false)
 {
+	if (labs(value) < 0)
+		return;
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
 	data += "{" + name + "}: " + std::to_string(value) + std::string("\n");
 }
 
-std::string WeaponStats::toString()
+
+std::string WeaponStats::toString(bool skipZero)
 {
 	std::string data="";
-	addToStringData(data, damage		, damageMultiplier		, "Damage"		, true, 0);
-	addToStringData(data, useTime		, useTimeMultiplier		, "UseTime"		, true, 1);
-	addToStringData(data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, true, 2);
-	addToStringData(data, speed			, speedMultiplier		, "Speed"		, true, 3);
-	addToStringData(data, range			, rangeMultiplier		, "Range"		, true, 4);
-	addToStringData(data, angle									, "Angle"		, true, 5);
-	addToStringData(data, knockback		, knockbackMultiplier	, "Knockback"	, true, 6);
-	addToStringData(data, countOfUse							, "CountOfUse"	, true, 7);
-	addToStringData(data, bounce								, "Bounce"		, true, 8);
-	addToStringData(data, pirce									, "Pirce"		, true, 9);
+
+	addToStringData(data, damage		, damageMultiplier		, "Damage"		, true, 0, skipZero);
+	addToStringData(data, useTime		, useTimeMultiplier		, "UseTime"		, true, 1, skipZero);
+	addToStringData(data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, true, 2, skipZero);
+	addToStringData(data, speed			, speedMultiplier		, "Speed"		, true, 3, skipZero);
+	addToStringData(data, range			, rangeMultiplier		, "Range"		, true, 4, skipZero);
+	addToStringData(data, angle									, "Angle"		, true, 5, skipZero);
+	addToStringData(data, knockback		, knockbackMultiplier	, "Knockback"	, true, 6, skipZero);
+	addToStringData(data, countOfUse							, "CountOfUse"	, true, 7, skipZero);
+	addToStringData(data, bounce								, "Bounce"		, true, 8, skipZero);
+	addToStringData(data, pirce									, "Pirce"		, true, 9, skipZero);
 	return data;
 }
 
-void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame,std::string title)
+void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame,std::string title,
+	bool skipZero,bool colorStats)
 {
-	std::string desc = title + toString();
+	std::string desc = title + toString(skipZero);
 	const char* cDesc = desc.c_str();
 	Vector2 size = MyFont::TextSize(cDesc, textSize, 0);
 
@@ -206,18 +216,176 @@ void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame,std
 		pos.height = size.y;
 	}
 	else
-	{
 		BeginScissorMode((int)pos.x, (int)pos.y, (int)pos.width, (int)pos.height);
-	}
 	if (frame)
-	{
 		DrawFrameRounded(pos, BLUE, BLACK);
-	}
-	//DrawRectangleRec(pos, BLUE);
-	MyFont::DrawTextWithOutline(cDesc, pos.x, pos.y, textSize, WHITE, BLACK);
-	if (!flexRec)
+
+	if (colorStats)
 	{
+		int lines = std::count(title.begin(), title.end(), '\n');
+		MyFont::DrawTextWithOutline(title.c_str(), pos.x, pos.y, textSize, WHITE, BLACK);
+		drawColorStats(pos.x, pos.y + lines * textSize, textSize, RED, GREEN, BLACK);
+	}
+	else
+		MyFont::DrawTextWithOutline(cDesc, pos.x, pos.y, textSize, WHITE, BLACK);
+
+	if (!flexRec)
 		EndScissorMode();
+
+}
+
+void isLineEgsist(int& lines,int v)
+{
+	if (abs(v) <= 0)
+		return;
+	lines++;
+}
+
+void isLineEgsist(int& lines,float v)
+{
+	if (abs(v) < tolerance)
+		return;
+	lines++;
+}
+
+void isLineEgsist(int& lines, float v, float vMultiplier)
+{
+	if (abs(v) < tolerance && abs(vMultiplier) < tolerance)
+		return;
+	lines++;
+}
+
+int WeaponStats::getNumberOflines()
+{
+	int lines = 0;
+	isLineEgsist(lines, damage		, damageMultiplier		);
+	isLineEgsist(lines, useTime		, useTimeMultiplier		);
+	isLineEgsist(lines, reloadTime	, reloadTimeMultiplier	);
+	isLineEgsist(lines, speed		, speedMultiplier		);
+	isLineEgsist(lines, range		, rangeMultiplier		);
+	isLineEgsist(lines, angle								);
+	isLineEgsist(lines, knockback	, knockbackMultiplier	);
+	isLineEgsist(lines, countOfUse							);
+	isLineEgsist(lines, bounce								);
+	isLineEgsist(lines, pirce								);
+	return lines;
+}
+
+
+void toStringData(int& line, int i, std::string& data, float value, float valueMulti, std::string name, int ID, StatType& statType)
+{
+	if (fabs(value) < tolerance && fabs(valueMulti) < tolerance)
+		return;
+	if (line == i)
+	{
+		addToStringData(data, value, valueMulti, name, true, ID);
+		if (value == 0.0f)
+			statType = StatType::neutral;
+		else if (value < 0.0f)
+			statType = StatType::negative;
+		else
+			statType = StatType::positive;
+
+		if (statType == StatType::neutral)
+		{
+			if (valueMulti == 0.0f)
+				statType = StatType::neutral;
+			else if (valueMulti < 0.0f)
+				statType = StatType::negative;
+			else
+				statType = StatType::positive;
+		}
+		else if (statType == StatType::negative)
+		{
+			if (valueMulti > 0.0f)
+				statType = StatType::mix;
+		}
+		else
+		{
+			if (valueMulti < 0.0f)
+				statType = StatType::mix;
+		}
+
+	}
+	line++;
+}
+
+void toStringData(int& line, int i, std::string& data, float value, std::string name, int ID, StatType& statType)
+{
+	if (fabs(value) < tolerance)
+		return;
+	if (line == i)
+	{
+		addToStringData(data, value, name, true, ID);
+		if (value == 0)
+			statType = StatType::neutral;
+		else if (value < 0.0f)
+			statType = StatType::negative;
+		else
+			statType = StatType::positive;
 	}
 
+	line++;
+}
+
+void toStringData(int& line, int i, std::string& data, int value, std::string name, int ID, StatType& statType)
+{
+	if (labs(value) < 0)
+		return;
+	if (line == i)
+	{
+		addToStringData(data, value, name, true, 0);
+		if (value == 0)
+			statType = StatType::neutral;
+		else if (value < 0)
+			statType = StatType::negative;
+		else if (value > 0)
+			statType = StatType::positive;
+	}
+
+	line++;
+}
+
+std::string WeaponStats::getStringLine(int l, StatType& statType)
+{
+	std::string data="";
+	int line = 0;
+	StatType type;
+	toStringData(line, l, data, damage		, damageMultiplier		, "Damage"		, 0, statType);
+	toStringData(line, l, data, useTime		, useTimeMultiplier		, "UseTime"		, 1, statType);
+	toStringData(line, l, data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, 2, statType);
+	toStringData(line, l, data, speed		, speedMultiplier		, "Speed"		, 3, statType);
+	toStringData(line, l, data, range		, rangeMultiplier		, "Range"		, 4, statType);
+	toStringData(line, l, data, angle								, "Angle"		, 5, type);
+	toStringData(line, l, data, knockback	, knockbackMultiplier	, "Knockback"	, 6, statType);
+	toStringData(line, l, data, countOfUse							, "CountOfUse"	, 7, statType);
+	toStringData(line, l, data, bounce								, "Bounce"		, 8, statType);
+	toStringData(line, l, data, pirce								, "Pirce"		, 9, statType);
+	return data;
+}
+
+void WeaponStats::drawColorStats(float x, float y, float textSize, Color negative, Color positive, Color line)
+{
+	int n = getNumberOflines();
+	for (int i = 0; i < n; i++)
+	{
+		StatType statType = StatType::neutral;
+		std::string str = getStringLine(i, statType);
+		const char *strchar = str.c_str();
+		Color c = WHITE;
+		switch (statType)
+		{
+		case StatType::positive:
+			c = positive;
+			break;
+		case StatType::negative:
+			c = negative;
+			break;
+		case StatType::mix:
+			c = ORANGE;
+			break;
+		}
+		MyFont::DrawTextWithOutline(strchar, x, y, textSize, c, line);
+		y += textSize;
+	}
 }

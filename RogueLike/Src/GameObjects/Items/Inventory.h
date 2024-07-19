@@ -44,6 +44,8 @@ public:
 	Item* getHandItem() { return itemInHand; }
 
 	void setHandItem(Item* i) { itemInHand = i; }
+
+	Rectangle getItemPos(int i);
 private:
 	void hideItem();
 
