@@ -10,27 +10,35 @@ class Inventory;
 class GameObject;
 class Weapon
 {
-	Inventory* inventory;
+	Inventory* inventory = nullptr;
 	GameObject* thisObj = nullptr;
+	WeaponStats difoltStats;
 	WeaponNodeTrigger weaponNodeTrigger;
 	std::vector<WeaponStats> weaponSlotsDifoltStat;
 	std::vector<WeaponNodeItem*> weaponSlots;
-	WeaponStats difoltStats;
+	int cursorAt = -1;
 protected:
-	int weaponTier = 0;
-	WeaponStats stats;
 	static nlohmann::json weaponData;
-	Vector2 rotationPoint;
-	float angle;
+	int weaponTier = 0;
+	float angle = 0.0f;
+	Vector2 rotationPoint = { 0.0f,0.0f };
+	WeaponStats stats;
 	TextureController texture;
 public:
 	Weapon();
 
 	~Weapon();
 
-	void update();
+	void updateClick();
 
-	void clickAtInventory();
+	void nextSlot();
+
+	void privSlot();
+
+	bool upSlot();
+
+	bool downSlot();
+
 
 	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
 

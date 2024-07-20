@@ -8,10 +8,15 @@ enum class Input {
     Attack1, 
     Attack2, 
     IDE, 
-    NextItem, 
+    NextSlot, 
+    PrivSlot,
+    UpSlot,
+    DownSlot,
+    NextItem,
     PrivItem,
     SwapDescriptionVisible,
-    SetItemInHand
+    SetItemInHand,
+
 };
 
 enum class Action

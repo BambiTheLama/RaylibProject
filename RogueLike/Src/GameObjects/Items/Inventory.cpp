@@ -2,6 +2,7 @@
 #include "../GameObject.h"
 #include "../Game.h"
 #include "../Weapon/Weapon.h"
+
 Inventory::Inventory(GameObject* owner)
 {
 	for (int i = 0; i < InventorySize; i++)
@@ -79,9 +80,14 @@ Rectangle Inventory::getItemPos(int i)
 	return { ItemsStartPos.x + ItemsSpaceing.x * i,ItemsStartPos.y + ItemsSpaceing.y * i,ItemsSize.x,ItemsSize.y };
 }
 
+void Inventory::swapVisibleDescriptions()
+{
+	showDescription = !showDescription;
+	choseFromEq = true;
+}
+
 void Inventory::update(float deltaTime)
 {
-	//updateClick();
 	if (!items[usingItem])
 		return;
 	items[usingItem]->update(deltaTime);
@@ -105,6 +111,62 @@ void Inventory::privItem()
 	hideItem(); 
 	usingItem = (usingItem - 1 + InventorySize) % InventorySize; 
 	showItem(); 
+}
+
+void Inventory::nextSlot()
+{
+	if (choseFromEq)
+	{
+		nextItem();
+		return;
+	}
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (!w)
+	{
+		choseFromEq = true;
+		return;
+	}
+	w->nextSlot();
+}
+
+void Inventory::privSlot()
+{
+	if (choseFromEq)
+	{
+		privItem();
+		return;
+	}
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (!w)
+	{
+		choseFromEq = true;
+		return;
+	}
+	w->privSlot();
+}
+
+void Inventory::upSlot()
+{
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (!w)
+	{
+		choseFromEq = true;
+		return;
+	}
+	if (w->upSlot())
+		choseFromEq = false;
+}
+
+void Inventory::downSlot()
+{
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (!w)
+	{
+		choseFromEq = true;
+		return;
+	}
+	if (w->downSlot())
+		choseFromEq = true;
 }
 
 void Inventory::hideItem()
@@ -135,7 +197,7 @@ void Inventory::showItem()
 
 void Inventory::use(Vector2 dir, float deltaTime)
 {
-	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem])
+	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem] || showDescription)
 		return;
 
 	items[usingItem]->use(dir, deltaTime);
@@ -193,7 +255,7 @@ void Inventory::draw()
 		if (items[i])
 			items[i]->drawIcon(RectangleDecreasSize(itemPos, 2), false);
 
-		if (i == usingItem)
+		if (i == usingItem && showDescription)
 		{
 			itemPos = RectangleDecreasSize(itemPos, diffPos);
 			if (items[i])
@@ -203,8 +265,9 @@ void Inventory::draw()
 	}
 	if (itemInHand)
 	{
-		itemPos.x = 0;
-		itemPos.y = 0;
+		Vector2 mouse = GetMousePosition();
+		itemPos.x = mouse.x;
+		itemPos.y = mouse.y;
 		DrawFrameRec(itemPos, ORANGE);
 		itemInHand->drawIcon(itemPos);
 	}

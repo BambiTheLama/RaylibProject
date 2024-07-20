@@ -9,7 +9,6 @@ class Item
 protected:
 	Inventory* inventory;
 	GameObject* owner = nullptr;
-	static bool showDescriptions;
 public:
 	Item(){}
 
@@ -28,8 +27,6 @@ public:
 	virtual void use(Vector2 dir, float deltaTime){}
 
 	virtual bool canSwap() { return true; }
-
-	static void swapVisibleDescriptions() { showDescriptions = !showDescriptions; }
 
 	friend class Inventory;
 	friend class Weapon;

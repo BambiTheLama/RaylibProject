@@ -7,6 +7,7 @@
 #include "../Items/Item.h"
 
 Player::Player(float x, float y){
+
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
     pos.y -= pos.height / 2;
@@ -44,8 +45,11 @@ void Player::update(float deltaTime) {
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
-    pos.x += dir.x * deltaTime * speed;
-    pos.y += dir.y * deltaTime * speed;
+    if (!inventory.isDescriptionShowed())
+    {
+        pos.x += dir.x * deltaTime * speed;
+        pos.y += dir.y * deltaTime * speed;
+    }
     inventory.update(0.0f);
 }
 
@@ -71,11 +75,32 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         inventory.privItem();
         break;
     case Input::SwapDescriptionVisible:
-        Item::swapVisibleDescriptions();
+        inventory.swapVisibleDescriptions();
         break;
     case Input::SetItemInHand:
         inventory.setItemToHand();
         break;
+
+    case Input::NextSlot:
+        if (inventory.isDescriptionShowed())
+            inventory.nextSlot();
+        break;
+    case Input::PrivSlot:
+        if (inventory.isDescriptionShowed())
+            inventory.privSlot();
+        break;
+    case Input::UpSlot:
+        if (inventory.isDescriptionShowed())
+            inventory.upSlot();
+        break;
+    case Input::DownSlot:
+        if (inventory.isDescriptionShowed())
+            inventory.downSlot();
+        break;
+
+
+
+
     default:
         break;
     }

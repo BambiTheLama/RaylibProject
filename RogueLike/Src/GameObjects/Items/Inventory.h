@@ -16,6 +16,8 @@ class Inventory
 	Item* items[InventorySize];
 	Item* itemInHand = nullptr;
 	int usingItem = 0;
+	bool showDescription = false;
+	bool choseFromEq = true;
 public:
 	Inventory(GameObject* owner = nullptr);
 
@@ -28,6 +30,14 @@ public:
 	void nextItem();
 
 	void privItem();
+
+	void nextSlot();
+
+	void privSlot();
+
+	void upSlot();
+
+	void downSlot();
 
 	void use(Vector2 dir, float deltaTime);
 
@@ -46,6 +56,10 @@ public:
 	void setHandItem(Item* i) { itemInHand = i; }
 
 	Rectangle getItemPos(int i);
+
+	void swapVisibleDescriptions();
+
+	bool isDescriptionShowed() { return showDescription; }
 private:
 	void hideItem();
 

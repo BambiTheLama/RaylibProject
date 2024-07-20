@@ -22,9 +22,9 @@ Weapon::~Weapon()
 	weaponSlots.clear();
 }
 
-void Weapon::update() 
+void Weapon::updateClick()
 { 
-	if (!Item::showDescriptions || !inventory || !IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	if (!inventory)
 		return;
 	Vector2 mouse = GetMousePosition();
 	int i = 0;
@@ -47,6 +47,34 @@ void Weapon::update()
 	updateWeaponNodesEfects();
 }
 
+void Weapon::nextSlot()
+{
+	if (cursorAt +1 < weaponSlots.size())
+		cursorAt++;
+}
+
+void Weapon::privSlot()
+{
+	if (cursorAt > 0)
+		cursorAt--;
+}
+
+bool Weapon::upSlot()
+{
+	if (cursorAt < 0)
+	{
+		cursorAt = 0;
+		return true;
+	}
+	return true;
+}
+
+bool Weapon::downSlot()
+{
+	cursorAt = -1;
+	return true;
+}
+
 WeaponNodeItem* Weapon::removeWeaponNodeItem(int n)
 {
 	if (n<0 || n>weaponSlots.size())
@@ -64,7 +92,7 @@ void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 	for (auto slot : weaponSlots)
 	{
 		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
-		bool isCursorAt = CheckCollisionPointRec(mouse, slotPos);
+		bool isCursorAt = CheckCollisionPointRec(mouse, slotPos) || i - 1 == cursorAt;
 		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
 		if (slot)
 			slot->drawIcon(RectangleDecreasSize(slotPos,4));

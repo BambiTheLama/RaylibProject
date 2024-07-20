@@ -27,11 +27,23 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	Collider::getThisObj();
 	trigger = true;
 	updateWeaponSize();
+
+
+	WeaponStats wnStats;
+	wnStats.range = 1000;
+	wnStats.rangeMultiplier = 1;
+	wnStats.bounce = 3;
+
+	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
+	WeaponNodeItem* wni = new WeaponNodeItem("Icons/AngleIcon.png");
+	wni->setWeaponNode(wn);
+	addSlot(0, wni);
+
+
 }
 
 void Sword::update(float deltaTime)
 {
-	Weapon::update();
 	if (owner)
 	{
 		Rectangle p = owner->getPos();
@@ -112,8 +124,6 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon)
 
 void Sword::drawDescription(Rectangle pos, float textSize)
 {
-	if (!Item::showDescriptions)
-		return;
 	float bolder = getFrameBolder();
 	drawWeaponNodeStats({ pos.x + pos.width + 3 * bolder,pos.y,0,0 }, textSize, true);
 	DrawFrameRounded(pos, BLUE, BLACK);
@@ -126,7 +136,7 @@ void Sword::drawDescription(Rectangle pos, float textSize)
 
 void Sword::use(Vector2 dir, float deltaTime)
 {
-	if (useTime <= 0 && reloadTime <= 0 && !showDescriptions)
+	if (useTime <= 0 && reloadTime <= 0)
 	{
 		numberOfUse = stats.countOfUse;
 		left = !left;

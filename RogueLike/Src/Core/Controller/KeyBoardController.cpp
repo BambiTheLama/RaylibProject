@@ -19,6 +19,15 @@ void KeyBoardController::update(float deltaTime) {
             moveDir.x += 1;
         if (IsKeyDown(keyLeft))
             moveDir.x -= 1;
+
+        if (IsKeyPressed(keyUP))
+            inputs.push_back(Input::UpSlot);
+        if (IsKeyPressed(keyDown))
+            inputs.push_back(Input::DownSlot);
+        if (IsKeyPressed(keyRight))
+            inputs.push_back(Input::NextSlot);
+        if (IsKeyPressed(keyLeft))
+            inputs.push_back(Input::PrivSlot);
         if (IsKeyDown(keyAttack1))
             inputs.push_back(Input::Attack1);
         if (IsKeyPressed(keyNextItem))
