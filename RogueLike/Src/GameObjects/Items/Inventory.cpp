@@ -68,6 +68,13 @@ void Inventory::setItemToHand()
 {
 	if (items[usingItem] && !items[usingItem]->canSwap())
 		return;
+	if (!choseFromEq)
+	{
+		Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+		if (w)
+			w->takeItem();
+		return;
+	}
 	hideItem();
 	Item* item = itemInHand;
 	itemInHand = items[usingItem];
@@ -84,6 +91,11 @@ void Inventory::swapVisibleDescriptions()
 {
 	showDescription = !showDescription;
 	choseFromEq = true;
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (w)
+		w->resetSlot();
+
+
 }
 
 void Inventory::update(float deltaTime)
@@ -251,7 +263,7 @@ void Inventory::draw()
 		if (i == usingItem)
 			itemPos = RectangleIncreasSize(itemPos, diffPos);
 
-		DrawFrameRec(itemPos, i == usingItem ? RED : BLUE);
+		DrawFrameRec(itemPos, i == usingItem ? (choseFromEq ? (showDescription ? PINK : RED) : ORANGE) : BLUE);
 		if (items[i])
 			items[i]->drawIcon(RectangleDecreasSize(itemPos, 2), false);
 

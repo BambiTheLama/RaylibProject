@@ -12,18 +12,11 @@ Engine::Engine() {
     srand(69);
     const int screenWidth = 1600;
     const int screenHeight = 900;
-
+    SetConfigFlags(FLAG_WINDOW_HIGHDPI);
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
     //ToggleFullscreen();
-    std::string path = "Res/Rooms.json";
-    std::ifstream reader(path.c_str());
-    if (reader.is_open())
-    {
-        nlohmann::json j;
-        reader >> j;
-        reader.close();
-        loadRooms(j);
-    }
+
     TextureController::setUpTexture("Res/");
     //SetTargetFPS(60);
     MyFont::SetUpFont();

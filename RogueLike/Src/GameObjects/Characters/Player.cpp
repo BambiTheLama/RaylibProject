@@ -5,6 +5,8 @@
 #include "../Game.h"
 #include "raymath.h"
 #include "../Items/Item.h"
+#include "../../Core/Controller/KeyBoardController.h"
+#include "../../Core/Controller/GamePadController.h"
 
 Player::Player(float x, float y){
 
@@ -18,7 +20,7 @@ Player::Player(float x, float y){
         {pos.width / 4,					pos.height / 4 + pos.height / 2}
     };
     collisionElemnets.push_back(new CollisionElementLines(col));
-
+    reactOnlyToSolid = true;
     //drawOrder = 10;
     type = ObjectType::Player;
     mass = 10;
@@ -42,6 +44,20 @@ void Player::update(float deltaTime) {
     inventory.updateClick();
     timer += deltaTime;
     timer -= (float)((int)(timer / 1) * 1);
+
+    if (IsKeyPressed(KEY_F5))
+    {
+        Controller* c;
+        if (!setController(c = new KeyBoardController()))
+            delete c;
+    }
+    if (IsKeyPressed(KEY_F6))
+    {
+        Controller* c;
+        if (!setController(c = new GamePadController()))
+            delete c;
+    }
+
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
@@ -58,8 +74,6 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         useDir = Vector2Normalize(cursorDir);
     switch (input)
     {
-    case Input::Interact:
-        break;
     case Input::Attack1:
         //weapon->use(cursorDir, deltaTime);
         inventory.use(useDir, deltaTime);
@@ -69,16 +83,19 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::IDE:
         break;
     case Input::NextItem:
-        inventory.nextItem();
+        if (!inventory.isDescriptionShowed())
+            inventory.nextItem();
         break;
     case Input::PrivItem:
-        inventory.privItem();
+        if (!inventory.isDescriptionShowed())
+            inventory.privItem();
         break;
     case Input::SwapDescriptionVisible:
         inventory.swapVisibleDescriptions();
         break;
-    case Input::SetItemInHand:
-        inventory.setItemToHand();
+    case Input::Interact:
+        if (inventory.isDescriptionShowed())
+            inventory.setItemToHand();
         break;
 
     case Input::NextSlot:

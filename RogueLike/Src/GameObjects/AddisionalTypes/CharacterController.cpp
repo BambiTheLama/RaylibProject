@@ -16,6 +16,7 @@ CharacterController::~CharacterController() {
 
 
 void CharacterController::update(float deltaTime) {
+
     if (!controller)
         return;
     controller->update(deltaTime);
@@ -33,6 +34,7 @@ void CharacterController::update(float deltaTime) {
     Vector2 inputDir = controller->getInputDir();
     for (auto i : inputs)
         character->action(i, moveDir, inputDir, deltaTime);
+
 }
 
 void CharacterController::setCharacter(Character* character) 

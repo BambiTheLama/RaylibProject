@@ -20,7 +20,7 @@ protected:
     bool trigger = false;
     int mass = 1;
     bool mirror = false;
-
+    bool reactOnlyToSolid = false;
 public:
     Collider();
 
@@ -32,7 +32,9 @@ public:
 
     void clearForces() { allForces.clear(); }
 
-    void isResistToForces(bool isResist);
+    void setResistToForces(bool isResist);
+
+    void setReactOnlyToSolid(bool reactOnlyToSolid) { this->reactOnlyToSolid = reactOnlyToSolid; }
 
     virtual void onCollisionEnter(Collider *collider) {
     }
@@ -68,6 +70,8 @@ public:
     friend class Controller;
 private:
     void clearCollider();
+
+    void overlapMove(Collider* collider, Vector2 dir, float fullMass, float dist);
 
     bool isColliding(Collider *collider, float deltaTime);
 

@@ -4,14 +4,17 @@
     <Filter Include="Core">
       <UniqueIdentifier>{11d53e83-cb4a-4d38-99ae-8d298051a5a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Controllers">
+      <UniqueIdentifier>{f7078cd4-35c3-49c1-9020-3b51887552ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Floor">
+      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObjects">
       <UniqueIdentifier>{8a179deb-aec9-48d8-8787-ad8ea8af4362}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\AddisionalTypes">
       <UniqueIdentifier>{cf6bd629-9c31-45fc-a3cf-4304654f0622}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Controllers">
-      <UniqueIdentifier>{f7078cd4-35c3-49c1-9020-3b51887552ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\Characters">
       <UniqueIdentifier>{4bf0bcaa-2ad6-4acc-956d-3a1ce35dc194}</UniqueIdentifier>
@@ -21,9 +24,6 @@
     </Filter>
     <Filter Include="GameObjects\Colliders">
       <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Floor">
-      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\Projectal">
       <UniqueIdentifier>{1e008653-3f97-4845-9249-6a57a9d9ca31}</UniqueIdentifier>

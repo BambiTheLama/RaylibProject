@@ -44,7 +44,7 @@ void Controller::update(float deltaTime)
             {
                 Collider* c = dynamic_cast<Collider*>(gm);
                 if (c)
-                    c->isResistToForces((int)Action::ForcesOff & (int)controllAction->action);
+                    c->setResistToForces((int)Action::ForcesOff & (int)controllAction->action);
                 controllAction->time = -1;
             }
             break;

@@ -39,6 +39,10 @@ public:
 
 	bool downSlot();
 
+	void takeItem();
+
+	void resetSlot() { cursorAt = -1; }
+
 
 	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
 

@@ -19,6 +19,10 @@ public:
 
     void setController(CharacterController* c);
 
+    void setGameObjectControlled(GameObject* gm);
+
+    bool setController(Controller* c);
+
     CharacterController* getCharacterController() { return controllBy; }
 
     virtual void destoryController();

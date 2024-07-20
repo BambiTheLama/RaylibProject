@@ -69,10 +69,7 @@ void GameScene::onDestroy()
 
 void GameScene::update(float deltaTime) {
     Vector2 cursor = GetScreenToWorld2D(GetMousePosition(), camera);
-    if (IsKeyDown(KEY_UP))
-        camera.zoom += deltaTime;
-    if (IsKeyDown(KEY_DOWN))
-        camera.zoom -= deltaTime;
+
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
         for (int i = 0; i < 1; i++)
             addObject(new Wolf(cursor.x + i, cursor.y + i));

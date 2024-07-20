@@ -47,6 +47,8 @@ void Weapon::updateClick()
 	updateWeaponNodesEfects();
 }
 
+
+
 void Weapon::nextSlot()
 {
 	if (cursorAt +1 < weaponSlots.size())
@@ -75,6 +77,24 @@ bool Weapon::downSlot()
 	return true;
 }
 
+void Weapon::takeItem()
+{
+	if (cursorAt < 0 || cursorAt >= weaponSlots.size())
+		return;
+	Item* item = inventory->getHandItem();
+	if (!item)
+	{
+		inventory->setHandItem(removeSlot(cursorAt));
+		return;
+	}
+	WeaponNodeItem* wni = dynamic_cast<WeaponNodeItem*>(item);
+	if (!wni)
+		return;
+	inventory->setHandItem(removeSlot(cursorAt));
+	addSlot(cursorAt, wni);
+	
+}
+
 WeaponNodeItem* Weapon::removeWeaponNodeItem(int n)
 {
 	if (n<0 || n>weaponSlots.size())
@@ -92,7 +112,12 @@ void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 	for (auto slot : weaponSlots)
 	{
 		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
-		bool isCursorAt = CheckCollisionPointRec(mouse, slotPos) || i - 1 == cursorAt;
+		if (CheckCollisionPointRec(mouse, slotPos))
+		{
+			cursorAt = i - 1;
+		}
+
+		bool isCursorAt = i - 1 == cursorAt;
 		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
 		if (slot)
 			slot->drawIcon(RectangleDecreasSize(slotPos,4));
@@ -128,23 +153,15 @@ WeaponNodeItem* Weapon::removeSlot(int slot)
 
 void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 {
-	Vector2 mouse = GetMousePosition();
-	if (!CheckCollisionPointRec(mouse, weaponSlotPos))
+	if (cursorAt >= 0 && cursorAt < weaponSlots.size() && weaponSlots[cursorAt])
+	{
+		weaponSlots[cursorAt]->drawDescription(pos, textSize);
+	}
+	else
 	{
 		stats.draw(pos, textSize, flexBox);
-		return;
 	}
-	for (int i = 0; i < weaponSlots.size(); i++)
-	{
-		if (!CheckCollisionPointRec(mouse, getSlotPos(weaponSlotPos, i)))
-			continue;
-		if (!weaponSlots[i])
-			break;
 
-		weaponSlots[i]->drawDescription(pos, textSize);
-		return;
-	}
-	stats.draw(pos, textSize, flexBox);
 }
 
 
@@ -230,6 +247,7 @@ void Weapon::updateWeaponNodesEfects()
 	for (WeaponNode* wn : activationNodes)
 		wnt.pushBackNodeTrigger(*wn);
 	weaponNodeTrigger = wnt;
+	printf(stats.toString().c_str());
 }
 
 void Weapon::setNumberOfSlots(int slots)

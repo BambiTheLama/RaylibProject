@@ -11,6 +11,10 @@ class StandardProjectal:public Projectal,public GameObject,public Collider
 public:
 	StandardProjectal();
 
+	void start() override;
+
+	void destroy() override;
+
 	void update(float deltaTime);
 
 	void draw();

@@ -153,7 +153,15 @@ Floor::~Floor()
 
 void Floor::createFloor()
 {
-
+    std::string path = "Res/Rooms.json";
+    std::ifstream reader(path.c_str());
+    if (reader.is_open())
+    {
+        nlohmann::json j;
+        reader >> j;
+        reader.close();
+        loadRooms(j);
+    }
     addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
     addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, pos.width + 200.0f, 100.0f));
     addObject(new BossWall(pos.x + pos.width, pos.y - 100.0f, 100.0f, pos.height + 200.0f));

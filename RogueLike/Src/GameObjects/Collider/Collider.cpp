@@ -69,7 +69,7 @@ void Collider::addForce(Vector2 dir, float power,float time)
     allForces.push_back(new Vector3{ dir.x*power, dir.y*power, time });
 }
 
-void Collider::isResistToForces(bool isResist)
+void Collider::setResistToForces(bool isResist)
 {
     if (isResist)
     {
@@ -122,13 +122,27 @@ Vector2 Collider::getCollisionDir(Collider* collider)
         {
             Vector2 dir;
             float dist;
-            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist)) {
+            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist)) 
                 return dir;
-            }
+            
         }
 
     return { 0,0 };
 }
+
+void Collider::overlapMove(Collider* collider,Vector2 dir, float fullMass, float dist)
+{
+    if (reactOnlyToSolid && !collider->solidObject)
+        return;
+    if (collider->reactOnlyToSolid)
+        return;
+    float procent = 1.0f;
+    if (!collider->solidObject)
+        procent = collider->mass / fullMass;
+    thisObj->pos.x += dir.x * procent * dist;
+    thisObj->pos.y += dir.y * procent * dist;
+}
+
 
 bool Collider::isColliding(Collider *collider,float deltaTime) {
     Vector2 pos = thisObj->getPosPoint();
@@ -141,32 +155,22 @@ bool Collider::isColliding(Collider *collider,float deltaTime) {
         {
             Vector2 dir;
             float dist;
-            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist)) {
+            if (!c->isCollidiongWith(pos, c2, otherPos, &dir, &dist))
+                continue;
 
-                if (trigger || collider->trigger)
-                    return true;
-                float massAdd = (float)mass + collider->mass;
-
-                if (!solidObject)
-                {
-                    float massMove = 1;
-                    if (!collider->solidObject)
-                        massMove = (collider->mass / massAdd);
-                    thisObj->pos.x += dir.x * massMove * dist;
-                    thisObj->pos.y += dir.y * massMove * dist;
-                }
-
-                if (!collider->solidObject)
-                {
-                    float massMove = 1;
-                    if (!solidObject)
-                        massMove = (mass / massAdd);
-                    otherObj->pos.x -= dir.x * massMove * dist;
-                    otherObj->pos.y -= dir.y * massMove * dist;
-                }
-
+            if (trigger || collider->trigger)
                 return true;
-            }
+
+            float massAdd = (float)mass + collider->mass;
+
+            if (!solidObject)
+                overlapMove(collider, dir, massAdd, dist);
+
+            if (!collider->solidObject)
+                collider->overlapMove(this, Vector2Scale(dir, -1.0f), massAdd, dist);
+
+            return true;
+            
         }
             
 

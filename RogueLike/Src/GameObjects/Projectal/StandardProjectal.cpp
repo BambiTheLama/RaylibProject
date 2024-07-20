@@ -13,6 +13,16 @@ StandardProjectal::StandardProjectal()
 	
 }
 
+void StandardProjectal::start()
+{
+	triggerNode(WeaponNodeActivation::OnUse, stats);
+}
+
+void StandardProjectal::destroy()
+{
+	triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
+}
+
 void StandardProjectal::update(float deltaTime)
 {
 	pos.x += dir.x * stats.speed * deltaTime;
@@ -20,7 +30,7 @@ void StandardProjectal::update(float deltaTime)
 	range -= stats.speed * deltaTime;
 	if (range <= 0)
 	{
-		triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
+
 		Game::deleteObject(this);
 	}
 
@@ -49,7 +59,6 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 			pirce--;
 			if (pirce <= 0)
 			{
-				triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
 				Game::deleteObject(this);
 			}
 
