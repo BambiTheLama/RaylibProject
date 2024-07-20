@@ -20,6 +20,9 @@ protected:
 	int weaponTier = 0;
 	WeaponStats stats;
 	static nlohmann::json weaponData;
+	Vector2 rotationPoint;
+	float angle;
+	TextureController texture;
 public:
 	Weapon();
 
@@ -60,6 +63,9 @@ private:
 	void updateWeaponNodesEfects();
 protected:
 	void setNumberOfSlots(int slots);
+
+	virtual void readFromWeaponData(std::string weaponType, int weaponTier = 0, int variant = 0);
+
 
 };
 

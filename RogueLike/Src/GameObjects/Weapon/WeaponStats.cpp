@@ -13,10 +13,19 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 		return;
 	if (tier >= statsSize)
 		tier = statsSize - 1;
-	int min = json[statsJsonName][statProperty][tier][0];
-	int max = json[statsJsonName][statProperty][tier][1];
-	float procent = (rand() % 1000) / 1000.0f;
-	stat = (int)(min + (max - min) * procent);
+	if (json[statsJsonName][statProperty][tier].size() > 1)
+	{
+		int min = json[statsJsonName][statProperty][tier][0];
+		int max = json[statsJsonName][statProperty][tier][1];
+		float procent = (rand() % 1000) / 1000.0f;
+		stat = (int)(min + (max - min) * procent);
+	}
+	else if (json[statsJsonName][statProperty][tier].size() > 0)
+	{
+		stat = json[statsJsonName][statProperty][tier];
+	}
+
+
 }
 
 void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat)
@@ -28,10 +37,18 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 		return;
 	if (tier >= statsSize)
 		tier = statsSize - 1;
-	float min = json[statsJsonName][statProperty][tier][0];
-	float max = json[statsJsonName][statProperty][tier][1];
-	float procent = (rand() % 1000) / 1000.0f;
-	stat = min + (max - min) * procent;
+
+	if (json[statsJsonName][statProperty][tier].size() > 1)
+	{
+		float min = json[statsJsonName][statProperty][tier][0];
+		float max = json[statsJsonName][statProperty][tier][1];
+		float procent = (rand() % 1000) / 1000.0f;
+		stat = min + (max - min) * procent;
+	}
+	else if (json[statsJsonName][statProperty][tier].size() > 0)
+	{
+		stat = json[statsJsonName][statProperty][tier];
+	}
 }
 
 void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat, float& statMultiplier)
@@ -43,14 +60,29 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 		return;
 	if (tier >= statsSize)
 		tier = statsSize - 1;
-	float min = json[statsJsonName][statProperty][tier][0][0];
-	float max = json[statsJsonName][statProperty][tier][0][1];
-	float procent = (rand() % 1000) / 1000.0f;
-	stat = min + (max - min) * procent;
-	min = json[statsJsonName][statProperty][tier][1][0];
-	max = json[statsJsonName][statProperty][tier][1][1];
-	procent = (rand() % 1000) / 1000.0f;
-	statMultiplier = min + (max - min) * procent;
+	if (json[statsJsonName][statProperty][tier][0].size() > 1)
+	{
+		float min = json[statsJsonName][statProperty][tier][0][0];
+		float max = json[statsJsonName][statProperty][tier][0][1];
+		float procent = (rand() % 1000) / 1000.0f;
+		stat = min + (max - min) * procent;
+	}
+	else if (json[statsJsonName][statProperty][tier][0].size() > 0)
+	{
+		stat = json[statsJsonName][statProperty][tier][0];
+	}
+	if (json[statsJsonName][statProperty][tier][1].size() > 1)
+	{
+		float min = json[statsJsonName][statProperty][tier][1][0];
+		float max = json[statsJsonName][statProperty][tier][1][1];
+		float procent = (rand() % 1000) / 1000.0f;
+		statMultiplier = min + (max - min) * procent;
+	}
+	else if (json[statsJsonName][statProperty][tier][1].size() > 0)
+	{
+		statMultiplier = json[statsJsonName][statProperty][tier][1];
+	}
+
 }
 
 void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)

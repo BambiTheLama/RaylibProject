@@ -2,6 +2,7 @@
 #include "../GameObject.h"
 #include <fstream>
 #include "../Items/Inventory.h"
+#include "math.h"
 
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
@@ -226,4 +227,49 @@ void Weapon::setNumberOfSlots(int slots)
 
 	}
 	updateWeaponNodesEfects();
+}
+void Weapon::readFromWeaponData(std::string weaponType, int weaponTier, int variant)
+{
+	if (!weaponData.contains(weaponType))
+		return;
+	if (weaponData[weaponType].contains("Slots"))
+	{
+		int tiers = weaponData[weaponType]["Slots"].size();
+		if (weaponTier >= tiers)
+			weaponTier = tiers - 1;
+		if (weaponTier >= 0 && tiers > 0)
+		{
+			int slots = 0;
+			if (weaponData[weaponType]["Slots"][weaponTier].size() > 1)
+			{
+				int slotsMin = weaponData[weaponType]["Slots"][weaponTier][0];
+				int slotsMax = weaponData[weaponType]["Slots"][weaponTier][1];
+				slots = std::min(slotsMin, slotsMax);
+				if (slotsMin != slotsMax)
+					slots += rand() % (abs(slotsMax - slotsMin) + 1);
+			}
+			else if (weaponData[weaponType]["Slots"][weaponTier].size() > 0)
+			{
+				slots = weaponData[weaponType]["Slots"][weaponTier];
+			}
+			setNumberOfSlots(slots);
+		}
+	}
+	if (weaponData[weaponType].contains("Textures"))
+	{
+		int numberOfTextures = (int)weaponData[weaponType]["Textures"].size();
+		if (numberOfTextures > 0)
+		{
+			int textureId = variant % numberOfTextures;
+			std::string texturePath = weaponData[weaponType]["Textures"][textureId];
+			texture = TextureController(texturePath);
+		}
+	}
+	if (weaponData[weaponType].contains("RotationPoint"))
+	{
+		rotationPoint.x = weaponData[weaponType]["RotationPoint"][0];
+		rotationPoint.y = weaponData[weaponType]["RotationPoint"][1];
+	}
+	stats.readStatsFromWeapon(weaponData[weaponType], weaponTier);
+	setStats(stats);
 }
