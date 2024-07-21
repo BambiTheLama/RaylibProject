@@ -92,18 +92,17 @@ namespace MyFont
 		}
 		return lines;
 	}
-	static float stepHeight = 1.0f;
 	void DrawText(const char* text, float x, float y, float size, Color color,Vector2 rotationPoint,float angle,bool withIcons)
 	{
-		//DrawTextPro(diffFont, text, { (float)x,(float)y }, rotationPoint, angle, size, 0.0f, color);
-		//return;
 		std::vector<Vector3> iconsToDraw;
 		std::vector<std::string> splitedLines = splitLines(text, &iconsToDraw);
 		Vector2 charPos = { x,y };
+		int i = 0;
 		for (auto s : splitedLines)
 		{
-			DrawTextPro(diffFont, s.c_str(), charPos, rotationPoint, angle, size, 0.0f, color);
-			charPos.y += size * stepHeight;
+			DrawTextPro(diffFont, s.c_str(), { charPos.x,charPos.y - size * i }, { rotationPoint.x,rotationPoint.y - size * i }, angle, size, 0.0f, color);
+			charPos.y += size;
+			i++;
 		}
 		if (!withIcons)
 			return;
@@ -115,17 +114,24 @@ namespace MyFont
 			int ID = (int)icon.z;
 			if (ID < 0 || ID >= icons.size())
 				continue;
-			std::string text = splitedLines[inTexty];
-			std::string textToMesure = text.substr(0, inTextx);
-			Vector2 textS = TextSize(textToMesure.c_str(), size, 0.0f);
-			Rectangle pos = { x + textS.x + bolder * size,y + size * (stepHeight * inTexty + bolder),(1.0f - bolder * 2) * size,(1.0f - bolder * 2) * size };
-			icons[ID].draw(pos, false, false, 0, { 0.0f,0.0f }, 0.0f, color);
+			std::string text = splitedLines[inTexty].substr(0, inTextx);
+			Vector2 textS = TextSize(text.c_str(), size, 0.0f);
+			Rectangle pos = { x ,y,(1.0f - bolder * 2) * size,(1.0f - bolder * 2) * size };
+			Vector2 orgin = { rotationPoint.x - (textS.x + bolder * size),rotationPoint.y - size * (inTexty + bolder) };
+			icons[ID].draw(pos, false, false, 0, orgin, angle, color);
 		}
 	}
 	Vector2 TextSize(const char* text, float size, float spacing)
 	{
 		std::vector<std::string> splitedLines = splitLines(text);
-		return { MeasureTextEx(diffFont, text, size, spacing).x,size * stepHeight * splitedLines.size() };
+		Vector2 textSize = { 0.0f ,size * splitedLines.size() };
+		for (auto t : splitedLines)
+		{
+			float sizeX=MeasureTextEx(diffFont, t.c_str(), size, spacing).x;
+			if (sizeX > textSize.x)
+				textSize.x = sizeX;
+		}
+		return textSize;
 	}
 
 	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint, float angle) {
@@ -141,7 +147,7 @@ namespace MyFont
 
 	float getFontSize()
 	{
-		return 64.0f;
+		return 32.0f;
 	}
 }
 #include "GameObjects/Game.h"

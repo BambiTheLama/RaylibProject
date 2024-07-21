@@ -24,9 +24,8 @@ bool Hitable::dealDamage(float damage, float invisibleFrames)
 		if (damage >= 0.1)
 		{
 			Rectangle pos = gm->getPos();
-			std::string text = std::to_string(damage);
-			for (int i = 0; i < 5; i++)
-				text.pop_back();
+			std::string text = "{Icon:0}"+std::to_string(damage);
+			text.erase(text.size() - 5, 5);
 			Game::addObject(new ParticleText(pos.x + pos.width / 2, pos.y + pos.height / 2, 1, text));
 		}
 

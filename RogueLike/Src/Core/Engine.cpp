@@ -35,7 +35,7 @@ Engine::Engine() {
         if (deltaTime > 1.0f / 30.0f)
             deltaTime = 1.0f / 30.0f;
         if (IsKeyDown(KEY_LEFT_SHIFT))
-            deltaTime = 0.001f;
+            deltaTime = 0.0001f;
         s->update(deltaTime);
         BeginDrawing();
         ClearBackground(RAYWHITE);
