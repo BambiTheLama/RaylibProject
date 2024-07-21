@@ -96,12 +96,10 @@ namespace MyFont
 	{
 		std::vector<Vector3> iconsToDraw;
 		std::vector<std::string> splitedLines = splitLines(text, &iconsToDraw);
-		Vector2 charPos = { x,y };
 		int i = 0;
 		for (auto s : splitedLines)
 		{
-			DrawTextPro(diffFont, s.c_str(), { charPos.x,charPos.y - size * i }, { rotationPoint.x,rotationPoint.y - size * i }, angle, size, 0.0f, color);
-			charPos.y += size;
+			DrawTextPro(diffFont, s.c_str(), { x,y }, { rotationPoint.x,rotationPoint.y - size * i }, angle, size, 0.0f, color);
 			i++;
 		}
 		if (!withIcons)
