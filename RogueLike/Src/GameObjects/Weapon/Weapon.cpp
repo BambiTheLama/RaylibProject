@@ -84,15 +84,28 @@ bool Weapon::upSlot()
 	return true;
 }
 
+static int getNumberOfRows(int allSlots, int slotsInRow)
+{
+	return allSlots / slotsInRow + (allSlots % slotsInRow > 0 ? 1 : 0);
+}
+
 bool Weapon::downSlot()
 {
 
 	if (cursorAt >= 0)
 	{
 		int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
+		int rows = weaponSlots.size() / slots + (weaponSlots.size() % slots > 0 ? 1 : 0);
+
 		cursorAt += slots;
+		
 		if (cursorAt >= weaponSlots.size())
 		{
+			if (getNumberOfRows(weaponSlots.size(), slots) > getNumberOfRows(cursorAt - slots, slots))
+			{
+				cursorAt = weaponSlots.size() - 1;
+				return false;
+			}
 			cursorAt = -1;
 			return true;
 		}

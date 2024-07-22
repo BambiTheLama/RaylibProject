@@ -98,18 +98,16 @@ void Inventory::swapVisibleDescriptions()
 	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
 	if (w)
 		w->resetSlot();
-	if (itemInHand)
+	if (itemInHand && !addItem(itemInHand))
 	{
-		if (!addItem(itemInHand))
-		{
-			Rectangle ownerPos = owner->getPos();
-			GameObject* gm = dynamic_cast<GameObject*>(itemInHand);
-			if (gm)
-				Game::addObject(gm);
-		}
-		itemInHand = nullptr;
+		Rectangle ownerPos = owner->getPos();
+		GameObject* gm = dynamic_cast<GameObject*>(itemInHand);
+		if (!gm)
+			delete itemInHand;
+		else if (!Game::addObject(gm))
+			delete gm;
 	}
-
+	itemInHand = nullptr;
 }
 
 void Inventory::update(float deltaTime)
