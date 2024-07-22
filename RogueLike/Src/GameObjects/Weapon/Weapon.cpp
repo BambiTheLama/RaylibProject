@@ -66,12 +66,19 @@ void Weapon::privSlot()
 	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
 }
 
+static int getNumberOfRows(int allSlots, int slotsInRow)
+{
+	return allSlots / slotsInRow + ((allSlots+1) % slotsInRow > 0 ? 1 : 0);
+}
+
 bool Weapon::upSlot()
 {
 	int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
 	if (cursorAt < 0)
 	{
-		cursorAt = 0;
+		int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
+		int rows = getNumberOfRows(weaponSlots.size(), slots);
+		cursorAt = slots * (rows - 1);
 	}
 	else
 	{
@@ -84,10 +91,7 @@ bool Weapon::upSlot()
 	return true;
 }
 
-static int getNumberOfRows(int allSlots, int slotsInRow)
-{
-	return allSlots / slotsInRow + (allSlots % slotsInRow > 0 ? 1 : 0);
-}
+
 
 bool Weapon::downSlot()
 {
@@ -95,8 +99,6 @@ bool Weapon::downSlot()
 	if (cursorAt >= 0)
 	{
 		int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
-		int rows = weaponSlots.size() / slots + (weaponSlots.size() % slots > 0 ? 1 : 0);
-
 		cursorAt += slots;
 		
 		if (cursorAt >= weaponSlots.size())
