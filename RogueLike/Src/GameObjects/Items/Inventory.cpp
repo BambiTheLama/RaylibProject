@@ -43,22 +43,26 @@ Inventory::~Inventory()
 }
 void Inventory::updateClick()
 {
-	if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || !showDescription)
 		return;
+
+
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (w)
+		w->updateClick();
+
+
 	Vector2 mouse = GetMousePosition();
 
 	for (int i = 0; i < InventorySize; i++)
 	{
 		if (!CheckCollisionPointRec(mouse, getItemPos(i)))
 			continue;
-		if (i == usingItem)
-			hideItem();
+		hideItem();
 		Item* item = items[i];
 		items[i] = itemInHand;
 		itemInHand = item;
-		if (i == usingItem)
-			showItem();
-		printf("ZMIANA %d\n", i);
+		showItem();
 		return;
 	}
 	
@@ -94,7 +98,17 @@ void Inventory::swapVisibleDescriptions()
 	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
 	if (w)
 		w->resetSlot();
-
+	if (itemInHand)
+	{
+		if (!addItem(itemInHand))
+		{
+			Rectangle ownerPos = owner->getPos();
+			GameObject* gm = dynamic_cast<GameObject*>(itemInHand);
+			if (gm)
+				Game::addObject(gm);
+		}
+		itemInHand = nullptr;
+	}
 
 }
 
@@ -103,6 +117,8 @@ void Inventory::update(float deltaTime)
 	if (!items[usingItem])
 		return;
 	items[usingItem]->update(deltaTime);
+
+
 }
 
 void Inventory::nextItem() 
@@ -112,6 +128,8 @@ void Inventory::nextItem()
 	hideItem(); 
 	usingItem = (usingItem + 1) % InventorySize; 
 	showItem(); 
+	Rectangle itemPos = getItemPos(usingItem);
+	SetMousePosition(itemPos.x + itemPos.width / 2, itemPos.y + itemPos.height / 2);
 }
 
 
@@ -123,6 +141,8 @@ void Inventory::privItem()
 	hideItem(); 
 	usingItem = (usingItem - 1 + InventorySize) % InventorySize; 
 	showItem(); 
+	Rectangle itemPos = getItemPos(usingItem);
+	SetMousePosition(itemPos.x + itemPos.width / 2, itemPos.y + itemPos.height / 2);
 }
 
 void Inventory::nextSlot()
@@ -179,6 +199,8 @@ void Inventory::downSlot()
 	}
 	if (w->downSlot())
 		choseFromEq = true;
+	Rectangle itemPos = getItemPos(usingItem);
+	SetMousePosition(itemPos.x + itemPos.width / 2, itemPos.y + itemPos.height / 2);
 }
 
 void Inventory::hideItem()
@@ -265,7 +287,7 @@ void Inventory::draw()
 
 		DrawFrameRec(itemPos, i == usingItem ? (choseFromEq ? (showDescription ? PINK : RED) : ORANGE) : BLUE);
 		if (items[i])
-			items[i]->drawIcon(RectangleDecreasSize(itemPos, 2), false);
+			items[i]->drawIcon(RectangleDecreasSize(itemPos, 8), false);
 
 		if (i == usingItem && showDescription)
 		{
@@ -281,7 +303,7 @@ void Inventory::draw()
 		itemPos.x = mouse.x;
 		itemPos.y = mouse.y;
 		DrawFrameRec(itemPos, ORANGE);
-		itemInHand->drawIcon(itemPos);
+		itemInHand->drawIcon(RectangleDecreasSize(itemPos, 8));
 	}
 
 

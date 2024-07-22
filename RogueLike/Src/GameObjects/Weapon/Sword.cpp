@@ -129,7 +129,7 @@ void Sword::drawDescription(Rectangle pos, float textSize)
 	DrawFrameRounded(pos, BLUE, BLACK);
 	Rectangle iconPos = Weapon::getSlotPos(pos, 0);
 	DrawFrameRec(iconPos, YELLOW);
-	drawIcon(RectangleDecreasSize(iconPos, 2));
+	drawIcon(RectangleDecreasSize(iconPos, 8));
 
 	drawWeaponDescription({ pos.x,Weapon::getSlotPos(pos, 0,1).y,pos.width,pos.height }, textSize);
 }

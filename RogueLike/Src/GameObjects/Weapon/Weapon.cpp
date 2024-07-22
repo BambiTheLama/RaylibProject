@@ -53,26 +53,51 @@ void Weapon::nextSlot()
 {
 	if (cursorAt +1 < weaponSlots.size())
 		cursorAt++;
+	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
+	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
+
 }
 
 void Weapon::privSlot()
 {
 	if (cursorAt > 0)
 		cursorAt--;
+	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
+	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
 }
 
 bool Weapon::upSlot()
 {
+	int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
 	if (cursorAt < 0)
 	{
 		cursorAt = 0;
-		return true;
 	}
+	else
+	{
+		cursorAt -= slots;
+		if (cursorAt < 0)
+			cursorAt = 0;
+	}
+	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
+	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
 	return true;
 }
 
 bool Weapon::downSlot()
 {
+
+	if (cursorAt >= 0)
+	{
+		int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
+		cursorAt += slots;
+		if (cursorAt >= weaponSlots.size())
+		{
+			cursorAt = -1;
+			return true;
+		}
+		return false;
+	}
 	cursorAt = -1;
 	return true;
 }
@@ -120,7 +145,7 @@ void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 		bool isCursorAt = i - 1 == cursorAt;
 		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
 		if (slot)
-			slot->drawIcon(RectangleDecreasSize(slotPos,4));
+			slot->drawIcon(RectangleDecreasSize(slotPos, 8));
 
 	}
 }
@@ -191,6 +216,11 @@ Rectangle Weapon::getSlotPos(Rectangle pos, int slot, int row, Vector2 slotSize,
 	slotPos.x = startSlotsX + (slot % slotsInColumns) * (slotPos.width + itemSpaceing) + itemSpaceing / 2;
 	slotPos.y += (row + (int)(slot / slotsInColumns)) * (slotPos.height + itemSpaceing) + itemSpaceing;
 	return slotPos;
+}
+
+int Weapon::getNumberOfSlotsInRow(float w, float size, float itemSpaceing)
+{
+	return (int)(w / (size + itemSpaceing));
 }
 
 void Weapon::findThisObject()

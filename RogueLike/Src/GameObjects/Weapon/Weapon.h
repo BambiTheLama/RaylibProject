@@ -43,7 +43,6 @@ public:
 
 	void resetSlot() { cursorAt = -1; }
 
-
 	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
 
 	virtual void use(Vector2 dir, float deltaTime) = 0;
@@ -65,6 +64,8 @@ public:
 	void setStats(WeaponStats ws) { difoltStats = ws; stats = ws; }
 
 	static Rectangle getSlotPos(Rectangle pos, int slot = 0, int row = 0, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
+
+	static int getNumberOfSlotsInRow(float w, float size = 64.0f, float itemSpaceing = 10.0f);
 
 	friend class GameScene;
 private:
