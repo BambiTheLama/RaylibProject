@@ -31,6 +31,9 @@
     <Filter Include="GameObjects\Items">
       <UniqueIdentifier>{48f68963-87ef-4478-9df3-85f58e278367}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Res">
+      <UniqueIdentifier>{9b6ce021-84d2-43d7-bc2e-cb3d943d0025}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -317,7 +320,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Res\Weapon.json" />
-    <None Include="Res\Textures.json" />
+    <None Include="Res\Textures.json">
+      <Filter>Res</Filter>
+    </None>
+    <None Include="Res\Weapon.json">
+      <Filter>Res</Filter>
+    </None>
+    <None Include="Res\Rooms.json">
+      <Filter>Res</Filter>
+    </None>
   </ItemGroup>
 </Project>

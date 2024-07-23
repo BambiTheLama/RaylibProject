@@ -9,12 +9,13 @@ class Item
 protected:
 	Inventory* inventory = nullptr;
 	GameObject* owner = nullptr;
+	bool inInventory = false;
 public:
 	Item(){}
 
 	virtual ~Item(){}
 
-	void setOwner(GameObject* owner) { this->owner = owner; }
+	void setOwner(GameObject* owner) { this->owner = owner; inInventory = owner; }
 
 	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
 

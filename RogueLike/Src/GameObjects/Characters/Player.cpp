@@ -26,8 +26,10 @@ Player::Player(float x, float y){
     mass = 10;
     trigger = false;
     inventory = Inventory(this);
-    for (int i = 0; i < 2; i++)
-        inventory.addItem(dynamic_cast<Item*>(new Sword(this, "Axe", i)));
+    const int weapons = 5;
+    std::string strings[5] = { "Axe","Sword","Pickaxe","Bow","Arrow" };
+    for (int i = 0; i < weapons; i++)
+        inventory.addItem(dynamic_cast<Item*>(new Sword(this, strings[i], 0)));
 }
 
 Player::~Player() {
@@ -84,11 +86,11 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         break;
     case Input::NextItem:
         if (!inventory.isDescriptionShowed())
-            inventory.nextItem();
+            inventory.nextItem(false);
         break;
     case Input::PrivItem:
         if (!inventory.isDescriptionShowed())
-            inventory.privItem();
+            inventory.privItem(false);
         break;
     case Input::SwapDescriptionVisible:
         inventory.swapVisibleDescriptions();
@@ -96,6 +98,8 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::Interact:
         if (inventory.isDescriptionShowed())
             inventory.setItemToHand();
+        else
+            interact();
         break;
 
     case Input::NextSlot:
@@ -114,10 +118,8 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         if (inventory.isDescriptionShowed())
             inventory.downSlot();
         break;
-
-
-
-
+    case Input::DropItem:
+        inventory.dropItem();
     default:
         break;
     }
@@ -164,4 +166,20 @@ void Player::onCollisionEnter(Collider* collider) {
 
 void Player::onCollisionExit(Collider* collider) {
 
+}
+
+void Player::interact()
+{
+    std::list<GameObject*> gms = Game::getObjects(pos);
+    gms.remove(this);
+    for (GameObject* o : gms)
+    {
+        Item* i = dynamic_cast<Item*>(o);
+        if (!i)
+            continue;
+        if (inventory.addItem(i))
+        {
+            printf("DODA£EM ITEM\n");
+        }
+    }
 }

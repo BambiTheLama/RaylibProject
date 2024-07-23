@@ -27,9 +27,9 @@ public:
 
 	void update(float deltaTime);
 
-	void nextItem();
+	void nextItem(bool moveCursor = true);
 
-	void privItem();
+	void privItem(bool moveCursor = true);
 
 	void nextSlot();
 
@@ -38,6 +38,10 @@ public:
 	void upSlot();
 
 	void downSlot();
+
+	Item* getCurrentItemToDrop();
+
+	void dropItem();
 
 	void use(Vector2 dir, float deltaTime);
 

@@ -1,118 +1,126 @@
 {
   "Axe": {
     "Col": [
-      [16,18],
-      [13,22],
-      [18,27],
-      [31,19],
-      [27,11],
-      [19,11],
-      [18,16]
+      [  0, 31 ],
+      [ 16, 13 ],
+      [ 13,  9 ],
+      [ 18,  4 ],
+      [ 31, 12 ],
+      [ 22, 22 ],
+      [ 18, 15 ]
     ],
-    "Size": [32,32],
-	"Slots": [
-		[16,3],
-		[10,20]
-	],
-	"Textures":
-	[
-		"Weapons/WoodAxe.png",
-		"Weapons/StoneAxe.png"
-	],
-	"Stats":{
-		"Damage":[
-			[[10,20]],
-			[[15,25]],
-			[[20,30]]
-		],
-		"UseTime":[
-			[[1,2]],
-			[[1,2]]
-		],  
-		"ReloadTime":[
-			[[0.1,0.2]],
-			[[0.1,0.2]]
-		],
-		"Speed":[
-			[[0,0]],
-			[[0,0]]
-		],
-		"Range":[
-			[[64,80]],
-			[[70,90]]
-		],  
-		"Knockback":[
-			[[10,15]],
-			[[15,20]]
-		],
-		"Angle":[
-			[200,240]
-		], 
-		"CountOfUse":[
-			[2,2]
-		],
-		"Bounce":[
-			[1,1]
-		],
-		"Pirce":[
-			[1,1]
-		]	
-	}
+    "Size": [ 32, 32 ],
+    "FlipHorizontal": true,
+    "Slots": [
+      [ 16,  3 ],
+      [ 10, 20 ]
+    ],
+    "Textures": [
+      "Weapons/WoodAxe.png",
+      "Weapons/StoneAxe.png"
+    ],
+    "Stats": {
+      "Damage": [
+        [ [ 10, 20 ] ],
+        [ [ 15, 25 ] ],
+        [ [ 20, 30 ] ]
+      ],
+      "UseTime": [
+        [ [ 1, 2 ] ],
+        [ [ 1, 2 ] ]
+      ],
+      "ReloadTime": [
+        [ [ 0.1, 0.2 ] ],
+        [ [ 0.1, 0.2 ] ]
+      ],
+      "Speed": [
+        [ [ 0, 0 ] ],
+        [ [ 0, 0 ] ]
+      ],
+      "Range": [
+        [ [ 64, 80 ] ],
+        [ [ 70, 90 ] ]
+      ],
+      "Knockback": [
+        [ [ 10, 15 ] ],
+        [ [ 15, 20 ] ]
+      ],
+      "Angle": [
+        [ 200, 240 ]
+      ],
+      "CountOfUse": [
+        [ 2, 2 ]
+      ],
+      "Bounce": [
+        [ 1, 1 ]
+      ],
+      "Pirce": [
+        [ 1, 1 ]
+      ]
+    }
   },
   "Sword": {
     "Col": [
-      [7,12],
-      [25,31],
-      [31,31],
-      [31,25],
-      [12,7]
+      [ 0, 31 ],
+      [ 5, 24 ],
+      [ 2, 17 ],
+      [ 7, 19 ],
+      [ 26, 0 ],
+      [ 31, 0 ],
+      [ 31, 5 ],
+      [ 12, 24 ],
+      [ 14, 29 ],
+      [ 7, 26 ]
     ],
-    "Size": [32,32],
-	"Textures":
-	[
-		"Weapons/WoodSword.png",
-		"Weapons/StoneSword.png"
+    "Size": [ 32, 32 ],
+    "FlipHorizontal": true,
+    "Textures": [
+      "Weapons/WoodSword.png",
+      "Weapons/StoneSword.png"
 
-	]
+    ]
   },
   "Pickaxe": {
     "Col": [
-      [ 28, 4 ],
-      [ 31, 15 ],
-      [ 26, 26 ],
-      [ 15, 31 ],
-      [ 4, 28 ],
-      [ 21, 22 ]
+      [ 0, 31 ],
+      [ 20, 9 ],
+      [ 4, 3 ],
+      [ 15, 0 ],
+      [ 25, 5 ],
+      [ 31, 17 ],
+      [ 28, 27 ],
+      [ 21, 12 ]
     ],
     "Size": [ 32, 32 ],
-	"Textures":
-	[
-		"Weapons/WoodPickaxe.png",
-		"Weapons/StonePickaxe.png"
+    "FlipHorizontal": true,
+    "Textures": [
+      "Weapons/WoodPickaxe.png",
+      "Weapons/StonePickaxe.png"
 
-	]
+    ]
   },
   "Bow": {
     "ShootPoint": [ 0, 0 ],
-    "Size": [32,32],
-	"RotationPoint":[16,16],
-	"Textures":
-	[
-		"Weapons/WoodBow.png"
-	]
+    "Size": [ 32, 32 ],
+    "FlipHorizontal": true,
+    "RotationPoint": [ 16, 16 ],
+    "Textures": [
+      "Weapons/WoodBow.png"
+    ]
   },
   "Arrow": {
     "Col": [
-      [ 29, 29 ],
-      [ 24, 18 ],
-      [ 18, 18 ],
-      [ 18, 24 ]
+      [ 19, 12 ],
+      [ 19, 7 ],
+      [ 29, 2 ],
+      [ 24, 12 ]
     ],
     "Size": [ 32, 32 ],
-	"Textures":
-	[
-		"Weapons/WoodArrow.png"
+    "FlipHorizontal": true,
+    "RotationPoint": [ 16, 16 ],
+    "Textures": [
+      "Weapons/WoodArrow.png"
 
-	]
+    ]
   }
 }

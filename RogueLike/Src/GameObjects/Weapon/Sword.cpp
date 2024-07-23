@@ -90,6 +90,7 @@ void Sword::update(float deltaTime)
 
 void Sword::draw()
 {
+	
 	Rectangle pos = getPos();	
 	Vector2 rotationPoint = this->rotationPoint;
 	//pos.x += rotationPoint.x;
@@ -101,12 +102,15 @@ void Sword::draw()
 		rotationPoint.x = pos.width - rotationPoint.x;
 		angle -= 90;
 	}
-	texture.draw(pos, mirror, true, 0, rotationPoint, angle);
+	if (owner)
+		texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
+	else
+		drawIcon(pos, true);
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon)
 {
-	texture.draw(pos, false, false, 0, rotationPoint, 0.0f);
+	texture.draw(pos, false, !flipHorizontal, 0, { 0.0f,0.0f }, 0.0f);
 	if (onlyIcon)
 		return;
 	Color c = { 128,128,128,200 };
@@ -200,12 +204,16 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 
 	pos.width = weaponData[weaponType]["Size"][0];
 	pos.height = weaponData[weaponType]["Size"][1];
+	if (weaponData[weaponType].contains("FlipHorizontal"))
+		flipHorizontal = weaponData[weaponType]["FlipHorizontal"];
 	if (weaponData[weaponType].contains("Col"))
 	{
 		for (int i = 0; i < weaponData[weaponType]["Col"].size(); i++)
 		{
 			int x = weaponData[weaponType]["Col"][i][0];
 			int y = weaponData[weaponType]["Col"][i][1];
+			if (flipHorizontal)
+				y = pos.height - y;
 			col.push_back({ (float)x,(float)y });
 		}
 	}

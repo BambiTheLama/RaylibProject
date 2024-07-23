@@ -100,12 +100,7 @@ void Inventory::swapVisibleDescriptions()
 		w->resetSlot();
 	if (itemInHand && !addItem(itemInHand))
 	{
-		Rectangle ownerPos = owner->getPos();
-		GameObject* gm = dynamic_cast<GameObject*>(itemInHand);
-		if (!gm)
-			delete itemInHand;
-		else if (!Game::addObject(gm))
-			delete gm;
+		dropItem();
 	}
 	itemInHand = nullptr;
 }
@@ -119,28 +114,35 @@ void Inventory::update(float deltaTime)
 
 }
 
-void Inventory::nextItem() 
+void Inventory::nextItem(bool moveCursor) 
 { 
 	if (items[usingItem] && !items[usingItem]->canSwap())
 		return;
 	hideItem(); 
 	usingItem = (usingItem + 1) % InventorySize; 
 	showItem(); 
-	Rectangle itemPos = getItemPos(usingItem);
-	SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	if (moveCursor)
+	{
+		Rectangle itemPos = getItemPos(usingItem);
+		SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	}
+
 }
 
 
 
-void Inventory::privItem() 
+void Inventory::privItem(bool moveCursor)
 {
 	if (items[usingItem] && !items[usingItem]->canSwap())
 		return;
 	hideItem(); 
 	usingItem = (usingItem - 1 + InventorySize) % InventorySize; 
 	showItem(); 
-	Rectangle itemPos = getItemPos(usingItem);
-	SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	if (moveCursor)
+	{
+		Rectangle itemPos = getItemPos(usingItem);
+		SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	}
 }
 
 void Inventory::nextSlot()
@@ -200,6 +202,46 @@ void Inventory::downSlot()
 		choseFromEq = true;
 		Rectangle itemPos = getItemPos(usingItem);
 		SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	}
+
+}
+
+Item* Inventory::getCurrentItemToDrop()
+{
+	Item* i = nullptr;
+	if (itemInHand)
+	{
+		i = itemInHand;
+		itemInHand = nullptr;
+	}
+	else if(items[usingItem])
+	{ 
+		if (items[usingItem]->canSwap())
+		{
+			i = items[usingItem];
+			items[usingItem] = nullptr;
+		}
+	}
+	return i;
+}
+
+void Inventory::dropItem()
+{
+	Item* item = getCurrentItemToDrop();
+	if (!item)
+		return;
+	item->setOwner(nullptr);
+	Rectangle ownerPos = owner->getPos();
+
+	GameObject* gm = dynamic_cast<GameObject*>(item);
+	if (!gm)
+		delete item;
+	else 
+	{
+		Rectangle itemPos = gm->getPos();
+		gm->setPos({ ownerPos.x + ownerPos.width / 2 - itemPos.width / 2,ownerPos.y + ownerPos.height / 2 - itemPos.height / 2 });
+		if (!Game::addObject(gm))
+			delete gm;
 	}
 
 }

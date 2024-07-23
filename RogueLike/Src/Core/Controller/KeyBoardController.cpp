@@ -36,10 +36,20 @@ void KeyBoardController::update(float deltaTime) {
             inputs.push_back(Input::PrivItem);
         if (IsKeyPressed(keySpawnDescriptionVisible))
             inputs.push_back(Input::SwapDescriptionVisible);
+        if (IsKeyPressed(dropItem))
+            inputs.push_back(Input::DropItem);
         if(IsKeyPressed(keyItemInHand))
             inputs.push_back(Input::SetItemInHand);
         if (IsKeyPressed(keyInteract))
             inputs.push_back(Input::Interact);
+        float scrol = GetMouseWheelMove();
+        if (scrol == 0)
+            ;
+        else if(scrol>0)
+            inputs.push_back(Input::NextItem);
+        else
+            inputs.push_back(Input::PrivItem);
+
         
     }
     moveDir = Vector2Normalize(moveDir);

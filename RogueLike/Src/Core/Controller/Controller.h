@@ -16,7 +16,7 @@ enum class Input {
     PrivItem,
     SwapDescriptionVisible,
     SetItemInHand,
-
+    DropItem,
 };
 
 enum class Action

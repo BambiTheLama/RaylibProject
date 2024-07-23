@@ -13,6 +13,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	int numberOfUse = 0;
 	bool used = false;
 	bool left = false;
+	bool flipHorizontal = false;
 public:
 	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
 

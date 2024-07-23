@@ -38,4 +38,6 @@ public:
 
     virtual float getSpeed() { return speed; }
 
+    void interact();
+
 };
