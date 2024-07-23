@@ -7,7 +7,7 @@ class Item
 {
 	GameObject* thisObj = nullptr;
 protected:
-	Inventory* inventory;
+	Inventory* inventory = nullptr;
 	GameObject* owner = nullptr;
 public:
 	Item(){}

@@ -32,8 +32,6 @@ void QuadTree::update()
 	if (!roots[0])
 		return;
 
-
-	//printf("OBJECTS SIZE %d\n", objects.size());
 	if (roots[0])
 	{
 		for (auto o : objects)

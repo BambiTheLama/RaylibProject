@@ -24,7 +24,7 @@ Inventory::~Inventory()
 			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
 			if (gm && Game::deleteObject(gm))
 			{
-				printf("JEJ\n");
+
 			}
 			else
 				delete items[i];
@@ -127,7 +127,7 @@ void Inventory::nextItem()
 	usingItem = (usingItem + 1) % InventorySize; 
 	showItem(); 
 	Rectangle itemPos = getItemPos(usingItem);
-	SetMousePosition(itemPos.x + itemPos.width / 2, itemPos.y + itemPos.height / 2);
+	SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
 }
 
 
@@ -140,7 +140,7 @@ void Inventory::privItem()
 	usingItem = (usingItem - 1 + InventorySize) % InventorySize; 
 	showItem(); 
 	Rectangle itemPos = getItemPos(usingItem);
-	SetMousePosition(itemPos.x + itemPos.width / 2, itemPos.y + itemPos.height / 2);
+	SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
 }
 
 void Inventory::nextSlot()
@@ -196,9 +196,12 @@ void Inventory::downSlot()
 		return;
 	}
 	if (w->downSlot())
+	{
 		choseFromEq = true;
-	Rectangle itemPos = getItemPos(usingItem);
-	SetMousePosition(itemPos.x + itemPos.width / 2, itemPos.y + itemPos.height / 2);
+		Rectangle itemPos = getItemPos(usingItem);
+		SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	}
+
 }
 
 void Inventory::hideItem()

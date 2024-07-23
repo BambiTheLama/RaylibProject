@@ -54,7 +54,7 @@ void Weapon::nextSlot()
 	if (cursorAt +1 < weaponSlots.size())
 		cursorAt++;
 	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
-	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
+	SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
 
 }
 
@@ -63,12 +63,12 @@ void Weapon::privSlot()
 	if (cursorAt > 0)
 		cursorAt--;
 	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
-	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
+	SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
 }
 
 static int getNumberOfRows(int allSlots, int slotsInRow)
 {
-	return allSlots / slotsInRow + ((allSlots+1) % slotsInRow > 0 ? 1 : 0);
+	return allSlots / slotsInRow + ((allSlots + 1) % slotsInRow > 0 ? 1 : 0);
 }
 
 bool Weapon::upSlot()
@@ -77,7 +77,7 @@ bool Weapon::upSlot()
 	if (cursorAt < 0)
 	{
 		int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
-		int rows = getNumberOfRows(weaponSlots.size(), slots);
+		int rows = getNumberOfRows((int)weaponSlots.size(), slots);
 		cursorAt = slots * (rows - 1);
 	}
 	else
@@ -87,7 +87,7 @@ bool Weapon::upSlot()
 			cursorAt = 0;
 	}
 	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
-	SetMousePosition(slotPos.x + slotPos.width / 2, slotPos.y + slotPos.height / 2);
+	SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
 	return true;
 }
 
@@ -95,26 +95,33 @@ bool Weapon::upSlot()
 
 bool Weapon::downSlot()
 {
-
-	if (cursorAt >= 0)
+	if (cursorAt < 0)
 	{
-		int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
-		cursorAt += slots;
-		
-		if (cursorAt >= weaponSlots.size())
-		{
-			if (getNumberOfRows(weaponSlots.size(), slots) > getNumberOfRows(cursorAt - slots, slots))
-			{
-				cursorAt = weaponSlots.size() - 1;
-				return false;
-			}
-			cursorAt = -1;
-			return true;
-		}
-		return false;
+		cursorAt = -1;
+		return true;
 	}
-	cursorAt = -1;
-	return true;
+	
+	int slots = getNumberOfSlotsInRow(weaponSlotPos.width);
+	cursorAt += slots;
+
+	if (cursorAt >= weaponSlots.size())
+	{
+		if (getNumberOfRows((int)weaponSlots.size(), slots) > getNumberOfRows(cursorAt - slots, slots))
+		{
+			cursorAt = (int)weaponSlots.size() - 1;
+			Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
+			SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
+			return false;
+		}
+
+		cursorAt = -1;
+		return true;
+	}
+	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
+	SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
+	return false;
+	
+
 }
 
 void Weapon::takeItem()
@@ -171,7 +178,6 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 		findThisObject();
 	if (!thisObj)
 		return false;
-	printf("U¿yto %d\n", (int)activation);
 	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats);
 	return false;
 }
@@ -292,7 +298,6 @@ void Weapon::updateWeaponNodesEfects()
 	for (WeaponNode* wn : activationNodes)
 		wnt.pushBackNodeTrigger(*wn);
 	weaponNodeTrigger = wnt;
-	printf(stats.toString().c_str());
 }
 
 void Weapon::setNumberOfSlots(int slots)
@@ -325,7 +330,7 @@ void Weapon::readFromWeaponData(std::string weaponType, int weaponTier, int vari
 		return;
 	if (weaponData[weaponType].contains("Slots"))
 	{
-		int tiers = weaponData[weaponType]["Slots"].size();
+		int tiers = (int)weaponData[weaponType]["Slots"].size();
 		if (weaponTier >= tiers)
 			weaponTier = tiers - 1;
 		if (weaponTier >= 0 && tiers > 0)

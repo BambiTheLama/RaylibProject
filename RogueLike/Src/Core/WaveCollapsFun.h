@@ -7,7 +7,7 @@
 struct RoomData {
 	int ID = -1;
 	char rotate = 0;
-	RoomType type;
+	RoomType type = RoomType::Normal;
 	std::vector<BlockType> up;
 	std::vector<BlockType> down;
 	std::vector<BlockType> left;
