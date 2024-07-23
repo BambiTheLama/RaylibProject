@@ -228,6 +228,11 @@ Rectangle RectangleDecreasSize(Rectangle rec, float v)
 	return { rec.x + v,rec.y + v,rec.width - v * 2,rec.height - v * 2 };
 }
 
+float RectangleDistance(Rectangle r1, Rectangle r2)
+{
+	return Vector2Distance({ r1.x + r1.width / 2,r1.y + r1.height / 2 }, { r2.x + r2.width / 2,r2.y + r2.height / 2 });
+}
+
 void startOutLineShader()
 {
 	BeginShaderMode(outline.getShader());

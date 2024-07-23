@@ -7,6 +7,7 @@
 #include <fstream>
 #include "Controller/TextureController.h"
 #include "Controller/ShaderController.h"
+#include <string>
 
 Engine::Engine() {
     srand((unsigned int)time(NULL));
@@ -24,6 +25,8 @@ Engine::Engine() {
     //SetTargetFPS(60);
     MyFont::SetUpFont();
     setScene(new GameScene());
+    std::string text = TextFormat("%d", (int)(1.0f / 1.0f));
+    float timer = 0.1f;
     while (!WindowShouldClose() && s) {
 
         if(IsKeyPressed(KEY_F1))
@@ -35,6 +38,7 @@ Engine::Engine() {
 
 
         float deltaTime = GetFrameTime();
+
         if (deltaTime > 1.0f / 30.0f)
             deltaTime = 1.0f / 30.0f;
         if (IsKeyDown(KEY_LEFT_SHIFT))
@@ -43,7 +47,14 @@ Engine::Engine() {
         BeginDrawing();
         ClearBackground(DARKBLUE);
         s->draw();
-        DrawFPS(0, 0);
+        timer -= GetFrameTime();
+        if (timer <= 0.0f)
+        {
+            text = TextFormat("%d FPS", (int)(1.0f / GetFrameTime()));
+            timer = 0.1f;
+        }
+        MyFont::DrawTextWithOutline(text.c_str(), 0, 0, 32, GREEN, BLACK);
+        //DrawFPS(0, 0);
         EndDrawing();
     }
     if (s)

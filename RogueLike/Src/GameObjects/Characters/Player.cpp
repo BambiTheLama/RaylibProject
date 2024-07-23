@@ -202,12 +202,24 @@ std::list<GameObject*> Player::getCloseGameObjects()
 {
     std::list<GameObject*> gms = Game::getObjects(pos);
     std::list<GameObject*> closeGm;
+    GameObject* closes = nullptr;
+    float minDist = 0.0f;
     gms.remove(this);
     for (GameObject* o : gms)
     {
         if (o->getType() != ObjectType::Item)
             continue;
-        closeGm.push_back(o);
+        Rectangle itemPos = o->getPos();
+        float dist = RectangleDistance(pos, itemPos);;
+        if (!closes || dist < minDist)
+        {
+            closes = o;
+            minDist = dist;
+        }
+
+
     }
+    if (closes)
+        closeGm.push_back(closes);
     return closeGm;
 }
