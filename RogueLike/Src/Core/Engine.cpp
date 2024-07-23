@@ -6,6 +6,7 @@
 #include <time.h>
 #include <fstream>
 #include "Controller/TextureController.h"
+#include "Controller/ShaderController.h"
 
 Engine::Engine() {
     srand((unsigned int)time(NULL));
@@ -18,6 +19,8 @@ Engine::Engine() {
     //ToggleFullscreen();
 
     TextureController::setUpTexture("Res/");
+    ShaderController::setUpTexture("Res/Shader/");
+    
     //SetTargetFPS(60);
     MyFont::SetUpFont();
     setScene(new GameScene());
@@ -47,6 +50,7 @@ Engine::Engine() {
         delete s;
     MyFont::ClearFont();
     TextureController::clearTextures();
+    ShaderController::clearShaders();
     CloseWindow();
 }
 

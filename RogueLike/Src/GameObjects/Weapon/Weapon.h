@@ -5,6 +5,7 @@
 #include "json.hpp"
 #include <string>
 #include "../Items/WeaponNodeItem.h"
+#include "../../Core/Controller/ShaderController.h"
 
 class Inventory;
 class GameObject;
@@ -24,6 +25,7 @@ protected:
 	Vector2 rotationPoint = { 0.0f,0.0f };
 	WeaponStats stats;
 	TextureController texture;
+	ShaderController shader;
 public:
 	Weapon();
 

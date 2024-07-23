@@ -102,10 +102,12 @@ void Sword::draw()
 		rotationPoint.x = pos.width - rotationPoint.x;
 		angle -= 90;
 	}
+	BeginShaderMode(shader.getShader());
 	if (owner)
 		texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
 	else
 		drawIcon(pos, true);
+	EndShaderMode();
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon)

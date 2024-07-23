@@ -24,6 +24,7 @@
     <ClInclude Include="Src\Core\Controller\Controller.h" />
     <ClInclude Include="Src\Core\Controller\GamePadController.h" />
     <ClInclude Include="Src\Core\Controller\KeyBoardController.h" />
+    <ClInclude Include="Src\Core\Controller\ShaderController.h" />
     <ClInclude Include="Src\Core\Controller\TextureController.h" />
     <ClInclude Include="Src\Core\Dir.h" />
     <ClInclude Include="Src\Core\Engine.h" />
@@ -75,6 +76,7 @@
     <ClCompile Include="Src\Core\Controller\Controller.cpp" />
     <ClCompile Include="Src\Core\Controller\GamePadController.cpp" />
     <ClCompile Include="Src\Core\Controller\KeyBoardController.cpp" />
+    <ClCompile Include="Src\Core\Controller\ShaderController.cpp" />
     <ClCompile Include="Src\Core\Controller\TextureController.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
     <ClCompile Include="Src\Core\Floor\Floor.cpp" />
@@ -120,6 +122,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Res\Rooms.json" />
+    <None Include="Res\Shader\OutLine.fs" />
     <None Include="Res\Textures.json" />
     <None Include="Res\Weapon.json" />
   </ItemGroup>
