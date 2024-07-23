@@ -9,7 +9,6 @@ static Rectangle weaponSlotPos = { 0,0,0,0 };
 
 Weapon::Weapon()
 {
-	shader = ShaderController("OutLine.fs");
 }
 
 Weapon::~Weapon()

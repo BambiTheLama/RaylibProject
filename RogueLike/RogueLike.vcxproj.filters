@@ -338,7 +338,10 @@
     <None Include="Res\Rooms.json">
       <Filter>Res</Filter>
     </None>
-    <None Include="Res\Shader\OutLine.fs">
+    <None Include="Res\Shader\OutLine.frag">
+      <Filter>Res\Shader</Filter>
+    </None>
+    <None Include="Res\Shader\OutLine.vert">
       <Filter>Res\Shader</Filter>
     </None>
   </ItemGroup>

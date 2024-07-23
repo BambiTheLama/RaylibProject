@@ -7,11 +7,13 @@
 #include "../Weapon/Sword.h"
 #include "../Items/Inventory.h"
 #include "../AddisionalTypes/DrawUI.h"
+#include "../../Core/Controller/ShaderController.h"
 
 class Player : public GameObject, public Character, public Collider,public Hitable,public DrawUI {
     float speed = 600;
     Inventory inventory;
     Vector2 useDir = { 0.0f,0.0f };
+    std::list<GameObject*> closeObj;
     float timer=0.0f;
 public:
     Player(float x,float y);
@@ -21,6 +23,8 @@ public:
     void start() override;
 
     void update(float deltaTime) override;
+
+    void updateCloseItem();
 
     void move(Vector2 dir, float deltaTime) override;
 
@@ -39,5 +43,7 @@ public:
     virtual float getSpeed() { return speed; }
 
     void interact();
+
+    std::list<GameObject*> getCloseGameObjects();
 
 };

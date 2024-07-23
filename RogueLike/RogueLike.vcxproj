@@ -122,7 +122,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Res\Rooms.json" />
-    <None Include="Res\Shader\OutLine.fs" />
+    <None Include="Res\Shader\OutLine.frag" />
+    <None Include="Res\Shader\OutLine.vert" />
     <None Include="Res\Textures.json" />
     <None Include="Res\Weapon.json" />
   </ItemGroup>

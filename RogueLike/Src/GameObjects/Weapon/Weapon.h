@@ -25,7 +25,6 @@ protected:
 	Vector2 rotationPoint = { 0.0f,0.0f };
 	WeaponStats stats;
 	TextureController texture;
-	ShaderController shader;
 public:
 	Weapon();
 

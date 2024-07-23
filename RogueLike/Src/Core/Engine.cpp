@@ -41,7 +41,7 @@ Engine::Engine() {
             deltaTime = 0.0001f;
         s->update(deltaTime);
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(DARKBLUE);
         s->draw();
         DrawFPS(0, 0);
         EndDrawing();

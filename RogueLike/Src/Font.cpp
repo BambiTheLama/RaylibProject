@@ -2,6 +2,9 @@
 #include <sstream>
 #include "Core/Controller/TextureController.h"
 #include "raymath.hpp"
+#include "Core/Controller/ShaderController.h"
+
+static ShaderController outline;
 
 namespace MyFont
 {
@@ -11,6 +14,7 @@ namespace MyFont
 
 	void SetUpFont()
 	{
+		outline = ShaderController("OutLine.frag");
 		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
 		icons.push_back(TextureController("Icons/DamageIcon.png"));
@@ -133,12 +137,11 @@ namespace MyFont
 	}
 
 	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint, float angle) {
-		outlineColor.a = (outlineColor.a / 3);
-		for (int ox = -OutlineSpacing; ox <= OutlineSpacing; ox += OutlineSpacing) {
-			for (int oy = -OutlineSpacing; oy <= OutlineSpacing; oy += OutlineSpacing) {
-				MyFont::DrawText(text, x + ox, y + oy, fontSize, outlineColor, rotationPoint, angle);
-			}
-		}
+		const float size = 2;
+		MyFont::DrawText(text, x - size, y, fontSize, outlineColor, rotationPoint, angle);
+		MyFont::DrawText(text, x + size, y, fontSize, outlineColor, rotationPoint, angle);
+		MyFont::DrawText(text, x, y - size, fontSize, outlineColor, rotationPoint, angle);
+		MyFont::DrawText(text, x, y + size, fontSize, outlineColor, rotationPoint, angle);
 		MyFont::DrawText(text, x, y, fontSize, textColor, rotationPoint, angle);
 
 	}
@@ -223,4 +226,9 @@ Rectangle RectangleIncreasSize(Rectangle rec, float v)
 Rectangle RectangleDecreasSize(Rectangle rec, float v)
 {
 	return { rec.x + v,rec.y + v,rec.width - v * 2,rec.height - v * 2 };
+}
+
+void startOutLineShader()
+{
+	BeginShaderMode(outline.getShader());
 }

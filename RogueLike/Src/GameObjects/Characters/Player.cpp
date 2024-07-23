@@ -46,7 +46,7 @@ void Player::update(float deltaTime) {
     inventory.updateClick();
     timer += deltaTime;
     timer -= (float)((int)(timer / 1) * 1);
-
+    updateCloseItem();
     if (IsKeyPressed(KEY_F5))
     {
         Controller* c;
@@ -60,6 +60,23 @@ void Player::update(float deltaTime) {
             delete c;
     }
 
+}
+
+void Player::updateCloseItem()
+{
+    for (auto o : closeObj)
+    {
+        Item* i = dynamic_cast<Item*>(o);
+        if (i)
+            i->setIsClose(false);
+    }
+    closeObj = getCloseGameObjects();
+    for (auto o : closeObj)
+    {
+        Item* i = dynamic_cast<Item*>(o);
+        if (i)
+            i->setIsClose(true);
+    }
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
@@ -125,7 +142,6 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     }
 }
 
-
 void Player::draw() {
     DrawFrameRec(pos, BLUE, BLACK);
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
@@ -170,8 +186,7 @@ void Player::onCollisionExit(Collider* collider) {
 
 void Player::interact()
 {
-    std::list<GameObject*> gms = Game::getObjects(pos);
-    gms.remove(this);
+    std::list<GameObject*> gms = getCloseGameObjects();
     for (GameObject* o : gms)
     {
         Item* i = dynamic_cast<Item*>(o);
@@ -179,7 +194,20 @@ void Player::interact()
             continue;
         if (inventory.addItem(i))
         {
-            printf("DODA£EM ITEM\n");
         }
     }
+}
+
+std::list<GameObject*> Player::getCloseGameObjects()
+{
+    std::list<GameObject*> gms = Game::getObjects(pos);
+    std::list<GameObject*> closeGm;
+    gms.remove(this);
+    for (GameObject* o : gms)
+    {
+        if (o->getType() != ObjectType::Item)
+            continue;
+        closeGm.push_back(o);
+    }
+    return closeGm;
 }

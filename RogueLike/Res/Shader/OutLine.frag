@@ -8,16 +8,13 @@ in vec4 fragColor;
 uniform sampler2D texture0;
 uniform vec4 colDiffuse;
 
-uniform vec2 textureSize;
-uniform float outlineSize;
-uniform vec4 outlineColor;
-
 // Output fragment color
 out vec4 finalColor;
 
 void main()
 {
-    vec4 texel = texture(texture0, fragTexCoord);
+    vec4 texel = texture(texture0, fragTexCoord);   // Get texel color
 
-    finalColor = texel;
+    finalColor =vec4(colDiffuse.rgb,texel.a);
+
 }

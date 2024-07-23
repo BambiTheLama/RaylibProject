@@ -31,3 +31,5 @@ float getFrameBolder();
 Rectangle RectangleIncreasSize(Rectangle rec, float v);
 
 Rectangle RectangleDecreasSize(Rectangle rec, float v);
+
+void startOutLineShader();

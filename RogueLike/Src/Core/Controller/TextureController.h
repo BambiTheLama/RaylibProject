@@ -20,6 +20,8 @@ public:
 
 	int getFrames() { return framesInH * framesInW; }
 
+	Texture getTexture() { return texture; }
+
 	friend class Engine;
 
 private:

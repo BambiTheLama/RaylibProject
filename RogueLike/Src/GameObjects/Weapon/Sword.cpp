@@ -8,6 +8,7 @@
 
 Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 {
+	type = ObjectType::Item;
 	setOwner(owner);
 	pos = { 0,0,32,32 };
 	std::vector<Vector2> col;
@@ -102,17 +103,31 @@ void Sword::draw()
 		rotationPoint.x = pos.width - rotationPoint.x;
 		angle -= 90;
 	}
-	BeginShaderMode(shader.getShader());
 	if (owner)
 		texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
 	else
+	{
+		if (closeItem)
+		{
+			Color outLineColor = WHITE;
+			startOutLineShader();
+			const int lineSize = 4;
+			drawIcon({ pos.x - lineSize,pos.y,pos.width,pos.height }, true,outLineColor);
+			drawIcon({ pos.x + lineSize,pos.y,pos.width,pos.height }, true,outLineColor);
+			drawIcon({ pos.x,pos.y + lineSize,pos.width,pos.height }, true,outLineColor);
+			drawIcon({ pos.x,pos.y - lineSize,pos.width,pos.height }, true,outLineColor);
+			EndShaderMode();
+		}
+
 		drawIcon(pos, true);
-	EndShaderMode();
+	}
+
+
 }
 
-void Sword::drawIcon(Rectangle pos, bool onlyIcon)
+void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 {
-	texture.draw(pos, false, !flipHorizontal, 0, { 0.0f,0.0f }, 0.0f);
+	texture.draw(pos, false, !flipHorizontal, 0, { 0.0f,0.0f }, 0.0f, color);
 	if (onlyIcon)
 		return;
 	Color c = { 128,128,128,200 };
@@ -215,7 +230,7 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 			int x = weaponData[weaponType]["Col"][i][0];
 			int y = weaponData[weaponType]["Col"][i][1];
 			if (flipHorizontal)
-				y = pos.height - y;
+				y = (int)pos.height - y;
 			col.push_back({ (float)x,(float)y });
 		}
 	}
