@@ -32,6 +32,13 @@ Rectangle Game::convertFromWorldToScrean(Rectangle pos)
     return gameScene->convertFromWorldToScrean(pos);
 }
 
+Vector2 Game::getDirToGo(Rectangle start, Rectangle end, float range)
+{
+    if (!gameScene)
+        return { 0,0 };
+    return gameScene->getDirToGo(start, end, range);
+}
+
 
 void Game::removeObject(GameObject* obj)
 {

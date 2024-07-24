@@ -44,6 +44,8 @@ Floor::Floor(Rectangle pos)
     pos.height = (float)(((int)pos.height / (int)roomH) * (int)roomH);
     this->pos = pos;
     tree = new QuadTree({ pos.x - 100.0f,pos.y - 100.0f,pos.width + 200.0f,pos.height + 200.0f });
+    pathFinder = PathFinder({ pos.width,pos.height }, { 16,16 });
+
 }
 
 void Floor::setUpRooms(int startX, int startY, Room& room)
@@ -124,6 +126,8 @@ void Floor::setUpRooms(int startX, int startY, Room& room)
                 k++;
             } while (!isbreak && k + y < roomSize);
             GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
+            if (type == BlockType::Wall || type == BlockType::BossEnterWall)
+                pathFinder.setStaticBlock({ startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH });
             if (b)
                 addObject(b);
             y--;
@@ -149,7 +153,6 @@ Floor::~Floor()
     toDelete.clear();
     delete tree;
 }
-
 
 void Floor::createFloor()
 {
@@ -212,6 +215,17 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
 
 void Floor::update(float deltaTime,Camera2D camera)
 {
+#ifdef ShowPaths
+    static float reset = 0.1;
+    reset -= deltaTime;
+    if (reset <= 0)
+    {
+        pathFinder.clearPaths();
+        reset = 0.2f;
+    }
+
+
+#endif // ShowPath
     for (auto o : toRemove)
     {
         removeObj(o);
@@ -245,7 +259,7 @@ void Floor::update(float deltaTime,Camera2D camera)
         if(o->movingObject())
             tree->updatePos(o);
         Collider* col = dynamic_cast<Collider*>(o);
-        if (col)
+        if (col && !col->isSolidObject())
             colliders.push_back(col);
     }
     for (auto o : colliders)
@@ -256,6 +270,9 @@ void Floor::update(float deltaTime,Camera2D camera)
         o->checkCollision(deltaTime);
 
     closeObjects.sort(sortGameObjectCondiction);
+
+
+
 }
 
 void Floor::draw()
@@ -273,6 +290,8 @@ void Floor::draw()
 
     if (IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyDown(KEY_TWO))
         tree->draw();
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_THREE))
+        pathFinder.draw();
 }
 
 void Floor::drawUI()

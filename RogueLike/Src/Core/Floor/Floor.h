@@ -5,7 +5,7 @@
 #include "../QuadTree.h"
 #include <vector>
 #include "../WaveCollapsFun.h"
-
+#include "PathFinder.h"
 class Room;
 using CreateObjectFun = GameObject * (*)(int, Rectangle);
 
@@ -16,6 +16,7 @@ class Floor
     std::list<GameObject*> toDelete;
     std::list<GameObject*> toRemove;
     std::list<Collider*> colliders;
+    PathFinder pathFinder;
     QuadTree* tree;
     Rectangle pos;
 public:
@@ -42,6 +43,8 @@ public:
     bool deleteObject(GameObject* obj);
 
     void removeObject(GameObject* obj);
+
+    Vector2 getDirToGo(Rectangle start, Rectangle end, float range) { return pathFinder.getDirToGo(start, end, range); }
 
 private:
     void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun);

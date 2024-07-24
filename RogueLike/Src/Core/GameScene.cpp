@@ -16,7 +16,7 @@ GameScene::GameScene() {
     camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
-    Rectangle pos = { 0,0,6000,6000 };
+    Rectangle pos = { 0,0,3000,3000 };
     floor = new Floor(pos);
     camera.target = { pos.width / 2,pos.height / 2 };
 
@@ -68,6 +68,10 @@ void GameScene::onDestroy()
 }
 
 void GameScene::update(float deltaTime) {
+    if (IsKeyDown(KEY_UP))
+        camera.zoom += 1 * deltaTime;
+    if (IsKeyDown(KEY_DOWN))
+        camera.zoom -= 1 * deltaTime;
     Vector2 cursor = GetScreenToWorld2D(GetMousePosition(), camera);
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
@@ -111,6 +115,14 @@ Rectangle GameScene::convertFromWorldToScrean(Rectangle pos)
     pos.height *= camera.zoom;
     return pos;
 }
+
+Vector2 GameScene::getDirToGo(Rectangle start, Rectangle end, float range)
+{
+    if (!floor)
+        return { 0,0 };
+    return floor->getDirToGo(start, end, range);
+}
+
 
 bool GameScene::addObject(GameObject *obj) {
     if (floor)

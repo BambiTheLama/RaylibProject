@@ -190,6 +190,9 @@
     <ClInclude Include="Src\Core\Controller\ShaderController.h">
       <Filter>Core\Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Floor\PathFinder.h">
+      <Filter>Core\Floor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\ShaderController.cpp">
       <Filter>Core\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Floor\PathFinder.cpp">
+      <Filter>Core\Floor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

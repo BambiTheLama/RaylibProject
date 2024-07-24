@@ -12,28 +12,22 @@ void AIController::update(float deltaTime)
 	}
 	moveDir = { 0,0 };
 	inputs.clear();
+	findPathTimer -= deltaTime;
 
-
-	if ((action & (int)Action::IDE) != 0)
+	if (action == (int)Action::IDE)
 	{
-		if (abs(IDEMoveDir.x) < 0.1 && abs(IDEMoveDir.x) < 0.1)
+		if (abs(lastMoveDir.x) < 0.1 && abs(lastMoveDir.y) < 0.1)
 		{
-			IDEMoveDir = { (rand() % 21) / 10.0f - 1.0f,(rand() % 21) / 10.0f - 1.0f };
+			lastMoveDir = { (rand() % 21) / 10.0f - 1.0f,(rand() % 21) / 10.0f - 1.0f };
 		}
 		else
 		{
 			Vector2 moveDiff = { (rand() % 2001) / 1000.0f - 1.0f,(rand() % 2001) / 1000.0f - 1.0f };
 		
-			IDEMoveDir = Vector2Add(IDEMoveDir, { moveDiff.x * deltaTime*10,moveDiff.y * deltaTime*10 });
+			lastMoveDir = Vector2Add(lastMoveDir, { moveDiff.x * deltaTime*10,moveDiff.y * deltaTime*10 });
 		}
-		IDEMoveDir = Vector2Normalize(IDEMoveDir);
-		moveDir = IDEMoveDir;
+		moveDir = Vector2Normalize(lastMoveDir);
 	}
-	else
-	{
-		IDEMoveDir = { 0,0 };
-	}
-
 
 
 	if (targerType == 0 || !thisObj)
@@ -47,9 +41,33 @@ void AIController::update(float deltaTime)
 	Vector2 pos = target->getPosPoint();
 	Vector2 thisPos = thisObj->getPosPoint();
 	if ((action & (int)Action::RunFrom) != 0)
-		moveDir = Vector2Normalize(Vector2Subtract(thisPos, pos));
+	{
+		if (findPathTimer <= 0)
+		{
+			Vector2 runDir = Vector2Normalize(Vector2Subtract(pos, thisPos));
+			Rectangle posRec = target->getPos();
+			Rectangle thisPosRec = thisObj->getPos();
+			posRec.x = thisPosRec.x - runDir.x * range / 2.0f;
+			posRec.y = thisPosRec.y - runDir.y * range / 2.0f;
+			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range));
+			findPathTimer = 0.1;
+		}
+		moveDir = lastMoveDir;
+	}
+
 	if ((action & (int)Action::GoTo) != 0)
-		moveDir = Vector2Normalize(Vector2Subtract(pos , thisPos));
+	{
+		if (findPathTimer <= 0)
+		{
+			Rectangle posRec = target->getPos();
+			Rectangle thisPosRec = thisObj->getPos();
+
+			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range * 1.5f));
+			findPathTimer = 0.1;
+		}
+		moveDir = lastMoveDir;
+	}
+
 
 
 

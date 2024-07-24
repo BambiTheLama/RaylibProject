@@ -29,6 +29,7 @@
     <ClInclude Include="Src\Core\Dir.h" />
     <ClInclude Include="Src\Core\Engine.h" />
     <ClInclude Include="Src\Core\Floor\Floor.h" />
+    <ClInclude Include="Src\Core\Floor\PathFinder.h" />
     <ClInclude Include="Src\Core\Floor\Room.h" />
     <ClInclude Include="Src\Core\Floor\RoomElements.h" />
     <ClInclude Include="Src\Core\GameScene.h" />
@@ -80,6 +81,7 @@
     <ClCompile Include="Src\Core\Controller\TextureController.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
     <ClCompile Include="Src\Core\Floor\Floor.cpp" />
+    <ClCompile Include="Src\Core\Floor\PathFinder.cpp" />
     <ClCompile Include="Src\Core\Floor\Room.cpp" />
     <ClCompile Include="Src\Core\Floor\RoomElements.cpp" />
     <ClCompile Include="Src\Core\GameScene.cpp" />
@@ -222,6 +224,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -237,6 +240,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

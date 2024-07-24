@@ -58,6 +58,8 @@ public:
 
     bool isTrigger() { return trigger; }
 
+    bool isSolidObject() { return solidObject; }
+
     GameObject* getThisObj();
 
     Vector2 getCollisionDir(Collider* collider);

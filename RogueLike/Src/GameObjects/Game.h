@@ -24,6 +24,8 @@ public:
 
     static Rectangle convertFromWorldToScrean(Rectangle pos);
 
+    static Vector2 getDirToGo(Rectangle start, Rectangle end, float range);
+
     friend class GameScene;
 };
 

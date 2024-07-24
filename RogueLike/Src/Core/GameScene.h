@@ -27,6 +27,8 @@ public:
 
     Rectangle convertFromWorldToScrean(Rectangle pos);
 
+    Vector2 getDirToGo(Rectangle start, Rectangle end, float range);
+
     bool addObject(GameObject *obj);
 
     bool deleteObject(GameObject* obj);

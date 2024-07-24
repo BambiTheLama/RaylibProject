@@ -15,7 +15,8 @@ public:
     int targerType = 0;
     int range = 0;
     int action = 0;
-    Vector2 IDEMoveDir = { 0,0 };
+    Vector2 lastMoveDir = { 0,0 };
+    float findPathTimer = 0.1;
 
     void update(float deltaTime);
 
