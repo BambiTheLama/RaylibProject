@@ -11,6 +11,11 @@ LootBlock::LootBlock(float x, float y)
 	type = ObjectType::Loot;
 }
 
+void LootBlock::update(float deltaTime)
+{
+	Hitable::update(deltaTime);
+}
+
 void LootBlock::draw()
 {
 	Vector2 cPos = { pos.x + tileW / 2, pos.y + tileH / 2 };

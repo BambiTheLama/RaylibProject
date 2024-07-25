@@ -237,3 +237,8 @@ void startOutLineShader()
 {
 	BeginShaderMode(outline.getShader());
 }
+
+Vector2 getMidlePoint(Rectangle rec)
+{
+	return { rec.x + rec.width / 2,rec.y + rec.height / 2 };
+}

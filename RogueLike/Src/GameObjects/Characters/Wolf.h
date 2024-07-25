@@ -9,12 +9,12 @@ class Wolf :
     public GameObject,public Hitable,public Collider,public Character
 {
     int target = 0b110;
-    float damge = 1;
-    float attackTime = 0;
-    float attackTimeMax = 2;
+    float damge = 1.0f;
+    float attackTime = 0.0f;
+    float attackTimeMax = 1.0f;
     float recoveryTime = 0;
     float recoveryTimeMax = 0.5;
-    float speed = 0;
+    float speed = 0.0f;
     float speedMax = 200;
     Vector2 attackDir = { 0.0f,0.0f };
     CharacterController controller;

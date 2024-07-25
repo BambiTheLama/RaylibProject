@@ -46,4 +46,3 @@ public:
 
     friend class Collider;
 };
-

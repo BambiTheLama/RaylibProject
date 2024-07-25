@@ -19,6 +19,7 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 		Projectal* projectal = ProjectalFactory::getProjectal(n.getSpawnID());
 		if (!projectal)
 			return false;
+		projectal->setOwner(owner);
 		GameObject* gm = dynamic_cast<GameObject*>(projectal);
 		if (!gm)
 		{
@@ -48,6 +49,6 @@ WeaponNodeTrigger WeaponNodeTrigger::getNextTriggerNode()
 	WeaponNodeTrigger wnt;
 	for (int i = 1; i < nodes.size(); i++)
 		wnt.nodes.push_back(nodes[i]);
-	
+	wnt.owner = owner;
 	return wnt;
 }

@@ -39,7 +39,10 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	WeaponNodeItem* wni = new WeaponNodeItem("Icons/AngleIcon.png");
 	wni->setWeaponNode(wn);
 	addSlot(0, wni);
-
+	wn= WeaponNode(wnStats, WeaponNodeActivation::OnUse, 1);
+	wni = new WeaponNodeItem("Icons/AngleIcon.png");
+	wni->setWeaponNode(wn);
+	addSlot(1, wni);
 
 }
 
@@ -197,9 +200,13 @@ void Sword::onTriggerEnter(Collider* collider)
 			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.knockback * stats.knockbackMultiplier, 1);
 			triggerNode(WeaponNodeActivation::OnHit, stats);
 		}
-
+		return;
 	}
-
+	Hitable* hit = dynamic_cast<Hitable*>(collider);
+	if (hit)
+	{
+		hit->dealDamage(1.0f);
+	}
 
 }
 void Sword::updateWeaponSize()

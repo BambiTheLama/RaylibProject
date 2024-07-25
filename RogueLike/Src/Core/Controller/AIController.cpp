@@ -11,6 +11,7 @@ void AIController::update(float deltaTime)
 		return;
 	}
 	moveDir = { 0,0 };
+	inputDir = { 0,0 };
 	inputs.clear();
 	findPathTimer -= deltaTime;
 
@@ -49,9 +50,10 @@ void AIController::update(float deltaTime)
 	{
 		if (findPathTimer <= 0)
 		{
-			Vector2 runDir = Vector2Normalize(Vector2Subtract(pos, thisPos));
+
 			Rectangle posRec = target->getPos();
 			Rectangle thisPosRec = thisObj->getPos();
+			Vector2 runDir = Vector2Normalize(Vector2Subtract(getMidlePoint(target->getPos()), getMidlePoint(thisObj->getPos())));
 			posRec.x = thisPosRec.x - runDir.x * range / 2.0f;
 			posRec.y = thisPosRec.y - runDir.y * range / 2.0f;
 			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range));
@@ -64,10 +66,7 @@ void AIController::update(float deltaTime)
 	{
 		if (findPathTimer <= 0)
 		{
-			Rectangle posRec = target->getPos();
-			Rectangle thisPosRec = thisObj->getPos();
-
-			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range * 1.5f));
+			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisObj->getPos(), target->getPos(), range * 1.5f));
 			findPathTimer = refresTimer;
 		}
 		moveDir = lastMoveDir;
@@ -77,7 +76,11 @@ void AIController::update(float deltaTime)
 
 
 	if ((action & (int)Action::Attack) != 0)
+	{
+		inputDir = Vector2Normalize(Vector2Subtract(getMidlePoint(target->getPos()), getMidlePoint(thisObj->getPos())));
 		inputs.push_back(Input::Attack1);
+	}
+
 }
 
 void AIController::lookForTarget() {

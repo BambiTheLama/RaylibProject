@@ -15,8 +15,8 @@ public:
     int targerType = 0;
     int range = 0;
     int action = 0;
-    Vector2 lastMoveDir = { 0,0 };
-    float findPathTimer = 0.1;
+    Vector2 lastMoveDir = { 0.0f,0.0f };
+    float findPathTimer = 0.1f;
     const float refresTimer = 0.2f;
 
     void update(float deltaTime);

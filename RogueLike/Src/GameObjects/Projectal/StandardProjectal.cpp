@@ -48,6 +48,8 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 	GameObject* colObj = collider->getThisObj();
 	if (!colObj)
 		return;
+	if (colObj == owner)
+		return;
 	if ((int)colObj->getType() & (int)ObjectType::Enemy)
 	{
 		Hitable* hit = dynamic_cast<Hitable*>(colObj);
@@ -77,6 +79,14 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		{
 			triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
 			Game::deleteObject(this);
+		}
+	}
+	else
+	{
+		Hitable* hit = dynamic_cast<Hitable*>(collider);
+		if (hit)
+		{
+			hit->dealDamage(1.0f);
 		}
 	}
 }

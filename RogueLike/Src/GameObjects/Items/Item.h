@@ -16,7 +16,7 @@ public:
 
 	virtual ~Item(){}
 
-	void setOwner(GameObject* owner) { this->owner = owner; inInventory = owner; closeItem = false;}
+	virtual void setOwner(GameObject* owner) { this->owner = owner; inInventory = owner; closeItem = false;}
 
 	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; closeItem = false;}
 

@@ -9,7 +9,7 @@ protected:
 public:
     static int showParticle;
 
-    Hitable(float hp = 10.0f);
+    Hitable(float hp = 1.0f);
 
     bool dealDamage(float damage, float invisibleFrames = 0.01f);
 
@@ -23,6 +23,6 @@ public:
 
     void draw(Rectangle pos);
 
-    bool isAlive() { return hp > 0; }
+    virtual bool isAlive() { return hp > 0; }
 };
 

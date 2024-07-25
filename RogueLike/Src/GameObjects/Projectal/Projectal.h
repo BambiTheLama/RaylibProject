@@ -10,6 +10,7 @@ class Projectal
 	GameObject *thisObj = nullptr;
 protected:
 	Vector2 dir = { 1.0f,0.0f };
+	GameObject* owner;
 	WeaponStats stats;
 public:
 	void setWeaponNodeTrigger(WeaponNodeTrigger trigger) { this->weaponNodeTrigger = trigger; }
@@ -17,6 +18,8 @@ public:
 	void setWeaponStats(WeaponStats stats) { this->stats = stats; updateStatsAfterSetStats(); }
 
 	void setDir(Vector2 dir) { this->dir = dir; }
+
+	void setOwner(GameObject* owner) { this->owner = owner; }
 
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 

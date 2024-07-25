@@ -178,7 +178,6 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 	if (!thisObj)
 		return false;
 	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats);
-	return false;
 }
 
 WeaponNodeItem* Weapon::removeSlot(int slot)
@@ -294,6 +293,9 @@ void Weapon::updateWeaponNodesEfects()
 		}
 	}
 	WeaponNodeTrigger wnt;
+	Item* item = dynamic_cast<Item*>(this);
+	if (item)
+		wnt.setOwner(item->owner);
 	for (WeaponNode* wn : activationNodes)
 		wnt.pushBackNodeTrigger(*wn);
 	weaponNodeTrigger = wnt;

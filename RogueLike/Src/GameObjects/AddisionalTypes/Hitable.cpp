@@ -3,7 +3,7 @@
 #include "../ParticleText.h"
 #include <string>
 
-int Hitable::showParticle = 0b11111;
+int Hitable::showParticle = 0b1111101111;
 
 Hitable::Hitable(float hp)
 {
