@@ -23,7 +23,7 @@ Wolf::Wolf(float x, float y)
 	ai->thisObj = this;
 	ai->targerType = (int)ObjectType::Player;
 	ai->action = (int)Action::GoTo;
-	ai->range = 500;
+	ai->range = 300;
 	controller.setController(ai);
 	controller.setCharacter(this);
 	controller.setCharacterType(ObjectType::Enemy);
@@ -53,7 +53,7 @@ void Wolf::update(float deltaTime)
 			if (distance < 200)
 				ai->action |= (int)Action::Attack;
 			
-			ai->action |= (int)Action::RunFrom;
+			ai->action |= (int)Action::GoTo;
 		}
 		else
 		{
@@ -121,7 +121,6 @@ void Wolf::move(Vector2 dir, float deltaTime)
 
 void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
-	return;
 	if (input == Input::Attack1 && attackTime <= 0.0f)
 	{
 		if (abs(movedir.x) <= 0.1 && abs(movedir.y) < 0.1)

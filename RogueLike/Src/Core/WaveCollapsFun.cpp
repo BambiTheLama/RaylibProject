@@ -5,6 +5,13 @@ bool RoomData::isMaching(Dir dir, std::vector<BlockType> blocks)
 {
 	if (ID < 0)
 		return true;
+	return  getMachingTiles(dir, blocks) > 6;
+}
+
+int RoomData::getMachingTiles(Dir dir, std::vector<BlockType> blocks)
+{
+	if (ID < 0)
+		return 0;
 	std::vector<BlockType> thisBlocks;
 	switch (dir) {
 	case Dir::Up:
@@ -20,23 +27,23 @@ bool RoomData::isMaching(Dir dir, std::vector<BlockType> blocks)
 		thisBlocks = left;
 		break;
 	default:
-		return false;
+		return 0;
 	}
 
 	if (thisBlocks.size() <= 0)
-		return false;
+		return 0;
 
 	if (blocks.size() < thisBlocks.size())
-		return false;
-	int mistakes = 0;
+		return 0;
+	int maching = 0;
 	for (int i = 0; i < thisBlocks.size(); i++)
-		if (thisBlocks[i] != blocks[i])
-			mistakes++;
-	return mistakes < 3;
-
+		if (thisBlocks[i] == blocks[i])
+			maching++;
+	return maching;
 }
 
-static std::vector<std::vector<RoomData>> createFloar(int w, int h)
+
+static std::vector<std::vector<RoomData>> createFloar(int w, int h, RoomData rd)
 {
 	std::vector<std::vector<RoomData>>roomGrid;
 	for (int y = 0; y < h; y++)
@@ -48,6 +55,17 @@ static std::vector<std::vector<RoomData>> createFloar(int w, int h)
 		}
 		roomGrid.push_back(rooms);
 	}
+	for (int y = 0; y < h; y++)
+	{
+		roomGrid[y][0] = rd;
+		roomGrid[y][w - 1] = rd;
+	}
+	for (int x = 0; x < w; x++)
+	{
+		roomGrid[0][x] = rd;
+		roomGrid[h - 1][x] = rd;
+	}
+
 	return roomGrid;
 }
 
@@ -79,18 +97,18 @@ static void setBoosRoom(std::vector<std::vector<RoomData>>& roomGrid, std::vecto
 	if (rand() % 2)
 	{
 		if (rand() % 2)
-			x = 0;
+			x = 1;
 		else
-			x = gridW - bossRoomSizeW;
-		y = rand() % (gridH - bossRoomSizeH);
+			x = gridW - bossRoomSizeW - 1;
+		y = (rand() % (gridH - bossRoomSizeH - 2)) + 1;
 	}
 	else
 	{
 		if (rand() % 2)
-			y = 0;
+			y = 1;
 		else
-			y = gridH - bossRoomSizeH;
-		x = rand() % (gridW - bossRoomSizeW);
+			y = gridH - bossRoomSizeH-1;
+		x = (rand() % (gridW - bossRoomSizeW - 2)) + 1;
 	}
 	for (int i = 0; i < bossRoomSizeH; i++)
 		for (int j = 0; j < bossRoomSizeW; j++)
@@ -118,6 +136,41 @@ static void setSpecialRooms(std::vector<std::vector<RoomData>>& roomGrid, std::v
 		roomGrid[y][x] = room;
 	}
 }
+
+
+static int getMachingRoom(std::vector<std::vector<RoomData>>& roomGrid, RoomData& room, int x, int y) {
+	int maching = 0;
+	if (x - 1 >= 0)
+		maching += roomGrid[y][x - 1].getMachingTiles(Dir::Right, room.left);
+	else
+		maching += roomGrid[y][roomGrid[0].size() - 1].getMachingTiles(Dir::Right, room.left);
+
+
+	if (x + 1 < roomGrid[0].size())
+		maching += roomGrid[y][x + 1].getMachingTiles(Dir::Left, room.right);
+	else
+		maching += roomGrid[y][0].getMachingTiles(Dir::Left, room.right);
+
+	if (y - 1 >= 0)
+		maching += roomGrid[y - 1][x].getMachingTiles(Dir::Down, room.up);
+	else
+		maching += roomGrid[roomGrid.size() - 1][x].getMachingTiles(Dir::Down, room.up);
+
+	if (y + 1 < roomGrid.size())
+		maching += roomGrid[y + 1][x].getMachingTiles(Dir::Up, room.down);
+	else
+		maching += roomGrid[0][x].getMachingTiles(Dir::Up, room.down);
+	
+	return maching;
+}
+
+
+
+
+
+
+
+
 
 static bool isPossibleRoom(std::vector<std::vector<RoomData>>& roomGrid, RoomData& room, int x, int y) {
 	if (x - 1 >= 0)
@@ -207,6 +260,25 @@ static void sortRoomsToFill(std::vector<std::vector<RoomData>>& roomGrid, std::v
 		
 }
 
+static int getTheMostMachingRoom(std::vector<std::vector<RoomData>>& roomGrid, std::vector<RoomData>& rooms, int x, int y)
+{
+	int machingSymbols = 0;
+	int roomID = 0;
+	
+	for (auto r : rooms)
+	{
+		int tmpMachingSymbols = getMachingRoom(roomGrid, r, x, y);
+		if (tmpMachingSymbols >= machingSymbols)
+		{
+			machingSymbols = tmpMachingSymbols;
+			roomID = r.ID;
+		}
+	}
+
+
+	return roomID;
+}
+
 static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<RoomData>& rooms) {
 	std::vector<Vector2> roomsToFill;
 	for (int y = 0; y < roomGrid.size(); y++)
@@ -237,7 +309,8 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 			n = (int)roomGrid[p.y][p.x].posibleRoom.size();
 			if (n <= 0)
 			{
-				printf("NIE MA POKOJU %d %d\n", p.x, p.y);
+				ID = getTheMostMachingRoom(roomGrid, rooms, p.x, p.y);
+				printf("NIE MA POKOJU %d %d ale najlepiej pasuje pokoj %d\n", p.x, p.y, ID);
 			}
 			else
 			{
@@ -257,7 +330,7 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 
 std::vector<std::vector<RoomData>> generareFloor(int w, int h, FloorRooms& floorRooms)
 {
-	std::vector<std::vector<RoomData>>roomGrid = createFloar(w, h);
+	std::vector<std::vector<RoomData>>roomGrid = createFloar(w, h, floorRooms.standardsRooms[1]);
 	if (floorRooms.bossRoom.size() > 0)
 		setBoosRoom(roomGrid, floorRooms.bossRoom);
 	if (floorRooms.specialRooms.size() > 0)

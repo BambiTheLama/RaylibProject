@@ -6,7 +6,6 @@
 
 struct RoomData {
 	int ID = -1;
-	char rotate = 0;
 	RoomType type = RoomType::Normal;
 	std::vector<BlockType> up;
 	std::vector<BlockType> down;
@@ -15,6 +14,8 @@ struct RoomData {
 	std::vector<int> posibleRoom;
 
 	bool isMaching(Dir dir, std::vector<BlockType> blocks);
+
+	int getMachingTiles(Dir dir, std::vector<BlockType> blocks);
 };
 
 struct FloorRooms {

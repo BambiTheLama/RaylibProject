@@ -2,6 +2,8 @@
 #include <vector>
 #include "raylib.hpp"
 #include <list>
+#include <map>
+
 #define ShowPaths
 
 struct PathFinderNode
@@ -12,9 +14,7 @@ struct PathFinderNode
 
 	void setSolid() { solidBlock = true; }
 
-	void update() { 
-		fullPath = toEnd + toGo; wasCheck = true; 
-	}
+	void update() { fullPath = toEnd + toGo; wasCheck = true; }
 };
 
 class PathFinder

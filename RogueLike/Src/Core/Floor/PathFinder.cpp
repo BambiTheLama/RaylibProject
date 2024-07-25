@@ -159,16 +159,22 @@ bool sortFun(Vector2& f, Vector2& s)
 Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 {
 	
-	int x = clamp((int)((start.x + start.width / 2 - range) / resolution.x), 1, grid[0].size() - 1);
-	int y = clamp((int)((start.y + start.height / 2 - range) / resolution.y), 1, grid.size() - 1);
-	int w = clamp(getGridSize(start.x + start.width / 2 - range, range * 2, resolution.x), 1, grid[0].size());
-	int h = clamp(getGridSize(start.y + start.height / 2 - range, range * 2, resolution.y), 1, grid.size());
+	const int centerStartX = clamp((int)((start.x + start.width / 2) / resolution.x), 1, grid[0].size() - 1);
+	const int centerStartY = clamp((int)((start.y + start.height / 2) / resolution.y), 1, grid.size() - 1);
+	const int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, grid[0].size() - 1);
+	const int centerEndY = clamp((int)((end.y + end.height / 2) / resolution.y), 1, grid.size() - 1);
 
 	objSizeH = start.width / resolution.x;
 	objSizeW = start.height / resolution.y;
 
+	const int x = clamp((int)((start.x + start.width / 2 - range) / resolution.x), 1, grid[0].size() - 1);
+	const int y = clamp((int)((start.y + start.height / 2 - range) / resolution.y), 1, grid.size() - 1);
+	const int w = clamp(getGridSize(start.x + start.width / 2 - range, range * 2, resolution.x), 1, grid[0].size());
+	const int h = clamp(getGridSize(start.y + start.height / 2 - range, range * 2, resolution.y), 1, grid.size());
+
 	cellRangeX = (range / resolution.x) + 1;
 	cellRangeY = (range / resolution.x) + 1;
+
 
 	for (int i = y; i < h; i++)
 		for (int j = x; j < w; j++)
@@ -176,11 +182,7 @@ Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 			grid[i][j].wasCheck = false;
 		}
 
-	bool pathFinded = false;
-	int centerStartX = clamp((int)((start.x + start.width / 2) / resolution.x), 1, grid[0].size() - 1);
-	int centerStartY = clamp((int)((start.y + start.height / 2) / resolution.y), 1, grid.size() - 1);
-	int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, grid[0].size() - 1);
-	int centerEndY = clamp((int)((end.y + end.height / 2) / resolution.y), 1, grid.size() - 1);
+
 
 	grid[centerStartY][centerStartX].toGo = 0;
 	grid[centerStartY][centerStartX].toEnd = toGoConst(centerStartX, centerStartY, centerEndX, centerEndY);
@@ -221,11 +223,18 @@ Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 		{
 			comefromX = lastX;
 			comefromY = lastY;
+#ifdef ShowPaths
 			paths.push_back({ (float)lastX ,(float)lastY });
+#endif
 		}
 		lastX = thisX;
 		lastY = thisY;
 	}
+#ifdef ShowPaths
 	paths.push_back({ (float)centerStartX ,(float)centerStartY });
-	return { (float)(comefromX - centerStartX),(float)(comefromY - centerStartY) };
+#endif
+	Vector2 toGoDir = { (float)(comefromX - centerStartX),(float)(comefromY - centerStartY) };
+
+
+	return toGoDir;
 }

@@ -16,7 +16,7 @@ class Floor
     std::list<GameObject*> toDelete;
     std::list<GameObject*> toRemove;
     std::list<Collider*> colliders;
-    PathFinder pathFinder;
+    PathFinder* pathFinder = nullptr;
     QuadTree* tree;
     Rectangle pos;
 public:
@@ -44,7 +44,7 @@ public:
 
     void removeObject(GameObject* obj);
 
-    Vector2 getDirToGo(Rectangle start, Rectangle end, float range) { return pathFinder.getDirToGo(start, end, range); }
+    Vector2 getDirToGo(Rectangle start, Rectangle end, float range) { return pathFinder->getDirToGo(start, end, range); }
 
 private:
     void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun);

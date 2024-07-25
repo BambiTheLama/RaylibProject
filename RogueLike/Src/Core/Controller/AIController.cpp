@@ -14,6 +14,11 @@ void AIController::update(float deltaTime)
 	inputs.clear();
 	findPathTimer -= deltaTime;
 
+	if (action == 0)
+	{
+		return;
+	}
+
 	if (action == (int)Action::IDE)
 	{
 		if (abs(lastMoveDir.x) < 0.1 && abs(lastMoveDir.y) < 0.1)
@@ -50,7 +55,7 @@ void AIController::update(float deltaTime)
 			posRec.x = thisPosRec.x - runDir.x * range / 2.0f;
 			posRec.y = thisPosRec.y - runDir.y * range / 2.0f;
 			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range));
-			findPathTimer = 0.1;
+			findPathTimer = refresTimer;
 		}
 		moveDir = lastMoveDir;
 	}
@@ -63,7 +68,7 @@ void AIController::update(float deltaTime)
 			Rectangle thisPosRec = thisObj->getPos();
 
 			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range * 1.5f));
-			findPathTimer = 0.1;
+			findPathTimer = refresTimer;
 		}
 		moveDir = lastMoveDir;
 	}

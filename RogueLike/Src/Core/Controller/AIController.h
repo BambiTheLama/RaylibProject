@@ -17,6 +17,7 @@ public:
     int action = 0;
     Vector2 lastMoveDir = { 0,0 };
     float findPathTimer = 0.1;
+    const float refresTimer = 0.2f;
 
     void update(float deltaTime);
 
