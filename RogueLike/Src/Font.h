@@ -37,3 +37,5 @@ float RectangleDistance(Rectangle r1, Rectangle r2);
 void startOutLineShader();
 
 Vector2 getMidlePoint(Rectangle rec);
+
+Color mixColor(Color c1, Color c2, float procent);

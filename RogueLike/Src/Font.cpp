@@ -242,3 +242,10 @@ Vector2 getMidlePoint(Rectangle rec)
 {
 	return { rec.x + rec.width / 2,rec.y + rec.height / 2 };
 }
+
+Color mixColor(Color c1, Color c2, float p)
+{
+	p = Clamp(p, 0.0f, 1.0f);
+	float p2 = 1.0f - p;
+	return { (unsigned char)(c1.r * p + c2.r * p2),(unsigned char)(c1.g * p + c2.g * p2), (unsigned char)(c1.b * p + c2.b * p2), (unsigned char)(c1.a * p + c2.a * p2) };
+}

@@ -193,6 +193,9 @@
     <ClInclude Include="Src\Core\Floor\PathFinder.h">
       <Filter>Core\Floor</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Projectal\Bomb.h">
+      <Filter>GameObjects\Projectal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="Src\Core\Floor\PathFinder.cpp">
       <Filter>Core\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Projectal\Bomb.cpp">
+      <Filter>GameObjects\Projectal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

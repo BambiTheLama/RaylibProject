@@ -8,6 +8,7 @@
 #include "../../Core/Controller/KeyBoardController.h"
 #include "../../Core/Controller/GamePadController.h"
 #include "Wall.h"
+#include "../Projectal/Bomb.h"
 
 Player::Player(float x, float y):Hitable(100.0f){
 
@@ -62,18 +63,7 @@ void Player::update(float deltaTime) {
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
     {
-        float range = 100;
-        Rectangle toRemove = RectangleIncreasSize(pos, range);
-        std::list<GameObject*> objs = Game::getObjects(toRemove);
-        for (auto o : objs)
-        {
-            if (o->getType() != ObjectType::Wall)
-                continue;
-            Wall* w = dynamic_cast<Wall*>(o);
-            if (!w)
-                continue;
-            w->deletePartWall(toRemove);
-        }
+        Game::addObject(new Bomb(pos.x + pos.width / 2, pos.y + pos.height / 2));
     }
 
 }

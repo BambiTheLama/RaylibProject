@@ -330,13 +330,6 @@ bool Floor::addObject(GameObject* obj)
         return true;
     }
     allGameObjects.push_back(obj);
-    Collider* collider = dynamic_cast<Collider*>(obj);
-    if (collider)
-    {
-        if (!collider->solidObject)
-            colliders.push_back(collider);
-
-    }
     tree->addObj(obj);
     obj->start();
     return true;
