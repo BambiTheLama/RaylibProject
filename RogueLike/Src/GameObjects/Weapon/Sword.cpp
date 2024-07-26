@@ -31,7 +31,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 
 
 	WeaponStats wnStats;
-	wnStats.range = 1000;
+	wnStats.range = 0;
 	wnStats.rangeMultiplier = 1;
 	wnStats.bounce = 3;
 
@@ -39,8 +39,8 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 	WeaponNodeItem* wni = new WeaponNodeItem("Icons/AngleIcon.png");
 	wni->setWeaponNode(wn);
 	addSlot(0, wni);
-	wn= WeaponNode(wnStats, WeaponNodeActivation::OnUse, 1);
-	wni = new WeaponNodeItem("Icons/AngleIcon.png");
+	wn= WeaponNode(wnStats);
+	wni = new WeaponNodeItem("Weapons/Stick.png");
 	wni->setWeaponNode(wn);
 	addSlot(1, wni);
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <list>
 #include "raymath.h"
+#include "../../GameObjects/Game.h"
 
 static PathFinder* pathFinder;
 
@@ -41,7 +42,7 @@ int getGridSize(float x, float w, float resolution)
 	return (x + w) / resolution;
 }
 
-void PathFinder::setStaticBlock(Rectangle pos)
+void PathFinder::setStaticBlock(Rectangle pos,bool staticBlock)
 {
 	int x = clamp((int)(pos.x / resolution.x), 0, grid[0].size() - 1);
 	int y = clamp((int)(pos.y / resolution.y), 0, grid.size() - 1);
@@ -51,8 +52,30 @@ void PathFinder::setStaticBlock(Rectangle pos)
 	for (int j = y; j < h; j++)
 		for (int i = x; i < w; i++)
 		{
-			grid[j][i].setSolid();
+			grid[j][i].setSolid(staticBlock);
 		}
+}
+
+
+void PathFinder::update()
+{
+
+	for (auto pos : toCheckPos2)
+	{
+		std::list<GameObject*>objs = Game::getObjects(pos);
+		for (auto o : objs)
+		{
+			if (o->getType() == ObjectType::Wall)
+				setStaticBlock(o->getPos());
+		}
+	}
+	toCheckPos2.clear();
+	for (auto pos : toCheckPos)
+	{
+		setStaticBlock(pos, false);
+		toCheckPos2.push_back(pos);
+	}
+	toCheckPos.clear();
 }
 
 void PathFinder::draw()

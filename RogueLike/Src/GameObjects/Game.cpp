@@ -38,7 +38,12 @@ Vector2 Game::getDirToGo(Rectangle start, Rectangle end, float range)
         return { 0,0 };
     return gameScene->getDirToGo(start, end, range);
 }
-
+void Game::toCheckPos(Rectangle toCheck)
+{
+    if (!gameScene)
+        return;
+    gameScene->toCheckPos(toCheck);
+}
 
 void Game::removeObject(GameObject* obj)
 {

@@ -150,3 +150,8 @@ void GameScene::draw() {
     if (floor)
         floor->drawUI();
 }
+void GameScene::toCheckPos(Rectangle toCheck)
+{
+    if (floor)
+        floor->toCheckPos(toCheck);
+}

@@ -12,7 +12,7 @@ struct PathFinderNode
 	int toGo, toEnd, fullPath;
 	int fromX = -1, fromY = -1;
 
-	void setSolid() { solidBlock = true; }
+	void setSolid(bool solid) { solidBlock = solid; }
 
 	void update() { fullPath = toEnd + toGo; wasCheck = true; }
 };
@@ -20,6 +20,8 @@ struct PathFinderNode
 class PathFinder
 {
 	std::vector<std::vector<PathFinderNode>> grid;
+	std::vector <Rectangle> toCheckPos;
+	std::vector <Rectangle> toCheckPos2;
 	Vector2 resolution;
 	int cellRangeX = 0;
 	int cellRangeY = 0;
@@ -34,7 +36,11 @@ class PathFinder
 public:
 	PathFinder(Vector2 mapSize = { 1,1 }, Vector2 resolution = { 1,1 });
 
-	void setStaticBlock(Rectangle pos);
+	void setStaticBlock(Rectangle pos, bool staticBlock = true);
+
+	void addToCheck(Rectangle toCheckPos) { this->toCheckPos.push_back(toCheckPos); }
+
+	void update();
 
 	void draw();
 #ifdef ShowPaths

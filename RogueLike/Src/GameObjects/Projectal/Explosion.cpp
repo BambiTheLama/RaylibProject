@@ -44,7 +44,10 @@ void Explosion::draw()
 
 void Explosion::dealDamage(Collider* collider)
 {
+
 	GameObject* obj = collider->getThisObj();
+	if (obj == owner)
+		return;
 	Hitable* hit = dynamic_cast<Hitable*>(obj);
 	if (!hit)
 		return;

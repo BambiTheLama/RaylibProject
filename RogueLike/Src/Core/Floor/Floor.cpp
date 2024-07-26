@@ -226,6 +226,11 @@ void Floor::update(float deltaTime,Camera2D camera)
 
 
 #endif // ShowPath
+
+
+    if (pathFinder)
+        pathFinder->update();
+
     for (auto o : toRemove)
     {
         removeObj(o);
@@ -356,6 +361,12 @@ void Floor::removeObject(GameObject* obj)
         return;
     if (std::find(toRemove.begin(), toRemove.end(), obj) == toRemove.end())
         toRemove.push_back(obj);
+}
+
+void Floor::toCheckPos(Rectangle toCheck)
+{
+    if (pathFinder)
+        pathFinder->addToCheck(toCheck);
 }
 
 void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun)

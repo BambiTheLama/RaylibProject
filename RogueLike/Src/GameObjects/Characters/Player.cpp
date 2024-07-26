@@ -7,8 +7,9 @@
 #include "../Items/Item.h"
 #include "../../Core/Controller/KeyBoardController.h"
 #include "../../Core/Controller/GamePadController.h"
+#include "Wall.h"
 
-Player::Player(float x, float y){
+Player::Player(float x, float y):Hitable(100.0f){
 
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
@@ -58,6 +59,21 @@ void Player::update(float deltaTime) {
         Controller* c;
         if (!setController(c = new GamePadController()))
             delete c;
+    }
+    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+    {
+        float range = 100;
+        Rectangle toRemove = RectangleIncreasSize(pos, range);
+        std::list<GameObject*> objs = Game::getObjects(toRemove);
+        for (auto o : objs)
+        {
+            if (o->getType() != ObjectType::Wall)
+                continue;
+            Wall* w = dynamic_cast<Wall*>(o);
+            if (!w)
+                continue;
+            w->deletePartWall(toRemove);
+        }
     }
 
 }

@@ -23,6 +23,8 @@ public:
 
     void draw();
 
+    void toCheckPos(Rectangle toCheck);
+
     std::list<GameObject*> getObjects(Rectangle pos);
 
     Rectangle convertFromWorldToScrean(Rectangle pos);

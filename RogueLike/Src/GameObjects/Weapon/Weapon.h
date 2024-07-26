@@ -60,7 +60,7 @@ public:
 
 	bool addSlot(int slot, WeaponNodeItem* node);
 
-	float getRange() { return stats.range; }
+	float getRange() { return stats.range * stats.rangeMultiplier; }
 
 	void setStats(WeaponStats ws) { difoltStats = ws; stats = ws; }
 

@@ -26,6 +26,8 @@ public:
 
     static Vector2 getDirToGo(Rectangle start, Rectangle end, float range);
 
+    static void toCheckPos(Rectangle toCheck);
+
     friend class GameScene;
 };
 

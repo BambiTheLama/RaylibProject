@@ -46,6 +46,7 @@ public:
 
     Vector2 getDirToGo(Rectangle start, Rectangle end, float range) { return pathFinder->getDirToGo(start, end, range); }
 
+    void toCheckPos(Rectangle toCheck);
 private:
     void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun);
 
