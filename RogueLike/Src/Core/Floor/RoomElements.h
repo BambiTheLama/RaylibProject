@@ -13,3 +13,5 @@ GameObject* getEnemy(int ID, Rectangle pos);
 GameObject* getObject(int ID, Rectangle pos);
 
 BlockType getRoomElementType(int ID);
+
+int getRoomElementType(BlockType type);

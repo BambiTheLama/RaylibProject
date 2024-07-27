@@ -22,57 +22,9 @@ static std::map<BlockType, int> roomColor = {
 RoomEdytor::RoomEdytor()
 {
 	path = "Res/Rooms.json";
-	std::ifstream reader(path.c_str());
-	nlohmann::json j;
-	if (reader.is_open())
-	{
-		reader >> j;
-		reader.close();
-	}
-	else
-	{
-		return;
-	}
-	if (j.contains("BOSSROOMSIZE"))
-	{
-		bossW = j["BOSSROOMSIZE"][0];
-		bossH = j["BOSSROOMSIZE"][1];
-	}
-
-	if (j.contains("BOSSROOM"))
-	{
-
-
-
-
-		for (int i = 0; i < j["BOSSROOM"].size(); i++)
-		{
-			std::vector<std::vector<int>> blocks;
-			loadRoom(blocks, j["BOSSROOM"][i]);
-			bossRoom.push_back(blocks);
-		}
-
-	}
-	if (j.contains("SPECIALROOM"))
-	{
-		for (int i = 0; i < j["SPECIALROOM"].size(); i++)
-		{
-			std::vector<std::vector<int>> blocks;
-			loadRoom(blocks, j["SPECIALROOM"][i]);
-			specialRoom.push_back(blocks);
-		}
-	}
-	if (j.contains("ROOM"))
-	{
-		for (int i = 0; i < j["ROOM"].size(); i++)
-		{
-			std::vector<std::vector<int>> blocks;
-			loadRoom(blocks, j["ROOM"][i]);
-			normalRoom.push_back(blocks);
-		}
-	}
-
-
+	readFromFile();
+	//readRoomsFormPng("Res/Rooms/");
+	//
 	room = createRoom();
 }
 
@@ -108,7 +60,7 @@ RoomEdytor::~RoomEdytor()
 
 	writer << j;
 	writer.close();
-
+	saveRoomsAsPng("Res/Rooms/");
 	
 }
 
@@ -281,6 +233,182 @@ void RoomEdytor::save()
 	}
 }
 
+void RoomEdytor::readFromFile()
+{
+	std::ifstream reader(path.c_str());
+	nlohmann::json j;
+	if (reader.is_open())
+	{
+		reader >> j;
+		reader.close();
+	}
+	else
+	{
+		return;
+	}
+	if (j.contains("BOSSROOMSIZE"))
+	{
+		bossW = j["BOSSROOMSIZE"][0];
+		bossH = j["BOSSROOMSIZE"][1];
+	}
+
+	if (j.contains("BOSSROOM"))
+	{
+
+		for (int i = 0; i < j["BOSSROOM"].size(); i++)
+		{
+			std::vector<std::vector<int>> blocks;
+			loadRoom(blocks, j["BOSSROOM"][i]);
+			bossRoom.push_back(blocks);
+		}
+
+	}
+	if (j.contains("SPECIALROOM"))
+	{
+		for (int i = 0; i < j["SPECIALROOM"].size(); i++)
+		{
+			std::vector<std::vector<int>> blocks;
+			loadRoom(blocks, j["SPECIALROOM"][i]);
+			specialRoom.push_back(blocks);
+		}
+	}
+	if (j.contains("ROOM"))
+	{
+		for (int i = 0; i < j["ROOM"].size(); i++)
+		{
+			std::vector<std::vector<int>> blocks;
+			loadRoom(blocks, j["ROOM"][i]);
+			normalRoom.push_back(blocks);
+		}
+	}
+
+
+
+}
+
+void RoomEdytor::saveRoomsAsPng(std::string path)
+{
+	saveAsPng(RoomType::Boss, path + "Boss.png");
+	saveAsPng(RoomType::Normal, path + "Normal.png");
+	saveAsPng(RoomType::Special, path + "Special.png");
+}
+
+void RoomEdytor::readRoomsFormPng(std::string path)
+{
+	readFormPng(RoomType::Boss, path + "Boss.png");
+	readFormPng(RoomType::Normal, path + "Normal.png");
+	readFormPng(RoomType::Special, path + "Special.png");
+}
+
+void drawRoom(int x, int y,std::vector<std::vector<int>> rooms)
+{
+	for (int i = 0; i < rooms.size(); i++)
+		for (int j = 0; j < rooms[i].size(); j++)
+			DrawPixel(x + j, y + i, getColorFromType(rooms[i][j]));
+}
+
+void RoomEdytor::saveAsPng(RoomType type, std::string name)
+{
+	RenderTexture2D texture;
+	switch (type)
+	{
+	case RoomType::Normal:
+		texture = LoadRenderTexture(roomSize * normalRoom.size(), roomSize);
+		BeginTextureMode(texture);
+		for (int i = 0; i < normalRoom.size(); i++)
+		{
+			drawRoom(i * roomSize, 0, normalRoom[i]);
+		}
+		EndTextureMode();
+		break;
+	case RoomType::Boss:
+		texture = LoadRenderTexture(roomSize * bossW, roomSize * bossH);
+		BeginTextureMode(texture);
+		for (int i = 0; i < bossRoom.size(); i++)
+		{
+			drawRoom((i % bossW) * roomSize, (i / bossW) * roomSize, bossRoom[i]);
+		}
+		EndTextureMode();
+		break;
+	case RoomType::Special:
+		texture = LoadRenderTexture(roomSize * specialRoom.size(), roomSize);
+		BeginTextureMode(texture);
+		for (int i = 0; i < specialRoom.size(); i++)
+		{
+			drawRoom(i * roomSize, 0, specialRoom[i]);
+		}
+		EndTextureMode();
+		break;
+	default:
+		break;
+	}
+	RenderTexture2D texture2=LoadRenderTexture(texture.texture.width,texture.texture.height);
+	BeginTextureMode(texture2);
+	DrawTexture(texture.texture, 0, 0, WHITE);
+	EndTextureMode();
+	Image image = LoadImageFromTexture(texture2.texture);
+	if (ExportImage(image, name.c_str()))
+		printf("[INFO]: Saved %s\n", name.c_str());
+	UnloadImage(image);
+	UnloadRenderTexture(texture);
+	UnloadRenderTexture(texture2);
+}
+
+std::vector<std::vector<int>> getRoom(Color* colors, int x,int y, int w, int roomSize)
+{
+	std::vector<std::vector<int>> room;
+	for (int i = 0; i < roomSize; i++)
+	{
+		std::vector<int> r;
+		for (int j = 0; j < roomSize; j++)
+		{
+			r.push_back(getRoomElementFromColor(colors[x + j + (i + y) * roomSize]));
+		}
+		room.push_back(r);
+	}
+	return room;
+}
+
+void RoomEdytor::readFormPng(RoomType type, std::string name)
+{
+	Image image=LoadImage(name.c_str());
+	if (!IsImageReady(image))
+	{
+		UnloadImage(image);
+		return;
+	}
+	Color* colors = LoadImageColors(image);
+	std::vector<std::vector<std::vector<int>>> rooms;
+
+	int w = image.width / roomSize;
+	int h = image.height / roomSize;
+
+	for (int i = 0; i < h; i++)
+		for (int j = 0; j < w; j++)
+		{
+			rooms.push_back(getRoom(colors, j * roomSize, i * roomSize, image.width, roomSize));
+		}
+
+	switch (type)
+	{
+	case RoomType::Normal:
+		normalRoom = rooms;
+		break;
+	case RoomType::Boss:
+		bossRoom = rooms;
+		break;
+	case RoomType::Special:
+		specialRoom = rooms;
+		break;
+	default:
+		break;
+	}
+	UnloadImage(image);
+	UnloadImageColors(colors);
+}
+
+
+
 void RoomEdytor::load()
 {
 	if (ID < 0)
@@ -323,26 +451,7 @@ std::vector<std::vector<int>> RoomEdytor::createRoom()
 	return tmp;
 }
 
-Color getColorFromType(BlockType type)
-{
-	auto find = roomColor.find(type);
-	if (find != roomColor.end())
-	{
-		return GetColor(find->second);
-	}
-	return WHITE;
-}
 
-BlockType getRoomFromColor(Color c)
-{
-	int color = ColorToInt(c);
-	for (auto r : roomColor)
-	{
-		if (r.second == color)
-			return r.first;
-	}
-	return BlockType::NON;
-}
 
 void RoomEdytor::draw()
 {
@@ -379,4 +488,35 @@ void RoomEdytor::draw()
 	DrawRectangle(950, 250, 32, 32, RED);
 	DrawRectangle(950, 300, 32, 32, RED);
 
+}
+
+Color getColorFromType(int i)
+{
+	return getColorFromType(getRoomElementType(i));
+}
+
+Color getColorFromType(BlockType type)
+{
+	auto find = roomColor.find(type);
+	if (find != roomColor.end())
+	{
+		return GetColor(find->second);
+	}
+	return WHITE;
+}
+
+BlockType getRoomFromColor(Color c)
+{
+	int color = ColorToInt(c);
+	for (auto r : roomColor)
+	{
+		if (r.second == color)
+			return r.first;
+	}
+	return BlockType::NON;
+}
+
+int getRoomElementFromColor(Color c)
+{
+	return getRoomElementType(getRoomFromColor(c));
 }

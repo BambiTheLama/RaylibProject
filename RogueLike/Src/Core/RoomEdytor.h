@@ -32,6 +32,16 @@ public:
 
     void save();
 
+    void readFromFile();
+
+    void saveRoomsAsPng(std::string path);
+
+    void readRoomsFormPng(std::string path);
+
+    void saveAsPng(RoomType type, std::string name);
+
+    void readFormPng(RoomType type, std::string name);
+
     void load();
 
     std::vector<std::vector<int>> createRoom();
@@ -39,6 +49,10 @@ public:
     void draw();
 };
 
+Color getColorFromType(int i);
+
 Color getColorFromType(BlockType type);
 
 BlockType getRoomFromColor(Color c);
+
+int getRoomElementFromColor(Color c);
