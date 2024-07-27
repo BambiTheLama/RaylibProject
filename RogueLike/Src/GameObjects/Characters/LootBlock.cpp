@@ -4,11 +4,12 @@
 
 LootBlock::LootBlock(float x, float y)
 {
-	trigger = true;
+	//trigger = true;
 	moving = false;
 	pos = { x,y,tileW,tileH };
 	collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.width / 4));
 	type = ObjectType::Loot;
+	mass = 100;
 }
 
 void LootBlock::update(float deltaTime)
@@ -26,9 +27,5 @@ void LootBlock::draw()
 
 void LootBlock::onTriggerEnter(Collider* collider)
 {
-	GameObject* gm = collider->getThisObj();
-	if (!gm)
-		return;
-	if (gm->getType() == ObjectType::Player)
-		Game::deleteObject(this);
+
 }

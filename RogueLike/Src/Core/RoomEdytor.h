@@ -39,3 +39,6 @@ public:
     void draw();
 };
 
+Color getColorFromType(BlockType type);
+
+BlockType getRoomFromColor(Color c);

@@ -13,7 +13,7 @@ class Bomb :
 {
     float damage = 1.0f;
     float time = 1.0f;
-    const float timerMax = 10.0f;
+    const float timerMax = 2.0f;
     float range = 250.0f;
 public:
     Bomb(float x, float y);

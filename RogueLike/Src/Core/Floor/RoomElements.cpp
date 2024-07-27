@@ -40,8 +40,10 @@ BlockType getRoomElementType(int ID)
 {
 	if (ID <= 0)
 		return BlockType::NON;
-	if (ID <= 2)
+	if (ID <= 1)
 		return BlockType::Wall;
+	if (ID <= 2)
+		return BlockType::BossWall;
 	if (ID <= 3)
 		return BlockType::PlayerSpawnPoint;
 	if (ID <= 4)

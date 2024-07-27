@@ -5,6 +5,20 @@
 #include "Floor/RoomElements.h"
 #include "../Font.h"
 
+static std::map<BlockType, int> roomColor = {
+	{BlockType::NON				,	0xffffffff},
+	{BlockType::Wall			,	0xff0000ff},
+	{BlockType::BossWall		,	0xff2222ff},
+	{BlockType::PlayerSpawnPoint,	0x00ff00ff},
+	{BlockType::ChestSpawnPoint	,	0xffff00ff},
+	{BlockType::EnemySpawnPoint ,	0xffaaffff},
+	{BlockType::ElitEnemySpawn	,	0xff00ffff},
+	{BlockType::LootSpawnPoint	,	0xff9900ff},
+	{BlockType::BossEnterWall	,	0xaa0000ff},
+	{BlockType::BossSpawnPoint	,	0x000000ff},
+
+};
+
 RoomEdytor::RoomEdytor()
 {
 	path = "Res/Rooms.json";
@@ -309,45 +323,35 @@ std::vector<std::vector<int>> RoomEdytor::createRoom()
 	return tmp;
 }
 
+Color getColorFromType(BlockType type)
+{
+	auto find = roomColor.find(type);
+	if (find != roomColor.end())
+	{
+		return GetColor(find->second);
+	}
+	return WHITE;
+}
+
+BlockType getRoomFromColor(Color c)
+{
+	int color = ColorToInt(c);
+	for (auto r : roomColor)
+	{
+		if (r.second == color)
+			return r.first;
+	}
+	return BlockType::NON;
+}
+
 void RoomEdytor::draw()
 {
 	for(int x=0;x<roomSize;x++)
 		for (int y = 0; y < roomSize; y++)
 		{
 			Rectangle pos = { startRoom.x + x * sizeRoom.x,startRoom.y + y * sizeRoom.y,sizeRoom.x,sizeRoom.y };
-			Color c = WHITE;
-			switch (getRoomElementType(room[y][x]))
-			{
-			case BlockType::NON:
-				c = WHITE;
-				break;
-			case BlockType::Wall:
-				c = RED;
-				break;
-			case BlockType::PlayerSpawnPoint:
-				c = GREEN;
-				break;
-			case BlockType::ChestSpawnPoint:
-				c = YELLOW;
-				break;
-			case BlockType::EnemySpawnPoint:
-				c = PINK;
-				break;
-			case BlockType::LootSpawnPoint:
-				c = ORANGE;
-				break;
-			case BlockType::BossSpawnPoint:
-				c = PURPLE;
-				break;
-			case BlockType::BossEnterWall:
-				c = BLACK;
-				break;
-			case BlockType::ElitEnemySpawn:
-				c = GetColor(0xff00ffff);
-				break;
-			default:
-				break;
-			}
+			Color c = getColorFromType(getRoomElementType(room[y][x]));
+
 			DrawFrameRec(pos, c, BLACK);
 			MyFont::DrawTextWithOutline(TextFormat("%d", room[y][x]), pos.x, pos.y, 32, WHITE, BLACK);
 		}
