@@ -238,6 +238,8 @@ void Collider::checkCollision(float deltaTime) {
 
 Rectangle Collider::getCollisionArea(Rectangle pos)
 {
+    if (collisionElemnets.size() < 0)
+        return pos;
     Vector2 minV = collisionElemnets[0]->getMinPos();
     Vector2 maxV = collisionElemnets[0]->getMaxPos();
     for (int i = 1; i < collisionElemnets.size(); i++)
