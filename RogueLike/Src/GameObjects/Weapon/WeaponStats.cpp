@@ -307,7 +307,8 @@ int WeaponStats::getNumberOflines()
 }
 
 
-void toStringData(int& line, int i, std::string& data, float value, float valueMulti, std::string name, int ID, StatType& statType)
+void toStringData(int& line, int i, std::string& data, float value, float valueMulti, std::string name, int ID,
+	StatType& statType, bool reversStat = false)
 {
 	if (fabs(value) < tolerance && fabs(valueMulti) < tolerance)
 		return;
@@ -340,8 +341,15 @@ void toStringData(int& line, int i, std::string& data, float value, float valueM
 			if (valueMulti < 0.0f)
 				statType = StatType::mix;
 		}
-
+		if (reversStat)
+		{
+			if (statType == StatType::positive)
+				statType = StatType::negative;
+			else if (statType == StatType::negative)
+				statType = StatType::positive;
+		}
 	}
+
 	line++;
 }
 
@@ -387,8 +395,10 @@ std::string WeaponStats::getStringLine(int l, StatType& statType)
 	int line = 0;
 	StatType type;
 	toStringData(line, l, data, damage		, damageMultiplier		, "Damage"		, 0, statType);
-	toStringData(line, l, data, useTime		, useTimeMultiplier		, "UseTime"		, 1, statType);
-	toStringData(line, l, data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, 2, statType);
+
+	toStringData(line, l, data, useTime		, useTimeMultiplier		, "UseTime"		, 1, statType, true);
+	toStringData(line, l, data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, 2, statType, true);
+
 	toStringData(line, l, data, speed		, speedMultiplier		, "Speed"		, 3, statType);
 	toStringData(line, l, data, range		, rangeMultiplier		, "Range"		, 4, statType);
 	toStringData(line, l, data, angle								, "Angle"		, 5, type);
@@ -398,6 +408,7 @@ std::string WeaponStats::getStringLine(int l, StatType& statType)
 	toStringData(line, l, data, pirce								, "Pirce"		, 9, statType);
 	return data;
 }
+
 
 void WeaponStats::drawColorStats(float x, float y, float textSize, Color negative, Color positive, Color line)
 {

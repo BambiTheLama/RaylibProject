@@ -24,6 +24,8 @@ public:
 
 	virtual void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) {}
 
+	void drawOverLine(Rectangle pos, Color OverLine);
+
 	virtual void drawDescription(Rectangle pos, float textSize){}
 
 	virtual void use(Vector2 dir, float deltaTime){}

@@ -108,23 +108,10 @@ void Sword::draw()
 	}
 	if (owner)
 		texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
+	else if (closeItem)
+		drawOverLine(pos, WHITE);
 	else
-	{
-		if (closeItem)
-		{
-			Color outLineColor = WHITE;
-			startOutLineShader();
-			const int lineSize = 4;
-			drawIcon({ pos.x - lineSize,pos.y,pos.width,pos.height }, true,outLineColor);
-			drawIcon({ pos.x + lineSize,pos.y,pos.width,pos.height }, true,outLineColor);
-			drawIcon({ pos.x,pos.y + lineSize,pos.width,pos.height }, true,outLineColor);
-			drawIcon({ pos.x,pos.y - lineSize,pos.width,pos.height }, true,outLineColor);
-			EndShaderMode();
-		}
-
 		drawIcon(pos, true);
-	}
-
 
 }
 
