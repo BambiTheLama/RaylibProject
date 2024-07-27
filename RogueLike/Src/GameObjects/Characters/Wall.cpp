@@ -107,11 +107,20 @@ void Wall::deletePartWall(Rectangle toDelete)
     }
     std::vector<Rectangle> cuted = cutRectangles(pos, toDelete);
     assert(cuted.size() > 0);
-    pos = cuted[0];
-    Game::addObject(this);
-    updateCollison();
+    const float removeSmollerThan = 5;
+    if (cuted[0].width > removeSmollerThan || cuted[0].height > removeSmollerThan)
+    {
+        pos = cuted[0];
+        Game::addObject(this);
+        updateCollison();
+    }
+    else
+        Game::deleteObject(this);
+
     for (int i = 1; i < cuted.size(); i++)
     {
+        if (cuted[i].width < removeSmollerThan && cuted[i].height < removeSmollerThan)
+            continue;
         Wall* w = new Wall(cuted[i]);
         if (!Game::addObject(w))
             delete w;

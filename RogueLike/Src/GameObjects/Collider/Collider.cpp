@@ -136,8 +136,10 @@ void Collider::overlapMove(Collider* collider,Vector2 dir, float fullMass, float
         return;
     if (collider->reactOnlyToSolid)
         return;
-    float procent = 1.0f;
-    if (!collider->solidObject)
+    float procent = 0.1f;
+    if (collider->solidObject)
+        procent = 1.0f;
+    else if (collider->mass > 0.0f)
         procent = collider->mass / fullMass;
     thisObj->pos.x += dir.x * procent * dist;
     thisObj->pos.y += dir.y * procent * dist;
@@ -162,6 +164,8 @@ bool Collider::isColliding(Collider *collider,float deltaTime) {
                 return true;
 
             float massAdd = (float)mass + collider->mass;
+            if (massAdd <= 0)
+                massAdd = 0.1f;
 
             if (!solidObject)
                 overlapMove(collider, dir, massAdd, dist);

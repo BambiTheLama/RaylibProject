@@ -2,16 +2,18 @@
 #include "Projectal.h"
 #include "../GameObject.h"
 #include "../Collider/Collider.h"
+#include "../Collider/CollisionElementLines.h"
+#include "../Collider/CollisionElementCircle.h"
 
 extern const float tileW;
 extern const float tileH;
 
 class Bomb :
-    public GameObject
+    public GameObject, public Collider
 {
     float damage = 1.0f;
     float time = 1.0f;
-    const float timerMax = 1.0f;
+    const float timerMax = 10.0f;
     float range = 250.0f;
 public:
     Bomb(float x, float y);

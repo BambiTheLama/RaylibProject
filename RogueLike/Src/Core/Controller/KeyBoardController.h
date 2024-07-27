@@ -9,6 +9,7 @@ class KeyBoardController : public Controller {
     int keyLeft = KEY_A;
     int keyRight = KEY_D;
     int keyAttack1 =  KEY_SPACE;
+    int keyBomb = KEY_R;
     int keyInteract = KEY_E;
     int dropItem = KEY_Q;
     int keyNextItem =  0;

@@ -5,9 +5,19 @@
 
 Bomb::Bomb(float x, float y)
 {
+
 	pos = { x,y,32,32 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
+	mass = 0;
+	std::vector<Vector2> col{
+	{0,         0},
+	{pos.width, 0},
+	{pos.width, pos.height},
+	{0,         pos.height }
+	};
+	collisionElemnets.push_back(new CollisionElementLines(col));
+	time = timerMax;
 }
 
 void Bomb::update(float deltaTime)
@@ -52,5 +62,5 @@ void Bomb::explode()
 void Bomb::draw()
 {
 	
-	DrawFrameRec(pos, mixColor(BLUE, RED, time / timerMax));
+	DrawFrameRec(pos, mixColor(YELLOW, RED, time / timerMax));
 }

@@ -69,12 +69,11 @@ void PathFinder::update()
 				setStaticBlock(o->getPos());
 		}
 	}
-	toCheckPos2.clear();
 	for (auto pos : toCheckPos)
 	{
 		setStaticBlock(pos, false);
-		toCheckPos2.push_back(pos);
 	}
+	toCheckPos2 = toCheckPos;
 	toCheckPos.clear();
 }
 

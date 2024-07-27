@@ -30,6 +30,8 @@ void KeyBoardController::update(float deltaTime) {
             inputs.push_back(Input::PrivSlot);
         if (IsKeyDown(keyAttack1))
             inputs.push_back(Input::Attack1);
+        if (IsKeyPressed(keyBomb))
+            inputs.push_back(Input::Bomb);
         if (IsKeyPressed(keyNextItem))
             inputs.push_back(Input::NextItem);
         if (IsKeyPressed(keyPrivItem))

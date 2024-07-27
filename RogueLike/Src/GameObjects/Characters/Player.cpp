@@ -22,10 +22,10 @@ Player::Player(float x, float y):Hitable(100.0f){
         {pos.width / 4,					pos.height / 4 + pos.height / 2}
     };
     collisionElemnets.push_back(new CollisionElementLines(col));
-    reactOnlyToSolid = true;
+    //reactOnlyToSolid = true;
     //drawOrder = 10;
     type = ObjectType::Player;
-    mass = 10;
+    mass = 1000;
     trigger = false;
     inventory = Inventory(this);
     const int weapons = 5;
@@ -61,10 +61,8 @@ void Player::update(float deltaTime) {
         if (!setController(c = new GamePadController()))
             delete c;
     }
-    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
-    {
-        Game::addObject(new Bomb(pos.x + pos.width / 2, pos.y + pos.height / 2));
-    }
+    
+
 
 }
 
@@ -103,7 +101,8 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         //weapon->use(cursorDir, deltaTime);
         inventory.use(useDir, deltaTime);
         break;
-    case Input::Attack2:
+    case Input::Bomb:
+        Game::addObject(new Bomb(pos.x + pos.width / 2 + cursorDir.x * 50, pos.y + pos.height / 2 + cursorDir.y * 50));
         break;
     case Input::IDE:
         break;

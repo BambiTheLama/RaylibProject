@@ -7,6 +7,7 @@ enum class Input {
     Interact, 
     Attack1, 
     Attack2, 
+    Bomb,
     IDE, 
     NextSlot, 
     PrivSlot,
