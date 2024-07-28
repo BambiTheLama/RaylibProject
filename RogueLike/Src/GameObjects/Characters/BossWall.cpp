@@ -10,6 +10,7 @@ BossWall::BossWall()
     moving = false;
     mass = 10000;
     type = ObjectType::Wall;
+    texture = TextureController("Wall/Wall.png");
 }
 
 BossWall::BossWall(float x, float y):BossWall()
@@ -44,6 +45,9 @@ void BossWall::update(float deltaTime)
 
 void BossWall::draw()
 {
-    DrawRectangleRec(pos, RED);
-    DrawRectangleLinesEx(pos, 2, BLACK);
+    //DrawRectangleRec(pos, RED);
+    //DrawRectangleLinesEx(pos, 2, BLACK);
+    float x = pos.x - ((int)(pos.x / tileW)) * tileW;
+    float y = pos.y - ((int)(pos.y / tileH)) * tileH;
+    texture.drawTile(pos, x, y, pos.width / tileW, pos.height / tileH);
 }

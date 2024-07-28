@@ -22,6 +22,7 @@ Wall::Wall(float x, float y, float w, float h)
     };
     collisionElemnets.push_back(new CollisionElementLines(col));
     type = ObjectType::Wall;
+    texture = TextureController("Wall/Wall.png");
 }
 
 Wall::~Wall()
@@ -33,8 +34,11 @@ void Wall::update(float deltaTime) {
 }
 
 void Wall::draw(){ 
-    DrawRectangleRec(pos, RED);
-    DrawRectangleLinesEx(pos, 1, BLACK);
+    //DrawRectangleRec(pos, RED);
+    //DrawRectangleLinesEx(pos, 1, BLACK);
+    float x = pos.x - ((int)(pos.x / tileW)) * tileW;
+    float y = pos.y - ((int)(pos.y / tileH)) * tileH;
+    texture.drawTile(pos, x, y, pos.width / tileW, pos.height / tileH);
 }
 
 void Wall::onCollisionEnter(Collider* collider) {

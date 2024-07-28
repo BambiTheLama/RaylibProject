@@ -11,7 +11,7 @@ extern const float tileW;
 extern const float tileH;
 
 class Wall : public GameObject, public Collider{
-
+    TextureController texture;
 public:
     Wall(Rectangle pos);
 

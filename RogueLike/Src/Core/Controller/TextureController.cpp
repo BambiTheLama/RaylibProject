@@ -24,13 +24,19 @@ TextureController::~TextureController()
 void TextureController::draw(Rectangle pos,bool flipVertical,bool flipHorizontal, int frame, Vector2 rotationPoint, float angle, Color color)
 {
 	Rectangle sourse = { 0.0f,0.0f,(float)texture.width / framesInW,(float)texture.height / framesInH };
-	sourse.x = sourse.width  * (frame % framesInW);
+	sourse.x = sourse.width * (frame % framesInW);
 	sourse.y = sourse.height * ((frame / framesInW) % framesInH);
 	if (flipHorizontal)
 		sourse.height = -sourse.height;
 	if (flipVertical)
 		sourse.width = -sourse.width;
 	DrawTexturePro(texture, sourse, pos, rotationPoint, angle, color);
+}
+
+void TextureController::drawTile(Rectangle pos, float startX, float startY, float repetW, float repetH)
+{
+	Rectangle sourse = { startX,startY,(float)(repetW * texture.width),(float)(repetH * texture.height) };
+	DrawTexturePro(texture, sourse, pos, { 0.0f,0.0f }, 0.0f, WHITE);
 }
 
 void TextureController::loadTexture(std::string path)

@@ -18,6 +18,8 @@ public:
 
 	void draw(Rectangle pos, bool flipVertical = false, bool flipHorizontal = false, int frame = 0, Vector2 rotationPoint = { 0.0f,0.0f }, float angle = 0, Color color = WHITE);
 
+	void drawTile(Rectangle pos, float startX, float startY, float repetW, float repetH);
+
 	int getFrames() { return framesInH * framesInW; }
 
 	Texture getTexture() { return texture; }

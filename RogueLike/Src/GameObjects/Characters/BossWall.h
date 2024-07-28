@@ -6,6 +6,7 @@
 class BossWall :
     public GameObject , public Collider
 {
+    TextureController texture;
     BossWall();
 public:
     BossWall(float x, float y);
