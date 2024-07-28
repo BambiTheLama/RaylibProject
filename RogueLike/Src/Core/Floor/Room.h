@@ -37,6 +37,8 @@ void loadRoom(std::vector<std::vector<int>>& blocks, nlohmann::json& j);
 
 void loadRooms(nlohmann::json& j);
 
+void loadRoomsFromPng(std::string path);
+
 Room getRoom(RoomType type,int ID);
 
 int getRoomSize(RoomType type);
@@ -46,3 +48,5 @@ struct Vec2 {
 };
 
 Vec2 getBossRoomSize();
+
+std::vector<std::vector<std::vector<int>>> readFromPng(std::string name);

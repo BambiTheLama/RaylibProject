@@ -48,7 +48,7 @@ public:
 
     void toCheckPos(Rectangle toCheck);
 private:
-    void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun);
+    void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun, int rangeW = 10, int rangeH = 10);
 
     void removeCloseEnemies();
 

@@ -156,19 +156,22 @@ Floor::~Floor()
 
 void Floor::createFloor()
 {
-    std::string path = "Res/Rooms.json";
-    std::ifstream reader(path.c_str());
-    if (reader.is_open())
-    {
-        nlohmann::json j;
-        reader >> j;
-        reader.close();
-        loadRooms(j);
-    }
-    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
-    addObject(new BossWall(pos.x - 100.0f, pos.y - 100.0f, pos.width + 200.0f, 100.0f));
-    addObject(new BossWall(pos.x + pos.width, pos.y - 100.0f, 100.0f, pos.height + 200.0f));
-    addObject(new BossWall(pos.x - 100.0f, pos.y + pos.height, pos.width + 200.0f, 100.0f));
+    //std::string path = "Res/Rooms.json";
+    //std::ifstream reader(path.c_str());
+    //if (reader.is_open())
+    //{
+    //    nlohmann::json j;
+    //    reader >> j;
+    //    reader.close();
+    //    loadRooms(j);
+    //}
+
+    loadRoomsFromPng("Res/Rooms/");
+    float wallSize = 1000;
+    addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
+    addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
+    addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
+    addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
 
 
     FloorRooms floorRooms = getFloorRooms();
@@ -189,9 +192,9 @@ void Floor::createFloor()
             setUpRooms(startX, startY, room);
         }
 
-    setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy);
-    setUpObjects(std::vector<int>{ 0 }, 40, BlockType::LootSpawnPoint, roomGrid, getObject);
-    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy);
+    setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
+    setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
+    setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy, 36, 36);
     removeCloseEnemies();
 }
 
@@ -362,13 +365,11 @@ void Floor::toCheckPos(Rectangle toCheck)
         pathFinder->addToCheck(toCheck);
 }
 
-void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun)
+void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun, int rangeW, int rangeH)
 {
     if (objects.size() <= 0)
         return;
-    const int sw = 50;
-    const int sh = 50;
-    Rectangle thisP = { 0,0,tileW * sw,tileH * sh };
+    Rectangle thisP = { 0,0,tileW * rangeW,tileH * rangeH };
     const float w = pos.width / thisP.width;
     const float h = pos.height / thisP.height;
 
@@ -382,11 +383,11 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
             std::vector<Vector2> elementsPos;
 
 
-            for (int i = 0; i < sw; i++)
-                for (int j = 0; j < sh; j++)
+            for (int i = 0; i < rangeW; i++)
+                for (int j = 0; j < rangeH; j++)
                 {
-                    const int sx = x * sw + i;
-                    const int sy = y * sh + j;
+                    const int sx = x * rangeW + i;
+                    const int sy = y * rangeH + j;
                     const int gx = sx / roomSize;
                     const int gy = sy / roomSize;
                     const int rx = sx % roomSize;

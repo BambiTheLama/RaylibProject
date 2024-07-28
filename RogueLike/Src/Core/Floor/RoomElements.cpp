@@ -18,12 +18,6 @@ GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 		return new BossWall(x, y, w, h);
 	case 3:
 		return new SpawnPoint(x, y, BlockType::PlayerSpawnPoint);
-	case 4:
-		return new SpawnPoint(x, y, BlockType::ChestSpawnPoint);
-	case 5:
-		return new SpawnPoint(x, y,BlockType::LootSpawnPoint);
-	case 6:
-		return new SpawnPoint(x, y, BlockType::EnemySpawnPoint);
 	case 7:
 		return new SpawnPoint(x, y, BlockType::BossSpawnPoint);
 	case 8:

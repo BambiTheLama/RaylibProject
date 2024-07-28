@@ -5,6 +5,7 @@
 LootBlock::LootBlock(float x, float y)
 {
 	//trigger = true;
+	solidObject = true;
 	moving = false;
 	pos = { x,y,tileW,tileH };
 	collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.width / 4));

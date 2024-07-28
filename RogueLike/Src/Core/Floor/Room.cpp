@@ -80,6 +80,59 @@ void loadRooms(nlohmann::json &j) {
 	}
 }
 
+void loadRoomsFromPng(std::string path) {
+	bossRooms.clear();
+	normalRooms.clear();
+	specialRooms.clear();
+	int blocks[roomSize][roomSize];
+	std::vector<std::vector<std::vector<int>>> rooms;
+	
+	rooms = readFromPng(path + "Normal.png");
+	int i = 0;
+	for (auto r : rooms)
+	{
+		for (int y = 0; y < r.size(); y++)
+		{
+			for (int x = 0; x < r[0].size(); x++)
+			{
+				blocks[y][x] = r[y][x];
+			}
+		}
+		normalRooms.push_back(Room(i++, RoomType::Normal, blocks));
+	}
+	rooms = readFromPng(path + "Special.png");
+	i = 0;
+	for (auto r : rooms)
+	{
+		for (int y = 0; y < r.size(); y++)
+		{
+			for (int x = 0; x < r[0].size(); x++)
+			{
+				blocks[y][x] = r[y][x];
+			}
+		}
+		specialRooms.push_back(Room(i++, RoomType::Special, blocks));
+	}
+	rooms = readFromPng(path + "Boss.png");
+	i = 0;
+	for (auto r : rooms)
+	{
+		for (int y = 0; y < r.size(); y++)
+		{
+			for (int x = 0; x < r[0].size(); x++)
+			{
+				blocks[y][x] = r[y][x];
+			}
+		}
+		bossRooms.push_back(Room(i++, RoomType::Boss, blocks));
+	}
+	Image image = LoadImage(std::string(path + "Boss.png").c_str());
+	bossRoomSize.x = image.width / roomSize;
+	bossRoomSize.y = image.height / roomSize;
+	UnloadImage(image);
+
+}
+
 Room::Room(int ID, RoomType type, int blocks[roomSize][roomSize])
 {
 	this->ID = ID;
@@ -168,4 +221,44 @@ int getRoomSize(RoomType type)
 Vec2 getBossRoomSize()
 {
 	return bossRoomSize;
+}
+
+std::vector<std::vector<int>> getRoom(Color* colors, int x, int y, int w, int roomSize)
+{
+	std::vector<std::vector<int>> room;
+	for (int i = 0; i < roomSize; i++)
+	{
+		std::vector<int> r;
+		for (int j = 0; j < roomSize; j++)
+		{
+			r.push_back(getRoomElementFromColor(colors[x + j + (i + y) * w]));
+		}
+		room.push_back(r);
+	}
+	return room;
+}
+
+
+std::vector<std::vector<std::vector<int>>> readFromPng(std::string name)
+{
+	Image image = LoadImage(name.c_str());
+	if (!IsImageReady(image))
+	{
+		UnloadImage(image);
+		return std::vector<std::vector<std::vector<int>>>();
+	}
+	Color* colors = LoadImageColors(image);
+	std::vector<std::vector<std::vector<int>>> rooms;
+
+	int w = image.width / roomSize;
+	int h = image.height / roomSize;
+
+	for (int i = 0; i < h; i++)
+		for (int j = 0; j < w; j++)
+		{
+			rooms.push_back(getRoom(colors, j * roomSize, i * roomSize, image.width, roomSize));
+		}
+	UnloadImage(image);
+	UnloadImageColors(colors);
+	return rooms;
 }

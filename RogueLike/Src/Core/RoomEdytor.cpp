@@ -345,42 +345,10 @@ void RoomEdytor::saveAsPng(RoomType type, std::string name)
 	UnloadRenderTexture(texture2);
 }
 
-std::vector<std::vector<int>> getRoom(Color* colors, int x,int y, int w, int roomSize)
-{
-	std::vector<std::vector<int>> room;
-	for (int i = 0; i < roomSize; i++)
-	{
-		std::vector<int> r;
-		for (int j = 0; j < roomSize; j++)
-		{
-			r.push_back(getRoomElementFromColor(colors[x + j + (i + y) * w]));
-		}
-		room.push_back(r);
-	}
-	return room;
-}
 
 void RoomEdytor::readFormPng(RoomType type, std::string name)
 {
-	Image image=LoadImage(name.c_str());
-	if (!IsImageReady(image))
-	{
-		UnloadImage(image);
-		return;
-	}
-	Color* colors = LoadImageColors(image);
-	std::vector<std::vector<std::vector<int>>> rooms;
-
-	int w = image.width / roomSize;
-	int h = image.height / roomSize;
-
-	for (int i = 0; i < h; i++)
-		for (int j = 0; j < w; j++)
-		{
-			rooms.push_back(getRoom(colors, j * roomSize, i * roomSize, image.width, roomSize));
-		}
-	UnloadImage(image);
-	UnloadImageColors(colors);
+	std::vector<std::vector<std::vector<int>>> rooms = readFromPng(name);
 	switch (type)
 	{
 	case RoomType::Normal:
@@ -388,8 +356,12 @@ void RoomEdytor::readFormPng(RoomType type, std::string name)
 		break;
 	case RoomType::Boss:
 		bossRoom = rooms;
-		bossH = h;
-		bossW = w;
+		{
+			Image image = LoadImage(name.c_str());
+			bossH = image.width / roomSize;
+			bossW = image.height / roomSize;
+			UnloadImage(image);
+		}
 		break;
 	case RoomType::Special:
 		specialRoom = rooms;
