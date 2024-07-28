@@ -37,7 +37,7 @@ int RoomData::getMachingTiles(Dir dir, std::vector<BlockType> blocks)
 		return 0;
 	int maching = 0;
 	for (int i = 0; i < thisBlocks.size(); i++)
-		if (thisBlocks[i] == blocks[i])
+		if ( thisBlocks[i] == blocks[i])
 			maching++;
 	return maching;
 }
@@ -238,19 +238,19 @@ static void setPossibleRooms(std::vector<std::vector<RoomData>>& roomGrid, std::
 	}
 }
 
-struct Vector2 {
+struct Vector2I {
 	int x, y;
 };
 
-static void sortRoomsToFill(std::vector<std::vector<RoomData>>& roomGrid, std::vector<Vector2>& roomsToFill)
+static void sortRoomsToFill(std::vector<std::vector<RoomData>>& roomGrid, std::vector<Vector2I>& roomsToFill)
 {
 	if (roomsToFill.size() <= 1)
 		return;
 	for (int j = 0; j < roomsToFill.size() / 2; j++)
 		for (int i = 0; i < roomsToFill.size() - 1; i++)
 		{
-			Vector2 p1 = roomsToFill[i];
-			Vector2 p2 = roomsToFill[i + 1];
+			Vector2I p1 = roomsToFill[i];
+			Vector2I p2 = roomsToFill[i + 1];
 			if (roomGrid[p1.y][p1.x].posibleRoom.size() < roomGrid[p2.y][p2.x].posibleRoom.size())
 			{
 				roomsToFill[i] = p2;
@@ -280,7 +280,7 @@ static int getTheMostMachingRoom(std::vector<std::vector<RoomData>>& roomGrid, s
 }
 
 static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<RoomData>& rooms) {
-	std::vector<Vector2> roomsToFill;
+	std::vector<Vector2I> roomsToFill;
 	for (int y = 0; y < roomGrid.size(); y++)
 		for (int x = 0; x < roomGrid[0].size(); x++)
 		{
@@ -292,7 +292,7 @@ static void fillRooms(std::vector<std::vector<RoomData>>& roomGrid, std::vector<
 	sortRoomsToFill(roomGrid, roomsToFill);
 	while (roomsToFill.size() > 0)
 	{
-		Vector2 p = roomsToFill.back();
+		Vector2I p = roomsToFill.back();
 		roomsToFill.pop_back();
 		int n = (int)roomGrid[p.y][p.x].posibleRoom.size();
 		int ID = 0;

@@ -49,10 +49,3 @@ public:
     void draw();
 };
 
-Color getColorFromType(int i);
-
-Color getColorFromType(BlockType type);
-
-BlockType getRoomFromColor(Color c);
-
-int getRoomElementFromColor(Color c);

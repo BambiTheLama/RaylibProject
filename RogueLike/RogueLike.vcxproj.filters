@@ -338,6 +338,9 @@
     <ClCompile Include="Src\GameObjects\Projectal\Bomb.cpp">
       <Filter>GameObjects\Projectal</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Core\BlockType.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

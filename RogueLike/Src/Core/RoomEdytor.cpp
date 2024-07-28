@@ -5,19 +5,7 @@
 #include "Floor/RoomElements.h"
 #include "../Font.h"
 
-static std::map<BlockType, int> roomColor = {
-	{BlockType::NON				,	0xffffffff},
-	{BlockType::Wall			,	0xff0000ff},
-	{BlockType::BossWall		,	0xff2222ff},
-	{BlockType::PlayerSpawnPoint,	0x00ff00ff},
-	{BlockType::ChestSpawnPoint	,	0xffff00ff},
-	{BlockType::EnemySpawnPoint ,	0xffaaffff},
-	{BlockType::ElitEnemySpawn	,	0xff00ffff},
-	{BlockType::LootSpawnPoint	,	0xff9900ff},
-	{BlockType::BossEnterWall	,	0xaa0000ff},
-	{BlockType::BossSpawnPoint	,	0x000000ff},
 
-};
 
 RoomEdytor::RoomEdytor()
 {
@@ -310,6 +298,7 @@ void drawRoom(int x, int y,std::vector<std::vector<int>> rooms)
 void RoomEdytor::saveAsPng(RoomType type, std::string name)
 {
 	RenderTexture2D texture;
+	texture.id = -1;
 	switch (type)
 	{
 	case RoomType::Normal:
@@ -342,6 +331,8 @@ void RoomEdytor::saveAsPng(RoomType type, std::string name)
 	default:
 		break;
 	}
+	if (texture.id < 0)
+		return;
 	RenderTexture2D texture2=LoadRenderTexture(texture.texture.width,texture.texture.height);
 	BeginTextureMode(texture2);
 	DrawTexture(texture.texture, 0, 0, WHITE);
@@ -492,33 +483,3 @@ void RoomEdytor::draw()
 
 }
 
-Color getColorFromType(int i)
-{
-	return getColorFromType(getRoomElementType(i));
-}
-
-Color getColorFromType(BlockType type)
-{
-	auto find = roomColor.find(type);
-	if (find != roomColor.end())
-	{
-		return GetColor(find->second);
-	}
-	return WHITE;
-}
-
-BlockType getRoomFromColor(Color c)
-{
-	int color = ColorToInt(c);
-	for (auto r : roomColor)
-	{
-		if (r.second == color)
-			return r.first;
-	}
-	return BlockType::NON;
-}
-
-int getRoomElementFromColor(Color c)
-{
-	return getRoomElementType(getRoomFromColor(c));
-}

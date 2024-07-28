@@ -36,35 +36,7 @@ GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 	return NULL;
 }
 
-BlockType getRoomElementType(int ID)
-{
-	if (ID <= 0)
-		return BlockType::NON;
-	if (ID <= 1)
-		return BlockType::Wall;
-	if (ID <= 2)
-		return BlockType::BossWall;
-	if (ID <= 3)
-		return BlockType::PlayerSpawnPoint;
-	if (ID <= 4)
-		return BlockType::ChestSpawnPoint;
-	if (ID <= 5)
-		return BlockType::EnemySpawnPoint;
-	if (ID <= 6)
-		return BlockType::LootSpawnPoint;
-	if (ID <= 7)
-		return BlockType::BossSpawnPoint;
-	if (ID <= 8)
-		return BlockType::BossEnterWall;
-	if (ID <= 9)
-		return BlockType::ElitEnemySpawn;
-	return BlockType::NON;
-}
 
-int getRoomElementType(BlockType type)
-{
-	return (int)type;
-}
 
 GameObject* getEnemy(int ID, Rectangle pos)
 {
