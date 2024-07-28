@@ -21,10 +21,10 @@ static std::map<BlockType, int> roomColor = {
 
 RoomEdytor::RoomEdytor()
 {
-	path = "Res/Rooms.json";
-	readFromFile();
-	//readRoomsFormPng("Res/Rooms/");
-	//
+	//path = "Res/Rooms.json";
+	//readFromFile();
+	readRoomsFormPng("Res/Rooms/");
+	
 	room = createRoom();
 }
 
@@ -362,7 +362,7 @@ std::vector<std::vector<int>> getRoom(Color* colors, int x,int y, int w, int roo
 		std::vector<int> r;
 		for (int j = 0; j < roomSize; j++)
 		{
-			r.push_back(getRoomElementFromColor(colors[x + j + (i + y) * roomSize]));
+			r.push_back(getRoomElementFromColor(colors[x + j + (i + y) * w]));
 		}
 		room.push_back(r);
 	}
@@ -388,7 +388,8 @@ void RoomEdytor::readFormPng(RoomType type, std::string name)
 		{
 			rooms.push_back(getRoom(colors, j * roomSize, i * roomSize, image.width, roomSize));
 		}
-
+	UnloadImage(image);
+	UnloadImageColors(colors);
 	switch (type)
 	{
 	case RoomType::Normal:
@@ -396,6 +397,8 @@ void RoomEdytor::readFormPng(RoomType type, std::string name)
 		break;
 	case RoomType::Boss:
 		bossRoom = rooms;
+		bossH = h;
+		bossW = w;
 		break;
 	case RoomType::Special:
 		specialRoom = rooms;
@@ -403,8 +406,7 @@ void RoomEdytor::readFormPng(RoomType type, std::string name)
 	default:
 		break;
 	}
-	UnloadImage(image);
-	UnloadImageColors(colors);
+
 }
 
 
