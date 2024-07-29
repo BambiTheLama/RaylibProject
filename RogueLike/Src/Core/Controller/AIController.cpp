@@ -56,7 +56,7 @@ void AIController::update(float deltaTime)
 			Vector2 runDir = Vector2Normalize(Vector2Subtract(getMidlePoint(target->getPos()), getMidlePoint(thisObj->getPos())));
 			posRec.x = thisPosRec.x - runDir.x * range / 2.0f;
 			posRec.y = thisPosRec.y - runDir.y * range / 2.0f;
-			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, range));
+			lastMoveDir = Vector2Normalize(Game::getDirToGo(thisPosRec, posRec, (float)range));
 			findPathTimer = refresTimer;
 		}
 		moveDir = lastMoveDir;

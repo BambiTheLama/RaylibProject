@@ -12,6 +12,7 @@ CharacterController::CharacterController() {
 CharacterController::~CharacterController() {
     if (this->controller)
         delete controller;
+    controller = nullptr;
 }
 
 
@@ -49,7 +50,8 @@ void CharacterController::setCharacter(Character* character)
         gm->setType(type);
 
     }
-    controller->setGameObject(gm);
+    if (controller)
+        controller->setGameObject(gm);
 
 }
 

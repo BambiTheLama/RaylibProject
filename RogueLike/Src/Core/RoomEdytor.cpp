@@ -302,7 +302,7 @@ void RoomEdytor::saveAsPng(RoomType type, std::string name)
 	switch (type)
 	{
 	case RoomType::Normal:
-		texture = LoadRenderTexture(roomSize * normalRoom.size(), roomSize);
+		texture = LoadRenderTexture(roomSize * (int)normalRoom.size(), roomSize);
 		BeginTextureMode(texture);
 		for (int i = 0; i < normalRoom.size(); i++)
 		{
@@ -320,7 +320,7 @@ void RoomEdytor::saveAsPng(RoomType type, std::string name)
 		EndTextureMode();
 		break;
 	case RoomType::Special:
-		texture = LoadRenderTexture(roomSize * specialRoom.size(), roomSize);
+		texture = LoadRenderTexture(roomSize * (int)specialRoom.size(), roomSize);
 		BeginTextureMode(texture);
 		for (int i = 0; i < specialRoom.size(); i++)
 		{

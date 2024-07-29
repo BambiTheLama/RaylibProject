@@ -257,7 +257,7 @@ void WeaponStats::draw(Rectangle pos, float textSize,bool flexRec,bool frame,std
 
 	if (colorStats)
 	{
-		int lines = std::count(title.begin(), title.end(), '\n');
+		int lines = (int)std::count(title.begin(), title.end(), '\n');
 		MyFont::DrawTextWithOutline(title.c_str(), pos.x, pos.y, textSize, WHITE, BLACK);
 		drawColorStats(pos.x, pos.y + lines * textSize, textSize, RED, GREEN, BLACK);
 	}

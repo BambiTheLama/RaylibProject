@@ -32,16 +32,12 @@ void QuadTree::update()
 	if (!roots[0])
 		return;
 
-	if (roots[0])
+	for (auto o : objects)
 	{
-		for (auto o : objects)
-		{
-			if (!o->movingObject())
-				continue;
-			for (int i = 0; i < 4; i++)
-				roots[i]->updatePos(o);
-		}
+		for (int i = 0; i < 4; i++)
+			roots[i]->updatePos(o);
 	}
+	
 
 
 }

@@ -9,7 +9,7 @@
 struct PathFinderNode
 {
 	bool solidBlock = false, wasCheck = false;
-	int toGo, toEnd, fullPath;
+	int toGo = -1, toEnd = -1, fullPath = -1;
 	int fromX = -1, fromY = -1;
 
 	void setSolid(bool solid) { solidBlock = solid; }

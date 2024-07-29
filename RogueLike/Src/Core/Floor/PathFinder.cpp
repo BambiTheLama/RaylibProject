@@ -12,8 +12,8 @@ static PathFinder* pathFinder;
 PathFinder::PathFinder(Vector2 mapSize, Vector2 resolution)
 {
 	this->resolution = resolution;
-	int w = mapSize.x / resolution.x;
-	int h = mapSize.y / resolution.y;
+	int w = (int)(mapSize.x / resolution.x);
+	int h = (int)(mapSize.y / resolution.y);
 	for (int y = 0; y < h; y++)
 	{
 		std::vector<PathFinderNode> nodes;
@@ -38,16 +38,16 @@ int clamp(int v, int min, int max)
 int getGridSize(float x, float w, float resolution)
 {
 	if (((int)(x + w) % (int)(resolution)) > 0)
-		return (x + w) / resolution + 1;
-	return (x + w) / resolution;
+		return (int)((x + w) / resolution) + 1;
+	return (int)((x + w) / resolution);
 }
 
 void PathFinder::setStaticBlock(Rectangle pos,bool staticBlock)
 {
-	int x = clamp((int)(pos.x / resolution.x), 0, grid[0].size() - 1);
-	int y = clamp((int)(pos.y / resolution.y), 0, grid.size() - 1);
-	int w = clamp(getGridSize(pos.x, pos.width, resolution.x), 0, grid[0].size());
-	int h = clamp(getGridSize(pos.y, pos.height, resolution.y), 0, grid.size());
+	int x = clamp((int)(pos.x / resolution.x), 0, (int)grid[0].size() - 1);
+	int y = clamp((int)(pos.y / resolution.y), 0, (int)grid.size() - 1);
+	int w = clamp(getGridSize(pos.x, pos.width, resolution.x), 0, (int)grid[0].size());
+	int h = clamp(getGridSize(pos.y, pos.height, resolution.y), 0, (int)grid.size());
 
 	for (int j = y; j < h; j++)
 		for (int i = x; i < w; i++)
@@ -181,21 +181,21 @@ bool sortFun(Vector2& f, Vector2& s)
 Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 {
 	
-	const int centerStartX = clamp((int)((start.x + start.width / 2) / resolution.x), 1, grid[0].size() - 1);
-	const int centerStartY = clamp((int)((start.y + start.height / 2) / resolution.y), 1, grid.size() - 1);
-	const int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, grid[0].size() - 1);
-	const int centerEndY = clamp((int)((end.y + end.height / 2) / resolution.y), 1, grid.size() - 1);
+	const int centerStartX = clamp((int)((start.x + start.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
+	const int centerStartY = clamp((int)((start.y + start.height / 2) / resolution.y), 1, (int)grid.size() - 1);
+	const int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
+	const int centerEndY = clamp((int)((end.y + end.height / 2) / resolution.y), 1, (int)grid.size() - 1);
 
-	objSizeH = start.width / resolution.x;
-	objSizeW = start.height / resolution.y;
+	objSizeH = (int)(start.width / resolution.x);
+	objSizeW = (int)(start.height / resolution.y);
 
-	const int x = clamp((int)((start.x + start.width / 2 - range) / resolution.x), 1, grid[0].size() - 1);
-	const int y = clamp((int)((start.y + start.height / 2 - range) / resolution.y), 1, grid.size() - 1);
-	const int w = clamp(getGridSize(start.x + start.width / 2 - range, range * 2, resolution.x), 1, grid[0].size());
-	const int h = clamp(getGridSize(start.y + start.height / 2 - range, range * 2, resolution.y), 1, grid.size());
+	const int x = clamp((int)((start.x + start.width / 2 - range) / resolution.x), 1, (int)grid[0].size() - 1);
+	const int y = clamp((int)((start.y + start.height / 2 - range) / resolution.y), 1, (int)grid.size() - 1);
+	const int w = clamp(getGridSize(start.x + start.width / 2 - range, range * 2, resolution.x), 1, (int)grid[0].size());
+	const int h = clamp(getGridSize(start.y + start.height / 2 - range, range * 2, resolution.y), 1, (int)grid.size());
 
-	cellRangeX = (range / resolution.x) + 1;
-	cellRangeY = (range / resolution.x) + 1;
+	cellRangeX = (int)(range / resolution.x) + 1;
+	cellRangeY = (int)(range / resolution.x) + 1;
 
 
 	for (int i = y; i < h; i++)
@@ -222,19 +222,19 @@ Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 		Vector2 checkPoint = toCheck.back();
 		toCheck.pop_back();
 
-		if (toGoConst(checkPoint.x, checkPoint.y, centerEndX, centerEndY) < closestV)
+		if (toGoConst((int)checkPoint.x, (int)checkPoint.y, centerEndX, centerEndY) < closestV)
 		{
-			closestV = toGoConst(checkPoint.x, checkPoint.y, centerEndX, centerEndY);
+			closestV = toGoConst((int)checkPoint.x, (int)checkPoint.y, centerEndX, centerEndY);
 			closest = checkPoint;
 		}
 		if (checkPoint.x == centerEndX && checkPoint.y == centerEndY)
 			break;
-		checkCloseCells(toCheck, checkPoint.x, checkPoint.y, centerEndX, centerEndY);
-		grid[checkPoint.y][checkPoint.x].wasCheck = true;
+		checkCloseCells(toCheck, (int)checkPoint.x, (int)checkPoint.y, centerEndX, centerEndY);
+		grid[(int)checkPoint.y][(int)checkPoint.x].wasCheck = true;
 		toCheck.sort(sortFun);
 	}
-	int lastX = closest.x;
-	int lastY = closest.y;
+	int lastX = (int)closest.x;
+	int lastY = (int)closest.y;
 	int comefromX = 0;
 	int comefromY = 0;
 	while (lastX > 0 && lastY > 0)
