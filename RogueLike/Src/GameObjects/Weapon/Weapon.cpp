@@ -203,7 +203,7 @@ void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 	}
 	else
 	{
-		stats.draw(pos, textSize, flexBox);
+		stats.draw(pos, textSize, flexBox, true, "     Weapon\n", true, false, true, '*');
 	}
 
 }
