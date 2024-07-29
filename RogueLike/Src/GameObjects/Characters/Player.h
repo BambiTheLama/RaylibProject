@@ -8,12 +8,13 @@
 #include "../Items/Inventory.h"
 #include "../AddisionalTypes/DrawUI.h"
 #include "../../Core/Controller/ShaderController.h"
+#include "../AddisionalTypes/Interactive.h"
 
 class Player : public GameObject, public Character, public Collider,public Hitable,public DrawUI {
     float speed = 600;
     Inventory inventory;
     Vector2 useDir = { 0.0f,0.0f };
-    std::list<GameObject*> closeObj;
+    Interactive* closeObj = nullptr;
     float timer=0.0f;
 public:
     Player(float x,float y);
@@ -24,7 +25,7 @@ public:
 
     void update(float deltaTime) override;
 
-    void updateCloseItem();
+    void updateCloseInteractive();
 
     void move(Vector2 dir, float deltaTime) override;
 
@@ -38,12 +39,14 @@ public:
 
     void onCollisionEnter(Collider* collider) override;
 
+    bool addItem(Item* i) { return inventory.addItem(i); }
+
     void onCollisionExit(Collider* collider) override;
 
     virtual float getSpeed() { return speed; }
 
     void interact();
 
-    std::list<GameObject*> getCloseGameObjects();
+    Interactive* getCloseInteractiveObjects();
 
 };

@@ -43,8 +43,10 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\CharacterController.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\DrawUI.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h" />
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\Interactive.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
+    <ClInclude Include="Src\GameObjects\Characters\Chest.h" />
     <ClInclude Include="Src\GameObjects\Characters\Enemy.h" />
     <ClInclude Include="Src\GameObjects\Characters\LootBlock.h" />
     <ClInclude Include="Src\GameObjects\Characters\Player.h" />
@@ -95,8 +97,10 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\DrawUI.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\Interactive.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\Chest.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Player.cpp" />

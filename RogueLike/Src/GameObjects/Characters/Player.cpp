@@ -9,6 +9,7 @@
 #include "../../Core/Controller/GamePadController.h"
 #include "Wall.h"
 #include "../Projectal/Bomb.h"
+#include "../AddisionalTypes/Interactive.h"
 
 Player::Player(float x, float y):Hitable(100.0f){
 
@@ -21,7 +22,7 @@ Player::Player(float x, float y):Hitable(100.0f){
         {pos.width / 4 + pos.width / 2,	pos.height / 4 + pos.height / 2},
         {pos.width / 4,					pos.height / 4 + pos.height / 2}
     };
-    collisionElemnets.push_back(new CollisionElementLines(col));
+    addCollisionElement(new CollisionElementLines(col));
     //reactOnlyToSolid = true;
     //drawOrder = 10;
     type = ObjectType::Player;
@@ -48,7 +49,7 @@ void Player::update(float deltaTime) {
     inventory.updateClick();
     timer += deltaTime;
     timer -= (float)((int)(timer / 1) * 1);
-    updateCloseItem();
+    updateCloseInteractive();
     if (IsKeyPressed(KEY_F5))
     {
         Controller* c;
@@ -66,21 +67,15 @@ void Player::update(float deltaTime) {
 
 }
 
-void Player::updateCloseItem()
+void Player::updateCloseInteractive()
 {
-    for (auto o : closeObj)
-    {
-        Item* i = dynamic_cast<Item*>(o);
-        if (i)
-            i->setIsClose(false);
-    }
-    closeObj = getCloseGameObjects();
-    for (auto o : closeObj)
-    {
-        Item* i = dynamic_cast<Item*>(o);
-        if (i)
-            i->setIsClose(true);
-    }
+    if (closeObj)
+        closeObj->setIsClosesObject(false);
+
+    closeObj = getCloseInteractiveObjects();
+
+    if (closeObj)
+        closeObj->setIsClosesObject(true);
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
@@ -191,40 +186,39 @@ void Player::onCollisionExit(Collider* collider) {
 
 void Player::interact()
 {
-    std::list<GameObject*> gms = getCloseGameObjects();
-    for (GameObject* o : gms)
-    {
-        Item* i = dynamic_cast<Item*>(o);
-        if (!i)
-            continue;
-        if (inventory.addItem(i))
-        {
-        }
-    }
+    Interactive* interactObj = getCloseInteractiveObjects();
+    if (interactObj)
+        interactObj->interact(this);
 }
 
-std::list<GameObject*> Player::getCloseGameObjects()
+Interactive* Player::getCloseInteractiveObjects()
 {
-    std::list<GameObject*> gms = Game::getObjects(pos);
-    std::list<GameObject*> closeGm;
-    GameObject* closes = nullptr;
+    std::list<GameObject*> gms = Game::getObjects(RectangleIncreasSize(pos, 40));
+    Interactive* interactObj = nullptr;
     float minDist = 0.0f;
     gms.remove(this);
     for (GameObject* o : gms)
     {
-        if (o->getType() != ObjectType::Item)
+        Interactive* iObj = dynamic_cast<Interactive*>(o);
+        if (!iObj)
             continue;
-        Rectangle itemPos = o->getPos();
-        float dist = RectangleDistance(pos, itemPos);;
-        if (!closes || dist < minDist)
+        if (interactObj)
         {
-            closes = o;
-            minDist = dist;
+            float tmpMinDist = Vector2Distance(getMidlePoint(getPos()), getMidlePoint(o->getPos()));
+            if (tmpMinDist < minDist)
+            {
+                minDist = tmpMinDist;
+                interactObj = iObj;
+            }
+        }
+        else
+        {
+            minDist = Vector2Distance(getMidlePoint(getPos()), getMidlePoint(o->getPos()));
+            interactObj = iObj;
         }
 
-
     }
-    if (closes)
-        closeGm.push_back(closes);
-    return closeGm;
+    
+
+    return interactObj;
 }

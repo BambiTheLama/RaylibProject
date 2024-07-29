@@ -24,7 +24,7 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant)
 		};
 	}
 
-	collisionElemnets.push_back(new CollisionElementLines(col));
+	addCollisionElement(new CollisionElementLines(col));
 	Collider::getThisObj();
 	trigger = true;
 	updateWeaponSize();
@@ -108,7 +108,7 @@ void Sword::draw()
 	}
 	if (owner)
 		texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
-	else if (closeItem)
+	else if (isClosestObject)
 		drawOverLine(pos, WHITE);
 	else
 		drawIcon(pos, true);

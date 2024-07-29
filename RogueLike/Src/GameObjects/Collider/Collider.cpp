@@ -12,9 +12,9 @@ Collider::Collider(){
 }
 
 Collider::~Collider() {
-    for (auto c: collisionElemnets)
+    for (auto c: collisionElements)
         delete c;
-    collisionElemnets.clear();
+    collisionElements.clear();
     for (auto f : allForces)
         delete f;
 }
@@ -41,7 +41,7 @@ float getSpeedFromTime(float time)
 
 void Collider::update(float deltaTime)
 {
-    for (auto c : collisionElemnets)
+    for (auto c : collisionElements)
         c->update(thisObj, mirror);
     if (!thisObj)
         return;
@@ -80,7 +80,7 @@ void Collider::setResistToForces(bool isResist)
 
 void Collider::scaleColliderElements(float scale)
 {
-    for (auto e : collisionElemnets)
+    for (auto e : collisionElements)
         e->scaleElement(scale);
 }
 
@@ -117,8 +117,8 @@ Vector2 Collider::getCollisionDir(Collider* collider)
     if (!otherObj)
         return { 0,0 };
     Vector2 otherPos = otherObj->getPosPoint();
-    for (auto c : collisionElemnets)
-        for (auto c2 : collider->collisionElemnets)
+    for (auto c : collisionElements)
+        for (auto c2 : collider->collisionElements)
         {
             Vector2 dir;
             float dist;
@@ -152,8 +152,8 @@ bool Collider::isColliding(Collider *collider,float deltaTime) {
     if (!otherObj)
         return false;
     Vector2 otherPos = otherObj->getPosPoint();
-    for (auto c: collisionElemnets)
-        for (auto c2 : collider->collisionElemnets)
+    for (auto c: collisionElements)
+        for (auto c2 : collider->collisionElements)
         {
             Vector2 dir;
             float dist;
@@ -238,13 +238,13 @@ void Collider::checkCollision(float deltaTime) {
 
 Rectangle Collider::getCollisionArea(Rectangle pos)
 {
-    if (collisionElemnets.size() < 0)
+    if (collisionElements.size() <= 0)
         return pos;
-    Vector2 minV = collisionElemnets[0]->getMinPos();
-    Vector2 maxV = collisionElemnets[0]->getMaxPos();
-    for (int i = 1; i < collisionElemnets.size(); i++)
+    Vector2 minV = collisionElements[0]->getMinPos();
+    Vector2 maxV = collisionElements[0]->getMaxPos();
+    for (int i = 1; i < collisionElements.size(); i++)
     {
-        CollisionElement* e = collisionElemnets[i];
+        CollisionElement* e = collisionElements[i];
         Vector2 tmp = e->getMinPos();
         if (tmp.x < minV.x)
             minV.x = tmp.x;
@@ -261,6 +261,13 @@ Rectangle Collider::getCollisionArea(Rectangle pos)
 }
 #ifdef showColliders
 
+void Collider::clearCollisionElements()
+{
+    for (auto e : collisionElements)
+        delete e;
+    collisionElements.clear();
+}
+
 void Collider::draw() {
 
     if (!thisObj)
@@ -274,7 +281,7 @@ void Collider::draw() {
     }
     DrawRectangleRec(getCollisionArea(thisObj->getPos()), { 0,0,255,100 });
 
-    for (auto c: collisionElemnets)
+    for (auto c: collisionElements)
         c->draw(thisObj);
 }
 #endif

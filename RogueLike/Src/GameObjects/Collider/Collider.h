@@ -13,9 +13,10 @@ class Collider {
     std::list<Collider *> lastFrameColliders;
     GameObject* thisObj = nullptr;
     std::list<Vector3*> allForces;
+    std::vector<CollisionElement*> collisionElements;
     bool resistToforces = false;
 protected:
-    std::vector<CollisionElement *> collisionElemnets;
+
     bool solidObject = false;
     bool trigger = false;
     int mass = 1;
@@ -63,6 +64,10 @@ public:
     GameObject* getThisObj();
 
     Vector2 getCollisionDir(Collider* collider);
+
+    void addCollisionElement(CollisionElement* element) { collisionElements.push_back(element); }
+
+    void clearCollisionElements();
 
 #ifdef showColliders
     void draw();

@@ -5,7 +5,7 @@
 #include "../../GameObjects/Characters/BossEnterWall.h"
 #include "../../GameObjects/Characters/Wolf.h"
 #include "../../GameObjects/Characters/LootBlock.h"
-
+#include "../../GameObjects/Characters/Chest.h"
 GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 {
 	if (ID <= 0)
@@ -44,6 +44,14 @@ GameObject* getEnemy(int ID, Rectangle pos)
 		break;
 	}
 	return NULL;
+}
+
+GameObject* getChest(int ID, Rectangle pos)
+{
+	if (ID < 0)
+		return NULL;
+	
+	return new Chest(pos, ID);
 }
 
 GameObject* getObject(int ID, Rectangle pos)

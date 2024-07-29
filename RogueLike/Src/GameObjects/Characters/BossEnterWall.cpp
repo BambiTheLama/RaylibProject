@@ -16,13 +16,7 @@ BossEnterWall::BossEnterWall(float x, float y, float w, float h)
 	moving = false;
 	pos = Rectangle{ x, y, w, h };
     mass = 1000;
-    std::vector<Vector2> col{
-        {0,         0},
-        {pos.width, 0},
-        {pos.width, pos.height},
-        {0,         pos.height }
-    };
-    collisionElemnets.push_back(new CollisionElementLines(col));
+    addCollisionElement(new CollisionElementLines({0,0,pos.width,pos.height}));
     type = ObjectType::Wall;
 }
 

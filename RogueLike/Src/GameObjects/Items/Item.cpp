@@ -1,11 +1,12 @@
 #include "Item.h"
+#include "../Characters/Player.h"
+#include "../Game.h"
 
 void Item::update(float deltaTime) 
 {
-	if (thisObj)
-		thisObj->update(deltaTime);
-	else
-		findThisObject();
+	GameObject* o = getThisObj();
+	if (o)
+		o->update(deltaTime);
 }
 
 void Item::drawOverLine(Rectangle pos, Color overLine)
@@ -20,7 +21,18 @@ void Item::drawOverLine(Rectangle pos, Color overLine)
 	drawIcon(pos, true);
 }
 
-void Item::findThisObject()
+void Item::interact(GameObject* interactObject)
 {
-	thisObj = dynamic_cast<GameObject*>(this);
+	Player* p = dynamic_cast<Player*>(interactObject);
+	if (!p)
+		return;
+	if (p->addItem(this))
+		Game::removeObject(getThisObj());
+}
+
+GameObject* Item::getThisObj()
+{
+	if (!thisObj)
+		thisObj = dynamic_cast<GameObject*>(this);
+	return thisObj;
 }

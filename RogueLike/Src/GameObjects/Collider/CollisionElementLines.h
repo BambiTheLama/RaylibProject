@@ -5,9 +5,11 @@
 class CollisionElementLines : public CollisionElement {
     std::vector<Vector2> lines;
     float angle = 0.0f;
-    Vector2 rotationPoint;
+    Vector2 rotationPoint = { 0.0f,0.0f };
     bool mirror = false;
 public:
+    CollisionElementLines(Rectangle col);
+
     CollisionElementLines(std::vector<Vector2> lines);
 
     void update(GameObject* gm, bool mirror);

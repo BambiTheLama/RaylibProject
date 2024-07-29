@@ -8,7 +8,7 @@ StandardProjectal::StandardProjectal()
 {
 	//drawOrder = 10;
 	pos = { 0,0,32,32 };
-	collisionElemnets.push_back(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
+	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
 	trigger = true;
 	
 }

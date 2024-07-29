@@ -16,7 +16,7 @@ Bomb::Bomb(float x, float y)
 	{pos.width, pos.height},
 	{0,         pos.height }
 	};
-	collisionElemnets.push_back(new CollisionElementLines(col));
+	addCollisionElement(new CollisionElementLines(col));
 	time = timerMax;
 }
 

@@ -22,7 +22,7 @@ Enemy::Enemy(float x, float y)
 		{pos.width / 4 + pos.width / 2,	pos.height / 4 + pos.height / 2},
 		{pos.width / 4,					pos.height / 4 + pos.height / 2}
 	};
-	collisionElemnets.push_back(new CollisionElementLines(col));
+	addCollisionElement(new CollisionElementLines(col));
 }
 
 void Enemy::update(float deltaTime)

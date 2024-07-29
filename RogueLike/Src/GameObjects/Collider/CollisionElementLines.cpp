@@ -3,6 +3,13 @@
 #include "../GameObject.h"
 #include "raymath.h"
 
+CollisionElementLines::CollisionElementLines(Rectangle col) : CollisionElement(CollisionType::Line){
+    lines.push_back({ col.x,col.y });
+    lines.push_back({ col.x + col.width,col.y });
+    lines.push_back({ col.x + col.width,col.y + col.height });
+    lines.push_back({ col.x ,col.y + col.height });
+}
+
 CollisionElementLines::CollisionElementLines(std::vector<Vector2> lines): CollisionElement(CollisionType::Line) {
     this->lines = lines;
 }

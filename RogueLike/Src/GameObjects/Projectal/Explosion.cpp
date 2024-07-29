@@ -7,7 +7,7 @@ Explosion::Explosion()
 {
 	pos = { 0,0,range,range };
 
-	collisionElemnets.push_back(new CollisionElementCircle({ 0,0 }, range));
+	addCollisionElement(new CollisionElementCircle({ 0,0 }, range));
 	trigger = true;
 }
 
