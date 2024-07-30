@@ -16,6 +16,8 @@ public:
 
 	WeaponNode* getWeaponNode() { return &node; }
 
+	void draw();
+
 	void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) override;
 
 	void drawDescription(Rectangle pos, float textSize) override { node.drawNodeDescription(pos, textSize, true); }

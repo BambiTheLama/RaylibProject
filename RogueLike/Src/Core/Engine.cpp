@@ -45,7 +45,7 @@ Engine::Engine() {
             deltaTime = 0.0001f;
         s->update(deltaTime);
         BeginDrawing();
-        ClearBackground(DARKBLUE);
+        ClearBackground(GetColor(0x333377ff));
         s->draw();
         timer -= GetFrameTime();
         if (timer <= 0.0f)

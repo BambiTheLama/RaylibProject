@@ -7,6 +7,10 @@
 #include "../Items/WeaponNodeItem.h"
 #include "../../Core/Controller/ShaderController.h"
 
+enum class WeaponType {
+
+};
+
 class Inventory;
 class GameObject;
 class Weapon

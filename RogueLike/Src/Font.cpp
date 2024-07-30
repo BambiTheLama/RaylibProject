@@ -238,6 +238,11 @@ void startOutLineShader()
 	BeginShaderMode(outline.getShader());
 }
 
+Rectangle moveRectangeBy(Rectangle pos, Vector2 moveBy)
+{
+	return { pos.x + moveBy.x,pos.y + moveBy.y,pos.width,pos.height };
+}
+
 Vector2 getMidlePoint(Rectangle rec)
 {
 	return { rec.x + rec.width / 2,rec.y + rec.height / 2 };
