@@ -9,6 +9,6 @@ void setUpItemFactory(std::string path);
 
 WeaponNodeItem* getWeaponNode(int tier, WeaponNodeType type);
 
-Weapon* getWeapon(int tier, WeaponType wt);
+Weapon* getWeapon(int variant,int tier, WeaponType wt);
 
 Item* getItem(int tier);

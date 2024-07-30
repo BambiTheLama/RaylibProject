@@ -16,13 +16,17 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool left = false;
 	bool flipHorizontal = false;
 public:
-	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0);
+	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(),int weaponTier=0);
 
 	~Sword() {  }
 
 	void update(float deltaTime) override;
 
 	void setInventory(Inventory* inventory) { Weapon::setInventory(inventory); Item::setInventory(inventory); }
+	
+	virtual void setOwner(GameObject* owner);
+
+	void draw(Rectangle pos);
 
 	void draw() override;
 
@@ -48,6 +52,6 @@ private:
 
 protected:
 
-	void readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int weaponTier = 0, int variant = 0);
+	void readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant = 0);
 };
 

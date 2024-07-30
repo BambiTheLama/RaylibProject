@@ -1,6 +1,7 @@
 #include "ItemFactory.h"
 #include "json.hpp"
 #include <fstream>
+#include "../Weapon/Sword.h"
 
 static nlohmann::json weaponData;
 static nlohmann::json weaponNodeData;
@@ -28,8 +29,24 @@ WeaponNodeItem* getWeaponNode(int tier, WeaponNodeType type)
 	return nullptr;
 }
 
-Weapon* getWeapon(int tier, WeaponType wt)
+Weapon* getWeapon(int variant, int tier, WeaponType wt)
 {
+	switch (wt)
+	{
+	case WeaponType::Axe:
+		return new Sword(nullptr, "Axe", variant, weaponData, tier);
+		break;
+	case WeaponType::Sword:
+		return new Sword(nullptr, "Sword", variant, weaponData, tier);
+		break;
+	case WeaponType::Pickaxe:
+		return new Sword(nullptr, "Pickaxe", variant, weaponData, tier);
+		break;
+	case WeaponType::Bow:
+		break;
+	default:
+		break;
+	}
 	return nullptr;
 }
 

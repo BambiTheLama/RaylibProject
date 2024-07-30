@@ -16,12 +16,14 @@ class Collider {
     std::vector<CollisionElement*> collisionElements;
     bool resistToforces = false;
 protected:
-
+    Vector2 difSize = { 1.0f,1.0f };
+    bool fHorizontal = false;
     bool solidObject = false;
     bool trigger = false;
     int mass = 1;
     bool mirror = false;
     bool reactOnlyToSolid = false;
+    bool scale = 1.0f;
 public:
     Collider();
 
@@ -56,6 +58,8 @@ public:
     }
 
     void scaleColliderElements(float scale);
+
+    void flipHorizontalElements(bool flipHorizontal);
 
     bool isTrigger() { return trigger; }
 

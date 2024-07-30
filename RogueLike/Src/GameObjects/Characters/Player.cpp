@@ -10,6 +10,7 @@
 #include "Wall.h"
 #include "../Projectal/Bomb.h"
 #include "../AddisionalTypes/Interactive.h"
+#include "../Items/ItemFactory.h"
 
 Player::Player(float x, float y):Hitable(100.0f){
 
@@ -29,10 +30,18 @@ Player::Player(float x, float y):Hitable(100.0f){
     mass = 1000;
     trigger = false;
     inventory = Inventory(this);
-    const int weapons = 5;
-    std::string strings[5] = { "Axe","Sword","Pickaxe","Bow","Arrow" };
-    for (int i = 0; i < weapons; i++)
-        inventory.addItem(dynamic_cast<Item*>(new Sword(this, strings[i], 0)));
+    Weapon* w = getWeapon(0, 0, WeaponType::Axe);
+    Item* i = dynamic_cast<Item*>(w);
+    if (!inventory.addItem(i) && w)
+        delete w;
+    w = getWeapon(0, 0, WeaponType::Pickaxe);
+    i = dynamic_cast<Item*>(w);
+    if (!inventory.addItem(i) && w)
+        delete w;
+    w = getWeapon(0, 0, WeaponType::Sword);
+    i = dynamic_cast<Item*>(w);
+    if (!inventory.addItem(i) && w)
+        delete w;
 }
 
 Player::~Player() {
@@ -136,7 +145,8 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
             inventory.downSlot();
         break;
     case Input::DropItem:
-        inventory.dropItem();
+        if (!inventory.isDescriptionShowed())
+            inventory.dropItem();
     default:
         break;
     }
@@ -201,6 +211,9 @@ Interactive* Player::getCloseInteractiveObjects()
     {
         Interactive* iObj = dynamic_cast<Interactive*>(o);
         if (!iObj)
+            continue;
+        Item* item = dynamic_cast<Item*>(o);
+        if (item && inventory.hasThisItem(item))
             continue;
         if (interactObj)
         {

@@ -1,6 +1,9 @@
 #include "Chest.h"
 #include "../Collider/CollisionElementLines.h"
 #include "../Game.h"
+#include "../Items/ItemFactory.h"
+#include "raymath.h"
+
 extern const float tileW;
 extern const float tileH;
 
@@ -39,6 +42,26 @@ void Chest::draw(Rectangle pos)
 
 void Chest::interact(GameObject* interactObj)
 {
+	int n = (rand() % 3) + 1;
+	for (int i = 0; i < n; i++)
+	{
+		Weapon* w = getWeapon(0, 0, getRandomWeaponType());
+		if (!w)
+			continue;
+		GameObject* o = dynamic_cast<GameObject*>(w);
+		if (!o)
+		{
+			delete w;
+			continue;
+		}
+
+		o->setPos(getMidlePoint(moveRectangeBy( pos,Vector2Scale(randVector2(), 10))));
+		Game::addObject(o);
+	}
+
+
+
+
 	Game::deleteObject(this);
 }
 

@@ -80,8 +80,20 @@ void Collider::setResistToForces(bool isResist)
 
 void Collider::scaleColliderElements(float scale)
 {
+    this->scale *= scale;
+    difSize.x *= scale;
+    difSize.y*= scale;
     for (auto e : collisionElements)
         e->scaleElement(scale);
+}
+
+void Collider::flipHorizontalElements(bool flipHorizontal)
+{
+    if (this->fHorizontal == flipHorizontal)
+        return;
+    for (auto e : collisionElements)
+        e->flipHorizontalElement(difSize.y);
+    this->fHorizontal = flipHorizontal;
 }
 
 GameObject* Collider::getThisObj()

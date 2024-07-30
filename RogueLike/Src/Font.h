@@ -40,4 +40,6 @@ Rectangle moveRectangeBy(Rectangle pos, Vector2 moveBy);
 
 Vector2 getMidlePoint(Rectangle rec);
 
+Vector2 randVector2();
+
 Color mixColor(Color c1, Color c2, float procent);

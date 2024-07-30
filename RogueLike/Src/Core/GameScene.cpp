@@ -9,8 +9,10 @@
 #include "rlgl.h"
 #include "WaveCollapsFun.h"
 #include "../GameObjects/Weapon/Weapon.h"
+#include "../GameObjects/Items/ItemFactory.h"
 
 GameScene::GameScene() {
+    setUpItemFactory("Res/");
     Game::gameScene = this;
     Weapon::loadWeaponData("Res/Weapon.json");
     camera.zoom = 1.01f;

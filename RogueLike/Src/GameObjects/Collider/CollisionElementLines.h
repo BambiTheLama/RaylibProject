@@ -18,7 +18,11 @@ public:
 
     void setRotateAngle(float angle) { this->angle = angle; }
 
+    void flipHorizontalElement(float size);
+
     void setRotationPoint(Vector2 point) { this->rotationPoint = point; }
+
+    Vector2 getRotationPoint() { return rotationPoint; }
 
     bool isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement, Vector2 collisionElementPos, Vector2* dir, float* depht) override;
 

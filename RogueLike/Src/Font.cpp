@@ -248,6 +248,11 @@ Vector2 getMidlePoint(Rectangle rec)
 	return { rec.x + rec.width / 2,rec.y + rec.height / 2 };
 }
 
+Vector2 randVector2()
+{
+	return Vector2Normalize({ (rand() % 201) / 100.0f - 1.0f,(rand() % 201) / 100.0f - 1.0f });
+}
+
 Color mixColor(Color c1, Color c2, float p)
 {
 	p = Clamp(p, 0.0f, 1.0f);

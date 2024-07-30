@@ -39,9 +39,7 @@ std::vector<Vector2> CollisionElementLines::getLines(Vector2 pos) {
     for (auto l : lines)
     {
         if (mirror)
-        {
             l.x = -l.x;
-        }
 
         float x = cosf(angle) * (l.x - rotationPoint.x) - sinf(angle) * (l.y - rotationPoint.y) + rotationPoint.x;
         float y = sinf(angle) * (l.x - rotationPoint.x) + cosf(angle) * (l.y - rotationPoint.y) + rotationPoint.y;
@@ -52,6 +50,16 @@ std::vector<Vector2> CollisionElementLines::getLines(Vector2 pos) {
     }
 
     return linesToRet;
+}
+
+void CollisionElementLines::flipHorizontalElement(float size)
+{
+    std::vector<Vector2> newLines;
+    for (auto l : lines)
+    {
+        newLines.push_back({ l.x,size- l.y});
+    }
+    lines = newLines;
 }
 
 bool CollisionElementLines::isCollidiongWith(Vector2 thisPos, CollisionElement *collisionElement,

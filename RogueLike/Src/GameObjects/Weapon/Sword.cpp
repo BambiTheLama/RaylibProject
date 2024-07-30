@@ -6,44 +6,22 @@
 #include <fstream>
 #include <math.h>
 
-Sword::Sword(GameObject* owner, std::string weaponType, int variant)
+Sword::Sword(GameObject* owner, std::string weaponType, int variant, nlohmann::json data,int weaponTier)
 {
 	type = ObjectType::Item;
-	setOwner(owner);
 	pos = { 0,0,32,32 };
 	std::vector<Vector2> col;
 	std::string texturePath = "Weapons/StoneSword.png";
-	readFromWeaponData(weaponType, col, variant, variant);
-	if(col.size()<=0)
-	{
-		col = {
-				{0, 0},
-				{ pos.width,0 },
-				{ pos.width,pos.height },
-				{ 0,pos.height }
-		};
-	}
-
+	readFromWeaponData(weaponType, col, variant);
+	if (data.contains(weaponType) && data[weaponType].size() > variant && variant >= 0)
+		readStats(data[weaponType][variant], weaponTier);
+	Collider::difSize = { pos.width,pos.height };
 	addCollisionElement(new CollisionElementLines(col));
 	Collider::getThisObj();
-	trigger = true;
+	moving = true;
+	mass = 1;
 	updateWeaponSize();
-
-
-	WeaponStats wnStats;
-	wnStats.range = 0;
-	wnStats.rangeMultiplier = 1;
-	wnStats.bounce = 3;
-
-	WeaponNode wn(wnStats, WeaponNodeActivation::OnUse, 1);
-	WeaponNodeItem* wni = new WeaponNodeItem("Icons/AngleIcon.png");
-	wni->setWeaponNode(wn);
-	addSlot(0, wni);
-	wn= WeaponNode(wnStats);
-	wni = new WeaponNodeItem("Weapons/Stick.png");
-	wni->setWeaponNode(wn);
-	addSlot(1, wni);
-
+	setOwner(owner);
 }
 
 void Sword::update(float deltaTime)
@@ -92,10 +70,20 @@ void Sword::update(float deltaTime)
 	}
 }
 
-void Sword::draw()
+void Sword::setOwner(GameObject* owner)
 {
-	
-	Rectangle pos = getPos();	
+	Item::setOwner(owner);
+	if (!owner)
+	{
+		angle = 0.0f;
+	}
+	trigger = owner;
+	flipHorizontal = owner;
+	flipHorizontalElements(flipHorizontal);
+}
+
+void Sword::draw(Rectangle pos)
+{
 	Vector2 rotationPoint = this->rotationPoint;
 	//pos.x += rotationPoint.x;
 	//pos.y += rotationPoint.y;
@@ -106,13 +94,24 @@ void Sword::draw()
 		rotationPoint.x = pos.width - rotationPoint.x;
 		angle -= 90;
 	}
-	if (owner)
-		texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
-	else if (isClosestObject)
-		drawOverLine(pos, WHITE);
-	else
-		drawIcon(pos, true);
 
+	texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
+}
+
+void Sword::draw()
+{
+	Rectangle pos = getPos();
+	if (isClosestObject)
+	{
+		startOutLineShader();
+		const int lineSize = 4;
+		draw(moveRectangeBy(pos, { 0,lineSize }));
+		draw(moveRectangeBy(pos, { 0,-lineSize }));
+		draw(moveRectangeBy(pos, { lineSize ,0 }));
+		draw(moveRectangeBy(pos, { -lineSize,0 }));
+		EndShaderMode();
+	}
+	draw(pos);
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
@@ -207,11 +206,11 @@ void Sword::updateWeaponSize()
 
 }
 
-void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int weaponTier, int variant )
+void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant)
 {
 	if (!weaponData.contains(weaponType))
 		return;
-	Weapon::readFromWeaponData(weaponType, weaponTier, variant);
+	Weapon::readFromWeaponData(weaponType, variant);
 
 	pos.width = weaponData[weaponType]["Size"][0];
 	pos.height = weaponData[weaponType]["Size"][1];
@@ -223,8 +222,6 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 		{
 			int x = weaponData[weaponType]["Col"][i][0];
 			int y = weaponData[weaponType]["Col"][i][1];
-			if (flipHorizontal)
-				y = (int)pos.height - y;
 			col.push_back({ (float)x,(float)y });
 		}
 	}

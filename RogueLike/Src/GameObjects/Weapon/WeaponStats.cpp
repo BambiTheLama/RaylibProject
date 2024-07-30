@@ -13,7 +13,13 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 		return;
 	if (tier >= statsSize)
 		tier = statsSize - 1;
-	if (json[statsJsonName][statProperty][tier].size() > 1)
+	if (tier < 0)
+		return;
+	if (!json[statsJsonName][statProperty].is_array())
+	{
+		stat = json[statsJsonName][statProperty];
+	}
+	else if (json[statsJsonName][statProperty][tier].size() > 1)
 	{
 		int min = json[statsJsonName][statProperty][tier][0];
 		int max = json[statsJsonName][statProperty][tier][1];
@@ -37,8 +43,13 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 		return;
 	if (tier >= statsSize)
 		tier = statsSize - 1;
-
-	if (json[statsJsonName][statProperty][tier].size() > 1)
+	if (tier < 0)
+		return;
+	if (!json[statsJsonName][statProperty].is_array())
+	{
+		stat = json[statsJsonName][statProperty];
+	}
+	else if (json[statsJsonName][statProperty][tier].size() > 1)
 	{
 		float min = json[statsJsonName][statProperty][tier][0];
 		float max = json[statsJsonName][statProperty][tier][1];
@@ -49,7 +60,10 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 	{
 		stat = json[statsJsonName][statProperty][tier];
 	}
+
 }
+
+
 
 void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat, float& statMultiplier)
 {
@@ -60,7 +74,14 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 		return;
 	if (tier >= statsSize)
 		tier = statsSize - 1;
-	if (json[statsJsonName][statProperty][tier][0].size() > 1)
+	if (tier < 0)
+		return;
+	if (!json[statsJsonName][statProperty].is_array())
+	{
+		stat = json[statsJsonName][statProperty];
+		return;
+	}
+	else if (json[statsJsonName][statProperty][tier][0].size() > 1)
 	{
 		float min = json[statsJsonName][statProperty][tier][0][0];
 		float max = json[statsJsonName][statProperty][tier][0][1];

@@ -210,6 +210,9 @@ void CollisionElement::draw(GameObject *obj) {
                 DrawLineEx(p1, p2, 7, { 0,0,0,255 });
                 DrawLineEx(p1, p2, 5, { 255,0,0,255 });
                 DrawLineEx(p1, p2, 3, { 255,255,0,255 });
+                Rectangle pos = obj->getPos();
+                Vector2 rot = getRotationPoint();
+                DrawCircleV({rot.x+pos.x,rot.y+pos.y},5, GREEN);
             }
 
             break;

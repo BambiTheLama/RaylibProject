@@ -7,6 +7,10 @@
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
 
+WeaponType getRandomWeaponType()
+{
+	return (WeaponType)(rand() % (int)WeaponType::Size);
+}
 Weapon::Weapon()
 {
 }
@@ -325,29 +329,29 @@ void Weapon::setNumberOfSlots(int slots)
 	}
 	updateWeaponNodesEfects();
 }
-void Weapon::readFromWeaponData(std::string weaponType, int weaponTier, int variant)
+void Weapon::readFromWeaponData(std::string weaponType, int variant)
 {
 	if (!weaponData.contains(weaponType))
 		return;
 	if (weaponData[weaponType].contains("Slots"))
 	{
 		int tiers = (int)weaponData[weaponType]["Slots"].size();
-		if (weaponTier >= tiers)
-			weaponTier = tiers - 1;
-		if (weaponTier >= 0 && tiers > 0)
+		if (variant >= tiers)
+			variant = tiers - 1;
+		if (variant >= 0 && tiers > 0)
 		{
 			int slots = 0;
-			if (weaponData[weaponType]["Slots"][weaponTier].size() > 1)
+			if (weaponData[weaponType]["Slots"][variant].size() > 1)
 			{
-				int slotsMin = weaponData[weaponType]["Slots"][weaponTier][0];
-				int slotsMax = weaponData[weaponType]["Slots"][weaponTier][1];
+				int slotsMin = weaponData[weaponType]["Slots"][variant][0];
+				int slotsMax = weaponData[weaponType]["Slots"][variant][1];
 				slots = std::min(slotsMin, slotsMax);
 				if (slotsMin != slotsMax)
 					slots += rand() % (abs(slotsMax - slotsMin) + 1);
 			}
-			else if (weaponData[weaponType]["Slots"][weaponTier].size() > 0)
+			else if (weaponData[weaponType]["Slots"][variant].size() > 0)
 			{
-				slots = weaponData[weaponType]["Slots"][weaponTier];
+				slots = weaponData[weaponType]["Slots"][variant];
 			}
 			setNumberOfSlots(slots);
 		}
@@ -367,6 +371,11 @@ void Weapon::readFromWeaponData(std::string weaponType, int weaponTier, int vari
 		rotationPoint.x = weaponData[weaponType]["RotationPoint"][0];
 		rotationPoint.y = weaponData[weaponType]["RotationPoint"][1];
 	}
-	stats.readStatsFromWeapon(weaponData[weaponType], weaponTier);
+	stats.readStatsFromWeapon(weaponData[weaponType], variant);
+	setStats(stats);
+}
+void Weapon::readStats(nlohmann::json j,int variant)
+{
+	stats.readStatsFromWeapon(j, variant);
 	setStats(stats);
 }

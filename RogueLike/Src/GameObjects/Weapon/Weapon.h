@@ -8,8 +8,17 @@
 #include "../../Core/Controller/ShaderController.h"
 
 enum class WeaponType {
+	Axe = 0,
+	Sword,
+	Pickaxe,
+	Bow,
 
+
+
+	Size
 };
+
+WeaponType getRandomWeaponType();
 
 class Inventory;
 class GameObject;
@@ -82,8 +91,8 @@ private:
 protected:
 	void setNumberOfSlots(int slots);
 
-	virtual void readFromWeaponData(std::string weaponType, int weaponTier = 0, int variant = 0);
+	virtual void readFromWeaponData(std::string weaponType, int variant = 0);
 
-
+	void readStats(nlohmann::json j, int variant = 0);
 };
 

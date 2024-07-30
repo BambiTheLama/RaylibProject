@@ -380,5 +380,8 @@
     <None Include="Res\WeaponData.json">
       <Filter>Res</Filter>
     </None>
+    <None Include="Res\Projectal.json">
+      <Filter>Res\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
