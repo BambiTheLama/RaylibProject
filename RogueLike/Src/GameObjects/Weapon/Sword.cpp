@@ -28,10 +28,10 @@ void Sword::update(float deltaTime)
 {
 	if (owner)
 	{
-		Rectangle p = owner->getPos();
-		pos.x = p.x + p.width / 2;
-		pos.y = p.y + p.height / 2;
-		Game::addObject(this);
+		Vector2 p = getMidlePoint(owner->getPos());
+		pos.x = p.x;
+		pos.y = p.y;
+		//Game::addObject(this);
 	}
 	if (reloadTime > 0)
 	{
@@ -197,7 +197,7 @@ void Sword::onTriggerEnter(Collider* collider)
 }
 void Sword::updateWeaponSize()
 {
-	float scale = (stats.range * stats.rangeMultiplier) / pos.width;
+	float scale = (stats.range) / pos.width;
 	pos.width *= scale;
 	pos.height *= scale;
 	rotationPoint.x *= scale;

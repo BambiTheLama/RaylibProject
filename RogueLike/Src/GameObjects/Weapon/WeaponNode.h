@@ -2,7 +2,7 @@
 #include <vector>
 #include "WeaponStats.h"
 
-enum class WeaponNodeType
+enum class WeaponNodeType :char
 {
 	Stat,
 	Spawn,
@@ -31,6 +31,8 @@ public:
 	WeaponNode(WeaponStats stats);
 
 	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID);
+
+	WeaponNode(nlohmann::json j);
 
 	WeaponStats getNextStats(WeaponNode node);
 

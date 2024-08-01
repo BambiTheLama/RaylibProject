@@ -1,0 +1,20 @@
+[
+
+    [
+        {
+            "Texture": "Icons/DamageIcon.png",
+            "Spawn": 0,
+            "Type": 0,
+            "Stats": {
+                "Damage": [
+                    [ [ 1, 2 ] ]
+                ]
+            }
+
+        }
+    ],
+    [
+
+    ]
+
+]

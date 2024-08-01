@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Res\ItemData.json" />
     <None Include="Res\Projectal.json" />
     <None Include="Res\Rooms.json" />
     <None Include="Res\Shader\OutLine.frag" />
@@ -139,6 +140,7 @@
     <None Include="Res\Textures.json" />
     <None Include="Res\Weapon.json" />
     <None Include="Res\WeaponData.json" />
+    <None Include="Res\WeaponNodeData.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

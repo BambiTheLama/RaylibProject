@@ -7,7 +7,7 @@
 
 void setUpItemFactory(std::string path);
 
-WeaponNodeItem* getWeaponNode(int tier, WeaponNodeType type);
+WeaponNodeItem* getWeaponNode(int tier);
 
 Weapon* getWeapon(int variant,int tier, WeaponType wt);
 

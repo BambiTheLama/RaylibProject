@@ -9,22 +9,22 @@ enum class StatType
 
 struct WeaponStats
 {
-	float damage = 1.0f;
-	float damageMultiplier = 1.0f;
-	float useTime = 1.0f;
-	float useTimeMultiplier = 1.0f;
+	float damage = 0.0f;
+	float damageMultiplier = 0.0f;
+	float useTime = 0.0f;
+	float useTimeMultiplier = 0.0f;
 	float reloadTime = 0.0f;
-	float reloadTimeMultiplier = 1.0f;
-	float speed = 100.0f;
-	float speedMultiplier = 1.0f;
-	float range = 100.0f;
-	float rangeMultiplier = 1.0f;
-	float angle = 36.0f;
-	float knockback = 100.0f;
-	float knockbackMultiplier = 1.0f;
-	int   countOfUse = 1;
-	int	  bounce = 1;
-	int   pirce = 1;
+	float reloadTimeMultiplier = 0.0f;
+	float speed = 0.0f;
+	float speedMultiplier = 0.0f;
+	float range = 0.0f;
+	float rangeMultiplier = 0.0f;
+	float angle = 0.0f;
+	float knockback = 0.0f;
+	float knockbackMultiplier = 0.0f;
+	int   countOfUse = 0;
+	int	  bounce = 0;
+	int   pirce = 0;
 
 	void readStats(nlohmann::json json);
 	

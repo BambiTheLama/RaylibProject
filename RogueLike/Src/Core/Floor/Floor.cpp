@@ -43,7 +43,13 @@ Floor::Floor(Rectangle pos)
     pos.width = (float)(((int)pos.width / (int)roomW) * (int)roomW);
     pos.height = (float)(((int)pos.height / (int)roomH) * (int)roomH);
     this->pos = pos;
-    tree = new QuadTree({ pos.x - 100.0f,pos.y - 100.0f,pos.width + 200.0f,pos.height + 200.0f });
+    const float wallSize = roomW * 5;
+    tree = new QuadTree(RectangleIncreasSize(pos,wallSize));
+
+    addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
+    addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
+    addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
+    addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
     pathFinder = new PathFinder({ pos.width,pos.height }, { 32,32 });
 
 }
@@ -167,11 +173,7 @@ void Floor::createFloor()
     //}
 
     loadRoomsFromPng("Res/Rooms/");
-    float wallSize = 1000;
-    addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
-    addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
-    addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
-    addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
+
 
 
     FloorRooms floorRooms = getFloorRooms();

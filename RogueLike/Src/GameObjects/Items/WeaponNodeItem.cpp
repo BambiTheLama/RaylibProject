@@ -1,9 +1,37 @@
 #include "WeaponNodeItem.h"
+#include "../Collider/CollisionElementLines.h"
 
-WeaponNodeItem::WeaponNodeItem(std::string path)
+WeaponNodeItem::WeaponNodeItem()
+{
+	addCollisionElement(new CollisionElementLines(RectangleDecreasSize(pos, 20)));
+	setOwner(nullptr);
+}
+
+WeaponNodeItem::WeaponNodeItem(std::string path) :WeaponNodeItem()
 {
 	texture = TextureController(path);
-	pos = { 0,0,64,64 };
+}
+
+WeaponNodeItem::WeaponNodeItem(nlohmann::json j) :WeaponNodeItem()
+{
+	if (j.contains("Texture"))
+		texture = TextureController(j["Texture"]);
+	node = WeaponNode(j);
+}
+
+void WeaponNodeItem::update(float deltaTime)
+{
+	if (owner)
+	{
+		Vector2 p = getMidlePoint(owner->getPos());
+		pos.x = p.x;
+		pos.y = p.y;
+	}
+}
+void WeaponNodeItem::setOwner(GameObject* owner)
+{
+	Item::setOwner(owner);
+	trigger = owner;
 }
 
 void WeaponNodeItem::draw()

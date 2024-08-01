@@ -28,6 +28,40 @@ WeaponNode::WeaponNode(WeaponStats stats)
 	this->spawnID = -1;
 }
 
+int getWeaponTier(nlohmann::json j)
+{
+	if (!j.contains("Tiers"))
+		return 0;
+	int tiers = j["Tiers"].size();
+	if (tiers <= 1)
+		return 0;
+	int sum = 0;
+	for (int i = 0; i < tiers; i++)
+		sum += j["Tiers"][i];
+	if (sum <= 0)
+		return 0;
+	
+	int randSum = rand() % sum;
+	sum = 0;
+	for (int i = 0; i < tiers; i++)
+	{
+		sum += j["Tiers"][i];
+		if (sum >= randSum)
+			return i;
+
+	}
+	return tiers - 1;
+}
+
+WeaponNode::WeaponNode(nlohmann::json j)
+{
+	int tier = getWeaponTier(j);
+	if (j.contains("Type"))
+		type = (WeaponNodeType)j["Type"];
+	if (j.contains("Stats"))
+		stats.readStatsFromWeapon(j, tier);
+}
+
 WeaponNode::WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID)
 {
 	this->activateTrigger = activateTrigger;
@@ -61,7 +95,7 @@ void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox
 	case WeaponNodeType::Stat:
 	{
 		std::string str = "     {Stats}\n";
-		stats.draw(pos, textSize, flexBox, true, str, true, true,true);
+		stats.draw(pos, textSize, flexBox, true, str, true, true, true);
 	}
 		break;
 	case WeaponNodeType::Spawn:
