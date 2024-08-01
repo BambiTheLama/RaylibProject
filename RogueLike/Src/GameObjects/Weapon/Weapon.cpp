@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../Items/Inventory.h"
 #include "math.h"
+#include "raymath.h"
 
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
@@ -159,6 +160,7 @@ void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 	weaponSlotPos = pos;
 	int i = 0;
 	Vector2 mouse = GetMousePosition();
+	cursorAt = -1;
 	for (auto slot : weaponSlots)
 	{
 		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
@@ -166,7 +168,11 @@ void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 		{
 			cursorAt = i - 1;
 		}
-
+	}
+	i = 0;
+	for (auto slot : weaponSlots)
+	{
+		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
 		bool isCursorAt = i - 1 == cursorAt;
 		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
 		if (slot)
@@ -181,7 +187,14 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 		findThisObject();
 	if (!thisObj)
 		return false;
-	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats);
+	Vector2 offset = { 0.0f,0.0f };
+	if (thisObj)
+	{
+		Rectangle pos = thisObj->getPos();
+		offset = { -pos.width / 2.0f,-pos.height / 2.0f };
+	}
+
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, offset);
 }
 
 WeaponNodeItem* Weapon::removeSlot(int slot)

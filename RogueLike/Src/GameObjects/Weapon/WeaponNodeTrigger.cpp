@@ -27,7 +27,7 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 			return false;
 		}
 
-		gm->setPos(Vector2Add(weapon->getPosPoint(), spawnOffset));
+		gm->setPos(Vector2Add(getMidlePoint(weapon->getPos()), spawnOffset));
 		
 
 		projectal->setWeaponNodeTrigger(getNextTriggerNode());

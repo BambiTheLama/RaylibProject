@@ -6,7 +6,7 @@
 
 StandardProjectal::StandardProjectal()
 {
-	//drawOrder = 10;
+	drawOrder = 10;
 	pos = { 0,0,32,32 };
 	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
 	trigger = true;
@@ -28,11 +28,9 @@ void StandardProjectal::update(float deltaTime)
 	pos.x += dir.x * stats.speed * deltaTime;
 	pos.y += dir.y * stats.speed * deltaTime;
 	range -= stats.speed * deltaTime;
-	if (range <= 0)
-	{
-
+	timer -= deltaTime;
+	if (range <= 0.0f || timer <= 0.0f)
 		Game::deleteObject(this);
-	}
 
 }
 
@@ -101,5 +99,6 @@ void StandardProjectal::updateStatsAfterSetStats()
 	pirce = stats.pirce;
 	bounce = stats.bounce;
 	range = stats.range;
+	timer = stats.useTime;
 	
 }

@@ -14,7 +14,9 @@
                     [ [ 100, 200 ] ]
                 ],
                 "CountOfUse": 1,
-                "Speed": 100
+                "Speed": 100,
+                "UseTime": 10
+
 
             }
 
