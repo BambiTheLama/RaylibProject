@@ -58,6 +58,8 @@ public:
 
 	void checkCloseCells(std::list<Vector2>& toCheck, int x, int y, int endX, int endY);
 
+	bool hasPath(Rectangle start, Rectangle end);
+
 	Vector2 getDirToGo(Rectangle start, Rectangle end, float range);
 
 	friend bool sortFun(Vector2& f, Vector2& s);

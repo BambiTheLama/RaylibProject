@@ -51,7 +51,7 @@ Floor::Floor(Rectangle pos)
     addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
     addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
     pathFinder = new PathFinder({ pos.width,pos.height }, { 32,32 });
-
+    createFloor();
 }
 
 void Floor::setUpRooms(int startX, int startY, Room& room)
@@ -91,6 +91,10 @@ void Floor::setUpRooms(int startX, int startY, Room& room)
                         GameObject* b = getRoomElement(lrID, startX + sX *tileW, startY + sY * tileH, tileW * sW, tileH * sH);
                         if (b)
                             addObject(b);
+                        if (startPos.x <= 0 && startPos.y <= 0)
+                            startPos = b->getPos();
+                        else
+                            endPos = b->getPos();
                     }
 
                 }
@@ -194,8 +198,8 @@ void Floor::createFloor()
             setUpRooms(startX, startY, room);
         }
 
-    //setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
-    //setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
+    setUpObjects(std::vector<int>{ 0 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
+    setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
     //setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
     removeCloseEnemies();
@@ -203,7 +207,7 @@ void Floor::createFloor()
 
 void Floor::start()
 {
-    createFloor();
+
     for (auto o : allGameObjects)
         o->start();
 }
@@ -306,6 +310,9 @@ void Floor::draw()
         pathFinder->draw();
 #endif
 
+    DrawRectangleRec(startPos, GREEN);
+    DrawRectangleRec(endPos, GREEN);
+
 }
 
 void Floor::drawUI()
@@ -366,6 +373,13 @@ void Floor::toCheckPos(Rectangle toCheck)
 {
     if (pathFinder)
         pathFinder->addToCheck(toCheck);
+}
+
+bool Floor::canPassMap()
+{
+    if (!pathFinder)
+        return true;
+    return pathFinder->hasPath(startPos, endPos);
 }
 
 void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun, int rangeW, int rangeH)
@@ -446,6 +460,7 @@ void Floor::removeCloseEnemies()
 
     }
 }
+
 void Floor::removeObj(GameObject* o)
 {
     tree->removeObj(o);

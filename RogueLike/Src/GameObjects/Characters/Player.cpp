@@ -42,9 +42,13 @@ Player::Player(float x, float y):Hitable(100.0f){
     i = dynamic_cast<Item*>(w);
     if (i && !inventory.addItem(i) && w)
         delete w;
-    i = getWeaponNode(0);
-    if (i && !inventory.addItem(i))
-        delete i;
+    for (int j = 0; j < 3; j++)
+    {
+        i = getWeaponNode(0);
+        if (i && !inventory.addItem(i))
+            delete i;
+    }
+
 }
 
 Player::~Player() {

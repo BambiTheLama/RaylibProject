@@ -178,6 +178,59 @@ bool sortFun(Vector2& f, Vector2& s)
 	return pathFinder->grid[(int)f.y][(int)f.x].fullPath > pathFinder->grid[(int)s.y][(int)s.x].fullPath;
 }
 
+bool PathFinder::hasPath(Rectangle start, Rectangle end)
+{
+
+	const int centerStartX = clamp((int)((start.x + start.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
+	const int centerStartY = clamp((int)((start.y + start.height / 2) / resolution.y), 1, (int)grid.size() - 1);
+	const int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
+	const int centerEndY = clamp((int)((end.y + end.height / 2) / resolution.y), 1, (int)grid.size() - 1);
+
+	objSizeH = (int)(start.width / resolution.x);
+	objSizeW = (int)(start.height / resolution.y);
+
+	const int x = 0;
+	const int y = 0;
+	const int w = grid[0].size();
+	const int h = grid.size();
+
+	cellRangeX = w;
+	cellRangeY = h;
+
+
+	for (int i = y; i < h; i++)
+		for (int j = x; j < w; j++)
+			grid[i][j].wasCheck = false;
+	grid[centerStartY][centerStartX].toGo = 0;
+	grid[centerStartY][centerStartX].toEnd = toGoConst(centerStartX, centerStartY, centerEndX, centerEndY);
+	grid[centerStartY][centerStartX].update();
+	grid[centerStartY][centerStartX].wasCheck = true;
+	grid[centerStartY][centerStartX].fromX = -1;
+	grid[centerStartY][centerStartX].fromY = -1;
+	std::list<Vector2> toCheck = { {(float)centerStartX,(float)centerStartY} };
+	pathFinder = this;
+	startPoint = { (float)centerStartX,(float)centerStartY };
+	Vector2 closest = startPoint;
+	int closestV = toGoConst(centerStartX, centerStartY, centerEndX, centerEndY);
+	while (toCheck.size() > 0)
+	{
+		Vector2 checkPoint = toCheck.back();
+		toCheck.pop_back();
+
+		if (toGoConst((int)checkPoint.x, (int)checkPoint.y, centerEndX, centerEndY) < closestV)
+		{
+			closestV = toGoConst((int)checkPoint.x, (int)checkPoint.y, centerEndX, centerEndY);
+			closest = checkPoint;
+		}
+		if (checkPoint.x == centerEndX && checkPoint.y == centerEndY)
+			return true;
+		checkCloseCells(toCheck, (int)checkPoint.x, (int)checkPoint.y, centerEndX, centerEndY);
+		grid[(int)checkPoint.y][(int)checkPoint.x].wasCheck = true;
+		toCheck.sort(sortFun);
+	}
+	return closestV < 5;
+}
+
 Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 {
 	

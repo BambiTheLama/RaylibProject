@@ -19,6 +19,8 @@ class Floor
     PathFinder* pathFinder = nullptr;
     QuadTree* tree;
     Rectangle pos;
+    Rectangle startPos = { 0,0,32,32 };
+    Rectangle endPos = { 0,0,32,32 };
 public:
     Floor(Rectangle pos);
 
@@ -47,12 +49,16 @@ public:
     Vector2 getDirToGo(Rectangle start, Rectangle end, float range) { return pathFinder->getDirToGo(start, end, range); }
 
     void toCheckPos(Rectangle toCheck);
+
+    bool canPassMap();
+
 private:
     void setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun, int rangeW = 10, int rangeH = 10);
 
     void removeCloseEnemies();
 
     void removeObj(GameObject* o);
+
 
 };
 

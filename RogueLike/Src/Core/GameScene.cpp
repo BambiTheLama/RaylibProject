@@ -13,13 +13,22 @@
 
 GameScene::GameScene() {
     setUpItemFactory("Res/");
-    Game::gameScene = this;
+  
     Weapon::loadWeaponData("Res/Weapon.json");
     camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
-    Rectangle pos = { 0,0,9000,9000 };
-    floor = new Floor(pos);
+    Rectangle pos = { 0,0,5000,5000 };
+    
+    do {
+        if (floor)
+            delete floor;
+        floor = new Floor(pos);
+
+    } while (!floor->canPassMap());
+    Game::gameScene = this;
+
+
     camera.target = { pos.width / 2,pos.height / 2 };
 
     std::list<GameObject*>objs = floor->getObjects({ pos.x + pos.width / 2 - 100,pos.y + pos.height / 2 - 100,200,200 });

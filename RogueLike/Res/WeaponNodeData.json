@@ -1,8 +1,107 @@
 [
-
     [
         {
             "Texture": "Icons/DamageIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Damage": [
+                    [ 1, 2 ],
+                    [ 0, 0.01 ]
+                ]
+            }
+
+        },
+        {
+            "Texture": "Icons/UseTimeIcon.png",
+            "Type": 0,
+            "Stats": {
+                "UseTime": [ [ [ -1, 1 ] ] ]
+            }
+
+        },
+        {
+            "Texture": "Icons/ReloadIcon.png",
+            "Type": 0,
+            "Stats": {
+                "ReloadTime": [ [ [ -0.1, -0.2 ] ] ]
+            }
+
+        },
+        {
+            "Texture": "Icons/SpeedIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Speed": [ [ [ 10, 20 ] ] ]
+            }
+
+        },
+        {
+            "Texture": "Icons/RangeIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Range": [ [ [ 100, 200 ] ] ]
+            }
+
+        },
+        {
+            "Texture": "Icons/KnockbackIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Knockback": [ [ [ 5, 10 ] ] ]
+            }
+
+        },
+        {
+            "Texture": "Icons/AngleIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Angle": [ -30, 30 ]
+            }
+
+        },
+        {
+            "Texture": "Icons/CountOfUseIcon.png",
+            "Type": 0,
+            "Stats": {
+                "CountOfUse": [ 1, 5 ]
+            }
+
+        },
+        {
+            "Texture": "Icons/BounceIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Bounce": [ 1, 3 ]
+            }
+
+        },
+        {
+            "Texture": "Icons/PirceIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Pirce": [ 1, 3 ]
+            }
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Texture": "Icons/RangeIcon.png",
             "Spawn": 1,
             "Type": 1,
             "Activation": 1,
@@ -13,26 +112,91 @@
                 "Range": [
                     [ [ 100, 200 ] ]
                 ],
+                "UseTime": 1,
                 "CountOfUse": 1,
-                "Speed": 100,
-                "UseTime": 10
-
+                "Speed": 100
 
             }
 
         },
         {
-            "Texture": "Icons/KnockbackIcon.png",
-            "Spawn": 0,
-            "Type": 0,
-            "Activation": 0,
+            "Texture": "Icons/RangeIcon.png",
+            "Spawn": 1,
+            "Type": 1,
+            "Activation": 1,
             "Stats": {
                 "Damage": [
                     [ [ 1, 2 ] ]
-                ]
+                ],
+                "Range": [
+                    [ [ 100, 200 ] ]
+                ],
+                "UseTime": 1,
+                "CountOfUse": 1,
+                "Speed": 100
+
             }
 
         },
+        {
+            "Texture": "Icons/RangeIcon.png",
+            "Spawn": 1,
+            "Type": 1,
+            "Activation": 1,
+            "Stats": {
+                "Damage": [
+                    [ [ 1, 2 ] ]
+                ],
+                "Range": [
+                    [ [ 100, 200 ] ]
+                ],
+                "UseTime": 1,
+                "CountOfUse": 1,
+                "Speed": 100
+
+            }
+
+        },
+        {
+            "Texture": "Icons/RangeIcon.png",
+            "Spawn": 1,
+            "Type": 1,
+            "Activation": 1,
+            "Stats": {
+                "Damage": [
+                    [ [ 1, 2 ] ]
+                ],
+                "Range": [
+                    [ [ 100, 200 ] ]
+                ],
+                "UseTime": 1,
+                "CountOfUse": 1,
+                "Speed": 100
+
+            }
+
+        },
+        {
+            "Texture": "Icons/RangeIcon.png",
+            "Spawn": 1,
+            "Type": 1,
+            "Activation": 1,
+            "Stats": {
+                "Damage": [
+                    [ [ 1, 2 ] ]
+                ],
+                "Range": [
+                    [ [ 100, 200 ] ]
+                ],
+                "UseTime": 1,
+                "CountOfUse": 1,
+                "Speed": 100
+
+            }
+
+        },
+
+
         {
             "Texture": "Icons/RangeIcon.png",
             "Spawn": 2,
@@ -52,9 +216,6 @@
             }
 
         }
-    ],
-    [
-
     ]
 
 ]
