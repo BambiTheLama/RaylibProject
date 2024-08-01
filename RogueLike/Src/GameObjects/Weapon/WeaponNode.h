@@ -10,8 +10,8 @@ enum class WeaponNodeType :char
 enum class WeaponNodeActivation
 {
 	NON = 0,
-	OnHit,
 	OnUse,
+	OnHit,
 	OnKill,
 	OnEffectEnd,
 };

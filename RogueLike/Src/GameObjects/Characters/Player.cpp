@@ -32,16 +32,19 @@ Player::Player(float x, float y):Hitable(100.0f){
     inventory = Inventory(this);
     Weapon* w = getWeapon(0, 0, WeaponType::Axe);
     Item* i = dynamic_cast<Item*>(w);
-    if (!inventory.addItem(i) && w)
+    if (i && !inventory.addItem(i) && w)
         delete w;
     w = getWeapon(0, 0, WeaponType::Pickaxe);
     i = dynamic_cast<Item*>(w);
-    if (!inventory.addItem(i) && w)
+    if (i && !inventory.addItem(i) && w)
         delete w;
     w = getWeapon(0, 0, WeaponType::Sword);
     i = dynamic_cast<Item*>(w);
-    if (!inventory.addItem(i) && w)
+    if (i && !inventory.addItem(i) && w)
         delete w;
+    i = getWeaponNode(0);
+    if (i && !inventory.addItem(i))
+        delete i;
 }
 
 Player::~Player() {

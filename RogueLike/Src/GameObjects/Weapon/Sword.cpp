@@ -31,7 +31,7 @@ void Sword::update(float deltaTime)
 		Vector2 p = getMidlePoint(owner->getPos());
 		pos.x = p.x;
 		pos.y = p.y;
-		//Game::addObject(this);
+		Game::addObject(this);
 	}
 	if (reloadTime > 0)
 	{

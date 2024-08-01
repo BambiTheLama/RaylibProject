@@ -58,6 +58,10 @@ WeaponNode::WeaponNode(nlohmann::json j)
 	int tier = getWeaponTier(j);
 	if (j.contains("Type"))
 		type = (WeaponNodeType)j["Type"];
+	if (j.contains("Activation"))
+		activateTrigger = j["Activation"];
+	if (j.contains("Spawn"))
+		spawnID = j["Spawn"];
 	if (j.contains("Stats"))
 		stats.readStatsFromWeapon(j, tier);
 }

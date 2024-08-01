@@ -3,12 +3,50 @@
     [
         {
             "Texture": "Icons/DamageIcon.png",
+            "Spawn": 1,
+            "Type": 1,
+            "Activation": 1,
+            "Stats": {
+                "Damage": [
+                    [ [ 1, 2 ] ]
+                ],
+                "Range": [
+                    [ [ 100, 200 ] ]
+                ],
+                "CountOfUse": 1,
+                "Speed": 100
+
+            }
+
+        },
+        {
+            "Texture": "Icons/KnockbackIcon.png",
             "Spawn": 0,
             "Type": 0,
+            "Activation": 0,
             "Stats": {
                 "Damage": [
                     [ [ 1, 2 ] ]
                 ]
+            }
+
+        },
+        {
+            "Texture": "Icons/RangeIcon.png",
+            "Spawn": 2,
+            "Type": 1,
+            "Activation": 1,
+            "Stats": {
+                "Damage": [
+                    [ [ 1, 2 ] ]
+                ],
+                "Range": [
+                    [ [ 100, 200 ] ]
+                ],
+                "UseTime": 1,
+                "CountOfUse": 1,
+                "Speed": 100
+
             }
 
         }
