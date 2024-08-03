@@ -13,8 +13,6 @@ enum class WeaponType {
 	Pickaxe,
 	Bow,
 
-
-
 	Size
 };
 
@@ -39,10 +37,13 @@ protected:
 	WeaponStats stats;
 	TextureController texture;
 public:
+#pragma region Constructor
 	Weapon();
 
 	~Weapon();
+#pragma endregion Constructor
 
+#pragma region Slots
 	void updateClick();
 
 	void nextSlot();
@@ -55,44 +56,52 @@ public:
 
 	void takeItem();
 
-	void resetSlot() { cursorAt = -1; }
+	WeaponNodeItem* removeSlot(int slot);
 
-	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
+	void resetSlot() { cursorAt = -1; }
+	
+	bool addSlot(int slot, WeaponNodeItem* node);
+	
+	static Rectangle getSlotPos(Rectangle pos, int slot = 0, int row = 0, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
+
+private:
+	void setNumberOfSlots(int slots);
+public:
+#pragma endregion Slots
 
 	virtual void use(Vector2 dir, float deltaTime) = 0;
 
-	WeaponNodeItem* removeWeaponNodeItem(int n);
-
-	void drawWeaponDescription(Rectangle pos, float textSize);
-
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
-	WeaponNodeItem* removeSlot(int slot);
+#pragma region DrawFun
+	void drawWeaponDescription(Rectangle pos, float textSize);
 
 	void drawWeaponNodeStats(Rectangle pos, float textSize, bool flexBox);
+#pragma endregion DrawFun
 
-	bool addSlot(int slot, WeaponNodeItem* node);
-
-	float getRange() { return stats.range * stats.rangeMultiplier; }
-
+#pragma region Setters
+	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
+	
 	void setStats(WeaponStats ws) { difoltStats = ws; stats = ws; }
+#pragma endregion Setters
 
-	static Rectangle getSlotPos(Rectangle pos, int slot = 0, int row = 0, Vector2 slotSize = { 64.0f,64.0f }, float itemSpaceing = 10.0f);
-
+#pragma region Getters
+	float getRange() { return stats.range * stats.rangeMultiplier; }
+	
 	static int getNumberOfSlotsInRow(float w, float size = 64.0f, float itemSpaceing = 10.0f);
-
+#pragma endregion Getters
 	friend class GameScene;
 private:
 	void findThisObject();
 
-	static void loadWeaponData(std::string weaponDataPath);
-
 	void updateWeaponNodesEfects();
+#pragma region ReadFromFile
+	static void loadWeaponData(std::string weaponDataPath);
 protected:
-	void setNumberOfSlots(int slots);
 
 	virtual void readFromWeaponData(std::string weaponType, int variant = 0);
 
 	void readStats(nlohmann::json j, int variant = 0);
+#pragma endregion RedFromFile
 };
 

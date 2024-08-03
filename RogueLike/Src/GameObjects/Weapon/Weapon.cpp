@@ -12,6 +12,13 @@ WeaponType getRandomWeaponType()
 {
 	return (WeaponType)(rand() % (int)WeaponType::Size);
 }
+
+static int getNumberOfRows(int allSlots, int slotsInRow)
+{
+	return allSlots / slotsInRow + ((allSlots + 1) % slotsInRow > 0 ? 1 : 0);
+}
+
+#pragma region Constructor
 Weapon::Weapon()
 {
 }
@@ -25,7 +32,9 @@ Weapon::~Weapon()
 	}
 	weaponSlots.clear();
 }
+#pragma endregion Constructor
 
+#pragma region Slots
 void Weapon::updateClick()
 { 
 	if (!inventory)
@@ -51,8 +60,6 @@ void Weapon::updateClick()
 	updateWeaponNodesEfects();
 }
 
-
-
 void Weapon::nextSlot()
 {
 	if (cursorAt +1 < weaponSlots.size())
@@ -68,11 +75,6 @@ void Weapon::privSlot()
 		cursorAt--;
 	Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, cursorAt);
 	SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
-}
-
-static int getNumberOfRows(int allSlots, int slotsInRow)
-{
-	return allSlots / slotsInRow + ((allSlots + 1) % slotsInRow > 0 ? 1 : 0);
 }
 
 bool Weapon::upSlot()
@@ -94,8 +96,6 @@ bool Weapon::upSlot()
 	SetMousePosition((int)(slotPos.x + slotPos.width / 2), (int)(slotPos.y + slotPos.height / 2));
 	return true;
 }
-
-
 
 bool Weapon::downSlot()
 {
@@ -146,62 +146,11 @@ void Weapon::takeItem()
 	
 }
 
-WeaponNodeItem* Weapon::removeWeaponNodeItem(int n)
-{
-	if (n<0 || n>weaponSlots.size())
-		return nullptr;
-	WeaponNodeItem* wni = weaponSlots[n];
-	weaponSlots[n] = nullptr;
-	return wni;
-}
-
-void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
-{
-	weaponSlotPos = pos;
-	int i = 0;
-	Vector2 mouse = GetMousePosition();
-	cursorAt = -1;
-	for (auto slot : weaponSlots)
-	{
-		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
-		if (CheckCollisionPointRec(mouse, slotPos))
-		{
-			cursorAt = i - 1;
-		}
-	}
-	i = 0;
-	for (auto slot : weaponSlots)
-	{
-		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
-		bool isCursorAt = i - 1 == cursorAt;
-		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
-		if (slot)
-			slot->drawIcon(RectangleDecreasSize(slotPos, 8));
-
-	}
-}
-
-bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
-{
-	if (!thisObj)
-		findThisObject();
-	if (!thisObj)
-		return false;
-	Vector2 offset = { 0.0f,0.0f };
-	if (thisObj)
-	{
-		Rectangle pos = thisObj->getPos();
-		offset = { -pos.width / 2.0f,-pos.height / 2.0f };
-	}
-
-	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, offset);
-}
-
 WeaponNodeItem* Weapon::removeSlot(int slot)
 {
 	if (slot < 0 || slot >= weaponSlots.size())
 		return nullptr;
-	if(!weaponSlots[slot])
+	if (!weaponSlots[slot])
 		return nullptr;
 	WeaponNodeItem* node = weaponSlots[slot];
 	if (node)
@@ -211,21 +160,6 @@ WeaponNodeItem* Weapon::removeSlot(int slot)
 	updateWeaponNodesEfects();
 	return node;
 }
-
-void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
-{
-	if (cursorAt >= 0 && cursorAt < weaponSlots.size() && weaponSlots[cursorAt])
-	{
-		weaponSlots[cursorAt]->drawDescription(pos, textSize);
-	}
-	else
-	{
-		stats.draw(pos, textSize, flexBox, true, "     Weapon\n", true, false);
-	}
-
-}
-
-
 
 bool Weapon::addSlot(int slot, WeaponNodeItem* node)
 {
@@ -256,25 +190,99 @@ Rectangle Weapon::getSlotPos(Rectangle pos, int slot, int row, Vector2 slotSize,
 	return slotPos;
 }
 
+void Weapon::setNumberOfSlots(int slots)
+{
+	if (slots < 0)
+		return;
+	if (weaponSlots.size() > slots)
+	{
+		while (weaponSlots.size() > slots)
+		{
+			weaponSlots.pop_back();
+			weaponSlotsDifoltStat.pop_back();
+		}
+
+	}
+	else
+	{
+		while (weaponSlots.size() < slots)
+		{
+			weaponSlots.push_back(nullptr);
+			weaponSlotsDifoltStat.push_back(WeaponStats());
+		}
+
+	}
+	updateWeaponNodesEfects();
+}
+#pragma endregion Slots
+
+bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
+{
+	if (!thisObj)
+		findThisObject();
+	if (!thisObj)
+		return false;
+	Vector2 offset = { 0.0f,0.0f };
+	if (thisObj)
+	{
+		Rectangle pos = thisObj->getPos();
+		offset = { -pos.width / 2.0f,-pos.height / 2.0f };
+	}
+
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, offset);
+}
+
+#pragma region DrawFun
+void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
+{
+	weaponSlotPos = pos;
+	int i = 0;
+	Vector2 mouse = GetMousePosition();
+	cursorAt = -1;
+	for (auto slot : weaponSlots)
+	{
+		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
+		if (CheckCollisionPointRec(mouse, slotPos))
+		{
+			cursorAt = i - 1;
+		}
+	}
+	i = 0;
+	for (auto slot : weaponSlots)
+	{
+		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
+		bool isCursorAt = i - 1 == cursorAt;
+		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
+		if (slot)
+			slot->drawIcon(RectangleDecreasSize(slotPos, 8));
+
+	}
+}
+
+void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
+{
+	if (cursorAt >= 0 && cursorAt < weaponSlots.size() && weaponSlots[cursorAt])
+	{
+		weaponSlots[cursorAt]->drawDescription(pos, textSize);
+	}
+	else
+	{
+		stats.draw(pos, textSize, flexBox, true, "     Weapon\n", true, false);
+	}
+
+}
+#pragma endregion DrawFun
+
+#pragma region Getters
 int Weapon::getNumberOfSlotsInRow(float w, float size, float itemSpaceing)
 {
 	return (int)(w / (size + itemSpaceing));
 }
+#pragma endregion Getters
 
 void Weapon::findThisObject()
 {
 	thisObj = dynamic_cast<GameObject*>(this);
-}
-
-void Weapon::loadWeaponData(std::string weaponDataPath)
-{
-	std::ifstream reader;
-	reader.open(weaponDataPath);
-	if (reader.is_open())
-	{
-		reader >> weaponData;
-		reader.close();
-	}
 }
 
 void Weapon::updateWeaponNodesEfects()
@@ -320,30 +328,18 @@ void Weapon::updateWeaponNodesEfects()
 	weaponNodeTrigger = wnt;
 }
 
-void Weapon::setNumberOfSlots(int slots)
+#pragma region ReadFromFile
+void Weapon::loadWeaponData(std::string weaponDataPath)
 {
-	if (slots < 0)
-		return;
-	if (weaponSlots.size() > slots)
+	std::ifstream reader;
+	reader.open(weaponDataPath);
+	if (reader.is_open())
 	{
-		while (weaponSlots.size() > slots)
-		{
-			weaponSlots.pop_back();
-			weaponSlotsDifoltStat.pop_back();
-		}
-
+		reader >> weaponData;
+		reader.close();
 	}
-	else
-	{
-		while (weaponSlots.size() < slots)
-		{
-			weaponSlots.push_back(nullptr);
-			weaponSlotsDifoltStat.push_back(WeaponStats());
-		}
-
-	}
-	updateWeaponNodesEfects();
 }
+
 void Weapon::readFromWeaponData(std::string weaponType, int variant)
 {
 	if (!weaponData.contains(weaponType))
@@ -389,8 +385,10 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 	stats.readStatsFromWeapon(weaponData[weaponType], variant);
 	setStats(stats);
 }
+
 void Weapon::readStats(nlohmann::json j,int variant)
 {
 	stats.readStatsFromWeapon(j, variant);
 	setStats(stats);
 }
+#pragma endregion RedFromFile

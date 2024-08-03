@@ -19,29 +19,27 @@ public:
 
     virtual void update(GameObject* gm,bool mirror){}
 
-    CollisionType getType() { return type; }
-
     virtual bool isCollidiongWith(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos, Vector2* dir, float* depht) = 0;
 
     Vector2 getCollisionVectorDir(Vector2 thisPos, CollisionElement* collisionElement, Vector2 collisionElementPos);
 
     virtual void flipHorizontalElement(float size){}
 
-    virtual Vector3 getCircle(Vector2 pos) {
-        return { 0, 0,0 };
-    }
-
-    virtual std::vector<Vector2> getLines(Vector2 pos) {
-        return std::vector<Vector2>();
-    }
-
     virtual void scaleElement(float scale){}
+
+#pragma region Getters
+    CollisionType getType() { return type; }
+
+    virtual Vector3 getCircle(Vector2 pos) {return { 0, 0,0 };}
+
+    virtual std::vector<Vector2> getLines(Vector2 pos) { return std::vector<Vector2>(); }
 
     virtual Vector2 getMinPos() { return{ 0.0f,0.0f }; }
 
     Vector2 getRotationPoint() { return{ 0.0f,0.0f }; };
 
     virtual Vector2 getMaxPos() { return{ 0.0f,0.0f }; }
+#pragma endregion Getters
 
 #ifdef showColliders
     void draw(GameObject *obj);

@@ -17,35 +17,43 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool left = false;
 	bool flipHorizontal = false;
 public:
+#pragma region Constructor
 	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(),int weaponTier=0);
 
-	~Sword() {  }
+	~Sword();
+#pragma endregion Constructor
 
 	void update(float deltaTime) override;
 
-	void setInventory(Inventory* inventory) { Weapon::setInventory(inventory); Item::setInventory(inventory); }
-	
-	virtual void setOwner(GameObject* owner);
+	void use(Vector2 dir, float deltaTime) override;
 
+	void onTriggerEnter(Collider* collider) override;
+
+#pragma region DrawFun
 	void draw(Rectangle pos);
 
 	void draw() override;
 
 	void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) override;
 
-	void drawDescription(Rectangle pos,float textSize) override;
+	void drawDescription(Rectangle pos, float textSize) override;
+#pragma endregion DrawFun
 
-	void use(Vector2 dir, float deltaTime) override;
+#pragma region Setters
+	void setInventory(Inventory* inventory) { Weapon::setInventory(inventory); Item::setInventory(inventory); }
+	
+	virtual void setOwner(GameObject* owner);
+#pragma endregion Setters
 
+#pragma region Getters
 	float getAngle() override { return angle; }
 
 	Vector2 getRotationPoint();
 
-	void onTriggerEnter(Collider* collider) override;
-
 	bool isUsing() { return useTime > 0; }
 
 	bool canSwap() override { return useTime <= 0.0f && reloadTime <= 0.0f; }
+#pragma endregion Getters
 
 private:
 

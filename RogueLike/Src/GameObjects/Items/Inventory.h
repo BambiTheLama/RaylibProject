@@ -23,9 +23,8 @@ public:
 
 	~Inventory();
 
+#pragma region Slots
 	void updateClick();
-
-	void update(float deltaTime);
 
 	void nextItem(bool moveCursor = true);
 
@@ -39,31 +38,41 @@ public:
 
 	void downSlot();
 
-	Item* getCurrentItemToDrop();
-
-	void dropItem();
-
-	void use(Vector2 dir, float deltaTime);
-
-	bool hasThisItem(Item* item);
-
 	bool addItem(Item* item);
 
+	void dropItem();
+#pragma endregion Slots
+
+	void update(float deltaTime);
+
+	void use(Vector2 dir, float deltaTime);
+	
 	void draw();
+#pragma region Getters
+	Item* getCurrentItemToDrop();
 
 	float getRange();
 
-	void setItemToHand();
-
 	Item* getHandItem() { return itemInHand; }
-
-	void setHandItem(Item* i) { itemInHand = i; }
 
 	Rectangle getItemPos(int i);
 
-	void swapVisibleDescriptions();
-
 	bool isDescriptionShowed() { return showDescription; }
+	
+	bool hasThisItem(Item* item);
+#pragma endregion Getters
+
+#pragma region Setters
+	void setItemToHand();
+
+	void setHandItem(Item* i) { itemInHand = i; }
+
+	void swapVisibleDescriptions();
+#pragma endregion Setters
+
+
+
+
 private:
 	void hideItem();
 

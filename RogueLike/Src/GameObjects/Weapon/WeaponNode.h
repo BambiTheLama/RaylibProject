@@ -26,6 +26,7 @@ class WeaponNode
 	WeaponNodeActivation activateTrigger = WeaponNodeActivation::NON;
 	WeaponStats stats;
 public:
+#pragma region Constructor
 	WeaponNode(){}
 
 	WeaponNode(WeaponStats stats);
@@ -33,10 +34,10 @@ public:
 	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID);
 
 	WeaponNode(nlohmann::json j);
+#pragma endregion Constructor
 
+#pragma region Getters
 	WeaponStats getNextStats(WeaponNode node);
-
-	void addToStats(WeaponStats stats);
 
 	WeaponNodeType getType() { return type; }
 
@@ -45,9 +46,15 @@ public:
 	int getSpawnID() { return spawnID; }
 
 	WeaponStats getStats() { return stats; }
+#pragma endregion Getters
 
+#pragma region Setters
 	void setStats(WeaponStats ws) { this->stats = ws; }
+#pragma endregion Setters
 
+	void addToStats(WeaponStats stats);
+#pragma region DrawFun
 	void drawNodeDescription(Rectangle pos, float textSize, bool flexBox);
+#pragma endregion DrawFun
 };
 

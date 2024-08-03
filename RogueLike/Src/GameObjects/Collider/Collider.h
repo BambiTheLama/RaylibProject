@@ -35,32 +35,24 @@ public:
 
     void clearForces() { allForces.clear(); }
 
-    void setResistToForces(bool isResist);
+#pragma region Collisions
+    virtual void onCollisionEnter(Collider *collider) {}
 
-    void setReactOnlyToSolid(bool reactOnlyToSolid) { this->reactOnlyToSolid = reactOnlyToSolid; }
+    virtual void onCollision(Collider *collider) {}
 
-    virtual void onCollisionEnter(Collider *collider) {
-    }
+    virtual void onCollisionExit(Collider *collider) {}
+#pragma endregion Collisions
 
-    virtual void onCollision(Collider *collider) {
-    }
+#pragma region Trggers
 
-    virtual void onCollisionExit(Collider *collider) {
-    }
+    virtual void onTriggerEnter(Collider* collider) {}
 
-    virtual void onTriggerEnter(Collider* collider) {
-    }
+    virtual void onTrigger(Collider* collider) {}
 
-    virtual void onTrigger(Collider* collider) {
-    }
+    virtual void onTriggerExit(Collider* collider) {}
+#pragma endregion Trigger
 
-    virtual void onTriggerExit(Collider* collider) {
-    }
-
-    void scaleColliderElements(float scale);
-
-    void flipHorizontalElements(bool flipHorizontal);
-
+#pragma region Getters
     bool isTrigger() { return trigger; }
 
     bool isSolidObject() { return solidObject; }
@@ -70,6 +62,17 @@ public:
     Vector2 getCollisionDir(Collider* collider);
 
     bool isColliderToRemove();
+#pragma endregion Getters
+
+#pragma region Setters
+    void setResistToForces(bool isResist);
+
+    void setReactOnlyToSolid(bool reactOnlyToSolid) { this->reactOnlyToSolid = reactOnlyToSolid; }
+
+    void flipHorizontalElements(bool flipHorizontal);
+#pragma endregion Setters
+
+    void scaleColliderElements(float scale);
 
     void addCollisionElement(CollisionElement* element) { collisionElements.push_back(element); }
 

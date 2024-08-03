@@ -5,7 +5,8 @@
 static const char* statsJsonName = "Stats";
 static const float tolerance = 0.1f;
 
-void getJsonData(nlohmann::json& json,float* stat,float* statMul)
+#pragma region readFromJson
+static void getJsonData(nlohmann::json& json,float* stat,float* statMul)
 {
 	if (stat)
 	{
@@ -13,7 +14,7 @@ void getJsonData(nlohmann::json& json,float* stat,float* statMul)
 		{
 			float min = json["Min"];
 			float max = json["Max"];
-			float procent = (rand() % 1000) / 1000.0f;
+			float procent = (rand() % 100) / 100.0f;
 			(*stat) = (min + (max - min) * procent);
 		}
 		else if (json.contains("Value"))
@@ -37,7 +38,7 @@ void getJsonData(nlohmann::json& json,float* stat,float* statMul)
 	}
 }
 
-void getJsonData(nlohmann::json& json,int tier, float* stat, float* statMul)
+static void getJsonData(nlohmann::json& json,int tier, float* stat, float* statMul)
 {
 	if (!json.is_array())
 	{
@@ -51,7 +52,7 @@ void getJsonData(nlohmann::json& json,int tier, float* stat, float* statMul)
 	getJsonData(json[tiers], stat, statMul);
 }
 
-void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float* stat, float* statMultiplier = nullptr)
+static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float* stat, float* statMultiplier = nullptr)
 {
 	if (!json.contains(statProperty))
 		return;
@@ -65,7 +66,7 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 	printf("DATA  %lf\n", *stat);
 }
 
-void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int* stat)
+static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int* stat)
 {
 	if (!json.contains(statProperty))
 		return;
@@ -74,6 +75,7 @@ void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier
 	*stat = (int)data;
 	printf("DATA %d\n", *stat);
 }
+#pragma endregion readFromJson
 
 void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
 {
@@ -312,7 +314,6 @@ int WeaponStats::getNumberOflines()
 	return lines;
 }
 
-
 void toStringData(int& line, int i, std::string& data, float value, float valueMulti, std::string name, int ID,
 	StatType& statType, bool reversStat = false)
 {
@@ -414,7 +415,6 @@ std::string WeaponStats::getStringLine(int l, StatType& statType)
 	toStringData(line, l, data, pirce								, "Pirce"		, 9, statType);
 	return data;
 }
-
 
 void WeaponStats::drawColorStats(float x, float y, float textSize, Color negative, Color positive, Color line)
 {

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <math.h>
 
+#pragma region Constructor
 Sword::Sword(GameObject* owner, std::string weaponType, int variant, nlohmann::json data,int weaponTier)
 {
 	type = ObjectType::Item;
@@ -23,6 +24,11 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant, nlohmann::j
 	updateWeaponSize();
 	setOwner(owner);
 }
+
+Sword::~Sword()
+{
+}
+#pragma endregion Constructor
 
 void Sword::update(float deltaTime)
 {
@@ -71,18 +77,56 @@ void Sword::update(float deltaTime)
 	}
 }
 
-void Sword::setOwner(GameObject* owner)
+void Sword::use(Vector2 dir, float deltaTime)
 {
-	Item::setOwner(owner);
-	if (!owner)
+	if (useTime <= 0 && reloadTime <= 0)
 	{
-		angle = 0.0f;
+		numberOfUse = stats.countOfUse;
+		left = !left;
+		useTimeMax = stats.useTime / std::max(stats.countOfUse, 1);
+		useTime = useTimeMax;
+		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
+		if (left)
+			angle -= stats.angle / 2;
+		else
+			angle += stats.angle / 2;
+		mirror = left;
+		used = false;
+		updateWeaponSize();
 	}
-	trigger = owner;
-	flipHorizontal = owner;
-	flipHorizontalElements(flipHorizontal);
 }
 
+void Sword::onTriggerEnter(Collider* collider)
+{
+	if (!isUsing())
+		return;
+	GameObject* gm = collider->getThisObj();
+	if (gm == owner || !gm)
+		return;
+	if ((int)gm->getType() & (int)ObjectType::Enemy)
+	{
+		Rectangle pos = gm->getPos();
+		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
+		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
+		Hitable* hit = dynamic_cast<Hitable*>(collider);
+		if (hit && hit->dealDamage(stats.damage))
+		{
+			if (!hit->isAlive())
+				triggerNode(WeaponNodeActivation::OnKill, stats);
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.knockback * stats.knockbackMultiplier, 1);
+			triggerNode(WeaponNodeActivation::OnHit, stats);
+		}
+		return;
+	}
+	Hitable* hit = dynamic_cast<Hitable*>(collider);
+	if (hit)
+	{
+		hit->dealDamage(1.0f);
+	}
+
+}
+
+#pragma region DrawFun
 void Sword::draw(Rectangle pos)
 {
 	Vector2 rotationPoint = this->rotationPoint;
@@ -144,59 +188,34 @@ void Sword::drawDescription(Rectangle pos, float textSize)
 
 	drawWeaponDescription({ pos.x,Weapon::getSlotPos(pos, 0,1).y,pos.width,pos.height }, textSize);
 }
+#pragma endregion DrawFun
 
-void Sword::use(Vector2 dir, float deltaTime)
+#pragma region Setters
+
+void Sword::setOwner(GameObject* owner)
 {
-	if (useTime <= 0 && reloadTime <= 0)
+	Item::setOwner(owner);
+	if (!owner)
 	{
-		numberOfUse = stats.countOfUse;
-		left = !left;
-		useTimeMax = stats.useTime / std::max(stats.countOfUse, 1);
-		useTime = useTimeMax;
-		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
-		if (left)
-			angle -= stats.angle / 2;
-		else
-			angle += stats.angle / 2;
-		mirror = left;
-		used = false;
-		updateWeaponSize();
+		angle = 0.0f;
 	}
+	trigger = owner;
+	flipHorizontal = owner;
+	flipHorizontalElements(flipHorizontal);
 }
+
+#pragma endregion Setters
+
+#pragma region Getters
+
 Vector2 Sword::getRotationPoint() 
 { 
 	return rotationPoint;
 }
 
-void Sword::onTriggerEnter(Collider* collider)
-{
-	if (!isUsing())
-		return;
-	GameObject* gm = collider->getThisObj();
-	if (gm == owner || !gm)
-		return;
-	if ((int)gm->getType() & (int)ObjectType::Enemy)
-	{
-		Rectangle pos = gm->getPos();
-		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
-		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
-		Hitable* hit = dynamic_cast<Hitable*>(collider);
-		if (hit && hit->dealDamage(stats.damage))
-		{
-			if (!hit->isAlive())
-				triggerNode(WeaponNodeActivation::OnKill, stats);
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.knockback * stats.knockbackMultiplier, 1);
-			triggerNode(WeaponNodeActivation::OnHit, stats);
-		}
-		return;
-	}
-	Hitable* hit = dynamic_cast<Hitable*>(collider);
-	if (hit)
-	{
-		hit->dealDamage(1.0f);
-	}
+#pragma endregion Getters
 
-}
+
 void Sword::updateWeaponSize()
 {
 	float scale = (stats.range) / pos.width;

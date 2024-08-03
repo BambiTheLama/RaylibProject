@@ -9,6 +9,16 @@ void Item::update(float deltaTime)
 		o->update(deltaTime);
 }
 
+void Item::interact(GameObject* interactObject)
+{
+	Player* p = dynamic_cast<Player*>(interactObject);
+	if (!p)
+		return;
+	if (p->addItem(this))
+		Game::removeObject(getThisObj());
+}
+
+#pragma region DrawFun
 void Item::drawOverLine(Rectangle pos, Color overLine)
 {
 	startOutLineShader();
@@ -20,15 +30,9 @@ void Item::drawOverLine(Rectangle pos, Color overLine)
 	EndShaderMode();
 	drawIcon(pos, true);
 }
+#pragma endregion DrawFun
 
-void Item::interact(GameObject* interactObject)
-{
-	Player* p = dynamic_cast<Player*>(interactObject);
-	if (!p)
-		return;
-	if (p->addItem(this))
-		Game::removeObject(getThisObj());
-}
+
 
 GameObject* Item::getThisObj()
 {

@@ -9,6 +9,7 @@ enum class StatType
 
 struct WeaponStats
 {
+#pragma region Stats
 	float damage = 0.0f;
 	float damageMultiplier = 0.0f;
 	float useTime = 0.0f;
@@ -25,10 +26,10 @@ struct WeaponStats
 	int   countOfUse = 0;
 	int	  bounce = 0;
 	int   pirce = 0;
-
+#pragma endregion Stats
 	void readStats(nlohmann::json json);
 	
-	void readStatsFromWeapon(nlohmann::json json, int tier);
+	void readStatsFromWeapon(nlohmann::json json, int tier = 0);
 	
 	void saveStats(nlohmann::json& json);
 
@@ -37,15 +38,18 @@ struct WeaponStats
 	WeaponStats& operator-=(const WeaponStats& ws);
 	
 	std::string toString(bool skipZero = false, bool showProcent = false, char separator = '+');
-
+#pragma region DrawFun
 	void draw(Rectangle pos, float textSize, bool flexBox = false, bool frame = true, std::string title = "",
 		bool skipZero = false, bool colorStats = false, bool showProcent = false, char separator = '+');
-	
+
+private:
+	void drawColorStats(float x, float y, float textSize, Color negative, Color positive, Color line);
+#pragma endregion DrawFun
 private:
 
 	int getNumberOflines();
 
 	std::string getStringLine(int l, StatType& statType);
 
-	void drawColorStats(float x, float y, float textSize, Color negative, Color positive, Color line);
+
 };

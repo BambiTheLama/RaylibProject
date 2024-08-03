@@ -11,24 +11,29 @@ class WeaponNodeItem
 	TextureController texture;
 	WeaponNode node;
 public:
+#pragma region Constructor
 	WeaponNodeItem();
 
 	WeaponNodeItem(std::string path);
 
 	WeaponNodeItem(nlohmann::json j);
-
-	void setWeaponNode(WeaponNode node) { this->node = node; }
-
-	WeaponNode* getWeaponNode() { return &node; }
+#pragma endregion Constructor
 
 	void update(float deltaTime);
 
-	void setOwner(GameObject* owner);
-
+#pragma region DrawFun
 	void draw();
 
 	void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) override;
 
 	void drawDescription(Rectangle pos, float textSize) override { node.drawNodeDescription(pos, textSize, true); }
+#pragma endregion DrawFun
+
+	void setWeaponNode(WeaponNode node) { this->node = node; }
+
+	WeaponNode* getWeaponNode() { return &node; }
+
+	void setOwner(GameObject* owner);
+
 };
 

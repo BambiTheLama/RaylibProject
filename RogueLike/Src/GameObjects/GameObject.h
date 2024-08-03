@@ -22,27 +22,31 @@ public:
 
     virtual void draw(){}
 
-    Vector2 getPosPoint() { return {pos.x, pos.y}; }
+#pragma region Getters
+    Vector2 getPosPoint() { return { pos.x, pos.y }; }
 
     Rectangle getPos() { return pos; }
-
-    virtual void setPos(Vector2 point) { pos.x = point.x; pos.y = point.y; }
-
-    void move(Vector2 move) { pos.x += move.x; pos.y += move.y; }
 
     int getDrawOrder() { return drawOrder; }
 
     ObjectType getType() { return type; }
-
-    void setType(ObjectType type) { this->type = type; }
-
-    bool movingObject() { return moving; }
 
     virtual float getSpeed() { return 0.0f; }
 
     virtual float getAngle() { return 0.0f; }
 
     virtual Vector2 getRotationPoint() { return { 0.0f,0.0f }; }
+
+    bool movingObject() { return moving; }
+#pragma endregion Getters
+
+#pragma region Setters
+    virtual void setPos(Vector2 point) { pos.x = point.x; pos.y = point.y; }
+
+    void setType(ObjectType type) { this->type = type; }
+#pragma endregion Setters
+
+    void move(Vector2 move) { pos.x += move.x; pos.y += move.y; }
 
     friend class Collider;
 };

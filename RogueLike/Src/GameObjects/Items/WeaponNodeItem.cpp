@@ -1,6 +1,7 @@
 #include "WeaponNodeItem.h"
 #include "../Collider/CollisionElementLines.h"
 
+#pragma region Constructor
 WeaponNodeItem::WeaponNodeItem()
 {
 	addCollisionElement(new CollisionElementLines(RectangleDecreasSize(pos, 20)));
@@ -20,6 +21,7 @@ WeaponNodeItem::WeaponNodeItem(nlohmann::json j) :WeaponNodeItem()
 	printf(node.getStats().toString(true).c_str());
 	printf("KURWA KURWA KURWA KURWA KURWA KURWA KURWA KUWA \n");
 }
+#pragma endregion Constructor
 
 void WeaponNodeItem::update(float deltaTime)
 {
@@ -30,12 +32,8 @@ void WeaponNodeItem::update(float deltaTime)
 		pos.y = p.y;
 	}
 }
-void WeaponNodeItem::setOwner(GameObject* owner)
-{
-	Item::setOwner(owner);
-	trigger = owner;
-}
 
+#pragma region DrawFun
 void WeaponNodeItem::draw()
 {
 	if (isClosestObject)
@@ -56,4 +54,11 @@ void WeaponNodeItem::draw()
 void WeaponNodeItem::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 {
 	texture.draw(pos, false, false, 0, { 0.0f,0.0f }, 0.0f, color);
+}
+#pragma endregion DrawFun
+
+void WeaponNodeItem::setOwner(GameObject* owner)
+{
+	Item::setOwner(owner);
+	trigger = owner;
 }

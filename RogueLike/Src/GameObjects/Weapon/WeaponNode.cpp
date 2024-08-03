@@ -20,14 +20,6 @@ std::string to_string(WeaponNodeActivation wna)
 	return "";
 }
 
-WeaponNode::WeaponNode(WeaponStats stats)
-{
-	this->activateTrigger = WeaponNodeActivation::NON;
-	this->stats = stats;
-	this->type = WeaponNodeType::Stat;
-	this->spawnID = -1;
-}
-
 int getWeaponTier(nlohmann::json j)
 {
 	if (!j.contains("Tiers"))
@@ -53,6 +45,15 @@ int getWeaponTier(nlohmann::json j)
 	return tiers - 1;
 }
 
+#pragma region Constructor
+WeaponNode::WeaponNode(WeaponStats stats)
+{
+	this->activateTrigger = WeaponNodeActivation::NON;
+	this->stats = stats;
+	this->type = WeaponNodeType::Stat;
+	this->spawnID = -1;
+}
+
 WeaponNode::WeaponNode(nlohmann::json j)
 {
 	int tier = getWeaponTier(j);
@@ -73,7 +74,9 @@ WeaponNode::WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, 
 	this->type = WeaponNodeType::Spawn;
 	this->spawnID = spawnID;
 }
+#pragma endregion Constructor
 
+#pragma region Getters
 WeaponStats WeaponNode::getNextStats(WeaponNode node)
 {
 	WeaponStats stats = this->stats;
@@ -86,12 +89,14 @@ WeaponStats WeaponNode::getNextStats(WeaponNode node)
 	stats.reloadTime += stats.reloadTimeMultiplier * lastStats.reloadTime;
 	return stats;
 }
+#pragma endregion Getters
 
 void WeaponNode::addToStats(WeaponStats stats)
 {
 	this->stats += stats;
 }
 
+#pragma region DrawFun
 void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox)
 {
 	switch (type)
@@ -113,4 +118,6 @@ void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox
 		break;
 	}
 }
+#pragma endregion DrawFun
+
 

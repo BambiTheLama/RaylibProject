@@ -41,6 +41,8 @@ Inventory::~Inventory()
 	}
 
 }
+
+#pragma region Slots
 void Inventory::updateClick()
 {
 	if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || !showDescription)
@@ -68,76 +70,13 @@ void Inventory::updateClick()
 	
 }
 
-void Inventory::setItemToHand()
-{
-	if (items[usingItem] && !items[usingItem]->canSwap())
-		return;
-	if (!choseFromEq)
-	{
-		Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
-		if (w)
-			w->takeItem();
-		return;
-	}
-	hideItem();
-	Item* item = itemInHand;
-	itemInHand = items[usingItem];
-	items[usingItem] = item;
-	showItem();
-}
-
-Rectangle Inventory::getItemPos(int i)
-{
-	return { ItemsStartPos.x + ItemsSpaceing.x * i,ItemsStartPos.y + ItemsSpaceing.y * i,ItemsSize.x,ItemsSize.y };
-}
-
-void Inventory::swapVisibleDescriptions()
-{
-	showDescription = !showDescription;
-	choseFromEq = true;
-	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
-	if (w)
-		w->resetSlot();
-	if (itemInHand && !addItem(itemInHand))
-	{
-		dropItem();
-	}
-	itemInHand = nullptr;
-}
-
-void Inventory::update(float deltaTime)
-{
-	if (!items[usingItem])
-		return;
-	items[usingItem]->update(deltaTime);
-
-
-}
-
-void Inventory::nextItem(bool moveCursor) 
-{ 
-	if (items[usingItem] && !items[usingItem]->canSwap())
-		return;
-	hideItem(); 
-	usingItem = (usingItem + 1) % InventorySize; 
-	showItem(); 
-	if (moveCursor)
-	{
-		Rectangle itemPos = getItemPos(usingItem);
-		SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
-	}
-
-}
-
-
-
 void Inventory::privItem(bool moveCursor)
 {
 	if (items[usingItem] && !items[usingItem]->canSwap())
 		return;
-	hideItem(); 
-	usingItem = (usingItem - 1 + InventorySize) % InventorySize; 
-	showItem(); 
+	hideItem();
+	usingItem = (usingItem - 1 + InventorySize) % InventorySize;
+	showItem();
 	if (moveCursor)
 	{
 		Rectangle itemPos = getItemPos(usingItem);
@@ -177,6 +116,21 @@ void Inventory::privSlot()
 	w->privSlot();
 }
 
+void Inventory::nextItem(bool moveCursor) 
+{ 
+	if (items[usingItem] && !items[usingItem]->canSwap())
+		return;
+	hideItem(); 
+	usingItem = (usingItem + 1) % InventorySize; 
+	showItem(); 
+	if (moveCursor)
+	{
+		Rectangle itemPos = getItemPos(usingItem);
+		SetMousePosition((int)(itemPos.x + itemPos.width / 2), (int)(itemPos.y + itemPos.height / 2));
+	}
+
+}
+
 void Inventory::upSlot()
 {
 	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
@@ -206,92 +160,6 @@ void Inventory::downSlot()
 
 }
 
-Item* Inventory::getCurrentItemToDrop()
-{
-	Item* i = nullptr;
-	if (itemInHand)
-	{
-		i = itemInHand;
-		itemInHand = nullptr;
-	}
-	else if(items[usingItem])
-	{ 
-		if (items[usingItem]->canSwap())
-		{
-			i = items[usingItem];
-			items[usingItem] = nullptr;
-		}
-	}
-	return i;
-}
-
-void Inventory::dropItem()
-{
-	Item* item = getCurrentItemToDrop();
-	if (!item)
-		return;
-	item->setOwner(nullptr);
-	Rectangle ownerPos = owner->getPos();
-
-	GameObject* gm = dynamic_cast<GameObject*>(item);
-	if (!gm)
-		delete item;
-	else 
-	{
-		Rectangle itemPos = gm->getPos();
-		gm->setPos({ ownerPos.x + ownerPos.width / 2 - itemPos.width / 2,ownerPos.y + ownerPos.height / 2 - itemPos.height / 2 });
-		if (!Game::addObject(gm))
-			delete gm;
-	}
-
-}
-
-void Inventory::hideItem()
-{
-	if (items[usingItem] && !items[usingItem]->canSwap())
-		return;
-	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
-	if (!gm)
-		return;
-	Game::removeObject(gm);
-}
-
-void Inventory::showItem()
-{
-	if (!items[usingItem])
-		return;
-	if (!items[usingItem]->canSwap())
-		return;
-	
-	items[usingItem]->setOwner(owner);
-	items[usingItem]->update(0.0f);
-
-	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
-	if (!gm)
-		return;
-	Game::addObject(gm);
-}
-
-void Inventory::use(Vector2 dir, float deltaTime)
-{
-	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem] || showDescription)
-		return;
-
-	items[usingItem]->use(dir, deltaTime);
-}
-
-
-
-bool Inventory::hasThisItem(Item* item)
-{
-	for (int i = 0; i < InventorySize; i++)
-	{
-		if (items[i] == item)
-			return true;
-	}
-	return false;
-}
-
 bool Inventory::addItem(Item* item)
 {
 	if (hasThisItem(item))
@@ -310,12 +178,52 @@ bool Inventory::addItem(Item* item)
 			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
 			if (gm)
 				Game::removeObject(gm);
-			
+
 		}
 
 		return true;
 	}
 	return false;
+}
+
+void Inventory::dropItem()
+{
+	Item* item = getCurrentItemToDrop();
+	if (!item)
+		return;
+	item->setOwner(nullptr);
+	Rectangle ownerPos = owner->getPos();
+
+	GameObject* gm = dynamic_cast<GameObject*>(item);
+	if (!gm)
+		delete item;
+	else
+	{
+		Rectangle itemPos = gm->getPos();
+		gm->setPos({ ownerPos.x + ownerPos.width / 2 - itemPos.width / 2,ownerPos.y + ownerPos.height / 2 - itemPos.height / 2 });
+		if (!Game::addObject(gm))
+			delete gm;
+	}
+
+}
+
+#pragma endregion Slots
+
+void Inventory::update(float deltaTime)
+{
+	if (!items[usingItem])
+		return;
+	items[usingItem]->update(deltaTime);
+
+
+}
+
+void Inventory::use(Vector2 dir, float deltaTime)
+{
+	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem] || showDescription)
+		return;
+
+	items[usingItem]->use(dir, deltaTime);
 }
 
 void Inventory::draw()
@@ -352,6 +260,31 @@ void Inventory::draw()
 
 }
 
+#pragma region Getters
+Item* Inventory::getCurrentItemToDrop()
+{
+	Item* i = nullptr;
+	if (itemInHand)
+	{
+		i = itemInHand;
+		itemInHand = nullptr;
+	}
+	else if(items[usingItem])
+	{ 
+		if (items[usingItem]->canSwap())
+		{
+			i = items[usingItem];
+			items[usingItem] = nullptr;
+		}
+	}
+	return i;
+}
+
+Rectangle Inventory::getItemPos(int i)
+{
+	return { ItemsStartPos.x + ItemsSpaceing.x * i,ItemsStartPos.y + ItemsSpaceing.y * i,ItemsSize.x,ItemsSize.y };
+}
+
 float Inventory::getRange()
 {
 	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem])
@@ -360,4 +293,76 @@ float Inventory::getRange()
 	if (!w)
 		return 0.0f;
 	return w->getRange();
+}
+
+bool Inventory::hasThisItem(Item* item)
+{
+	for (int i = 0; i < InventorySize; i++)
+	{
+		if (items[i] == item)
+			return true;
+	}
+	return false;
+}
+
+#pragma endregion Getters
+
+#pragma region Setters
+void Inventory::setItemToHand()
+{
+	if (items[usingItem] && !items[usingItem]->canSwap())
+		return;
+	if (!choseFromEq)
+	{
+		Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+		if (w)
+			w->takeItem();
+		return;
+	}
+	hideItem();
+	Item* item = itemInHand;
+	itemInHand = items[usingItem];
+	items[usingItem] = item;
+	showItem();
+}
+
+void Inventory::swapVisibleDescriptions()
+{
+	showDescription = !showDescription;
+	choseFromEq = true;
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (w)
+		w->resetSlot();
+	if (itemInHand && !addItem(itemInHand))
+	{
+		dropItem();
+	}
+	itemInHand = nullptr;
+}
+#pragma endregion Setters
+
+void Inventory::hideItem()
+{
+	if (items[usingItem] && !items[usingItem]->canSwap())
+		return;
+	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
+	if (!gm)
+		return;
+	Game::removeObject(gm);
+}
+
+void Inventory::showItem()
+{
+	if (!items[usingItem])
+		return;
+	if (!items[usingItem]->canSwap())
+		return;
+	
+	items[usingItem]->setOwner(owner);
+	items[usingItem]->update(0.0f);
+
+	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
+	if (!gm)
+		return;
+	Game::addObject(gm);
 }
