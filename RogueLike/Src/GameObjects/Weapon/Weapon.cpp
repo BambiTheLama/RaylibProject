@@ -245,6 +245,8 @@ Rectangle Weapon::getSlotPos(Rectangle pos, int slot, int row, Vector2 slotSize,
 {
 	Rectangle slotPos = { pos.x,pos.y,slotSize.x,slotSize.y };
 	int slotsInColumns = (int)(pos.width / (slotPos.width + itemSpaceing));
+	if (slotsInColumns == 0)
+		return slotPos;
 	float startSlotsX = (pos.width - slotsInColumns * (slotPos.width + itemSpaceing)) / 2;
 	if (startSlotsX < 0)
 		startSlotsX = 0;

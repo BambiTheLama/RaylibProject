@@ -11,6 +11,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 {
 	float reloadTime = 0.0f;
 	float useTime = 0.0f;
+	float useTimeMax = 0.0f;
 	int numberOfUse = 0;
 	bool used = false;
 	bool left = false;

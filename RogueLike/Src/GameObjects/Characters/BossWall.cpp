@@ -5,23 +5,23 @@
 
 BossWall::BossWall()
 {
-
     solidObject = true;
     moving = false;
     mass = 10000;
     type = ObjectType::Wall;
     texture = TextureController("Wall/Wall.png");
-    addCollisionElement(new CollisionElementLines({ 0.0f,0.0f,pos.width,pos.height }));
 }
 
 BossWall::BossWall(float x, float y):BossWall()
 {
     pos = { (float)x, (float)y, tileW, tileH };
+    addCollisionElement(new CollisionElementLines({ 0.0f,0.0f,pos.width,pos.height }));
 }
 
 BossWall::BossWall(float x, float y, float w, float h) :BossWall()
 {
     pos = { x, y, w, h };
+    addCollisionElement(new CollisionElementLines({ 0.0f,0.0f,pos.width,pos.height }));
 }
 
 void BossWall::update(float deltaTime)

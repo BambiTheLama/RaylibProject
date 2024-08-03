@@ -5,8 +5,12 @@
             "Type": 0,
             "Stats": {
                 "Damage": [
-                    [ 1, 2 ],
-                    [ 0, 0.01 ]
+                    {
+                        "Min": 1,
+                        "Max": 2,
+                        "MulMin": 1,
+                        "MulMax": 2
+                    }
                 ]
             }
 
@@ -15,7 +19,12 @@
             "Texture": "Icons/UseTimeIcon.png",
             "Type": 0,
             "Stats": {
-                "UseTime": [ [ [ -1, 1 ] ] ]
+                "UseTime": [
+                    {
+                        "Min": 0.1,
+                        "Max": 0.1
+                    }
+                ]
             }
 
         },
@@ -23,7 +32,12 @@
             "Texture": "Icons/ReloadIcon.png",
             "Type": 0,
             "Stats": {
-                "ReloadTime": [ [ [ -0.1, -0.2 ] ] ]
+                "ReloadTime": [
+                    {
+                        "Min": 0.1,
+                        "Max": 0.1
+                    }
+                ]
             }
 
         },
@@ -31,7 +45,12 @@
             "Texture": "Icons/SpeedIcon.png",
             "Type": 0,
             "Stats": {
-                "Speed": [ [ [ 10, 20 ] ] ]
+                "Speed": [
+                    {
+                        "Min": 100,
+                        "Max": 200
+                    }
+                ]
             }
 
         },
@@ -39,7 +58,12 @@
             "Texture": "Icons/RangeIcon.png",
             "Type": 0,
             "Stats": {
-                "Range": [ [ [ 100, 200 ] ] ]
+                "Range": [
+                    {
+                        "Min": 100,
+                        "Max": 200
+                    }
+                ]
             }
 
         },
@@ -47,7 +71,12 @@
             "Texture": "Icons/KnockbackIcon.png",
             "Type": 0,
             "Stats": {
-                "Knockback": [ [ [ 5, 10 ] ] ]
+                "Knockback": [
+                    {
+                        "Min": 10,
+                        "Max": 20
+                    }
+                ]
             }
 
         },
@@ -55,7 +84,12 @@
             "Texture": "Icons/AngleIcon.png",
             "Type": 0,
             "Stats": {
-                "Angle": [ -30, 30 ]
+                "Angle": [
+                    {
+                        "Min": -36,
+                        "Max": 36
+                    }
+                ]
             }
 
         },
@@ -63,7 +97,26 @@
             "Texture": "Icons/CountOfUseIcon.png",
             "Type": 0,
             "Stats": {
-                "CountOfUse": [ 1, 5 ]
+                "CountOfUse": [
+                    {
+                        "Min": 1,
+                        "Max": 5
+                    }
+                ]
+            }
+
+        },
+
+        {
+            "Texture": "Icons/PirceIcon.png",
+            "Type": 0,
+            "Stats": {
+                "Pirce": [
+                    {
+                        "Min": 1,
+                        "Max": 5
+                    }
+                ]
             }
 
         },
@@ -71,151 +124,22 @@
             "Texture": "Icons/BounceIcon.png",
             "Type": 0,
             "Stats": {
-                "Bounce": [ 1, 3 ]
-            }
-
-        },
-        {
-            "Texture": "Icons/PirceIcon.png",
-            "Type": 0,
-            "Stats": {
-                "Pirce": [ 1, 3 ]
-            }
-
-        },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Spawn": 1,
-            "Type": 1,
-            "Activation": 1,
-            "Stats": {
-                "Damage": [
-                    [ [ 1, 2 ] ]
-                ],
-                "Range": [
-                    [ [ 100, 200 ] ]
-                ],
-                "UseTime": 1,
-                "CountOfUse": 1,
-                "Speed": 100
-
-            }
-
-        },
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Spawn": 1,
-            "Type": 1,
-            "Activation": 1,
-            "Stats": {
-                "Damage": [
-                    [ [ 1, 2 ] ]
-                ],
-                "Range": [
-                    [ [ 100, 200 ] ]
-                ],
-                "UseTime": 1,
-                "CountOfUse": 1,
-                "Speed": 100
-
-            }
-
-        },
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Spawn": 1,
-            "Type": 1,
-            "Activation": 1,
-            "Stats": {
-                "Damage": [
-                    [ [ 1, 2 ] ]
-                ],
-                "Range": [
-                    [ [ 100, 200 ] ]
-                ],
-                "UseTime": 1,
-                "CountOfUse": 1,
-                "Speed": 100
-
-            }
-
-        },
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Spawn": 1,
-            "Type": 1,
-            "Activation": 1,
-            "Stats": {
-                "Damage": [
-                    [ [ 1, 2 ] ]
-                ],
-                "Range": [
-                    [ [ 100, 200 ] ]
-                ],
-                "UseTime": 1,
-                "CountOfUse": 1,
-                "Speed": 100
-
-            }
-
-        },
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Spawn": 1,
-            "Type": 1,
-            "Activation": 1,
-            "Stats": {
-                "Damage": [
-                    [ [ 1, 2 ] ]
-                ],
-                "Range": [
-                    [ [ 100, 200 ] ]
-                ],
-                "UseTime": 1,
-                "CountOfUse": 1,
-                "Speed": 100
-
-            }
-
-        },
-
-
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Spawn": 2,
-            "Type": 1,
-            "Activation": 1,
-            "Stats": {
-                "Damage": [
-                    [ [ 1, 2 ] ]
-                ],
-                "Range": [
-                    [ [ 100, 200 ] ]
-                ],
-                "UseTime": 1,
-                "CountOfUse": 1,
-                "Speed": 100
-
+                "Bounce": [
+                    {
+                        "Min": 1,
+                        "Max": 5
+                    }
+                ]
             }
 
         }
+
+
+
+
+
+
+
     ]
 
 ]

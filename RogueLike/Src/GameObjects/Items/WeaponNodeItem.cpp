@@ -17,6 +17,8 @@ WeaponNodeItem::WeaponNodeItem(nlohmann::json j) :WeaponNodeItem()
 	if (j.contains("Texture"))
 		texture = TextureController(j["Texture"]);
 	node = WeaponNode(j);
+	printf(node.getStats().toString(true).c_str());
+	printf("KURWA KURWA KURWA KURWA KURWA KURWA KURWA KUWA \n");
 }
 
 void WeaponNodeItem::update(float deltaTime)

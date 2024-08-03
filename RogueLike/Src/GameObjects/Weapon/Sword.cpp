@@ -41,10 +41,10 @@ void Sword::update(float deltaTime)
 	if (useTime > 0)
 	{
 		if (left)
-			angle += deltaTime / stats.useTime * stats.angle;
+			angle += deltaTime / useTimeMax * stats.angle;
 		else
-			angle -= deltaTime / stats.useTime * stats.angle;
-		if (!used && useTime < stats.useTime / 2)
+			angle -= deltaTime / useTimeMax * stats.angle;
+		if (!used && useTime < useTimeMax / 2)
 		{
 			triggerNode(WeaponNodeActivation::OnUse, stats);
 			used = true;
@@ -61,7 +61,8 @@ void Sword::update(float deltaTime)
 			}
 			else
 			{
-				useTime = stats.useTime;
+
+				useTime = useTimeMax;
 				used = false;
 				left = !left;
 			}
@@ -125,7 +126,7 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 		procent = reloadTime / stats.reloadTime;
 	else if (useTime > 0)
 	{
-		procent = (useTime + stats.useTime * std::max(numberOfUse - 1, 0)) / (stats.useTime * std::max(stats.countOfUse, 1));
+		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (stats.useTime);
 		c.b = 255;
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
@@ -150,7 +151,8 @@ void Sword::use(Vector2 dir, float deltaTime)
 	{
 		numberOfUse = stats.countOfUse;
 		left = !left;
-		useTime = stats.useTime;
+		useTimeMax = stats.useTime / std::max(stats.countOfUse, 1);
+		useTime = useTimeMax;
 		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 		if (left)
 			angle -= stats.angle / 2;

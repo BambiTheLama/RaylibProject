@@ -32,7 +32,7 @@ int getWeaponTier(nlohmann::json j)
 {
 	if (!j.contains("Tiers"))
 		return 0;
-	int tiers = j["Tiers"].size();
+	int tiers = (int)j["Tiers"].size();
 	if (tiers <= 1)
 		return 0;
 	int sum = 0;

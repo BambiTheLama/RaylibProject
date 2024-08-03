@@ -5,104 +5,74 @@
 static const char* statsJsonName = "Stats";
 static const float tolerance = 0.1f;
 
-void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int& stat)
+void getJsonData(nlohmann::json& json,float* stat,float* statMul)
 {
-	if (!json.contains(statProperty))
-		return;
-	int statsSize = (int)json[statProperty].size();
-	if (statsSize <= 0)
-		return;
-	tier = Clamp(tier, 0, statsSize - 1);
-	if (!json[statProperty].is_array())
+	if (stat)
 	{
-		stat = json[statProperty];
+		if (json.contains("Min") && json.contains("Max"))
+		{
+			float min = json["Min"];
+			float max = json["Max"];
+			float procent = (rand() % 1000) / 1000.0f;
+			(*stat) = (min + (max - min) * procent);
+		}
+		else if (json.contains("Value"))
+		{
+			(*stat) = json["Value"];
+		}
 	}
-	else if (json[statProperty][tier].size() > 1)
+	if (statMul)
 	{
-		int min = json[statProperty][tier][0];
-		int max = json[statProperty][tier][1];
-		float procent = (rand() % 1000) / 1000.0f;
-		stat = (int)(min + (max - min) * procent);
+		if (json.contains("MulMin") && json.contains("MulMax"))
+		{
+			float min = json["MulMin"];
+			float max = json["MulMax"];
+			float procent = (rand() % 1000) / 1000.0f;
+			(*statMul) = (min + (max - min) * procent);
+		}
+		else if (json.contains("MulValue"))
+		{
+			(*statMul) = json["MulValue"];
+		}
 	}
-	else if (json[statProperty][tier].size() > 0)
-	{
-		stat = json[statProperty][tier];
-	}
-
-
 }
 
-void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat)
+void getJsonData(nlohmann::json& json,int tier, float* stat, float* statMul)
 {
-	if (!json.contains(statProperty))
+	if (!json.is_array())
+	{
+		getJsonData(json, stat, statMul);
 		return;
-	int statsSize = (int)json[statProperty].size();
-	if (statsSize <= 0)
+	}
+	if (json.size() <= 0)
 		return;
-	tier = Clamp(tier, 0, statsSize - 1);
-	if (!json[statProperty].is_array())
-	{
-		stat = json[statProperty];
-	}
-	else if (json[statProperty][tier].size() > 1)
-	{
-		float min = json[statProperty][tier][0];
-		float max = json[statProperty][tier][1];
-		float procent = (rand() % 1000) / 1000.0f;
-		stat = min + (max - min) * procent;
-	}
-	else if (json[statProperty][tier].size() > 0)
-	{
-		stat = json[statProperty][tier];
-	}
-
+	int tiers = Clamp(tier, 0, json.size() - 1);
+	
+	getJsonData(json[tiers], stat, statMul);
 }
 
-
-
-void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float& stat, float& statMultiplier)
+void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float* stat, float* statMultiplier = nullptr)
 {
 	if (!json.contains(statProperty))
 		return;
-	int statsSize = (int)json[statProperty].size();
-	if (statsSize <= 0)
-		return;
-	tier = Clamp(tier, 0, statsSize - 1);
-	if (!json[statProperty].is_array())
+	if (json[statProperty].is_number())
 	{
-		stat = json[statProperty];
+		if (stat)
+			*stat = json[statProperty];
 		return;
 	}
-	else if (!json[statProperty][0].is_array())
-	{
-		stat = json[statProperty][0];
-		if (json[statProperty].size() > 1)
-			statMultiplier = json[statProperty][1];
-		return;
-	}
-	else if (json[statProperty][tier][0].size() > 1)
-	{
-		float min = json[statProperty][tier][0][0];
-		float max = json[statProperty][tier][0][1];
-		float procent = (rand() % 1000) / 1000.0f;
-		stat = min + (max - min) * procent;
-	}
-	else if (json[statProperty][tier][0].size() > 0)
-	{
-		stat = json[statProperty][tier][0];
-	}
-	if (json[statProperty][tier][1].size() > 1)
-	{
-		float min = json[statProperty][tier][1][0];
-		float max = json[statProperty][tier][1][1];
-		float procent = (rand() % 1000) / 1000.0f;
-		statMultiplier = min + (max - min) * procent;
-	}
-	else if (json[statProperty][tier][1].size() > 0)
-	{
-		statMultiplier = json[statProperty][tier][1];
-	}
+	getJsonData(json[statProperty], tier, stat, statMultiplier);
+	printf("DATA  %lf\n", *stat);
+}
 
+void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int* stat)
+{
+	if (!json.contains(statProperty))
+		return;
+	float data = 0.0f;
+	readStatFromWeapon(json, statProperty, tier, &data);
+	*stat = (int)data;
+	printf("DATA %d\n", *stat);
 }
 
 void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
@@ -110,16 +80,19 @@ void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
 	if (!json.contains(statsJsonName))
 		return;
 
-	readStatFromWeapon(json[statsJsonName], "Damage", tier, damage, damageMultiplier);
-	readStatFromWeapon(json[statsJsonName], "UseTime", tier, useTime, useTimeMultiplier);
-	readStatFromWeapon(json[statsJsonName], "ReloadTime", tier, reloadTime, reloadTimeMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Speed", tier, speed, speedMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Range", tier, range, rangeMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Knockback", tier, knockback, knockbackMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Angle", tier, angle);
-	readStatFromWeapon(json[statsJsonName], "CountOfUse", tier, countOfUse);
-	readStatFromWeapon(json[statsJsonName], "Bounce", tier, bounce);
-	readStatFromWeapon(json[statsJsonName], "Pirce"     , tier, pirce);
+	readStatFromWeapon(json[statsJsonName], "Damage",		tier, &damage		, &damageMultiplier);
+	readStatFromWeapon(json[statsJsonName], "UseTime",		tier, &useTime		, &useTimeMultiplier);
+	readStatFromWeapon(json[statsJsonName], "ReloadTime",	tier, &reloadTime	, &reloadTimeMultiplier);
+	readStatFromWeapon(json[statsJsonName], "Speed",		tier, &speed		, &speedMultiplier);
+	readStatFromWeapon(json[statsJsonName], "Range",		tier, &range		, &rangeMultiplier);
+	readStatFromWeapon(json[statsJsonName], "Knockback",	tier, &knockback	, &knockbackMultiplier);
+	readStatFromWeapon(json[statsJsonName], "Angle",		tier, &angle);
+	readStatFromWeapon(json[statsJsonName], "CountOfUse",	tier, &countOfUse);
+	readStatFromWeapon(json[statsJsonName], "Bounce",		tier, &bounce);
+	readStatFromWeapon(json[statsJsonName], "Pirce"     ,	tier, &pirce);
+
+	printf(toString(true).c_str());
+	printf("/////////////////////////////////////////////////\n");
 }
 
 void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& statMultiplier)
@@ -246,7 +219,7 @@ void addToStringData(std::string& data, float value, std::string name, bool icon
 
 void addToStringData(std::string& data, int value, std::string name, bool icon = false, int ID = 0, bool skip = false)
 {
-	if (labs(value) < 0)
+	if (labs(value) <= 0)
 		return;
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");

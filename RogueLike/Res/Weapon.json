@@ -23,7 +23,7 @@
         "Stats": {
             "Knockback": 25,
             "Angle": 240,
-            "CountOfUse": 1,
+            "CountOfUse": 3,
             "Bounce": 0,
             "Pirce": 0
         }

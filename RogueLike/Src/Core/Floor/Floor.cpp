@@ -10,6 +10,7 @@
 #include "raylib.hpp"
 #include "raymath.h"
 #include "../../GameObjects/AddisionalTypes/DrawUI.h"
+#include "../../GameObjects/Game.h"
 
 FloorRooms getFloorRooms()
 {
@@ -207,9 +208,12 @@ void Floor::createFloor()
 
 void Floor::start()
 {
-
     for (auto o : allGameObjects)
+    {
         o->start();
+        Game::addObject(o);
+    }
+
 }
 
 bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
@@ -233,8 +237,6 @@ void Floor::update(float deltaTime,Camera2D camera)
         pathFinder->clearPaths();
         reset = 0.2f;
     }
-
-
 #endif // ShowPath
 
 
@@ -274,7 +276,7 @@ void Floor::update(float deltaTime,Camera2D camera)
         if(o->movingObject())
             tree->updatePos(o);
         Collider* col = dynamic_cast<Collider*>(o);
-        if (col && !col->isSolidObject())
+        if (col)
             colliders.push_back(col);
     }
     for (auto o : colliders)
@@ -289,7 +291,7 @@ void Floor::update(float deltaTime,Camera2D camera)
 
 
 }
-
+static bool pressedControl = false;
 void Floor::draw()
 {
     for (auto o : closeObjects)
@@ -297,21 +299,21 @@ void Floor::draw()
         o->draw();
     }
 
-    if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_ONE))
-        for (auto o : colliders) {
-            o->draw();
-        }
 
-
-    if (IsKeyDown(KEY_LEFT_CONTROL)&&IsKeyDown(KEY_TWO))
-        tree->draw();
+    if (IsKeyPressed(KEY_LEFT_CONTROL))
+        pressedControl = !pressedControl;
+    if(pressedControl)
+    {
+        if(IsKeyDown(KEY_ONE))
+            for (auto o : colliders)
+                o->draw();
+        if (IsKeyDown(KEY_TWO))
+            tree->draw();
 #ifdef ShowPaths
-    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_THREE))
-        pathFinder->draw();
+        if (IsKeyDown(KEY_THREE))
+            pathFinder->draw();
 #endif
-
-    DrawRectangleRec(startPos, GREEN);
-    DrawRectangleRec(endPos, GREEN);
+    }
 
 }
 
@@ -324,6 +326,9 @@ void Floor::drawUI()
         if (ui)
             ui->drawUI();
     }
+    if (pressedControl)
+        MyFont::DrawTextWithOutline("DEBUG_MODE", 0, 256, 32, WHITE, BLACK);
+
 
 }
 

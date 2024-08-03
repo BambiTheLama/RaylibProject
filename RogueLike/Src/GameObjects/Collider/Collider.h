@@ -69,6 +69,8 @@ public:
 
     Vector2 getCollisionDir(Collider* collider);
 
+    bool isColliderToRemove();
+
     void addCollisionElement(CollisionElement* element) { collisionElements.push_back(element); }
 
     void clearCollisionElements();

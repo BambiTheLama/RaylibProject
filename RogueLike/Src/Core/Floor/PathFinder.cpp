@@ -191,8 +191,8 @@ bool PathFinder::hasPath(Rectangle start, Rectangle end)
 
 	const int x = 0;
 	const int y = 0;
-	const int w = grid[0].size();
-	const int h = grid.size();
+	const int w = (int)grid[0].size();
+	const int h = (int)grid.size();
 
 	cellRangeX = w;
 	cellRangeY = h;

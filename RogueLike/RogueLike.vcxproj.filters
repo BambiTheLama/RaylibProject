@@ -390,4 +390,7 @@
       <Filter>Res</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO.json" />
+  </ItemGroup>
 </Project>

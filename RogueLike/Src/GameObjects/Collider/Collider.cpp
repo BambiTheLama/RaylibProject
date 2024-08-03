@@ -142,6 +142,19 @@ Vector2 Collider::getCollisionDir(Collider* collider)
     return { 0,0 };
 }
 
+bool Collider::isColliderToRemove()
+{
+    if (!solidObject)
+        return false;
+    for (auto o : colliders)
+        if (!o->solidObject)
+            return false;
+    for (auto o : lastFrameColliders)
+        if (!o->solidObject)
+            return false;
+    return true;
+}
+
 void Collider::overlapMove(Collider* collider,Vector2 dir, float fullMass, float dist)
 {
     if (reactOnlyToSolid && !collider->solidObject)
