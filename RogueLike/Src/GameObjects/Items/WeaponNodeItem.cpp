@@ -18,8 +18,6 @@ WeaponNodeItem::WeaponNodeItem(nlohmann::json j) :WeaponNodeItem()
 	if (j.contains("Texture"))
 		texture = TextureController(j["Texture"]);
 	node = WeaponNode(j);
-	printf(node.getStats().toString(true).c_str());
-	printf("KURWA KURWA KURWA KURWA KURWA KURWA KURWA KUWA \n");
 }
 #pragma endregion Constructor
 
@@ -54,6 +52,11 @@ void WeaponNodeItem::draw()
 void WeaponNodeItem::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 {
 	texture.draw(pos, false, false, 0, { 0.0f,0.0f }, 0.0f, color);
+}
+
+void WeaponNodeItem::drawDescription(Rectangle pos, float textSize)
+{ 
+	node.drawNodeDescription(pos, textSize, true); 
 }
 #pragma endregion DrawFun
 

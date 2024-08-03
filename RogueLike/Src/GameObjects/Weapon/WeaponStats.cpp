@@ -380,7 +380,7 @@ void toStringData(int& line, int i, std::string& data, float value, std::string 
 
 void toStringData(int& line, int i, std::string& data, int value, std::string name, int ID, StatType& statType)
 {
-	if (labs(value) < 0)
+	if (labs(value) <= 0)
 		return;
 	if (line == i)
 	{

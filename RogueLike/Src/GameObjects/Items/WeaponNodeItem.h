@@ -26,7 +26,7 @@ public:
 
 	void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) override;
 
-	void drawDescription(Rectangle pos, float textSize) override { node.drawNodeDescription(pos, textSize, true); }
+	void drawDescription(Rectangle pos, float textSize) override;
 #pragma endregion DrawFun
 
 	void setWeaponNode(WeaponNode node) { this->node = node; }

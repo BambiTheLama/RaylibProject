@@ -30,7 +30,7 @@ Player::Player(float x, float y):Hitable(100.0f){
     mass = 1000;
     trigger = false;
     inventory = Inventory(this);
-    ///*
+    /*
 
     Weapon* w = getWeapon(0, 0, WeaponType::Axe);
     Item* i = dynamic_cast<Item*>(w);
@@ -44,8 +44,8 @@ Player::Player(float x, float y):Hitable(100.0f){
     i = dynamic_cast<Item*>(w);
     if (i && !inventory.addItem(i) && w)
         delete w;
-    //*/
-    for (int j = 0; j < 5; j++)
+    */
+    for (int j = 0; j < 8; j++)
     {
         Item* i2 = getWeaponNode(0);
         if (i2 && !inventory.addItem(i2))
