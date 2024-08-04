@@ -63,7 +63,6 @@ static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, i
 		return;
 	}
 	getJsonData(json[statProperty], tier, stat, statMultiplier);
-	printf("DATA  %lf\n", *stat);
 }
 
 static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int* stat)
@@ -73,7 +72,6 @@ static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, i
 	float data = 0.0f;
 	readStatFromWeapon(json, statProperty, tier, &data);
 	*stat = (int)data;
-	printf("DATA %d\n", *stat);
 }
 #pragma endregion readFromJson
 
@@ -92,9 +90,6 @@ void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
 	readStatFromWeapon(json[statsJsonName], "CountOfUse",	tier, &countOfUse);
 	readStatFromWeapon(json[statsJsonName], "Bounce",		tier, &bounce);
 	readStatFromWeapon(json[statsJsonName], "Pirce"     ,	tier, &pirce);
-
-	printf(toString(true).c_str());
-	printf("/////////////////////////////////////////////////\n");
 }
 
 void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& statMultiplier)

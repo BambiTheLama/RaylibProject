@@ -133,6 +133,17 @@
         "Textures": [
             "Weapons/WoodArrow.png"
 
-        ]
+        ],
+		        "Stats": {
+            "Knockback": 10,
+            "Angle": 10,
+            "CountOfUse": 10,
+            "ReloadTime": 0,
+            "UseTime": 1,
+            "Bounce": 0,
+            "Pirce": 5,
+			"Range":100,
+			"Damage":1
+        }
     }
 }

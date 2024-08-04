@@ -23,7 +23,6 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 	updateWeaponSize();
 	//setIsSpawn(true);
 	//setSpawnID(1);
-	spawnPoint = { pos.width / 2,pos.height / 2 };
 }
 
 Sword::~Sword()
