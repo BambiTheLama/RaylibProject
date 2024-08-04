@@ -2,7 +2,12 @@
 #include "../Characters/Player.h"
 #include "../Game.h"
 
-void Item::update(float deltaTime) 
+void Item::start()
+{
+	thisWeapon = dynamic_cast<Weapon*>(this);
+}
+
+void Item::update(float deltaTime)
 {
 	GameObject* o = getThisObj();
 	if (o)
@@ -29,6 +34,13 @@ void Item::drawOverLine(Rectangle pos, Color overLine)
 	drawIcon({ pos.x,pos.y - lineSize,pos.width,pos.height }, true, overLine);
 	EndShaderMode();
 	drawIcon(pos, true);
+}
+
+void Item::drawDescription(Rectangle pos, float textSize)
+{
+	if (!thisWeapon)
+		return;
+	thisWeapon->drawWeaponDescription(pos, textSize);
 }
 #pragma endregion DrawFun
 

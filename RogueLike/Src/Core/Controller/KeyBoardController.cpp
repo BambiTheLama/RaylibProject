@@ -28,8 +28,10 @@ void KeyBoardController::update(float deltaTime) {
             inputs.push_back(Input::NextSlot);
         if (IsKeyPressed(keyLeft))
             inputs.push_back(Input::PrivSlot);
-        if (IsKeyDown(keyAttack1))
-            inputs.push_back(Input::Attack1);
+        if (IsKeyDown(keyAttack))
+            inputs.push_back(Input::Attack);
+        if (IsKeyReleased(keyAttack))
+            inputs.push_back(Input::StopAttack);
         if (IsKeyPressed(keyBomb))
             inputs.push_back(Input::Bomb);
         if (IsKeyPressed(keyNextItem))
@@ -62,7 +64,7 @@ void KeyBoardController::update(float deltaTime) {
     inputDir.y -= GetScreenHeight() / 2;
     inputDir = Vector2Normalize(inputDir);
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-    {
-        inputs.push_back(Input::Attack1);
-    }
+        inputs.push_back(Input::Attack);
+    else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+        inputs.push_back(Input::StopAttack);
 }

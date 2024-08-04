@@ -226,6 +226,14 @@ void Inventory::use(Vector2 dir, float deltaTime)
 	items[usingItem]->use(dir, deltaTime);
 }
 
+void Inventory::stopUse(Vector2 dir, float deltaTime)
+{
+	if (usingItem < 0 || usingItem >= InventorySize || !items[usingItem] || showDescription)
+		return;
+
+	items[usingItem]->stopUse(dir, deltaTime);
+}
+
 void Inventory::draw()
 {
 	Rectangle itemPos;

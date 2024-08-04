@@ -7,12 +7,11 @@
 #include <math.h>
 
 #pragma region Constructor
-Sword::Sword(GameObject* owner, std::string weaponType, int variant, nlohmann::json data,int weaponTier)
+Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weaponTier)
 {
 	type = ObjectType::Item;
 	pos = { 0,0,32,32 };
 	std::vector<Vector2> col;
-	std::string texturePath = "Weapons/StoneSword.png";
 	readFromWeaponData(weaponType, col, variant);
 	if (data.contains(weaponType) && data[weaponType].size() > variant && variant >= 0)
 		readStats(data[weaponType][variant], weaponTier);
@@ -22,13 +21,21 @@ Sword::Sword(GameObject* owner, std::string weaponType, int variant, nlohmann::j
 	moving = true;
 	mass = 1;
 	updateWeaponSize();
-	setOwner(owner);
+	//setIsSpawn(true);
+	//setSpawnID(1);
+	spawnPoint = { pos.width / 2,pos.height / 2 };
 }
 
 Sword::~Sword()
 {
 }
 #pragma endregion Constructor
+
+void Sword::start()
+{
+	Weapon::start();
+	Item::start();
+}
 
 void Sword::update(float deltaTime)
 {
@@ -72,7 +79,8 @@ void Sword::update(float deltaTime)
 				used = false;
 				left = !left;
 			}
-			mirror = left;
+			Collider::mirror = left;
+			Weapon::mirror = left;
 		}
 	}
 }
@@ -90,7 +98,8 @@ void Sword::use(Vector2 dir, float deltaTime)
 			angle -= stats.angle / 2;
 		else
 			angle += stats.angle / 2;
-		mirror = left;
+		Collider::mirror = left;
+		Weapon::mirror = left;
 		used = false;
 		updateWeaponSize();
 	}
@@ -130,17 +139,15 @@ void Sword::onTriggerEnter(Collider* collider)
 void Sword::draw(Rectangle pos)
 {
 	Vector2 rotationPoint = this->rotationPoint;
-	//pos.x += rotationPoint.x;
-	//pos.y += rotationPoint.y;
 	float angle = this->angle;
 
-	if (mirror)
+	if (Collider::mirror)
 	{
 		rotationPoint.x = pos.width - rotationPoint.x;
 		angle -= 90;
 	}
 
-	texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle);
+	texture.draw(pos, Collider::mirror, flipHorizontal, 0, rotationPoint, angle);
 }
 
 void Sword::draw()
@@ -157,6 +164,7 @@ void Sword::draw()
 		EndShaderMode();
 	}
 	draw(pos);
+	drawWeaponPoints();
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
@@ -176,18 +184,6 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
 	DrawRingLines({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, BLACK);
 }
-
-void Sword::drawDescription(Rectangle pos, float textSize)
-{
-	float bolder = getFrameBolder();
-	drawWeaponNodeStats({ pos.x + pos.width + 3 * bolder,pos.y,0,0 }, textSize, true);
-	DrawFrameRounded(pos, BLUE, BLACK);
-	Rectangle iconPos = Weapon::getSlotPos(pos, 0);
-	DrawFrameRec(iconPos, YELLOW);
-	drawIcon(RectangleDecreasSize(iconPos, 8));
-
-	drawWeaponDescription({ pos.x,Weapon::getSlotPos(pos, 0,1).y,pos.width,pos.height }, textSize);
-}
 #pragma endregion DrawFun
 
 #pragma region Setters
@@ -195,6 +191,7 @@ void Sword::drawDescription(Rectangle pos, float textSize)
 void Sword::setOwner(GameObject* owner)
 {
 	Item::setOwner(owner);
+	
 	if (!owner)
 	{
 		angle = 0.0f;
@@ -232,9 +229,11 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 	if (!weaponData.contains(weaponType))
 		return;
 	Weapon::readFromWeaponData(weaponType, variant);
-
-	pos.width = weaponData[weaponType]["Size"][0];
-	pos.height = weaponData[weaponType]["Size"][1];
+	if (weaponData[weaponType].contains("Size"))
+	{
+		pos.width = weaponData[weaponType]["Size"][0];
+		pos.height = weaponData[weaponType]["Size"][1];
+	}
 	if (weaponData[weaponType].contains("FlipHorizontal"))
 		flipHorizontal = weaponData[weaponType]["FlipHorizontal"];
 	if (weaponData[weaponType].contains("Col"))

@@ -95,9 +95,11 @@
     },
     "Bow": {
         "ShootPoint": [ 0, 0 ],
-        "Size": [ 32, 32 ],
-        "FlipHorizontal": true,
-        "RotationPoint": [ 16, 16 ],
+        "Size": [ 64, 64 ],
+        "FlipHorizontal": false,
+        "RotationPoint": [ 32, 32 ],
+		"SpawnPoint": [ -16, -16 ],
+		"AngleDiff": 90,
         "Textures": [
             "Weapons/WoodBow.png"
         ],
@@ -108,11 +110,13 @@
         "Stats": {
             "Knockback": 10,
             "Angle": 10,
-            "CountOfUse": 1,
+            "CountOfUse": 10,
             "ReloadTime": 0,
-            "UseTime": 5,
+            "UseTime": 1,
             "Bounce": 0,
-            "Pirce": 5
+            "Pirce": 5,
+			"Speed":100,
+			"Damage":1
         }
 
     },

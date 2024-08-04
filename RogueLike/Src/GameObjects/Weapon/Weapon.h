@@ -20,22 +20,30 @@ WeaponType getRandomWeaponType();
 
 class Inventory;
 class GameObject;
+class Item;
+
 class Weapon
 {
 	Inventory* inventory = nullptr;
 	GameObject* thisObj = nullptr;
+	Item* thisItem = nullptr;
 	WeaponStats difoltStats;
 	WeaponNodeTrigger weaponNodeTrigger;
 	std::vector<WeaponStats> weaponSlotsDifoltStat;
 	std::vector<WeaponNodeItem*> weaponSlots;
 	int cursorAt = -1;
+	bool spawn = false;
+	int spawnID = 0;
 protected:
 	static nlohmann::json weaponData;
+	bool mirror = false;
 	int weaponTier = 0;
 	float angle = 0.0f;
 	Vector2 rotationPoint = { 0.0f,0.0f };
+	Vector2 spawnPoint = { 0.0f,0.0f };
 	WeaponStats stats;
 	TextureController texture;
+
 public:
 #pragma region Constructor
 	Weapon();
@@ -69,11 +77,17 @@ private:
 public:
 #pragma endregion Slots
 
+	void start();
+
 	virtual void use(Vector2 dir, float deltaTime) = 0;
+
+	virtual void stopUse(Vector2 dir,float deltaTime){}
 
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 #pragma region DrawFun
+	void drawWeaponPoints();
+
 	void drawWeaponDescription(Rectangle pos, float textSize);
 
 	void drawWeaponNodeStats(Rectangle pos, float textSize, bool flexBox);
@@ -87,6 +101,12 @@ public:
 
 #pragma region Getters
 	float getRange() { return stats.range * stats.rangeMultiplier; }
+
+	float getAngle() { return angle; }
+
+	GameObject* getThisGameObject();
+
+	Vector2 getSpawnPoint();
 	
 	static int getNumberOfSlotsInRow(float w, float size = 64.0f, float itemSpaceing = 10.0f);
 #pragma endregion Getters
@@ -102,6 +122,10 @@ protected:
 	virtual void readFromWeaponData(std::string weaponType, int variant = 0);
 
 	void readStats(nlohmann::json j, int variant = 0);
+
+	void setIsSpawn(bool spawn) { this->spawn = spawn; updateWeaponNodesEfects(); }
+
+	void setSpawnID(int spawnID) { this->spawnID = spawnID; updateWeaponNodesEfects(); }
 #pragma endregion RedFromFile
 };
 

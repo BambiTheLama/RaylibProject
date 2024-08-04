@@ -18,10 +18,12 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool flipHorizontal = false;
 public:
 #pragma region Constructor
-	Sword(GameObject* owner = nullptr, std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(),int weaponTier=0);
+	Sword(std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(), int weaponTier = 0);
 
 	~Sword();
 #pragma endregion Constructor
+
+	void start();
 
 	void update(float deltaTime) override;
 
@@ -35,8 +37,6 @@ public:
 	void draw() override;
 
 	void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) override;
-
-	void drawDescription(Rectangle pos, float textSize) override;
 #pragma endregion DrawFun
 
 #pragma region Setters

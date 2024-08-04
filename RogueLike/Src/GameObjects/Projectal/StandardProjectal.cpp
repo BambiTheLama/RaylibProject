@@ -29,7 +29,7 @@ void StandardProjectal::update(float deltaTime)
 	pos.y += dir.y * stats.speed * deltaTime;
 	range -= stats.speed * deltaTime;
 	timer -= deltaTime;
-	if (range <= 0.0f || timer <= 0.0f)
+	if (range <= 0.0f && timer <= 0.0f)
 		Game::deleteObject(this);
 
 }

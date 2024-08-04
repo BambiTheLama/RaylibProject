@@ -4,8 +4,10 @@
 #include "../AddisionalTypes/Interactive.h"
 
 class Inventory;
+class Weapon;
 class Item :public Interactive
 {
+	Weapon* thisWeapon = nullptr;
 	GameObject* thisObj = nullptr;
 protected:
 	Inventory* inventory = nullptr;
@@ -17,10 +19,13 @@ public:
 
 	virtual ~Item(){}
 #pragma endregion Constructor
+	void start();
 
 	virtual void update(float deltaTime);
 
 	virtual void use(Vector2 dir, float deltaTime){}
+
+	virtual void stopUse(Vector2 dir, float deltaTime){}
 	
 	virtual void interact(GameObject* interactObject);
 
@@ -29,7 +34,7 @@ public:
 
 	void drawOverLine(Rectangle pos, Color OverLine);
 
-	virtual void drawDescription(Rectangle pos, float textSize){}
+	virtual void drawDescription(Rectangle pos, float textSize);
 #pragma endregion DrawFun
 
 #pragma region Getters

@@ -70,6 +70,7 @@
     <ClInclude Include="Src\GameObjects\Projectal\Projectal.h" />
     <ClInclude Include="Src\GameObjects\Projectal\ProjectalFactory.h" />
     <ClInclude Include="Src\GameObjects\Projectal\StandardProjectal.h" />
+    <ClInclude Include="Src\GameObjects\Weapon\Bow.h" />
     <ClInclude Include="Src\GameObjects\Weapon\Sword.h" />
     <ClInclude Include="Src\GameObjects\Weapon\Weapon.h" />
     <ClInclude Include="Src\GameObjects\Weapon\WeaponNode.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\ProjectalFactory.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\StandardProjectal.cpp" />
+    <ClCompile Include="Src\GameObjects\Weapon\Bow.cpp" />
     <ClCompile Include="Src\GameObjects\Weapon\Sword.cpp" />
     <ClCompile Include="Src\GameObjects\Weapon\Weapon.cpp" />
     <ClCompile Include="Src\GameObjects\Weapon\WeaponNode.cpp" />
@@ -212,6 +214,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -226,6 +229,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -240,7 +244,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -256,7 +261,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

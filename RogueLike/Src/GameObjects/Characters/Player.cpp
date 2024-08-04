@@ -30,13 +30,13 @@ Player::Player(float x, float y):Hitable(100.0f){
     mass = 1000;
     trigger = false;
     inventory = Inventory(this);
-    /*
+    ///*
 
     Weapon* w = getWeapon(0, 0, WeaponType::Axe);
     Item* i = dynamic_cast<Item*>(w);
     if (i && !inventory.addItem(i) && w)
         delete w;
-    w = getWeapon(0, 0, WeaponType::Pickaxe);
+    w = getWeapon(0, 0, WeaponType::Bow);
     i = dynamic_cast<Item*>(w);
     if (i && !inventory.addItem(i) && w)
         delete w;
@@ -44,7 +44,7 @@ Player::Player(float x, float y):Hitable(100.0f){
     i = dynamic_cast<Item*>(w);
     if (i && !inventory.addItem(i) && w)
         delete w;
-    */
+    //*/
     for (int j = 0; j < 8; j++)
     {
         Item* i2 = getWeaponNode(0);
@@ -111,9 +111,12 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
         useDir = Vector2Normalize(cursorDir);
     switch (input)
     {
-    case Input::Attack1:
+    case Input::Attack:
         //weapon->use(cursorDir, deltaTime);
         inventory.use(useDir, deltaTime);
+        break;
+    case Input::StopAttack:
+        inventory.stopUse(useDir, deltaTime);
         break;
     case Input::Bomb:
         Game::addObject(new Bomb(pos.x + pos.width / 2 + cursorDir.x * 50, pos.y + pos.height / 2 + cursorDir.y * 50));

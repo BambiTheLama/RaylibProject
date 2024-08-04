@@ -205,6 +205,9 @@
     <ClInclude Include="Src\GameObjects\Items\ItemFactory.h">
       <Filter>GameObjects\Items</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Weapon\Bow.h">
+      <Filter>GameObjects\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -358,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Items\ItemFactory.cpp">
       <Filter>GameObjects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Weapon\Bow.cpp">
+      <Filter>GameObjects\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

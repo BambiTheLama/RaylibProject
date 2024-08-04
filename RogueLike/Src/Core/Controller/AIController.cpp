@@ -78,7 +78,7 @@ void AIController::update(float deltaTime)
 	if ((action & (int)Action::Attack) != 0)
 	{
 		inputDir = Vector2Normalize(Vector2Subtract(getMidlePoint(target->getPos()), getMidlePoint(thisObj->getPos())));
-		inputs.push_back(Input::Attack1);
+		inputs.push_back(Input::Attack);
 	}
 
 }

@@ -3,6 +3,7 @@
 #include "../Game.h"
 #include "../Projectal/ProjectalFactory.h"
 #include <raymath.hpp>
+#include "Weapon.h"
 
 bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObject* weapon,WeaponStats weaponStats, Vector2 spawnOffset)
 {
@@ -33,7 +34,14 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 		projectal->setWeaponNodeTrigger(getNextTriggerNode());
 		projectal->setWeaponStats(n.getNextStats(weaponStats));
 		float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().angle / 2;
-		float angle = (weapon->getAngle() + angleDiff) * PI / 180;
+		Weapon* w = dynamic_cast<Weapon*>(weapon);
+		float weaponAngle = 0.0f;
+		if (!w)
+			weaponAngle = weapon->getAngle();
+		else
+			weaponAngle = w->getAngle();
+
+		float angle = (weaponAngle + angleDiff) * PI / 180;
 		Vector2 dir;
 		dir.x = cosf(angle) - sinf(angle);
 		dir.y = sinf(angle) + cosf(angle);

@@ -16,6 +16,7 @@ namespace MyFont
 	{
 		outline = ShaderController("OutLine.frag");
 		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
+		SetTextureFilter(diffFont.texture, TEXTURE_FILTER_BILINEAR);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
 		icons.push_back(TextureController("Icons/DamageIcon.png"));
 		icons.push_back(TextureController("Icons/UseTimeIcon.png"));

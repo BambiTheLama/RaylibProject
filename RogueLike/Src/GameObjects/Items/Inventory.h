@@ -46,6 +46,8 @@ public:
 	void update(float deltaTime);
 
 	void use(Vector2 dir, float deltaTime);
+
+	void stopUse(Vector2 dir, float deltaTime);
 	
 	void draw();
 #pragma region Getters

@@ -5,8 +5,8 @@
 enum class Input {
     NON,
     Interact, 
-    Attack1, 
-    Attack2, 
+    Attack, 
+    StopAttack, 
     Bomb,
     IDE, 
     NextSlot, 

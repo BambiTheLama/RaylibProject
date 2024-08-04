@@ -132,6 +132,47 @@
                 ]
             }
 
+        },
+        {
+            "Texture": "Icons/BounceIcon.png",
+            "Type": 1,
+            "Activation": 1,
+            "Spawn": 1,
+            "Stats": {
+                "Bounce": [
+                    {
+                        "Min": 1,
+                        "Max": 1
+                    }
+                ],
+                "Range": [
+                    {
+                        "Min": 100,
+                        "Max": 200
+                    }
+                ],
+                "UseTime": [
+                    {
+                        "Min": 1,
+                        "Max": 2
+                    }
+                ],
+                "CountOfUse": 1,
+                "Speed": 100,
+                "Damage": [
+                    {
+                        "Min": 1.0,
+                        "Max": 2.0
+                    }
+                ],
+                "Angle": [
+                    {
+                        "Min": 36,
+                        "Max": 70
+                    }
+                ]
+
+            }
         }
 
 

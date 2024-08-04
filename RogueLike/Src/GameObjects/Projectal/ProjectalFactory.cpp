@@ -8,6 +8,8 @@ Projectal* ProjectalFactory::getProjectal(int ID)
 		return NULL;
 	switch (ID)
 	{
+	case 0:
+		return new StandardProjectal();
 	case 1:
 		return new StandardProjectal();
 	case 2:

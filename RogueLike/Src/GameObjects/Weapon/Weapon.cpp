@@ -214,7 +214,14 @@ void Weapon::setNumberOfSlots(int slots)
 	}
 	updateWeaponNodesEfects();
 }
+
 #pragma endregion Slots
+
+void Weapon::start()
+{
+	updateWeaponNodesEfects();
+	thisItem = dynamic_cast<Item*>(this);
+}
 
 bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 {
@@ -229,19 +236,39 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 		offset = { -pos.width / 2.0f,-pos.height / 2.0f };
 	}
 
-	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, offset);
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, Vector2Add(offset, getSpawnPoint()));
 }
 
 #pragma region DrawFun
+void Weapon::drawWeaponPoints()
+{
+	GameObject* thisObj = getThisGameObject();
+	if (!thisObj)
+		return;
+	Vector2 pos = thisObj->getPosPoint();
+	DrawCircleV(Vector2Add(pos, spawnPoint), 3, PINK);
+	DrawCircleV(Vector2Add(pos, getSpawnPoint()), 3, ORANGE);
+}
 void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 {
+	float bolder = getFrameBolder();
+	drawWeaponNodeStats({ pos.x + pos.width + 3 * bolder,pos.y,0,0 }, textSize, true);
+	DrawFrameRounded(pos, BLUE, BLACK);
+	Rectangle iconPos = Weapon::getSlotPos(pos, 0);
+	DrawFrameRec(iconPos, YELLOW);
+
+	if (thisItem)
+		thisItem->drawIcon(RectangleDecreasSize(iconPos, 8));
+	//drawWeaponDescription({ pos.x,Weapon::getSlotPos(pos, 0,1).y,pos.width,pos.height }, textSize);
+
 	weaponSlotPos = pos;
+	weaponSlotPos.y = Weapon::getSlotPos(pos, 0, 1).y;
 	int i = 0;
 	Vector2 mouse = GetMousePosition();
 	cursorAt = -1;
 	for (auto slot : weaponSlots)
 	{
-		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
+		Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, i++);
 		if (CheckCollisionPointRec(mouse, slotPos))
 		{
 			cursorAt = i - 1;
@@ -250,12 +277,11 @@ void Weapon::drawWeaponDescription(Rectangle pos,float textSize)
 	i = 0;
 	for (auto slot : weaponSlots)
 	{
-		Rectangle slotPos = Weapon::getSlotPos(pos, i++);
+		Rectangle slotPos = Weapon::getSlotPos(weaponSlotPos, i++);
 		bool isCursorAt = i - 1 == cursorAt;
 		DrawFrameRec(slotPos, isCursorAt ? ORANGE : RED, BLACK);
 		if (slot)
 			slot->drawIcon(RectangleDecreasSize(slotPos, 8));
-
 	}
 }
 
@@ -274,6 +300,34 @@ void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 #pragma endregion DrawFun
 
 #pragma region Getters
+GameObject* Weapon::getThisGameObject()
+{
+	if (!thisObj)
+		findThisObject();
+	return thisObj;
+}
+
+Vector2 Weapon::getSpawnPoint()
+{
+	Vector2 spawnPoint = this->spawnPoint;
+	Vector2 toRet = { 0,0 };
+	float angle = this->angle * PI / 180;
+
+	if (mirror)
+	{
+		angle -= 90 * PI / 180;
+		spawnPoint.x = -spawnPoint.x;
+	}
+
+	toRet.x = cosf(angle) * (spawnPoint.x) - sinf(angle) * (spawnPoint.y);
+	toRet.y = sinf(angle) * (spawnPoint.x) + cosf(angle) * (spawnPoint.y);
+
+	return toRet;
+
+
+
+}
+
 int Weapon::getNumberOfSlotsInRow(float w, float size, float itemSpaceing)
 {
 	return (int)(w / (size + itemSpaceing));
@@ -295,6 +349,7 @@ void Weapon::updateWeaponNodesEfects()
 	}
 	stats = difoltStats;
 	std::vector<WeaponNode*> activationNodes;
+
 	for (auto wni: weaponSlots)
 	{
 		if (!wni)
@@ -313,12 +368,22 @@ void Weapon::updateWeaponNodesEfects()
 			{
 				activationNodes[activationNodes.size() - 1]->addToStats(wn->getStats());
 			}
+			continue;
 		}
-		else
+		else if (activationNodes.size() <= 0 && spawn)
 		{
-			activationNodes.push_back(wn);
+			WeaponNode weaponProjectalNode(stats, WeaponNodeActivation::OnUse, spawnID);
+			activationNodes.push_back(&weaponProjectalNode);
 		}
+		activationNodes.push_back(wn);
+		
 	}
+	if (activationNodes.size() <= 0 && spawn)
+	{
+		WeaponNode weaponProjectalNode(stats, WeaponNodeActivation::OnUse, spawnID);
+		activationNodes.push_back(&weaponProjectalNode);
+	}
+
 	WeaponNodeTrigger wnt;
 	Item* item = dynamic_cast<Item*>(this);
 	if (item)
@@ -382,6 +447,14 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 		rotationPoint.x = weaponData[weaponType]["RotationPoint"][0];
 		rotationPoint.y = weaponData[weaponType]["RotationPoint"][1];
 	}
+	if (weaponData[weaponType].contains("SpawnPoint"))
+	{
+		spawnPoint.x = weaponData[weaponType]["SpawnPoint"][0];
+		spawnPoint.y = weaponData[weaponType]["SpawnPoint"][1];
+		if (weaponData[weaponType].contains("FlipHorizontal") && weaponData[weaponType]["FlipHorizontal"])
+			spawnPoint.y = -spawnPoint.y;
+	}
+
 	stats.readStatsFromWeapon(weaponData[weaponType], variant);
 	setStats(stats);
 }

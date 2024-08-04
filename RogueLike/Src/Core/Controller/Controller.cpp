@@ -26,7 +26,7 @@ void Controller::update(float deltaTime)
             moveDir.y *= -1;
             break;
         case Action::Attack:
-            inputs.push_back(Input::Attack1);
+            inputs.push_back(Input::Attack);
             break;
         case Action::TrigerOn:
         case Action::TrigerOff:

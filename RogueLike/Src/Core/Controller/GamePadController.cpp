@@ -43,7 +43,9 @@ void GamePadController::update(float deltaTime) {
         inputs.push_back(Input::SwapDescriptionVisible);
     if (IsGamepadButtonPressed(gamepad, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT))
         inputs.push_back(Input::Interact);
-    if (IsGamepadButtonPressed(gamepad, GAMEPAD_BUTTON_RIGHT_TRIGGER_1))
-        inputs.push_back(Input::Attack1);
+    if (IsGamepadButtonDown(gamepad, GAMEPAD_BUTTON_RIGHT_TRIGGER_1))
+        inputs.push_back(Input::Attack);
+    if (IsGamepadButtonReleased(gamepad, GAMEPAD_BUTTON_RIGHT_TRIGGER_1))
+        inputs.push_back(Input::StopAttack);
 
 }
