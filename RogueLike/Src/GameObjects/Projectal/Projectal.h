@@ -5,7 +5,6 @@
 class GameObject;
 class Projectal
 {
-
 	WeaponNodeTrigger weaponNodeTrigger;
 	GameObject *thisObj = nullptr;
 protected:
@@ -17,7 +16,7 @@ public:
 
 	void setWeaponStats(WeaponStats stats) { this->stats = stats; updateStatsAfterSetStats(); }
 
-	void setDir(Vector2 dir) { this->dir = dir; }
+	virtual void setDir(Vector2 dir) { this->dir = dir; }
 
 	void setOwner(GameObject* owner) { this->owner = owner; }
 

@@ -10,6 +10,7 @@
             [ 18, 15 ]
         ],
         "Size": [ 32, 32 ],
+        "SpawnPoint": [ 16, 16 ],
         "FlipHorizontal": true,
         "Slots": [
             [ 1, 2 ],
@@ -43,6 +44,7 @@
             [ 7, 26 ]
         ],
         "Size": [ 32, 32 ],
+        "SpawnPoint": [ 16, 16 ],
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -74,6 +76,7 @@
             [ 21, 12 ]
         ],
         "Size": [ 32, 32 ],
+        "SpawnPoint": [ 16, 16 ],
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -98,7 +101,7 @@
         "Size": [ 64, 64 ],
         "FlipHorizontal": false,
         "RotationPoint": [ 32, 32 ],
-		"SpawnPoint": [ -16, -16 ],
+		"SpawnPoint": [ -8, -8 ],
 		"AngleDiff": 90,
         "Textures": [
             "Weapons/WoodBow.png"
@@ -115,8 +118,9 @@
             "UseTime": 1,
             "Bounce": 0,
             "Pirce": 5,
-			"Speed":100,
-			"Damage":1
+			"Speed":1000,
+            "Damage": 1,
+            "Range": 1000
         }
 
     },
@@ -130,11 +134,16 @@
         "Size": [ 32, 32 ],
         "FlipHorizontal": true,
         "RotationPoint": [ 16, 16 ],
+        "SpawnPoint": [ 14, 14 ],
         "Textures": [
             "Weapons/WoodArrow.png"
 
         ],
-		        "Stats": {
+        "Slots": [
+            [ 3, 5 ],
+            [ 2, 3 ]
+        ],
+        "Stats": {
             "Knockback": 10,
             "Angle": 10,
             "CountOfUse": 10,
@@ -142,8 +151,8 @@
             "UseTime": 1,
             "Bounce": 0,
             "Pirce": 5,
-			"Range":100,
-			"Damage":1
+            "Range": 100,
+            "Damage": 1
         }
     }
 }

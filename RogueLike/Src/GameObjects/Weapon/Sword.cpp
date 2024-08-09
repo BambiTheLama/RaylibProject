@@ -220,6 +220,7 @@ void Sword::updateWeaponSize()
 	rotationPoint.x *= scale;
 	rotationPoint.y *= scale;
 	scaleColliderElements(scale);
+	Weapon::scaleWeapon(scale);
 
 }
 

@@ -48,8 +48,6 @@ void Bomb::explode()
 			if (wall)
 				wall->deletePartWall(explodePos);
 		}
-
-
 		explodePos.x += delta;
 		explodePos.width -= 2 * delta;
 		explodePos.y -= delta;

@@ -85,11 +85,7 @@ void AIController::update(float deltaTime)
 
 void AIController::lookForTarget() {
 	target = nullptr;
-	Rectangle pos = thisObj->getPos();
-	pos.x -= range;
-	pos.y -= range;
-	pos.width += range * 2;
-	pos.height += range * 2;
+	Rectangle pos = RectangleIncreasSize(thisObj->getPos(), range);
 	std::list<GameObject*> objcts = Game::getObjects(pos);
 	objcts.remove(thisObj);
 	float dist = range * 2.0f;

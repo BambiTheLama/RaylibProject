@@ -53,8 +53,9 @@ void Bow::draw(Rectangle pos)
 {
 	Vector2 rotationPoint = this->rotationPoint;
 	float angle = this->angle;
-
-	texture.draw(pos, false, false, 0, rotationPoint, angle + angleDiff);
+	int frame = loadTime / stats.useTime * (texture.getFrames() - 1);
+	printf("Frame: %d\n", frame);
+	texture.draw(pos, false, false, frame, rotationPoint, angle + angleDiff);
 }
 
 void Bow::drawIcon(Rectangle pos, bool onlyIcon, Color color)

@@ -24,7 +24,6 @@ class Item;
 
 class Weapon
 {
-	Inventory* inventory = nullptr;
 	GameObject* thisObj = nullptr;
 	Item* thisItem = nullptr;
 	WeaponStats difoltStats;
@@ -94,7 +93,7 @@ public:
 #pragma endregion DrawFun
 
 #pragma region Setters
-	virtual void setInventory(Inventory* inventory) { this->inventory = inventory; }
+	void scaleWeapon(float scale);
 	
 	void setStats(WeaponStats ws) { difoltStats = ws; stats = ws; }
 #pragma endregion Setters

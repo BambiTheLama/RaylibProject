@@ -6,6 +6,6 @@ class ProjectalFactory
 
 public:
 
-	static Projectal* getProjectal(int ID);
+	static Projectal* getProjectal(int ID, Vector2 dir = { 0,0 });
 };
 

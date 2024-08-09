@@ -2,7 +2,7 @@
 #include "StandardProjectal.h"
 #include "Explosion.h"
 
-Projectal* ProjectalFactory::getProjectal(int ID)
+Projectal* ProjectalFactory::getProjectal(int ID,Vector2 dir)
 {
 	if (ID < 0)
 		return NULL;

@@ -141,8 +141,8 @@
             "Stats": {
                 "Bounce": [
                     {
-                        "Min": 1,
-                        "Max": 1
+                        "Min": 0,
+                        "Max": 0
                     }
                 ],
                 "Range": [

@@ -27,8 +27,6 @@ public:
 
     void draw();
 
-
-
 protected:
     void readFromWeaponData(std::string weaponType, int variant);
 };

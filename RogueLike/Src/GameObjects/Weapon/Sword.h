@@ -40,8 +40,6 @@ public:
 #pragma endregion DrawFun
 
 #pragma region Setters
-	void setInventory(Inventory* inventory) { Weapon::setInventory(inventory); Item::setInventory(inventory); }
-	
 	virtual void setOwner(GameObject* owner);
 #pragma endregion Setters
 

@@ -37,6 +37,9 @@ Weapon::~Weapon()
 #pragma region Slots
 void Weapon::updateClick()
 { 
+	if (!thisItem)
+		return;
+	Inventory* inventory = thisItem->inventory;
 	if (!inventory)
 		return;
 	Vector2 mouse = GetMousePosition();
@@ -132,6 +135,9 @@ void Weapon::takeItem()
 {
 	if (cursorAt < 0 || cursorAt >= weaponSlots.size())
 		return;
+	if (!thisItem)
+		return;
+	Inventory* inventory = thisItem->inventory;
 	Item* item = inventory->getHandItem();
 	if (!item)
 	{
@@ -293,11 +299,18 @@ void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 	}
 	else
 	{
-		stats.draw(pos, textSize, flexBox, true, "     Weapon\n", true, false);
+		stats.draw(pos, textSize, flexBox, true, "     Weapon\n");
 	}
 
 }
+
 #pragma endregion DrawFun
+
+void Weapon::scaleWeapon(float scale)
+{
+	//rotationPoint = Vector2Scale(rotationPoint, scale);
+	spawnPoint = Vector2Scale(spawnPoint, scale);
+}
 
 #pragma region Getters
 GameObject* Weapon::getThisGameObject()
@@ -315,8 +328,8 @@ Vector2 Weapon::getSpawnPoint()
 
 	if (mirror)
 	{
-		angle -= 90 * PI / 180;
-		spawnPoint.x = -spawnPoint.x;
+		//angle -= 90 * PI / 180;
+		//spawnPoint.x = -spawnPoint.x;
 	}
 
 	toRet.x = cosf(angle) * (spawnPoint.x) - sinf(angle) * (spawnPoint.y);
@@ -451,8 +464,6 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 	{
 		spawnPoint.x = weaponData[weaponType]["SpawnPoint"][0];
 		spawnPoint.y = weaponData[weaponType]["SpawnPoint"][1];
-		if (weaponData[weaponType].contains("FlipHorizontal") && weaponData[weaponType]["FlipHorizontal"])
-			spawnPoint.y = -spawnPoint.y;
 	}
 
 	stats.readStatsFromWeapon(weaponData[weaponType], variant);
