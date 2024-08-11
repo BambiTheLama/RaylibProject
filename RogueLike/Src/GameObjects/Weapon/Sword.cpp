@@ -5,6 +5,7 @@
 #include "../AddisionalTypes/Hitable.h"
 #include <fstream>
 #include <math.h>
+#include <rlgl.h>
 
 #pragma region Constructor
 Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weaponTier)
@@ -42,10 +43,12 @@ void Sword::update(float deltaTime)
 	if (reloadTime > 0)
 	{
 		reloadTime -= deltaTime;
+		points.clear();
 		return;
 	}
 	if (useTime > 0)
 	{
+
 		if (left)
 			angle += deltaTime / useTimeMax * stats.angle;
 		else
@@ -59,7 +62,7 @@ void Sword::update(float deltaTime)
 		if (useTime <= 0.0f)
 		{
 			numberOfUse--;
-
+			points.clear();
 			if (numberOfUse <= 0)
 			{
 				reloadTime = stats.reloadTime;
@@ -75,6 +78,16 @@ void Sword::update(float deltaTime)
 			Collider::mirror = left;
 			Weapon::mirror = left;
 		}
+
+		Vector2 p = DirFromAngle(angle);
+		Vector2 p2 = Vector2Multiply(p, rotationPoint);
+		float size = (pos.width + pos.height) / 4;
+		float offset = size / 2;
+		float dif = abs((useTime / useTimeMax) * 2 - 1) * size / 2;
+		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + dif)));
+		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + size - dif)));
+
+
 	}
 }
 
@@ -141,7 +154,7 @@ void Sword::onTriggerEnter(Collider* collider)
 }
 
 #pragma region DrawFun
-void Sword::draw(Rectangle pos)
+void Sword::draw(Rectangle pos, Color c)
 {
 	Vector2 rotationPoint = this->rotationPoint;
 	float angle = this->angle;
@@ -152,7 +165,9 @@ void Sword::draw(Rectangle pos)
 		angle -= 90;
 	}
 
-	texture.draw(pos, Collider::mirror, flipHorizontal, 0, rotationPoint, angle);
+	texture.draw(pos, Collider::mirror, flipHorizontal, 0, rotationPoint, angle, c);
+
+
 }
 
 void Sword::draw()
@@ -162,14 +177,17 @@ void Sword::draw()
 	{
 		startOutLineShader();
 		const int lineSize = 4;
-		draw(moveRectangeBy(pos, { 0,lineSize }));
-		draw(moveRectangeBy(pos, { 0,-lineSize }));
-		draw(moveRectangeBy(pos, { lineSize ,0 }));
-		draw(moveRectangeBy(pos, { -lineSize,0 }));
+		draw(moveRectangeBy(pos, { 0,lineSize }), WHITE);
+		draw(moveRectangeBy(pos, { 0,-lineSize }),WHITE);
+		draw(moveRectangeBy(pos, { lineSize ,0 }),WHITE);
+		draw(moveRectangeBy(pos, { -lineSize,0 }),WHITE);
 		EndShaderMode();
 	}
-	draw(pos);
-	drawWeaponPoints();
+	//drawWeaponPoints();
+	rlEnableBackfaceCulling();
+	DrawTriangleStrip(points.data(), points.size(), WHITE);
+	rlDisableBackfaceCulling();
+	draw(pos, WHITE);
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)

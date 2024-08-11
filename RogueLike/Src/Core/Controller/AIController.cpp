@@ -48,7 +48,7 @@ void AIController::update(float deltaTime)
 	Vector2 thisPos = thisObj->getPosPoint();
 	if ((action & (int)Action::RunFrom) != 0)
 	{
-		if (findPathTimer <= 0)
+		if (findPathTimer <= 0 || (toGoDirNow.z <= 0 && toGoDir.size() <= 0))
 		{
 
 			Rectangle posRec = target->getPos();
@@ -72,7 +72,7 @@ void AIController::update(float deltaTime)
 
 	if ((action & (int)Action::GoTo) != 0)
 	{
-		if (findPathTimer <= 0)
+		if (findPathTimer <= 0 || (toGoDirNow.z <= 0 && toGoDir.size() <= 0))
 		{
 			toGoDir = Game::getPathToGo(thisObj->getPos(), target->getPos(), range * 1.5f);
 			newToGoDir();

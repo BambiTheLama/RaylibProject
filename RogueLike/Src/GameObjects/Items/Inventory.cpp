@@ -213,6 +213,7 @@ void Inventory::update(float deltaTime,Vector2 dir)
 {
 	if (!items[usingItem])
 		return;
+	showItem();
 	items[usingItem]->update(deltaTime,dir);
 }
 

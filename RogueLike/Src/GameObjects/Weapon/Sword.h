@@ -9,6 +9,7 @@
 
 class Sword:public GameObject,public Weapon,public Collider,public Item
 {
+	std::vector<Vector2> points;
 	float reloadTime = 0.0f;
 	float useTime = 0.0f;
 	float useTimeMax = 0.0f;
@@ -34,7 +35,7 @@ public:
 	void onTriggerEnter(Collider* collider) override;
 
 #pragma region DrawFun
-	void draw(Rectangle pos);
+	void draw(Rectangle pos,Color c);
 
 	void draw() override;
 

@@ -322,7 +322,7 @@ GameObject* Weapon::getThisGameObject()
 
 Vector2 Weapon::getSpawnPoint()
 {
-	Vector2 spawnPoint = this->spawnPoint;
+	Vector2 spawnPoint = Vector2Subtract(this->spawnPoint, this->rotationPoint);
 	Vector2 toRet = { 0,0 };
 	float angle = this->angle * PI / 180;
 

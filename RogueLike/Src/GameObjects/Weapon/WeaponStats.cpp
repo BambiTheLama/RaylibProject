@@ -216,7 +216,7 @@ void addToStringData(std::string& data, float value, std::string name, bool icon
 
 void addToStringData(std::string& data, int value, std::string name, bool icon = false, int ID = 0, bool skip = false)
 {
-	if (labs(value) <= 0)
+	if (skip && labs(value) <= 0)
 		return;
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");

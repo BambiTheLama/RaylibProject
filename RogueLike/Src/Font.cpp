@@ -260,3 +260,9 @@ Color mixColor(Color c1, Color c2, float p)
 	float p2 = 1.0f - p;
 	return { (unsigned char)(c1.r * p + c2.r * p2),(unsigned char)(c1.g * p + c2.g * p2), (unsigned char)(c1.b * p + c2.b * p2), (unsigned char)(c1.a * p + c2.a * p2) };
 }
+
+Vector2 DirFromAngle(float angle)
+{
+	angle *= DEG2RAD;
+	return { cosf(angle) - sinf(angle),sinf(angle) + cosf(angle) };
+}
