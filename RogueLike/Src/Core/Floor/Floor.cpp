@@ -292,6 +292,9 @@ void Floor::update(float deltaTime,Camera2D camera)
 
 }
 static bool pressedControl = false;
+static bool pressedColliders = false;
+static bool pressedQuadtree = false;
+static bool pressedPathfinder = false;
 void Floor::draw()
 {
     for (auto o : closeObjects)
@@ -301,16 +304,28 @@ void Floor::draw()
 
 
     if (IsKeyPressed(KEY_LEFT_CONTROL))
+    {
         pressedControl = !pressedControl;
+        pressedColliders = false;
+        pressedQuadtree = false;
+        pressedPathfinder = false;
+    }
+
     if(pressedControl)
     {
-        if(IsKeyDown(KEY_ONE))
+        if (IsKeyPressed(KEY_ONE))
+            pressedColliders = !pressedColliders;
+        if (pressedColliders)
             for (auto o : colliders)
                 o->draw();
-        if (IsKeyDown(KEY_TWO))
+        if (IsKeyPressed(KEY_TWO))
+            pressedQuadtree = !pressedQuadtree;
+        if (pressedQuadtree)
             tree->draw();
 #ifdef ShowPaths
-        if (IsKeyDown(KEY_THREE))
+        if (IsKeyPressed(KEY_THREE))
+            pressedPathfinder = !pressedPathfinder;
+        if (pressedPathfinder)
             pathFinder->draw();
 #endif
     }
@@ -326,8 +341,17 @@ void Floor::drawUI()
         if (ui)
             ui->drawUI();
     }
+    std::string text = "DEBUG_MODE:\n";
+    if (pressedColliders)
+        text += "     -COLLIDES\n";
+    if (pressedQuadtree)
+        text += "     -QUADTREE\n";
+    if (pressedPathfinder)
+        text += "     -PATHFINDER\n";
+    const char* ctext = text.c_str();
+    const float textSize = 32;
     if (pressedControl)
-        MyFont::DrawTextWithOutline("DEBUG_MODE", 0, 256, 32, WHITE, BLACK);
+        MyFont::DrawTextWithOutline(ctext, 0, GetScreenHeight() - MyFont::TextSize(ctext, textSize, 0).y, textSize, WHITE, BLACK);
 
 
 }

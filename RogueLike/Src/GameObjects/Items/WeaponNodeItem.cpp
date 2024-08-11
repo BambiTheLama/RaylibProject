@@ -36,13 +36,7 @@ void WeaponNodeItem::draw()
 {
 	if (isClosestObject)
 	{
-		const float moveBy = 3.0f;
-		startOutLineShader();
-		drawIcon(moveRectangeBy(pos, { moveBy,0 }));
-		drawIcon(moveRectangeBy(pos, { -moveBy,0 }));
-		drawIcon(moveRectangeBy(pos, { 0,-moveBy }));
-		drawIcon(moveRectangeBy(pos, { 0,moveBy }));
-		EndShaderMode();
+		drawOverLine(pos, WHITE);
 	}
 
 	drawIcon(pos);

@@ -32,7 +32,7 @@ public:
 #pragma region DrawFun
 	virtual void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) {}
 
-	void drawOverLine(Rectangle pos, Color OverLine);
+	virtual void drawOverLine(Rectangle pos, Color OverLine, float overlineSize = 4);
 
 	virtual void drawDescription(Rectangle pos, float textSize);
 #pragma endregion DrawFun

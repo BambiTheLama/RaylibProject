@@ -24,16 +24,14 @@ void Item::interact(GameObject* interactObject)
 }
 
 #pragma region DrawFun
-void Item::drawOverLine(Rectangle pos, Color overLine)
+void Item::drawOverLine(Rectangle pos, Color overLine, float overlineSize)
 {
 	startOutLineShader();
-	const int lineSize = 4;
-	drawIcon({ pos.x - lineSize,pos.y,pos.width,pos.height }, true, overLine);
-	drawIcon({ pos.x + lineSize,pos.y,pos.width,pos.height }, true, overLine);
-	drawIcon({ pos.x,pos.y + lineSize,pos.width,pos.height }, true, overLine);
-	drawIcon({ pos.x,pos.y - lineSize,pos.width,pos.height }, true, overLine);
+	drawIcon({ pos.x - overlineSize,pos.y,pos.width,pos.height }, true, overLine);
+	drawIcon({ pos.x + overlineSize,pos.y,pos.width,pos.height }, true, overLine);
+	drawIcon({ pos.x,pos.y + overlineSize,pos.width,pos.height }, true, overLine);
+	drawIcon({ pos.x,pos.y - overlineSize,pos.width,pos.height }, true, overLine);
 	EndShaderMode();
-	drawIcon(pos, true);
 }
 
 void Item::drawDescription(Rectangle pos, float textSize)
