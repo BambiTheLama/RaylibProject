@@ -36,6 +36,8 @@ float RectangleDistance(Rectangle r1, Rectangle r2);
 
 void startOutLineShader();
 
+Shader getOutLineShader();
+
 Rectangle moveRectangeBy(Rectangle pos, Vector2 moveBy);
 
 Vector2 getMidlePoint(Rectangle rec);

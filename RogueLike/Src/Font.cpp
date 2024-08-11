@@ -239,6 +239,11 @@ void startOutLineShader()
 	BeginShaderMode(outline.getShader());
 }
 
+Shader getOutLineShader()
+{
+	return outline.getShader();
+}
+
 Rectangle moveRectangeBy(Rectangle pos, Vector2 moveBy)
 {
 	return { pos.x + moveBy.x,pos.y + moveBy.y,pos.width,pos.height };

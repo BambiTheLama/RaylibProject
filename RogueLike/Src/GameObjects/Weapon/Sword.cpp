@@ -183,9 +183,8 @@ void Sword::draw()
 		draw(moveRectangeBy(pos, { -lineSize,0 }),WHITE);
 		EndShaderMode();
 	}
-	//drawWeaponPoints();
 	rlEnableBackfaceCulling();
-	DrawTriangleStrip(points.data(), points.size(), WHITE);
+	DrawTriangleStrip(points.data(), points.size(), GetColor(0xffffff77));
 	rlDisableBackfaceCulling();
 	draw(pos, WHITE);
 }
