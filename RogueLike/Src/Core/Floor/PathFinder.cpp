@@ -337,6 +337,16 @@ std::list<Vector3> PathFinder::getPathToGo(Rectangle start, Rectangle end, float
 		lastX = thisX;
 		lastY = thisY;
 	}
-	path.push_front(dir);
+
+	if (path.size() <= 0 && (int)dir.z <= 0)
+	{
+		path.clear();
+		Vector2 targetP = getMidlePoint(end);
+		Vector2 startP = getMidlePoint(start);
+		Vector2 toGoDir = Vector2Subtract(targetP, startP);
+		path.push_front({ toGoDir.x,toGoDir.y,Vector2Distance(targetP,startP) });
+	}
+	else
+		path.push_front(dir);
 	return path;
 }

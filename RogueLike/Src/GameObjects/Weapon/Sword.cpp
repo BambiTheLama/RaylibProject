@@ -38,13 +38,7 @@ void Sword::start()
 
 void Sword::update(float deltaTime)
 {
-	if (owner)
-	{
-		Vector2 p = getMidlePoint(owner->getPos());
-		pos.x = p.x;
-		pos.y = p.y;
-		Game::addObject(this);
-	}
+
 	if (reloadTime > 0)
 	{
 		reloadTime -= deltaTime;
@@ -84,6 +78,22 @@ void Sword::update(float deltaTime)
 	}
 }
 
+void Sword::update(float deltaTime, Vector2 dir)
+{
+
+	Item::update(deltaTime, dir);
+	
+	if (useTime <= 0 && reloadTime <= 0)
+	{
+		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
+		if (!left)
+			angle -= stats.angle / 2;
+		else
+			angle += stats.angle / 2;
+	}
+
+}
+
 void Sword::use(Vector2 dir, float deltaTime)
 {
 	if (useTime <= 0 && reloadTime <= 0)
@@ -92,11 +102,7 @@ void Sword::use(Vector2 dir, float deltaTime)
 		left = !left;
 		useTimeMax = stats.useTime / std::max(stats.countOfUse, 1);
 		useTime = useTimeMax;
-		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
-		if (left)
-			angle -= stats.angle / 2;
-		else
-			angle += stats.angle / 2;
+
 		Collider::mirror = left;
 		Weapon::mirror = left;
 		used = false;

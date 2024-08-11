@@ -49,6 +49,12 @@ void Bow::update(float deltaTime)
 	}
 }
 
+void Bow::update(float deltaTime, Vector2 dir)
+{
+	Item::update(deltaTime, dir);
+	angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
+}
+
 void Bow::draw(Rectangle pos)
 {
 	Vector2 rotationPoint = this->rotationPoint;

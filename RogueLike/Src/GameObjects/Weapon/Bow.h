@@ -21,12 +21,15 @@ public:
     
     void update(float deltaTime);
 
+    void update(float deltaTime, Vector2 dir) override;
+
     void draw(Rectangle pos);
 
     void drawIcon(Rectangle pos, bool onlyIcon = true, Color color = WHITE) override;
 
     void draw();
 
+    virtual bool getIsUpdate() { return owner; }
 protected:
     void readFromWeaponData(std::string weaponType, int variant);
 };

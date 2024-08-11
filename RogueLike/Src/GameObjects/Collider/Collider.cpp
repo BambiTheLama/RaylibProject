@@ -81,8 +81,7 @@ void Collider::setResistToForces(bool isResist)
 void Collider::scaleColliderElements(float scale)
 {
     this->scale *= scale;
-    difSize.x *= scale;
-    difSize.y*= scale;
+    difSize = Vector2Scale(difSize, scale);
     for (auto e : collisionElements)
         e->scaleElement(scale);
 }

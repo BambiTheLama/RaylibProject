@@ -21,23 +21,20 @@ Inventory::~Inventory()
 	{
 		if (items[i] && i != usingItem)
 		{
-			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
-			if (gm && Game::deleteObject(gm))
-			{
-
-			}
-			else
-				delete items[i];
+			delete items[i];
 		}
 	}
-	GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
-	if (gm)
+	if (Game::isGameScene())
 	{
-		Game::deleteObject(gm);
-	}
-	else if(items[usingItem])
-	{
-		delete items[usingItem];
+		GameObject* gm = dynamic_cast<GameObject*>(items[usingItem]);
+		if (gm)
+		{
+			Game::deleteObject(gm);
+		}
+		else if (items[usingItem])
+		{
+			delete items[usingItem];
+		}
 	}
 
 }
@@ -60,11 +57,13 @@ void Inventory::updateClick()
 	{
 		if (!CheckCollisionPointRec(mouse, getItemPos(i)))
 			continue;
-		hideItem();
+		if (i == usingItem)
+			hideItem();
 		Item* item = items[i];
 		items[i] = itemInHand;
 		itemInHand = item;
-		showItem();
+		if (i == usingItem)
+			showItem();
 		return;
 	}
 	
@@ -173,14 +172,15 @@ bool Inventory::addItem(Item* item)
 		{
 			items[i]->setOwner(owner);
 			items[i]->setInventory(this);
-			items[i]->update(0.0f);
+			items[i]->update();
 
 			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
-			if (gm)
+			if (gm && i != usingItem)
 				Game::removeObject(gm);
 
 		}
-
+		if (i == usingItem)
+			showItem();
 		return true;
 	}
 	return false;
@@ -209,13 +209,11 @@ void Inventory::dropItem()
 
 #pragma endregion Slots
 
-void Inventory::update(float deltaTime)
+void Inventory::update(float deltaTime,Vector2 dir)
 {
 	if (!items[usingItem])
 		return;
-	items[usingItem]->update(deltaTime);
-
-
+	items[usingItem]->update(deltaTime,dir);
 }
 
 void Inventory::use(Vector2 dir, float deltaTime)

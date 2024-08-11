@@ -43,7 +43,7 @@ public:
 	void dropItem();
 #pragma endregion Slots
 
-	void update(float deltaTime);
+	void update(float deltaTime, Vector2 dir);
 
 	void use(Vector2 dir, float deltaTime);
 

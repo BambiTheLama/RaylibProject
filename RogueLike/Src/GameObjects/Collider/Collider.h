@@ -23,7 +23,7 @@ protected:
     int mass = 1;
     bool mirror = false;
     bool reactOnlyToSolid = false;
-    bool scale = 1.0f;
+    float scale = 1.0f;
 public:
     Collider();
 

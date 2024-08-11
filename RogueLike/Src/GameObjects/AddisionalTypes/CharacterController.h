@@ -28,6 +28,8 @@ public:
 
     Vector2 getPos() { return pos; }
 
+    Vector2 getCursorDir();
+
     void setCharacterType(ObjectType type);
 
     bool hasCharacter() { return character; }

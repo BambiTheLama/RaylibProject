@@ -7,11 +7,14 @@ void Item::start()
 	thisWeapon = dynamic_cast<Weapon*>(this);
 }
 
-void Item::update(float deltaTime)
+void Item::update(float deltaTime, Vector2 dir)
 {
 	GameObject* o = getThisObj();
-	if (o)
-		o->update(deltaTime);
+	if (!o)
+		return;
+	o->update(deltaTime);
+	if (owner)
+		o->setPos(owner->getHoldPoint());
 }
 
 void Item::interact(GameObject* interactObject)

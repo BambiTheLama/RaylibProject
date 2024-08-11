@@ -31,7 +31,12 @@ bool Character::setController(Controller* c)
     controllBy->setController(c);
     return true;
 }
-
+Vector2 Character::getcursorDir()
+{
+    if (!controllBy)
+        return { 0,0 };
+    return controllBy->getCursorDir();
+}
 
 void Character::destoryController()
 {

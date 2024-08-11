@@ -27,6 +27,8 @@ public:
 
 	void update(float deltaTime) override;
 
+	void update(float deltaTime, Vector2 dir) override;
+
 	void use(Vector2 dir, float deltaTime) override;
 
 	void onTriggerEnter(Collider* collider) override;
@@ -51,6 +53,8 @@ public:
 	bool isUsing() { return useTime > 0; }
 
 	bool canSwap() override { return useTime <= 0.0f && reloadTime <= 0.0f; }
+
+	virtual bool getIsUpdate() { return owner; }
 #pragma endregion Getters
 
 private:

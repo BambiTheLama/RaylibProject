@@ -272,7 +272,8 @@ void Floor::update(float deltaTime,Camera2D camera)
     colliders.clear();
     for (auto o : closeObjects)
     {
-        o->update(deltaTime);
+        if (o->getIsUpdate())
+            o->update(deltaTime);
         if(o->movingObject())
             tree->updatePos(o);
         Collider* col = dynamic_cast<Collider*>(o);
@@ -365,12 +366,14 @@ bool Floor::addObject(GameObject* obj)
 {
     if (!obj)
         return false;
-    auto find = std::find(allGameObjects.begin(), allGameObjects.end(), obj);
-    if (find != allGameObjects.end())
+    if (std::find(allGameObjects.begin(), allGameObjects.end(), obj) != allGameObjects.end())
     {
         tree->updatePos(obj);
         return true;
     }
+
+    toRemove.remove(obj);
+    
     allGameObjects.push_back(obj);
     tree->addObj(obj);
     obj->start();

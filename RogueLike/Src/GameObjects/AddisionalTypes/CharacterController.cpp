@@ -81,6 +81,13 @@ void CharacterController::destoryController()
 
 }
 
+Vector2 CharacterController::getCursorDir()
+{
+    if (!controller)
+        return { 0,0 };
+    return controller->getInputDir();
+}
+
 void CharacterController::setCharacterType(ObjectType type)
 { 
     this->type = type; 

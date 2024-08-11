@@ -38,6 +38,10 @@ public:
     virtual Vector2 getRotationPoint() { return { 0.0f,0.0f }; }
 
     bool movingObject() { return moving; }
+
+    virtual Vector2 getHoldPoint() { return { pos.x + pos.width / 2,pos.y + pos.width / 2 }; }
+
+    virtual bool getIsUpdate() { return true; }
 #pragma endregion Getters
 
 #pragma region Setters

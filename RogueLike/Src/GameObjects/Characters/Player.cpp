@@ -64,7 +64,7 @@ void Player::start() {
 
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
-    inventory.update(deltaTime);
+    inventory.update(deltaTime, getcursorDir());
     inventory.updateClick();
     timer += deltaTime;
     timer -= (float)((int)(timer / 1) * 1);
@@ -103,7 +103,7 @@ void Player::move(Vector2 dir, float deltaTime) {
         pos.x += dir.x * deltaTime * speed;
         pos.y += dir.y * deltaTime * speed;
     }
-    inventory.update(0.0f);
+    inventory.update(0.0f, getcursorDir());
 }
 
 void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime) {

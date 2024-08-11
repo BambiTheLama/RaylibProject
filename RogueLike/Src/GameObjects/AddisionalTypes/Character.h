@@ -23,6 +23,8 @@ public:
 
     bool setController(Controller* c);
 
+    Vector2 getcursorDir();
+
     CharacterController* getCharacterController() { return controllBy; }
 
     virtual void destoryController();
