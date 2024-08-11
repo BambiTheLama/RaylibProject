@@ -1,5 +1,6 @@
 #pragma once
 #include "Controller.h"
+#include <list>
 
 class GameObject;
 
@@ -12,6 +13,8 @@ protected:
 public:
     GameObject* thisObj = nullptr;
     GameObject* target = nullptr;
+    std::list<Vector3> toGoDir;
+    Vector3 toGoDirNow = { 0,0,0 };
     int targerType = 0;
     int range = 0;
     int action = 0;
@@ -22,6 +25,8 @@ public:
     void update(float deltaTime);
 
     void lookForTarget();
+
+    void newToGoDir();
 
 
 };

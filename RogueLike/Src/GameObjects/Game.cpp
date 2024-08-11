@@ -38,6 +38,14 @@ Vector2 Game::getDirToGo(Rectangle start, Rectangle end, float range)
         return { 0,0 };
     return gameScene->getDirToGo(start, end, range);
 }
+
+std::list<Vector3> Game::getPathToGo(Rectangle start, Rectangle end, float range)
+{
+    if (!gameScene)
+        return std::list<Vector3>();
+    return gameScene->getPathToGo(start, end, range);
+}
+
 void Game::toCheckPos(Rectangle toCheck)
 {
     if (!gameScene)

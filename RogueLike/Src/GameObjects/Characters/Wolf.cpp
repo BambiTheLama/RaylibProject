@@ -121,7 +121,7 @@ void Wolf::move(Vector2 dir, float deltaTime)
 
 void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
-
+	return;
 	if (input == Input::Attack && attackTime <= 0.0f)
 	{
 		if (abs(cursorDir.x) <= 0.1 && abs(cursorDir.y) < 0.1)

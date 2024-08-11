@@ -48,6 +48,8 @@ public:
 
     Vector2 getDirToGo(Rectangle start, Rectangle end, float range) { return pathFinder->getDirToGo(start, end, range); }
 
+    std::list<Vector3> getPathToGo(Rectangle start, Rectangle end, float range) { return pathFinder->getPathToGo(start, end, range); }
+
     void toCheckPos(Rectangle toCheck);
 
     bool canPassMap();

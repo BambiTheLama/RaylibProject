@@ -214,7 +214,7 @@ Vector2 Sword::getRotationPoint()
 
 void Sword::updateWeaponSize()
 {
-	float scale = (stats.range / 4 + 64) / (pos.width);
+	float scale = (stats.range / 5 + 64) / (pos.width);
 	if (pos.width * scale < 32)
 		scale = 32 / pos.width;
 	if (pos.height * scale < 32)

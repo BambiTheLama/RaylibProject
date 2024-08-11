@@ -230,12 +230,12 @@ bool sortGameObjectCondiction(GameObject* gm, GameObject* gm2)
 void Floor::update(float deltaTime,Camera2D camera)
 {
 #ifdef ShowPaths
-    static float reset = 0.1f;
+    static float reset = 0.0f;
     reset -= deltaTime;
     if (reset <= 0)
     {
         pathFinder->clearPaths();
-        reset = 0.2f;
+        reset = 0.5f;
     }
 #endif // ShowPath
 

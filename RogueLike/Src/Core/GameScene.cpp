@@ -134,6 +134,13 @@ Vector2 GameScene::getDirToGo(Rectangle start, Rectangle end, float range)
     return floor->getDirToGo(start, end, range);
 }
 
+std::list<Vector3> GameScene::getPathToGo(Rectangle start, Rectangle end, float range)
+{
+    if (!floor)
+        return std::list<Vector3>();
+    return floor->getPathToGo(start, end, range);
+}
+
 
 bool GameScene::addObject(GameObject *obj) {
     if (floor)

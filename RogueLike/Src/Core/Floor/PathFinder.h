@@ -62,6 +62,8 @@ public:
 
 	Vector2 getDirToGo(Rectangle start, Rectangle end, float range);
 
+	std::list<Vector3> getPathToGo(Rectangle start, Rectangle end, float range);
+
 	friend bool sortFun(Vector2& f, Vector2& s);
 };
 

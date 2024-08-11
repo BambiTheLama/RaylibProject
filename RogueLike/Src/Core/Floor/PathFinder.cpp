@@ -233,7 +233,16 @@ bool PathFinder::hasPath(Rectangle start, Rectangle end)
 
 Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 {
-	
+	std::list<Vector3> path = getPathToGo(start, end, range);
+	if (path.size() <= 0)
+		return { 0,0 };
+	Vector3 p = path.front();
+	return { p.x,p.y };
+}
+
+std::list<Vector3> PathFinder::getPathToGo(Rectangle start, Rectangle end, float range)
+{
+
 	const int centerStartX = clamp((int)((start.x + start.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
 	const int centerStartY = clamp((int)((start.y + start.height / 2) / resolution.y), 1, (int)grid.size() - 1);
 	const int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
@@ -290,6 +299,9 @@ Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 	int lastY = (int)closest.y;
 	int comefromX = 0;
 	int comefromY = 0;
+	Vector3 dir = { 0,0,0 };
+	float distToMove = 0.0f;
+	std::list<Vector3> path;
 	while (lastX > 0 && lastY > 0)
 	{
 		int thisX = grid[lastY][lastX].fromX;
@@ -301,15 +313,30 @@ Vector2 PathFinder::getDirToGo(Rectangle start, Rectangle end, float range)
 #ifdef ShowPaths
 			paths.push_back({ (float)lastX ,(float)lastY });
 #endif
+			if ((int)dir.x == (thisX - lastX) && (dir.y) == thisY - lastY)
+			{
+				dir.z += distToMove;
+
+			}
+			else
+			{
+				if (dir.z > 0)
+					path.push_front(dir);
+				dir.x = lastX - thisX;
+				dir.y = lastY - thisY;
+				if ((int)(dir.y) == 0)
+					distToMove = resolution.x;
+				else if ((int)(dir.x) == 0)
+					distToMove = resolution.y;
+				else
+					distToMove = sqrtf(powf(resolution.x, 2) + powf(resolution.y, 2));
+				dir.z = distToMove;
+			}
+			
 		}
 		lastX = thisX;
 		lastY = thisY;
 	}
-#ifdef ShowPaths
-	paths.push_back({ (float)centerStartX ,(float)centerStartY });
-#endif
-	Vector2 toGoDir = { (float)(comefromX - centerStartX),(float)(comefromY - centerStartY) };
-
-
-	return toGoDir;
+	path.push_front(dir);
+	return path;
 }
