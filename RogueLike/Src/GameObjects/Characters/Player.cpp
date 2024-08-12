@@ -100,8 +100,7 @@ void Player::updateCloseInteractive()
 void Player::move(Vector2 dir, float deltaTime) {
     if (!inventory.isDescriptionShowed())
     {
-        pos.x += dir.x * deltaTime * speed;
-        pos.y += dir.y * deltaTime * speed;
+        Character::move(dir, deltaTime);
     }
     inventory.update(0.0f, getcursorDir());
 }

@@ -59,6 +59,16 @@ void Sword::update(float deltaTime)
 			used = true;
 		}
 		useTime -= deltaTime;
+		
+
+		Vector2 p = DirFromAngle(angle);
+		Vector2 p2 = Vector2Multiply(p, rotationPoint);
+		float size = (pos.width + pos.height) / 4;
+		float offset = size / 2;
+		float dif = abs((useTime / useTimeMax) * 2 - 1) * size / 2;
+		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + dif)));
+		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + size - dif)));
+
 		if (useTime <= 0.0f)
 		{
 			numberOfUse--;
@@ -70,7 +80,6 @@ void Sword::update(float deltaTime)
 			}
 			else
 			{
-
 				useTime = useTimeMax;
 				used = false;
 				left = !left;
@@ -78,16 +87,6 @@ void Sword::update(float deltaTime)
 			Collider::mirror = left;
 			Weapon::mirror = left;
 		}
-
-		Vector2 p = DirFromAngle(angle);
-		Vector2 p2 = Vector2Multiply(p, rotationPoint);
-		float size = (pos.width + pos.height) / 4;
-		float offset = size / 2;
-		float dif = abs((useTime / useTimeMax) * 2 - 1) * size / 2;
-		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + dif)));
-		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + size - dif)));
-
-
 	}
 }
 
@@ -183,9 +182,15 @@ void Sword::draw()
 		draw(moveRectangeBy(pos, { -lineSize,0 }),WHITE);
 		EndShaderMode();
 	}
-	rlEnableBackfaceCulling();
-	DrawTriangleStrip(points.data(), points.size(), GetColor(0xffffff77));
-	rlDisableBackfaceCulling();
+	if (points.size() > 0)
+	{
+		rlEnableBackfaceCulling();
+		char colorA = 128 * (-powf(2 * useTime / useTimeMax - 1, 2) + 1);
+		printf("%d\n", colorA);
+		DrawTriangleStrip(points.data(), points.size(), GetColor(0xffffff00 + colorA));
+		rlDisableBackfaceCulling();
+	}
+
 	draw(pos, WHITE);
 }
 

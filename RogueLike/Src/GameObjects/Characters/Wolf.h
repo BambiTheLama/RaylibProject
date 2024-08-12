@@ -14,8 +14,7 @@ class Wolf :
     float attackTimeMax = 1.0f;
     float recoveryTime = 0;
     float recoveryTimeMax = 0.5;
-    float speed = 0.0f;
-    float speedMax = 200;
+    float speed = 200.0f;
     Vector2 attackDir = { 0.0f,0.0f };
     CharacterController controller;
     AIController* ai;
@@ -29,8 +28,6 @@ public:
     void update(float deltaTime);
 
     void draw();
-
-    void move(Vector2 dir, float deltaTime);
 
     void action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime);
 

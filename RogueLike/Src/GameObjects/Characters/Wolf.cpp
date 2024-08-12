@@ -40,31 +40,27 @@ void Wolf::update(float deltaTime)
 {
 	Hitable::update(deltaTime);
 	controller.update(deltaTime);
-	if (ai)
+	if (!ai)
+		return;
+	
+	ai->action = 0;
+	Rectangle pos = getPos();
+	if (target != 0 && ai->target)
 	{
-		ai->action = 0;
-		Rectangle pos = getPos();
-		if (target != 0 && ai->target)
-		{
-			Rectangle otherPos = ai->target->getPos();
-			Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
-			Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
-			float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
-			if (distance < 200)
-				ai->action |= (int)Action::Attack;
-			
-			ai->action |= (int)Action::GoTo;
-		}
-		else
-		{
-			ai->action |= (int)Action::IDE;
-		}
-
+		Rectangle otherPos = ai->target->getPos();
+		Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
+		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
+		float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
+		if (distance < 200)
+			ai->action |= (int)Action::Attack;
+		
+		ai->action |= (int)Action::GoTo;
 	}
 	else
 	{
-		move({ 0,0 }, deltaTime);
+		ai->action |= (int)Action::IDE;
 	}
+
 }
 
 void Wolf::draw()
@@ -84,39 +80,6 @@ void Wolf::draw()
 		c.r = 255;
 	DrawRectangleRec({ pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2 }, c);
 	
-}
-
-void Wolf::move(Vector2 dir, float deltaTime)
-{
-	this->dir = dir;
-	if (recoveryTime > 0)
-	{
-		speed = speedMax * 0.3f;
-		recoveryTime -= deltaTime;
-		pos.x += dir.x * deltaTime * speed;
-		pos.y += dir.y * deltaTime * speed;
-		attackDir = dir;
-		return;
-	}
-	if (attackTime <= 0)
-	{
-		speed = speedMax;
-		pos.x += dir.x * deltaTime * speed;
-		pos.y += dir.y * deltaTime * speed;
-		attackDir = dir;
-
-	}
-	else
-	{
-		attackDir = Vector2Normalize(Vector2Add({ dir.x * deltaTime * 2,dir.y * deltaTime * 2 }, attackDir));
-		attackTime -= deltaTime;
-		speed = speedMax * 2;
-		pos.x += attackDir.x * deltaTime * speed;
-		pos.y += attackDir.y * deltaTime * speed;
-		if (attackTime <= 0)
-			recoveryTime = recoveryTimeMax;
-		this->dir = attackDir;
-	}
 }
 
 void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
