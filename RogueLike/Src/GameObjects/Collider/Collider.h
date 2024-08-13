@@ -62,6 +62,8 @@ public:
     Vector2 getCollisionDir(Collider* collider);
 
     bool isColliderToRemove();
+
+    Rectangle getCollisionArea();
 #pragma endregion Getters
 
 #pragma region Setters

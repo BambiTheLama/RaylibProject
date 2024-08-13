@@ -11,6 +11,17 @@ LootBlock::LootBlock(float x, float y)
 	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.width / 4));
 	type = ObjectType::Loot;
 	mass = 100;
+
+}
+
+LootBlock::~LootBlock()
+{
+	Game::toCheckPos(pos);
+}
+
+void LootBlock::start()
+{
+	Game::toCheckPos(pos);
 }
 
 void LootBlock::update(float deltaTime)

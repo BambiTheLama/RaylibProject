@@ -12,6 +12,10 @@ class LootBlock :
 public:
     LootBlock(float x, float y);
 
+    ~LootBlock();
+
+    void start();
+
     void update(float deltaTime);
 
     void draw();

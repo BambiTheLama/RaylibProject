@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.hpp"
+#include "math.h"
 class Hitable {
 
 protected:
@@ -19,7 +20,7 @@ public:
 
     virtual void deadTrigger();
 
-    float getProcentHp() { return hp / maxHp; }
+    float getProcentHp() { return fmaxf(hp / maxHp, 0.0f); }
 
     void draw(Rectangle pos);
 

@@ -145,8 +145,8 @@
         ],
         "Stats": {
             "Knockback": 10,
-            "Angle": 10,
-            "CountOfUse": 10,
+            "Angle": 100,
+            "CountOfUse": 1,
             "ReloadTime": 0,
             "UseTime": 1,
             "Bounce": 0,

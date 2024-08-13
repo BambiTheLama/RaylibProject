@@ -6,6 +6,7 @@
 #include <list>
 #include "raymath.h"
 #include "../../GameObjects/Game.h"
+#include "../../GameObjects/Collider/Collider.h"
 
 static PathFinder* pathFinder;
 
@@ -65,8 +66,13 @@ void PathFinder::update()
 		std::list<GameObject*>objs = Game::getObjects(pos);
 		for (auto o : objs)
 		{
-			if (o->getType() == ObjectType::Wall)
-				setStaticBlock(o->getPos());
+			Collider* col = dynamic_cast<Collider*>(o);
+			if (!col)
+				continue;
+			if (!col->isSolidObject())
+				continue;
+
+			setStaticBlock(col->getCollisionArea());
 		}
 	}
 	for (auto pos : toCheckPos)

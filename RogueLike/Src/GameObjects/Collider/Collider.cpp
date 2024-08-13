@@ -154,6 +154,18 @@ bool Collider::isColliderToRemove()
     return true;
 }
 
+Rectangle Collider::getCollisionArea()
+{
+    GameObject* gm = getThisObj();
+    if (!gm)
+        return { 0,0,0,0 };
+    Rectangle pos = gm->getPos();
+
+    if (collisionElements.size() <= 0)
+        return { 0,0,0,0 };
+    return getCollisionArea(pos);
+}
+
 void Collider::overlapMove(Collider* collider,Vector2 dir, float fullMass, float dist)
 {
     if (reactOnlyToSolid && !collider->solidObject)

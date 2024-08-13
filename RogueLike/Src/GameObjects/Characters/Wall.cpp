@@ -21,6 +21,7 @@ Wall::Wall(float x, float y, float w, float h)
 
 Wall::~Wall()
 {
+    Game::toCheckPos(pos);
 }
 
 
