@@ -137,8 +137,8 @@ void Floor::setUpRooms(int startX, int startY, Room& room)
                 k++;
             } while (!isbreak && k + y < roomSize);
             GameObject* b = getRoomElement(lrID, startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH);
-            if (isWallType(type) && type != BlockType::BossEnterWall)
-                pathFinder->setStaticBlock({ startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH });
+            //if (isWallType(type) && type != BlockType::BossEnterWall)
+            //    pathFinder->setStaticBlock({ startX + sX * tileW, startY + sY * tileH, tileW * sW, tileH * sH });
             if (b)
                 addObject(b);
             y--;

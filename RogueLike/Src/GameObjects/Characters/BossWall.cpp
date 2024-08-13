@@ -1,6 +1,6 @@
 #include "BossWall.h"
 #include "../../Core/Floor/Room.h"
-
+#include "../Game.h"
 
 
 BossWall::BossWall()
@@ -22,6 +22,11 @@ BossWall::BossWall(float x, float y, float w, float h) :BossWall()
 {
     pos = { x, y, w, h };
     addCollisionElement(new CollisionElementLines({ 0.0f,0.0f,pos.width,pos.height }));
+}
+
+void BossWall::start()
+{
+    Game::toCheckPos(pos);
 }
 
 void BossWall::update(float deltaTime)

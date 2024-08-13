@@ -19,6 +19,8 @@ public:
 
     ~Wall();
 
+    void start() override;
+
     void update(float deltaTime);
 
     void draw() override;

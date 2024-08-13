@@ -13,6 +13,8 @@ public:
 
     BossWall(float x, float y, float w, float h);
 
+    void start() override;
+
     void update(float deltaTime);
 
     void draw();

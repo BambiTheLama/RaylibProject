@@ -24,6 +24,11 @@ Wall::~Wall()
     Game::toCheckPos(pos);
 }
 
+void Wall::start()
+{
+    Game::toCheckPos(pos);
+}
+
 
 void Wall::update(float deltaTime) {
 }
