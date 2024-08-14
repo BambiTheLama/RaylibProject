@@ -34,15 +34,12 @@ Engine::Engine() {
         if (IsKeyPressed(KEY_F2))
             setScene(new RoomEdytor());
 
+        float deltaTime = fminf(GetFrameTime(), 1.0f / 30.0f);
 
-
-
-        float deltaTime = GetFrameTime();
-
-        if (deltaTime > 1.0f / 30.0f)
-            deltaTime = 1.0f / 30.0f;
         if (IsKeyDown(KEY_LEFT_SHIFT))
-            deltaTime = 0.0001f;
+            deltaTime /= 20.0f;
+
+
         s->update(deltaTime);
         BeginDrawing();
         ClearBackground(GetColor(0x333377ff));

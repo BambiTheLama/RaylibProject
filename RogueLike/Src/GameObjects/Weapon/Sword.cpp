@@ -60,14 +60,20 @@ void Sword::update(float deltaTime)
 		}
 		useTime -= deltaTime;
 		
+		addLineTimer -= deltaTime;
+		if (addLineTimer <= 0 || labs(lastAngle - angle) > angleDiffMax)
+		{
+			Vector2 p = DirFromAngle(angle);
+			Vector2 p2 = Vector2Multiply(p, rotationPoint);
+			float size = (pos.width + pos.height) / 3;
+			float offset = size / 8;
+			float dif = abs((useTime / useTimeMax) * 2 - 1) * size / 2;
+			points.push_back(Vector2Add({ pos.x - p2.x,pos.y - p2.y }, Vector2Scale(p, offset + dif)));
+			points.push_back(Vector2Add({ pos.x - p2.x,pos.y - p2.y }, Vector2Scale(p, offset + size - dif)));
+			addLineTimer = addLineTimerMax;
+			lastAngle = angle;
+		}
 
-		Vector2 p = DirFromAngle(angle);
-		Vector2 p2 = Vector2Multiply(p, rotationPoint);
-		float size = (pos.width + pos.height) / 4;
-		float offset = size / 2;
-		float dif = abs((useTime / useTimeMax) * 2 - 1) * size / 2;
-		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + dif)));
-		points.push_back(Vector2Add({ pos.x-p2.x,pos.y-p2.y }, Vector2Scale(p, offset + size - dif)));
 
 		if (useTime <= 0.0f)
 		{
@@ -84,6 +90,7 @@ void Sword::update(float deltaTime)
 				used = false;
 				left = !left;
 			}
+			addLineTimer = 0.0f;
 			Collider::mirror = left;
 			Weapon::mirror = left;
 		}
@@ -234,6 +241,12 @@ void Sword::setOwner(GameObject* owner)
 
 Vector2 Sword::getRotationPoint() 
 { 
+	float scale = 1.0f;
+	if (useTime > 0.0)
+	{
+		scale = fabsf((useTime / useTimeMax) - 0.5f) * 2;
+	}
+	rotationPoint = Vector2Add(Vector2Scale(rotationPointStart, scale), Vector2Scale(rotationPointEnd, 1.0f - scale));
 	return rotationPoint;
 }
 

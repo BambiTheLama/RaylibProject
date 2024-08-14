@@ -13,6 +13,10 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	float reloadTime = 0.0f;
 	float useTime = 0.0f;
 	float useTimeMax = 0.0f;
+	float addLineTimer = 0.0f;
+	const float addLineTimerMax = 0.05f;
+	float lastAngle = 0.0f;
+	const float angleDiffMax = 5.0f;
 	int numberOfUse = 0;
 	bool used = false;
 	bool left = false;

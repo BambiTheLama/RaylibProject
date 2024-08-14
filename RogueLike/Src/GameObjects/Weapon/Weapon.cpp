@@ -310,6 +310,8 @@ void Weapon::scaleWeapon(float scale)
 {
 	//rotationPoint = Vector2Scale(rotationPoint, scale);
 	spawnPoint = Vector2Scale(spawnPoint, scale);
+	rotationPointStart = Vector2Scale(rotationPointStart, scale);
+	rotationPointEnd = Vector2Scale(rotationPointEnd, scale);
 }
 
 #pragma region Getters
@@ -459,6 +461,16 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 	{
 		rotationPoint.x = weaponData[weaponType]["RotationPoint"][0];
 		rotationPoint.y = weaponData[weaponType]["RotationPoint"][1];
+		rotationPointStart = rotationPoint;
+	}
+	if (weaponData[weaponType].contains("RotationPointEnd"))
+	{
+		rotationPointEnd.x = weaponData[weaponType]["RotationPointEnd"][0];
+		rotationPointEnd.y = weaponData[weaponType]["RotationPointEnd"][1];
+	}
+	else
+	{
+		rotationPointEnd = rotationPoint;
 	}
 	if (weaponData[weaponType].contains("SpawnPoint"))
 	{

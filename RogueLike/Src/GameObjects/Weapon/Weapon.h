@@ -10,7 +10,7 @@
 enum class WeaponType {
 	Axe = 0,
 	Sword,
-	Pickaxe,
+	Spear,
 	Bow,
 
 	Size
@@ -39,6 +39,8 @@ protected:
 	int weaponTier = 0;
 	float angle = 0.0f;
 	Vector2 rotationPoint = { 0.0f,0.0f };
+	Vector2 rotationPointStart = { 0.0f,0.0f };
+	Vector2 rotationPointEnd = { 0.0f,0.0f };
 	Vector2 spawnPoint = { 0.0f,0.0f };
 	WeaponStats stats;
 	TextureController texture;

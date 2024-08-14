@@ -46,10 +46,10 @@ Weapon* getWeapon(int variant, int tier, WeaponType wt)
 		return new Sword("Axe", variant, weaponData, tier);
 		break;
 	case WeaponType::Sword:
-		return new Sword("Arrow", variant, weaponData, tier);
+		return new Sword("Sword", variant, weaponData, tier);
 		break;
-	case WeaponType::Pickaxe:
-		return new Sword("Pickaxe", variant, weaponData, tier);
+	case WeaponType::Spear:
+		return new Sword("Spear", variant, weaponData, tier);
 		break;
 	case WeaponType::Bow:
 		return new Bow("Bow", variant, weaponData, tier);
