@@ -21,6 +21,10 @@ static void getJsonData(nlohmann::json& json,float* stat,float* statMul)
 		{
 			(*stat) = json["Value"];
 		}
+		else if (json.is_number())
+		{
+			(*stat) = json;
+		}
 	}
 	if (statMul)
 	{

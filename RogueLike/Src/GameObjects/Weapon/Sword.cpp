@@ -14,8 +14,20 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 	pos = { 0,0,32,32 };
 	std::vector<Vector2> col;
 	readFromWeaponData(weaponType, col, variant);
-	if (data.contains(weaponType) && data[weaponType].size() > variant && variant >= 0)
-		readStats(data[weaponType][variant], weaponTier);
+	int variantToRead = 0;
+	if (data.contains(weaponType))
+	{
+		if (!data[weaponType].is_array())
+			readStats(data[weaponType], weaponTier);
+		else
+		{
+			variantToRead = Clamp(variant, 0, data[weaponType].size() - 1);
+			if (data[weaponType].size() > variantToRead)
+				readStats(data[weaponType][variantToRead], weaponTier);
+		}
+
+	}
+
 	Collider::difSize = { pos.width,pos.height };
 	addCollisionElement(new CollisionElementLines(col));
 	Collider::getThisObj();

@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../Weapon/Sword.h"
 #include "../Weapon/Bow.h"
+#include <magic_enum/magic_enum.hpp>
 
 static nlohmann::json weaponData;
 static nlohmann::json weaponNodeData;
@@ -38,18 +39,21 @@ WeaponNodeItem* getWeaponNode(int tier)
 	return new WeaponNodeItem(weaponNodeData[tier][itemInTier]);
 }
 
+#define ENUM_TO_STRING(ENUM) #ENUM
+
 Weapon* getWeapon(int variant, int tier, WeaponType wt)
 {
+	auto enumWeapon = magic_enum::enum_name(wt);
+	const char* name = enumWeapon.data();
 	switch (wt)
 	{
 	case WeaponType::Axe:
-		return new Sword("Axe", variant, weaponData, tier);
-		break;
-	case WeaponType::Sword:
-		return new Sword("Sword", variant, weaponData, tier);
-		break;
+	case WeaponType::Hamer:
+	case WeaponType::Shuriken:
+	case WeaponType::Sicle:
 	case WeaponType::Spear:
-		return new Sword("Spear", variant, weaponData, tier);
+	case WeaponType::Sword:
+		return new Sword(name, variant, weaponData, tier);
 		break;
 	case WeaponType::Bow:
 		return new Bow("Bow", variant, weaponData, tier);

@@ -1,112 +1,63 @@
 {
-    "Axe": [
-        {
-            "Stats": {
+    "Axe": {
+        "Stats": {
 
-                "Damage": [
-                    {
-                        "Min": 10,
-                        "Max": 20
-                    }
-                ],
-                "UseTime": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ],
-                "ReloadTime": [
-                    {
-                        "Min": 0.2,
-                        "Max": 0.4
-                    }
-                ],
-                "Speed": [
-                    {
-                        "Min": 100,
-                        "Max": 200
-                    }
-                ],
-                "Range": [
-                    {
-                        "Min": 64,
-                        "Max": 64
-                    }
-                ]
+            "Damage": {
+                "Min": 10,
+                "Max": 20
+            },
+            "UseTime": {
+                "Min": 1,
+                "Max": 2
+            },
+            "ReloadTime": {
+                "Min": 1.2,
+                "Max": 2.4
+            },
+            "Speed": {
+                "Min": 100,
+                "Max": 200
+            },
+            "Range": {
+                "Min": 64,
+                "Max": 64
             }
+
         }
-    ],
-    "Sword": [
-        {
-            "Stats": {
-                "Damage": [
-                    {
-                        "Min": 10,
-                        "Max": 20
-                    }
-                ],
-                "UseTime": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ],
-                "ReloadTime": [
-                    {
-                        "Min": 0.1,
-                        "Max": 0.2
-                    }
-                ],
-                "Speed": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ],
-                "Range": [
-                    {
-                        "Min": 64,
-                        "Max": 64
-                    }
-                ]
-            }
+    },
+    "Sword": {
+        "Stats": {
+            "Damage": [
+                {
+                    "Min": 10,
+                    "Max": 20
+                }
+            ],
+            "UseTime": [
+                {
+                    "Min": 1,
+                    "Max": 2
+                }
+            ],
+            "ReloadTime": [
+                {
+                    "Min": 0.1,
+                    "Max": 0.2
+                }
+            ],
+            "Speed": [
+                {
+                    "Min": 1,
+                    "Max": 2
+                }
+            ],
+            "Range": [
+                {
+                    "Min": 64,
+                    "Max": 64
+                }
+            ]
         }
-    ],
-    "Pickaxe": [
-        {
-            "Stats": {
-                "Damage": [
-                    {
-                        "Min": 10,
-                        "Max": 20
-                    }
-                ],
-                "UseTime": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ],
-                "ReloadTime": [
-                    {
-                        "Min": 0.5,
-                        "Max": 0.8
-                    }
-                ],
-                "Speed": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ],
-                "Range": [
-                    {
-                        "Min": 64,
-                        "Max": 64
-                    }
-                ]
-            }
-        }
-    ]
+    }
 
 }

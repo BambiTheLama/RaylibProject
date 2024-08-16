@@ -9,11 +9,16 @@
 
 enum class WeaponType {
 	Axe = 0,
-	Sword,
-	Spear,
+	Book,
 	Bow,
-
-	Size
+	Dager,
+	Hamer,
+	Shuriken,
+	Sicle,
+	Spear,
+	Sword,
+	Staf,
+	Wand,
 };
 
 WeaponType getRandomWeaponType();

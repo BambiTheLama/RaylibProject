@@ -1,29 +1,38 @@
 {
     "Axe": {
         "Col": [
-            [ 0, 31 ],
-            [ 16, 13 ],
-            [ 13, 9 ],
-            [ 18, 4 ],
-            [ 31, 12 ],
-            [ 22, 22 ],
-            [ 18, 15 ]
+            [ 22, 9 ],
+            [ 23, 1 ],
+            [ 13, 0 ],
+            [ 6, 7 ],
+            [ 7, 17 ],
+            [ 15, 13 ],
+            [ 18, 16 ],
+            [ 14, 24 ],
+            [ 24, 25 ],
+            [ 31, 18 ],
+            [ 30, 8 ]
         ],
         "Size": [ 32, 32 ],
         "SpawnPoint": [ 16, 16 ],
+        "RotationPoint": [ 8, 8 ],
+        "RotationPointEnd": [ -4, -4 ],
         "FlipHorizontal": true,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
         ],
         "Textures": [
-            "Weapons/WoodAxe.png",
-            "Weapons/StoneAxe.png"
+            "Weapons/RustyAxe.png",
+            "Weapons/Axe.png"
         ],
 
         "Stats": {
             "Knockback": 25,
-            "Angle": 240,
+            "Angle": [
+                240,
+                360
+            ],
             "CountOfUse": 3,
             "Bounce": 0,
             "Pirce": 0

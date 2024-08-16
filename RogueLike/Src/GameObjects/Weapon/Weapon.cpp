@@ -4,13 +4,14 @@
 #include "../Items/Inventory.h"
 #include "math.h"
 #include "raymath.h"
+#include <magic_enum/magic_enum.hpp>
 
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
 
 WeaponType getRandomWeaponType()
 {
-	return (WeaponType)(rand() % (int)WeaponType::Size);
+	return (WeaponType)(rand() % (int)magic_enum::enum_count<WeaponType>());
 }
 
 static int getNumberOfRows(int allSlots, int slotsInRow)
