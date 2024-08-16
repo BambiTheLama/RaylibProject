@@ -211,6 +211,7 @@ void Sword::draw()
 	}
 
 	draw(pos, WHITE);
+	drawWeaponPoints();
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)

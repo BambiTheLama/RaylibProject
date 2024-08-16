@@ -14,7 +14,7 @@
             [ 30, 8 ]
         ],
         "Size": [ 32, 32 ],
-        "SpawnPoint": [ 16, 16 ],
+        "SpawnPoint": [ 20, 20 ],
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -4, -4 ],
         "FlipHorizontal": true,
