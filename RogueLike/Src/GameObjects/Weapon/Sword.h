@@ -21,6 +21,8 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool used = false;
 	bool left = false;
 	bool flipHorizontal = false;
+	bool flipHorizontalFromFile = false;
+	bool flipVertical = false;
 public:
 #pragma region Constructor
 	Sword(std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(), int weaponTier = 0);

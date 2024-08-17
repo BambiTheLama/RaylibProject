@@ -33,11 +33,258 @@
                 240,
                 360
             ],
-            "CountOfUse": 3,
+            "CountOfUse": 1,
             "Bounce": 0,
             "Pirce": 0
         }
 
+    },
+    "Bow": {
+        "Size": [ 64, 64 ],
+        "FlipHorizontal": false,
+        "RotationPoint": [ 32, 32 ],
+        "SpawnPoint": [ 4, 4 ],
+        "AngleDiff": 90,
+        "Textures": [
+            "Weapons/Bow.png"
+        ],
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "Stats": {
+            "Knockback": 10,
+            "Angle": 5,
+            "CountOfUse": 1,
+            "ReloadTime": 0,
+            "UseTime": 1,
+            "Bounce": 0,
+            "Pirce": 5,
+            "Speed": 1000,
+            "Damage": 1,
+            "Range": 1000
+        }
+
+    },
+    "Dager": {
+        "Col": [
+            [ 24, 7 ],
+            [ 24, 9 ],
+            [ 13, 20 ],
+            [ 11, 18 ],
+            [ 22, 7 ]
+        ],
+        "Size": [ 32, 32 ],
+        "FlipHorizontal": true,
+        "RotationPoint": [ 8, 8 ],
+        "RotationPointEnd": [ -16, -16 ],
+        "SpawnPoint": [ 30, 30 ],
+        "Textures": [
+            "Weapons/RustyDager.png",
+            "Weapons/Dager.png"
+        ],
+        "Slots": [
+            [ 3, 5 ],
+            [ 2, 3 ]
+        ],
+        "Stats": {
+            "Knockback": 10,
+            "Angle": 10,
+            "CountOfUse": 1,
+            "ReloadTime": 0,
+            "UseTime": 1,
+            "Range": 100,
+            "Damage": 1
+        }
+    },
+    "DagerSai": {
+        "Col": [
+            [ 25, 6 ],
+            [ 24, 15 ],
+            [ 17, 22 ],
+            [ 11, 20 ],
+            [ 9, 14 ],
+            [ 18, 7 ]
+        ],
+        "Size": [ 32, 32 ],
+        "FlipHorizontal": true,
+        "RotationPoint": [ 8, 8 ],
+        "RotationPointEnd": [ -4, -4 ],
+        "SpawnPoint": [ 30, 30 ],
+        "Textures": [
+            "Weapons/RustyDagerSai.png",
+            "Weapons/DagerSai.png"
+        ],
+        "Slots": [
+            [ 3, 5 ],
+            [ 2, 3 ]
+        ],
+        "Stats": {
+            "Knockback": 10,
+            "Angle": 10,
+            "CountOfUse": 1,
+            "ReloadTime": 0,
+            "UseTime": 1,
+            "Range": 100,
+            "Damage": 1
+        }
+    },
+    "Hamer": {
+        "Col": [
+            [ 19, 0 ],
+            [ 31, 12 ],
+            [ 31, 14 ],
+            [ 26, 19 ],
+            [ 24, 19 ],
+            [ 12, 7 ],
+            [ 12, 5 ],
+            [ 17, 0 ]
+
+        ],
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 20, 20 ],
+        "RotationPoint": [ 4, 4 ],
+        "RotationPointEnd": [ -4, -4 ],
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "Textures": [
+            "Weapons/RustyHamer.png",
+            "Weapons/Hamer.png"
+
+        ],
+
+        "Stats": {
+            "Knockback": 10,
+            "Angle": 180,
+            "CountOfUse": 1,
+            "UseTime": 1,
+            "Bounce": 0,
+            "Pirce": 0
+        }
+    },
+    "Shuriken": {
+        "Col": [
+            [ 2, 2 ],
+            [ 5, 2 ],
+            [ 15, 8 ],
+            [ 16, 8 ],
+            [ 26, 2 ],
+            [ 29, 2 ],
+            [ 29, 5 ],
+            [ 23, 15 ],
+            [ 23, 16 ],
+            [ 29, 26 ],
+            [ 29, 29 ],
+            [ 26, 29 ],
+            [ 16, 23 ],
+            [ 15, 23 ],
+            [ 5, 29 ],
+            [ 2, 29 ],
+            [ 2, 26 ],
+            [ 8, 16 ],
+            [ 8, 15 ],
+            [ 2, 5 ]
+        ],
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 20, 20 ],
+        "RotationPoint": [ 12, 12 ],
+        "RotationPointEnd": [ 0, 0 ],
+        "SpawnID": 1,
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "Textures": [
+            "Weapons/Shuriken.png"
+        ],
+
+        "Stats": {
+            "Range": 100,
+            "Knockback": 10,
+            "Angle": 180,
+            "CountOfUse": 1,
+            "UseTime": 1,
+            "Bounce": 0,
+            "Pirce": 0
+        }
+    },
+    "Sicle": {
+        "Col": [
+            [ 8, 7 ],
+            [ 14, 2 ],
+            [ 19, 2 ],
+            [ 29, 14 ],
+            [ 29, 15 ],
+            [ 25, 24 ],
+            [ 16, 26 ],
+            [ 15, 26 ],
+            [ 6, 23 ],
+            [ 9, 20 ],
+            [ 15, 24 ],
+            [ 16, 24 ],
+            [ 22, 21 ],
+            [ 25, 14 ],
+            [ 17, 6 ],
+            [ 12, 5 ]
+        ],
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 20, 20 ],
+        "RotationPoint": [ 0, 0 ],
+        "RotationPointEnd": [ 0, 0 ],
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "FlipVertical": true,
+        "Textures": [
+            "Weapons/Sicle.png"
+        ],
+
+        "Stats": {
+            "Knockback": 10,
+            "Angle": 180,
+            "CountOfUse": 1,
+            "UseTime": 1,
+            "Bounce": 0,
+            "Pirce": 0
+        }
+    },
+    "Spear": {
+        "Col": [
+            [ 31, 0 ],
+            [ 20, 6 ],
+            [ 24, 6 ],
+            [ 25, 11 ]
+        ],
+        "Size": [ 32, 32 ],
+        "FlipHorizontal": true,
+        "RotationPoint": [ 16, 16 ],
+        "RotationPointEnd": [ -32, -32 ],
+        "SpawnPoint": [ 30, 30 ],
+        "Textures": [
+            "Weapons/Spear.png"
+
+        ],
+        "Slots": [
+            [ 3, 5 ],
+            [ 2, 3 ]
+        ],
+        "Stats": {
+            "Knockback": 10,
+            "Angle": 50,
+            "CountOfUse": 1,
+            "ReloadTime": 0,
+            "UseTime": 1,
+            "Bounce": 0,
+            "Pirce": 5,
+            "Range": 100,
+            "Damage": 1
+        }
     },
     "Sword": {
         "Col": [
@@ -73,65 +320,6 @@
             "CountOfUse": 1,
             "Bounce": 0,
             "Pirce": 0
-        }
-    },
-    "Bow": {
-        "Size": [ 64, 64 ],
-        "FlipHorizontal": false,
-        "RotationPoint": [ 32, 32 ],
-        "SpawnPoint": [ 4, 4 ],
-        "AngleDiff": 90,
-        "Textures": [
-            "Weapons/Bow.png"
-        ],
-        "Slots": [
-            [ 1, 2 ],
-            [ 2, 3 ]
-        ],
-        "Stats": {
-            "Knockback": 10,
-            "Angle": 5,
-            "CountOfUse": 1,
-            "ReloadTime": 0,
-            "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 5,
-            "Speed": 1000,
-            "Damage": 1,
-            "Range": 1000
-        }
-
-    },
-    "Spear": {
-        "Col": [
-            [ 31, 0 ],
-            [ 20, 6 ],
-            [ 24, 6 ],
-            [ 25, 11 ]
-        ],
-        "Size": [ 32, 32 ],
-        "FlipHorizontal": true,
-        "RotationPoint": [ 16, 16 ],
-        "RotationPointEnd": [ -4, -4 ],
-        "SpawnPoint": [ 30, 30 ],
-        "Textures": [
-            "Weapons/Spear.png"
-
-        ],
-        "Slots": [
-            [ 3, 5 ],
-            [ 2, 3 ]
-        ],
-        "Stats": {
-            "Knockback": 10,
-            "Angle": 50,
-            "CountOfUse": 1,
-            "ReloadTime": 0,
-            "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 5,
-            "Range": 100,
-            "Damage": 1
         }
     }
 }

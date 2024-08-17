@@ -48,6 +48,8 @@ Weapon* getWeapon(int variant, int tier, WeaponType wt)
 	switch (wt)
 	{
 	case WeaponType::Axe:
+	case WeaponType::Dager:
+	case WeaponType::DagerSai:
 	case WeaponType::Hamer:
 	case WeaponType::Shuriken:
 	case WeaponType::Sicle:

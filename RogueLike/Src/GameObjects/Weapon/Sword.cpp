@@ -177,13 +177,15 @@ void Sword::draw(Rectangle pos, Color c)
 	Vector2 rotationPoint = this->rotationPoint;
 	float angle = this->angle;
 
-	if (Collider::mirror)
+	bool mirror = Collider::mirror != flipHorizontal;
+
+	if (mirror)
 	{
 		rotationPoint.x = pos.width - rotationPoint.x;
 		angle -= 90;
 	}
 
-	texture.draw(pos, Collider::mirror, flipHorizontal, 0, rotationPoint, angle, c);
+	texture.draw(pos, mirror, flipHorizontal, 0, rotationPoint, angle, c);
 
 
 }
@@ -244,7 +246,7 @@ void Sword::setOwner(GameObject* owner)
 		angle = 0.0f;
 	}
 	trigger = owner;
-	flipHorizontal = owner;
+	flipHorizontal = (bool)(owner) == flipHorizontalFromFile;
 	flipHorizontalElements(flipHorizontal);
 }
 
@@ -293,7 +295,9 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 		pos.height = weaponData[weaponType]["Size"][1];
 	}
 	if (weaponData[weaponType].contains("FlipHorizontal"))
-		flipHorizontal = weaponData[weaponType]["FlipHorizontal"];
+		flipHorizontalFromFile = weaponData[weaponType]["FlipHorizontal"];
+	if (weaponData[weaponType].contains("FlipVertical"))
+		flipVertical = weaponData[weaponType]["FlipVertical"];
 	if (weaponData[weaponType].contains("Col"))
 	{
 		for (int i = 0; i < weaponData[weaponType]["Col"].size(); i++)
@@ -303,4 +307,10 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 			col.push_back({ (float)x,(float)y });
 		}
 	}
+	if (weaponData[weaponType].contains("SpawnID"))
+	{
+		setIsSpawn(true);
+		setSpawnID(weaponData[weaponType]["SpawnID"]);
+	}
+
 }

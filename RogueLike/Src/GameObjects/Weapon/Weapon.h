@@ -12,6 +12,7 @@ enum class WeaponType {
 	Book,
 	Bow,
 	Dager,
+	DagerSai,
 	Hamer,
 	Shuriken,
 	Sicle,
