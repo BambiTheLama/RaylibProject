@@ -89,7 +89,7 @@
         ],
         "Stats": {
             "Knockback": 10,
-            "Angle": 10,
+            "Angle": 300,
             "CountOfUse": 1,
             "ReloadTime": 0,
             "UseTime": 1,
@@ -109,7 +109,7 @@
         "Size": [ 32, 32 ],
         "FlipHorizontal": true,
         "RotationPoint": [ 8, 8 ],
-        "RotationPointEnd": [ -4, -4 ],
+        "RotationPointEnd": [ -10, -10 ],
         "SpawnPoint": [ 30, 30 ],
         "Textures": [
             "Weapons/RustyDagerSai.png",
@@ -121,7 +121,7 @@
         ],
         "Stats": {
             "Knockback": 10,
-            "Angle": 10,
+            "Angle": 0,
             "CountOfUse": 1,
             "ReloadTime": 0,
             "UseTime": 1,
@@ -258,13 +258,14 @@
         "Col": [
             [ 31, 0 ],
             [ 20, 6 ],
-            [ 24, 6 ],
+            [ 0, 31 ],
             [ 25, 11 ]
+
         ],
         "Size": [ 32, 32 ],
         "FlipHorizontal": true,
         "RotationPoint": [ 16, 16 ],
-        "RotationPointEnd": [ -32, -32 ],
+        "RotationPointEnd": [ -64, -64 ],
         "SpawnPoint": [ 30, 30 ],
         "Textures": [
             "Weapons/Spear.png"
@@ -276,7 +277,7 @@
         ],
         "Stats": {
             "Knockback": 10,
-            "Angle": 50,
+            "Angle": 90,
             "CountOfUse": 1,
             "ReloadTime": 0,
             "UseTime": 1,
@@ -302,7 +303,7 @@
         "Size": [ 32, 32 ],
         "SpawnPoint": [ 16, 16 ],
         "RotationPoint": [ 4, 4 ],
-        "RotationPointEnd": [ -4, -4 ],
+        "RotationPointEnd": [ -10, -10 ],
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -316,7 +317,7 @@
 
         "Stats": {
             "Knockback": 10,
-            "Angle": 180,
+            "Angle": 300,
             "CountOfUse": 1,
             "Bounce": 0,
             "Pirce": 0
