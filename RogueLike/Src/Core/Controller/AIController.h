@@ -16,7 +16,7 @@ public:
     std::list<Vector3> toGoDir;
     Vector3 toGoDirNow = { 0,0,0 };
     int targerType = 0;
-    int range = 0;
+    float range = 0;
     int action = 0;
     Vector2 lastMoveDir = { 0.0f,0.0f };
     float findPathTimer = 0.1f;

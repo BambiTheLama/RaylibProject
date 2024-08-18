@@ -1,6 +1,7 @@
 #pragma once
 #include "../Weapon/WeaponNodeTrigger.h"
 #include "raylib.hpp"
+#include "ProjectalID.h"
 
 class GameObject;
 class Projectal

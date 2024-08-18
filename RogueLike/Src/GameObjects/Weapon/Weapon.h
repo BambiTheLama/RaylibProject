@@ -6,6 +6,7 @@
 #include <string>
 #include "../Items/WeaponNodeItem.h"
 #include "../../Core/Controller/ShaderController.h"
+#include "../Projectal/ProjectalID.h"
 
 enum class WeaponType {
 	Axe = 0,
@@ -38,7 +39,8 @@ class Weapon
 	std::vector<WeaponNodeItem*> weaponSlots;
 	int cursorAt = -1;
 	bool spawn = false;
-	int spawnID = 0;
+	std::string spawnName = "";
+	ProjectalID spawnID = ProjectalID::Arrow;
 protected:
 	static nlohmann::json weaponData;
 	bool mirror = false;
@@ -132,7 +134,7 @@ protected:
 
 	void setIsSpawn(bool spawn) { this->spawn = spawn; updateWeaponNodesEfects(); }
 
-	void setSpawnID(int spawnID) { this->spawnID = spawnID; updateWeaponNodesEfects(); }
+	void setSpawnID(ProjectalID spawnID) { this->spawnID = spawnID; updateWeaponNodesEfects(); }
 #pragma endregion RedFromFile
 };
 

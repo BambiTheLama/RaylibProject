@@ -51,7 +51,7 @@ static void getJsonData(nlohmann::json& json,int tier, float* stat, float* statM
 	}
 	if (json.size() <= 0)
 		return;
-	int tiers = Clamp(tier, 0, json.size() - 1);
+	int tiers = (int)Clamp(tier, 0, json.size() - 1.0f);
 	
 	getJsonData(json[tiers], stat, statMul);
 }

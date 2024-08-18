@@ -4,7 +4,7 @@
 #include "../Projectal/ProjectalFactory.h"
 #include <raymath.hpp>
 #include "Weapon.h"
-
+#include <magic_enum/magic_enum.hpp>
 bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObject* weapon,WeaponStats weaponStats, Vector2 spawnOffset)
 {
 	if (nodes.size() <= 0)
@@ -17,7 +17,7 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 	WeaponStats stats = n.getStats();
 	for (int i = 0; i < stats.countOfUse; i++)
 	{
-		Projectal* projectal = ProjectalFactory::getProjectal(n.getSpawnID());
+		Projectal* projectal = getProjectal(n.getSpawnID());
 		if (!projectal)
 			return false;
 		projectal->setOwner(owner);

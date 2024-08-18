@@ -1,11 +1,9 @@
 #pragma once
 #include "Projectal.h"
 
-class ProjectalFactory
-{
 
-public:
+Projectal* getProjectal(std::string projectalName, Vector2 dir = { 0,0 });
 
-	static Projectal* getProjectal(int ID, Vector2 dir = { 0,0 });
-};
+Projectal* getProjectal(ProjectalID projectalID, Vector2 dir = { 0,0 });
+
 

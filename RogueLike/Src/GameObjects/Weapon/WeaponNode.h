@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "WeaponStats.h"
+#include "../Projectal/ProjectalID.h"
 
 enum class WeaponNodeType :char
 {
@@ -21,7 +22,7 @@ std::string to_string(WeaponNodeActivation wna);
 
 class WeaponNode
 {
-	int spawnID = -1;
+	ProjectalID spawnID = ProjectalID::Arrow;
 	WeaponNodeType type = WeaponNodeType::Stat;
 	WeaponNodeActivation activateTrigger = WeaponNodeActivation::NON;
 	WeaponStats stats;
@@ -31,7 +32,7 @@ public:
 
 	WeaponNode(WeaponStats stats);
 
-	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID);
+	WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, ProjectalID spawnID);
 
 	WeaponNode(nlohmann::json j);
 #pragma endregion Constructor
@@ -43,7 +44,7 @@ public:
 
 	WeaponNodeActivation getActivationTrigger() { return activateTrigger; }
 
-	int getSpawnID() { return spawnID; }
+	ProjectalID getSpawnID() { return spawnID; }
 
 	WeaponStats getStats() { return stats; }
 #pragma endregion Getters

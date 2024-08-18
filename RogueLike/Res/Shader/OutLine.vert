@@ -21,6 +21,8 @@ void main()
     fragColor = vec4(1.0f);
 
     // Calculate final vertex position
-    gl_Position = mvp*vec4(vertexPosition, 1.0);
+    vec3 pos = vertexPosition;
+
+    gl_Position = mvp*vec4(pos, 1.0);
 
 }

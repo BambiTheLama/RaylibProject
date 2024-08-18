@@ -30,6 +30,7 @@ void TextureController::draw(Rectangle pos,bool flipVertical,bool flipHorizontal
 		sourse.height = -sourse.height;
 	if (flipVertical)
 		sourse.width = -sourse.width;
+	
 	DrawTexturePro(texture, sourse, pos, rotationPoint, angle, color);
 }
 

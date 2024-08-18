@@ -1,5 +1,5 @@
 #include "WeaponNode.h"
-
+#include <magic_enum/magic_enum.hpp>
 std::string to_string(WeaponNodeActivation wna)
 {
 	switch (wna)
@@ -51,7 +51,7 @@ WeaponNode::WeaponNode(WeaponStats stats)
 	this->activateTrigger = WeaponNodeActivation::NON;
 	this->stats = stats;
 	this->type = WeaponNodeType::Stat;
-	this->spawnID = -1;
+	this->spawnID = ProjectalID::Arrow;
 }
 
 WeaponNode::WeaponNode(nlohmann::json j)
@@ -67,7 +67,7 @@ WeaponNode::WeaponNode(nlohmann::json j)
 		stats.readStatsFromWeapon(j, tier);
 }
 
-WeaponNode::WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, int spawnID)
+WeaponNode::WeaponNode(WeaponStats stats, WeaponNodeActivation activateTrigger, ProjectalID spawnID)
 {
 	this->activateTrigger = activateTrigger;
 	this->stats = stats;
@@ -109,7 +109,9 @@ void WeaponNode::drawNodeDescription(Rectangle pos, float textSize, bool flexBox
 		break;
 	case WeaponNodeType::Spawn:
 	{
-		std::string str = "     {Spawn}: " + std::to_string(spawnID) + "\n";
+		auto enumWeapon = magic_enum::enum_name(spawnID);
+		const char* name = enumWeapon.data();
+		std::string str = "     {Spawn}: {" + std::string(name) + "}\n";
 		str += "     {Activaction}: {" + to_string(activateTrigger) + "}\n";
 		stats.draw(pos, textSize, flexBox, true, str, false, false, true);
 	}

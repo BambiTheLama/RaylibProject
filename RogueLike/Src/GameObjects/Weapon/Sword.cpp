@@ -21,7 +21,7 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 			readStats(data[weaponType], weaponTier);
 		else
 		{
-			variantToRead = Clamp(variant, 0, data[weaponType].size() - 1);
+			variantToRead = Clamp(variant, 0, data[weaponType].size() - 1.0f);
 			if (data[weaponType].size() > variantToRead)
 				readStats(data[weaponType][variantToRead], weaponTier);
 		}
@@ -206,9 +206,9 @@ void Sword::draw()
 	if (points.size() > 0)
 	{
 		rlEnableBackfaceCulling();
-		char colorA = 128 * (-powf(2 * useTime / useTimeMax - 1, 2) + 1);
+		unsigned char colorA = (unsigned char)(128 * (-powf(2 * useTime / useTimeMax - 1, 2) + 1));
 		printf("%d\n", colorA);
-		DrawTriangleStrip(points.data(), points.size(), GetColor(0xffffff00 + colorA));
+		DrawTriangleStrip(points.data(), (int)points.size(), GetColor(0xffffff00 + colorA));
 		rlDisableBackfaceCulling();
 	}
 

@@ -59,7 +59,7 @@ void Bow::draw(Rectangle pos)
 {
 	Vector2 rotationPoint = this->rotationPoint;
 	float angle = this->angle;
-	int frame = loadTime / stats.useTime * (texture.getFrames() - 1);
+	int frame = (int)(loadTime / stats.useTime * (texture.getFrames() - 1));
 	texture.draw(pos, false, false, frame, rotationPoint, angle + angleDiff);
 }
 

@@ -300,7 +300,13 @@ void Weapon::drawWeaponNodeStats(Rectangle pos,float textSize,bool flexBox)
 	}
 	else
 	{
-		stats.draw(pos, textSize, flexBox, true, "     Weapon\n");
+		std::string text = "     {Weapon}\n";
+		if (spawn)
+		{
+			text += "     {Spawn}: {" + std::string(magic_enum::enum_name(spawnID).data()) + "}\n";
+		}
+
+		stats.draw(pos, textSize, flexBox, true, text);
 	}
 
 }

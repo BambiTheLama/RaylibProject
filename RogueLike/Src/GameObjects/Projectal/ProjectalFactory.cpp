@@ -1,19 +1,26 @@
 #include "ProjectalFactory.h"
 #include "StandardProjectal.h"
 #include "Explosion.h"
+#include "magic_enum/magic_enum.hpp"
 
-Projectal* ProjectalFactory::getProjectal(int ID,Vector2 dir)
+Projectal* getProjectal(std::string projectalName, Vector2 dir)
 {
-	if (ID < 0)
-		return NULL;
-	switch (ID)
+	
+	auto enumCast = magic_enum::enum_cast<ProjectalID>(projectalName);
+	if (enumCast.has_value())
+		return getProjectal(enumCast.value(), dir);
+	return nullptr;
+}
+
+Projectal* getProjectal(ProjectalID projectalID,Vector2 dir)
+{
+	switch (projectalID)
 	{
-	case 0:
+	case ProjectalID::Arrow:
+	case ProjectalID::Shuriken:
+	case ProjectalID::Bomb:
 		return new StandardProjectal();
-	case 1:
-		return new StandardProjectal();
-	case 2:
-		return new Explosion();
+		break;
 	default:
 		break;
 	}

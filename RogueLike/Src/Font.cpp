@@ -14,7 +14,7 @@ namespace MyFont
 
 	void SetUpFont()
 	{
-		outline = ShaderController("OutLine.frag");
+		outline = ShaderController("OutLine.vert","OutLine.frag");
 		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
 		SetTextureFilter(diffFont.texture, TEXTURE_FILTER_BILINEAR);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
