@@ -20,7 +20,7 @@ StandardProjectal::StandardProjectal(nlohmann::json data, std::string type)
 void StandardProjectal::start()
 {
 	triggerNode(WeaponNodeActivation::OnUse, stats);
-	angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * RAD2DEG;
+	angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir) ) * RAD2DEG + rotationDiff;
 	drawOrder = 10;
 	trigger = true;
 }
@@ -39,6 +39,7 @@ void StandardProjectal::update(float deltaTime)
 	if (range <= 0.0f)
 		Game::deleteObject(this);
 
+	//angle += deltaTime * 100.0f;
 }
 
 void StandardProjectal::draw()
@@ -143,5 +144,16 @@ void StandardProjectal::readData(nlohmann::json data, std::string type)
 
 		addCollisionElement(new CollisionElementCircle({ pos.width / 2.0f,pos.height / 2.0f }, range));
 	}
+	if (data[type].contains("ScaleSize"))
+	{
+		float scale = data[type]["ScaleSize"];
+		scaleColliderElements(scale);
+		rotationPoint = Vector2Scale(rotationPoint, scale);
+		pos.width *= scale;
+		pos.height *= scale;
+	}	
+	if (data[type].contains("RotationDiff"))
+		rotationDiff = data[type]["RotationDiff"];
+
 
 }

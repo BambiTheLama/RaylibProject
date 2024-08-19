@@ -43,8 +43,8 @@
         "Size": [ 64, 64 ],
         "FlipHorizontal": false,
         "RotationPoint": [ 32, 32 ],
-        "SpawnPoint": [ 4, 4 ],
-        "Spawn": "Bomb",
+        "SpawnPoint": [ 40, 40 ],
+        "Spawn": "Arrow",
         "AngleDiff": 90,
         "Textures": [
             "Weapons/Bow.png"
@@ -55,8 +55,8 @@
         ],
         "Stats": {
             "Knockback": 10,
-            "Angle": 5,
-            "CountOfUse": 1,
+            "Angle": 10,
+            "CountOfUse": 10,
             "ReloadTime": 0,
             "UseTime": 1,
             "Bounce": 0,

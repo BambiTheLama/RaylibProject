@@ -1,7 +1,18 @@
 {
     "Arrow": {
-        "Texture": "Projectal/Arrow.png"
-
+        "Texture": "Projectal/Arrow.png",
+        "Size": [ 32, 32 ],
+        "RotationPoint": [ 16, 16 ],
+        "ScaleSize": 2.0,
+        "Col": [
+            [ 27, 4 ],
+            [ 20, 7 ],
+            [ 20, 10 ],
+            [ 7, 24 ],
+            [ 21, 11 ],
+            [ 24, 11 ]
+        ],
+        "RotationDiff": 90
     },
     "Shuriken": {
         "Texture": "Weapons/Shuriken.png",
@@ -28,7 +39,8 @@
             [ 2, 5 ]
         ],
         "Size": [ 32, 32 ],
-        "RotationPoint": [ 12, 12 ]
+        "RotationPoint": [ 12, 12 ],
+        "ScaleSize": 1
     }
 
 }

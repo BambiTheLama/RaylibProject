@@ -32,7 +32,7 @@ public:
 
 	Vector2 getRotationPoint() { return rotationPoint; }
 
-	void setPos(Vector2 p)override { pos.x = p.x - pos.width / 2; pos.y = p.y - pos.height / 2; }
+	void setPos(Vector2 p)override { pos.x = p.x - rotationPoint.x; pos.y = p.y-rotationPoint.y; }
 
 private:
 	virtual void updateStatsAfterSetStats();

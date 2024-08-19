@@ -11,6 +11,7 @@ class Projectal
 	GameObject *thisObj = nullptr;
 protected:
 	Vector2 dir = { 1.0f,0.0f };
+	float rotationDiff = 0.0f;
 	GameObject* owner;
 	WeaponStats stats;
 public:
