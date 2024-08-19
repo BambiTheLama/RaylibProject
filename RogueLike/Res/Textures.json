@@ -1,4 +1,5 @@
 {
     "Weapons/Bow.png": [ 13, 1 ],
-    "Weapons/WoodBow.png": [ 12, 1 ]
+    "Weapons/WoodBow.png": [ 12, 1 ],
+    "Projectal/Bomb.png": [19,1]
 }

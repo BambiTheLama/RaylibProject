@@ -108,6 +108,4 @@ void Bow::readFromWeaponData(std::string weaponType, int variant)
 	}
 	if (weaponData[weaponType].contains("AngleDiff"))
 		angleDiff = weaponData[weaponType]["AngleDiff"];
-	if (weaponData[weaponType].contains("SpawnID"))
-		setSpawnID(weaponData[weaponType]["SpawnID"]);
 }

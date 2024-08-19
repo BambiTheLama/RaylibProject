@@ -3,6 +3,7 @@
 #include "Core/Controller/TextureController.h"
 #include "raymath.hpp"
 #include "Core/Controller/ShaderController.h"
+#include <fstream>
 
 static ShaderController outline;
 
@@ -172,6 +173,16 @@ Rectangle getRectangleFromVectors(Vector2 start, Vector2 dir,float range)
 		rec.height = -rec.height;
 	}
 	return Game::convertFromWorldToScrean(rec);
+}
+
+nlohmann::json readJson(std::string path)
+{
+	std::ifstream reader(path);
+	nlohmann::json j;
+	if (!reader.is_open())
+		return j;
+	reader >> j;
+	return j;
 }
 
 void DrawSegmentLine(Vector2 start, Vector2 dir,float lineSize, float frame, float range, int segments, Color color)

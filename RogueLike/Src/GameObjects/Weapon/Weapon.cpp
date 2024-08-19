@@ -240,7 +240,7 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 	if (thisObj)
 	{
 		Rectangle pos = thisObj->getPos();
-		offset = { -pos.width / 2.0f,-pos.height / 2.0f };
+		offset = { 0 ,0  };
 	}
 
 	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, Vector2Add(offset, getSpawnPoint()));
@@ -483,6 +483,20 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 	{
 		spawnPoint.x = weaponData[weaponType]["SpawnPoint"][0];
 		spawnPoint.y = weaponData[weaponType]["SpawnPoint"][1];
+	}
+
+	if (weaponData[weaponType].contains("Spawn"))
+	{
+		if (weaponData[weaponType]["Spawn"].is_number())
+			spawnID = weaponData[weaponType]["Spawn"];
+		else if (weaponData[weaponType]["Spawn"].is_string())
+		{
+			std::string projectalname = weaponData[weaponType]["Spawn"];
+			auto enumValue = magic_enum::enum_cast<ProjectalID>(projectalname);
+			if (enumValue.has_value())
+				spawnID = enumValue.value();
+		}
+		spawn = true;
 	}
 
 	stats.readStatsFromWeapon(weaponData[weaponType], variant);

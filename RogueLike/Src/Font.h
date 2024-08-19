@@ -2,6 +2,7 @@
 #include "raylib.hpp"
 #include <vector>
 #include <string>
+#include <json.hpp>
 
 namespace MyFont {
 #define OutlineSpacing 2
@@ -19,6 +20,8 @@ namespace MyFont {
 
 	float getFontSize();
 }
+
+nlohmann::json readJson(std::string path);
 
 void DrawSegmentLine(Vector2 start, Vector2 dir, float lineSize, float frame, float range, int segments, Color color);
 

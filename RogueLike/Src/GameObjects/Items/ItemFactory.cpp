@@ -9,16 +9,6 @@ static nlohmann::json weaponData;
 static nlohmann::json weaponNodeData;
 static nlohmann::json itemData;
 
-nlohmann::json readJson(std::string path)
-{
-	std::ifstream reader(path);
-	nlohmann::json j;
-	if (!reader.is_open())
-		return j;
-	reader >> j;
-	return j;
-}
-
 void setUpItemFactory(std::string path)
 {
 	weaponData = readJson(path + "WeaponData.json");

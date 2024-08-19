@@ -18,6 +18,11 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	float lastAngle = 0.0f;
 	const float angleDiffMax = 5.0f;
 	int numberOfUse = 0;
+	bool hasDefineNumberOfUse = false;
+	int numberOfUseMax = 1;
+	float rangeScale = 1.0f;
+	float rotationAgnel = 1.0f;
+	bool hasOwnRotationAngle = false;
 	bool used = false;
 	bool left = false;
 	bool flipHorizontal = false;

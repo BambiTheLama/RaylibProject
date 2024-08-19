@@ -50,6 +50,8 @@ public:
 	void stopUse(Vector2 dir, float deltaTime);
 	
 	void draw();
+
+	void drawItem();
 #pragma region Getters
 	Item* getCurrentItemToDrop();
 

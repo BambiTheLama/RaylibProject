@@ -47,6 +47,7 @@ void Sword::start()
 {
 	Weapon::start();
 	Item::start();
+
 }
 
 void Sword::update(float deltaTime)
@@ -62,9 +63,9 @@ void Sword::update(float deltaTime)
 	{
 
 		if (left)
-			angle += deltaTime / useTimeMax * stats.angle;
+			angle += deltaTime / useTimeMax * rotationAgnel;
 		else
-			angle -= deltaTime / useTimeMax * stats.angle;
+			angle -= deltaTime / useTimeMax * rotationAgnel;
 		if (!used && useTime < useTimeMax / 2)
 		{
 			triggerNode(WeaponNodeActivation::OnUse, stats);
@@ -116,11 +117,13 @@ void Sword::update(float deltaTime, Vector2 dir)
 	
 	if (useTime <= 0 && reloadTime <= 0)
 	{
+		if (!hasOwnRotationAngle)
+			rotationAgnel = stats.angle;
 		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 		if (!left)
-			angle -= stats.angle / 2;
+			angle -= rotationAgnel / 2;
 		else
-			angle += stats.angle / 2;
+			angle += rotationAgnel / 2;
 	}
 
 }
@@ -129,9 +132,13 @@ void Sword::use(Vector2 dir, float deltaTime)
 {
 	if (useTime <= 0 && reloadTime <= 0)
 	{
-		numberOfUse = stats.countOfUse;
+		if (!hasOwnRotationAngle)
+			rotationAgnel = stats.angle;
+		if (!hasDefineNumberOfUse)
+			numberOfUseMax = stats.countOfUse;
+		numberOfUse = numberOfUseMax;
 		left = !left;
-		useTimeMax = stats.useTime / std::max(stats.countOfUse, 1);
+		useTimeMax = stats.useTime / std::max(numberOfUseMax, 1);
 		useTime = useTimeMax;
 
 		Collider::mirror = left;
@@ -227,7 +234,7 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 		procent = reloadTime / stats.reloadTime;
 	else if (useTime > 0)
 	{
-		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (stats.useTime);
+		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (numberOfUseMax);
 		c.b = 255;
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
@@ -270,11 +277,11 @@ Vector2 Sword::getRotationPoint()
 
 void Sword::updateWeaponSize()
 {
-	float scale = (stats.range / 5 + 64) / (pos.width);
-	if (pos.width * scale < 32)
-		scale = 32 / pos.width;
-	if (pos.height * scale < 32)
-		scale = 32 / pos.height;
+	float scale = (stats.range * rangeScale + 16) / (pos.width);
+	if (pos.width * scale < 16)
+		scale = 16 / pos.width;
+	if (pos.height * scale < 16)
+		scale = 16 / pos.height;
 	pos.width *= scale;
 	pos.height *= scale;
 	rotationPoint.x *= scale;
@@ -307,10 +314,17 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 			col.push_back({ (float)x,(float)y });
 		}
 	}
-	if (weaponData[weaponType].contains("SpawnID"))
+	if (weaponData[weaponType].contains("RangeScale"))
+		rangeScale = weaponData[weaponType]["RangeScale"];
+	if (weaponData[weaponType].contains("RotationAngle"))
 	{
-		setIsSpawn(true);
-		setSpawnID(weaponData[weaponType]["SpawnID"]);
+		rotationAgnel = weaponData[weaponType]["RotationAngle"];
+		hasOwnRotationAngle = true;
+	}
+	if (weaponData[weaponType].contains("NumberOfUse"))
+	{
+		numberOfUseMax = weaponData[weaponType]["NumberOfUse"];
+		hasDefineNumberOfUse = true;
 	}
 
 }

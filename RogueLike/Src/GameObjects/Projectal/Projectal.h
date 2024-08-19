@@ -2,6 +2,7 @@
 #include "../Weapon/WeaponNodeTrigger.h"
 #include "raylib.hpp"
 #include "ProjectalID.h"
+#include <json.hpp>
 
 class GameObject;
 class Projectal

@@ -267,6 +267,16 @@ void Inventory::draw()
 
 }
 
+void Inventory::drawItem()
+{
+	if (!items[usingItem])
+		return;
+	Item* i = items[usingItem];
+	GameObject* gm = dynamic_cast<GameObject*>(i);
+	if (gm)
+		gm->draw();
+}
+
 #pragma region Getters
 Item* Inventory::getCurrentItemToDrop()
 {

@@ -137,7 +137,7 @@
             "Texture": "Icons/BounceIcon.png",
             "Type": 1,
             "Activation": 1,
-            "Spawn": 1,
+            "Spawn": "Bomb",
             "Stats": {
                 "Bounce": [
                     {

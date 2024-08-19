@@ -171,6 +171,7 @@ void Player::draw() {
     Vector2 starLine = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 
     DrawSegmentLine(starLine, useDir, 10, timer*3, rangeMax, segments, BLACK);
+    inventory.drawItem();
 
 }
 

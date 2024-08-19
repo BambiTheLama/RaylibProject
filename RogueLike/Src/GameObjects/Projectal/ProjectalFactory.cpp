@@ -3,6 +3,13 @@
 #include "Explosion.h"
 #include "magic_enum/magic_enum.hpp"
 
+static nlohmann::json projectalData;
+
+void setUpProjectals(std::string path)
+{
+	projectalData = readJson(path+"Projectal.json");
+}
+
 Projectal* getProjectal(std::string projectalName, Vector2 dir)
 {
 	
@@ -14,12 +21,14 @@ Projectal* getProjectal(std::string projectalName, Vector2 dir)
 
 Projectal* getProjectal(ProjectalID projectalID,Vector2 dir)
 {
+	auto toString = magic_enum::enum_name(projectalID);
+	const char* text = toString.data();
 	switch (projectalID)
 	{
 	case ProjectalID::Arrow:
 	case ProjectalID::Shuriken:
 	case ProjectalID::Bomb:
-		return new StandardProjectal();
+		return new StandardProjectal(projectalData, text);
 		break;
 	default:
 		break;

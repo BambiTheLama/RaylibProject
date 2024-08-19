@@ -44,6 +44,7 @@
         "FlipHorizontal": false,
         "RotationPoint": [ 32, 32 ],
         "SpawnPoint": [ 4, 4 ],
+        "Spawn": "Bomb",
         "AngleDiff": 90,
         "Textures": [
             "Weapons/Bow.png"
@@ -157,6 +158,7 @@
         ],
 
         "Stats": {
+            "Range": 100,
             "Knockback": 10,
             "Angle": 180,
             "CountOfUse": 1,
@@ -189,10 +191,13 @@
             [ 2, 5 ]
         ],
         "Size": [ 32, 32 ],
-        "SpawnPoint": [ 20, 20 ],
+        "SpawnPoint": [ 16, 16 ],
         "RotationPoint": [ 12, 12 ],
-        "RotationPointEnd": [ 0, 0 ],
-        "SpawnID": 1,
+        "RotationPointEnd": [ -20, -20 ],
+        "RangeScale": 0.03,
+        "RotationAngle": 180,
+        "NumberOfUse": 1,
+        "Spawn": "Shuriken",
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -203,10 +208,12 @@
         ],
 
         "Stats": {
-            "Range": 100,
+            "Damage": 1.0,
+            "Range": 1000,
             "Knockback": 10,
-            "Angle": 180,
-            "CountOfUse": 1,
+            "Angle": 25,
+            "CountOfUse": 3,
+            "Speed": 100,
             "UseTime": 1,
             "Bounce": 0,
             "Pirce": 0

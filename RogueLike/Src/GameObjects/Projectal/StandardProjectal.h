@@ -2,6 +2,7 @@
 #include "Projectal.h"
 #include "../GameObject.h"
 #include "../Collider/Collider.h"
+#include <json.hpp>
 
 class StandardProjectal:public Projectal,public GameObject,public Collider
 {
@@ -9,8 +10,13 @@ class StandardProjectal:public Projectal,public GameObject,public Collider
 	float timer = 1.0f;
 	int pirce = 1;
 	int bounce = 1;
+	float angle = 0.0f;
+	TextureController texture;
+	Vector2 rotationPoint = { 0,0 };
 public:
 	StandardProjectal();
+
+	StandardProjectal(nlohmann::json data, std::string type);
 
 	void start() override;
 
@@ -22,11 +28,15 @@ public:
 
 	void onTriggerEnter(Collider* collider);
 
-	float getAngle();
+	float getAngle() { return angle; }
+
+	Vector2 getRotationPoint() { return rotationPoint; }
 
 	void setPos(Vector2 p)override { pos.x = p.x - pos.width / 2; pos.y = p.y - pos.height / 2; }
 
 private:
 	virtual void updateStatsAfterSetStats();
+
+	void readData(nlohmann::json data, std::string type);
 };
 

@@ -62,7 +62,19 @@ WeaponNode::WeaponNode(nlohmann::json j)
 	if (j.contains("Activation"))
 		activateTrigger = j["Activation"];
 	if (j.contains("Spawn"))
-		spawnID = j["Spawn"];
+	{
+		if(j["Spawn"].is_number())
+			spawnID = j["Spawn"];
+		else if (j["Spawn"].is_string())
+		{
+			std::string projectalname = j["Spawn"];
+			auto enumValue=magic_enum::enum_cast<ProjectalID>(projectalname);
+			if (enumValue.has_value())
+				spawnID = enumValue.value();
+		}
+
+	}
+
 	if (j.contains("Stats"))
 		stats.readStatsFromWeapon(j, tier);
 }

@@ -116,6 +116,8 @@ public:
 	GameObject* getThisGameObject();
 
 	Vector2 getSpawnPoint();
+
+	bool isSpawningProjectal() { return spawn; }
 	
 	static int getNumberOfSlotsInRow(float w, float size = 64.0f, float itemSpaceing = 10.0f);
 #pragma endregion Getters

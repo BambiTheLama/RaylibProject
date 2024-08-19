@@ -1,21 +1,28 @@
 #include "StandardProjectal.h"
 #include "../Collider/CollisionElementCircle.h"
+#include "../Collider/CollisionElementLines.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../Game.h"
 #include "raymath.h"
 
 StandardProjectal::StandardProjectal()
 {
-	drawOrder = 10;
 	pos = { 0,0,16,16 };
 	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
-	trigger = true;
-	
 }
+
+StandardProjectal::StandardProjectal(nlohmann::json data, std::string type)
+{
+	readData(data, type);
+}
+
 
 void StandardProjectal::start()
 {
 	triggerNode(WeaponNodeActivation::OnUse, stats);
+	angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * RAD2DEG;
+	drawOrder = 10;
+	trigger = true;
 }
 
 void StandardProjectal::destroy()
@@ -36,7 +43,8 @@ void StandardProjectal::update(float deltaTime)
 
 void StandardProjectal::draw()
 {
-	DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
+	//DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
+	texture.draw(pos, false, false, 0, rotationPoint, angle);
 }
 
 
@@ -89,10 +97,6 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 	}
 }
 
-float StandardProjectal::getAngle()
-{
-	return Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
-}
 
 void StandardProjectal::updateStatsAfterSetStats()
 {
@@ -101,4 +105,43 @@ void StandardProjectal::updateStatsAfterSetStats()
 	range = stats.range;
 	timer = stats.useTime;
 	
+}
+
+void StandardProjectal::readData(nlohmann::json data, std::string type)
+{
+	if (!data.contains(type))
+		return;
+	printf(data.dump(2).c_str());
+	if (data[type].contains("Texture"))
+		texture = TextureController(data[type]["Texture"]);
+	if (data[type].contains("Size"))
+	{
+		pos.width = data[type]["Size"][0];
+		pos.height = data[type]["Size"][1];
+	}
+	if (data[type].contains("RotationPoint"))
+	{
+		rotationPoint.x = data[type]["RotationPoint"][0];
+		rotationPoint.y = data[type]["RotationPoint"][1];
+	}
+
+	if (data[type].contains("Col"))
+	{
+		std::vector<Vector2> lines;	
+		for (int i = 0; i < data[type]["Col"].size(); i++)
+		{
+			float x = data[type]["Col"][i][0];
+			float y = data[type]["Col"][i][1];
+			lines.push_back({ x,y });
+		}
+
+		addCollisionElement(new CollisionElementLines(lines));
+	}
+	else
+	{
+		float range = fminf(pos.width / 2.0f, pos.height / 2.0f);
+
+		addCollisionElement(new CollisionElementCircle({ pos.width / 2.0f,pos.height / 2.0f }, range));
+	}
+
 }

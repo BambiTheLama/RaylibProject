@@ -10,10 +10,11 @@
 #include "WaveCollapsFun.h"
 #include "../GameObjects/Weapon/Weapon.h"
 #include "../GameObjects/Items/ItemFactory.h"
+#include "../GameObjects/Projectal/ProjectalFactory.h"
 
 GameScene::GameScene() {
     setUpItemFactory("Res/");
-  
+    setUpProjectals("Res/");
     Weapon::loadWeaponData("Res/Weapon.json");
     camera.zoom = 1.01f;
     camera.rotation = 0;
