@@ -23,6 +23,8 @@ void StandardProjectal::start()
 	angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir) ) * RAD2DEG + rotationDiff;
 	drawOrder = 10;
 	trigger = true;
+	range = stats.range;
+	rangeMax = range;
 }
 
 void StandardProjectal::destroy()
@@ -45,7 +47,8 @@ void StandardProjectal::update(float deltaTime)
 void StandardProjectal::draw()
 {
 	//DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
-	texture.draw(pos, false, false, 0, rotationPoint, angle);
+	int frame = (rangeMax - range) / rangeMax * (texture.getFrames());
+	texture.draw(pos, false, false, frame, rotationPoint, angle);
 }
 
 
@@ -87,6 +90,7 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 			triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
 			Game::deleteObject(this);
 		}
+		angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir)) * RAD2DEG + rotationDiff;
 	}
 	else
 	{
@@ -112,7 +116,6 @@ void StandardProjectal::readData(nlohmann::json data, std::string type)
 {
 	if (!data.contains(type))
 		return;
-	printf(data.dump(2).c_str());
 	if (data[type].contains("Texture"))
 		texture = TextureController(data[type]["Texture"]);
 	if (data[type].contains("Size"))

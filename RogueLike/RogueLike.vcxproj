@@ -115,6 +115,7 @@
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
+    <ClCompile Include="Src\GameObjects\GameObject.cpp" />
     <ClCompile Include="Src\GameObjects\Items\Inventory.cpp" />
     <ClCompile Include="Src\GameObjects\Items\Item.cpp" />
     <ClCompile Include="Src\GameObjects\Items\ItemFactory.cpp" />

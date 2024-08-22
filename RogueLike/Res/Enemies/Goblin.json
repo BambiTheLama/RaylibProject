@@ -1,0 +1,7 @@
+{ 
+  "frameTags": [
+   { "name": "Move", "from": 0, "to": 7, "direction": "forward", "color": "#000000ff" },
+   { "name": "IDE", "from": 8, "to": 13, "direction": "forward", "color": "#000000ff" }
+  ]
+ 
+}

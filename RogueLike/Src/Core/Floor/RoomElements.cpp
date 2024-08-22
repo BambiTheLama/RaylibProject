@@ -13,9 +13,9 @@ GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 	switch (ID)
 	{
 	case 1:
-		return new Wall(x, y, w, h);
+		return new Wall(x - 1, y - 1, w + 2, h + 2);
 	case 2:
-		return new BossWall(x, y, w, h);
+		return new BossWall(x - 1, y - 1, w + 2, h + 2);
 	case 3:
 		return new SpawnPoint(x, y, BlockType::PlayerSpawnPoint);
 	case 7:

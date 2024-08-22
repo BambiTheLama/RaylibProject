@@ -18,6 +18,7 @@
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -4, -4 ],
         "FlipHorizontal": true,
+        "RangeScale": 0.75,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -59,11 +60,11 @@
             "CountOfUse": 10,
             "ReloadTime": 0,
             "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 5,
+            "Bounce": 10,
+            "Pirce": 50,
             "Speed": 1000,
             "Damage": 1,
-            "Range": 1000
+            "Range": 5000
         }
 
     },
@@ -80,6 +81,7 @@
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -16, -16 ],
         "SpawnPoint": [ 30, 30 ],
+        "RangeScale": 0.5,
         "Textures": [
             "Weapons/RustyDager.png",
             "Weapons/Dager.png"
@@ -112,6 +114,7 @@
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -10, -10 ],
         "SpawnPoint": [ 30, 30 ],
+        "RangeScale": 0.5,
         "Textures": [
             "Weapons/RustyDagerSai.png",
             "Weapons/DagerSai.png"
@@ -146,6 +149,7 @@
         "SpawnPoint": [ 20, 20 ],
         "RotationPoint": [ 4, 4 ],
         "RotationPointEnd": [ -4, -4 ],
+        "RangeScale": 0.75,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -215,7 +219,7 @@
             "CountOfUse": 3,
             "Speed": 100,
             "UseTime": 1,
-            "Bounce": 0,
+            "Bounce": 1,
             "Pirce": 0
         }
     },
@@ -242,6 +246,7 @@
         "SpawnPoint": [ 20, 20 ],
         "RotationPoint": [ 0, 0 ],
         "RotationPointEnd": [ 0, 0 ],
+        "RangeScale": 0.5,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -258,7 +263,8 @@
             "CountOfUse": 1,
             "UseTime": 1,
             "Bounce": 0,
-            "Pirce": 0
+            "Pirce": 0,
+            "Range": 100
         }
     },
     "Spear": {
@@ -274,6 +280,7 @@
         "RotationPoint": [ 16, 16 ],
         "RotationPointEnd": [ -64, -64 ],
         "SpawnPoint": [ 30, 30 ],
+        "RangeScale": 0.5,
         "Textures": [
             "Weapons/Spear.png"
 

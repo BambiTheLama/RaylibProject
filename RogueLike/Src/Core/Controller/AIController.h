@@ -1,6 +1,7 @@
 #pragma once
 #include "Controller.h"
 #include <list>
+#include <string>
 
 class GameObject;
 
@@ -28,6 +29,10 @@ public:
 
     void newToGoDir();
 
+    std::string getActionName();
+
+private:
+    void readLastMoveData(float deltaTime);
 
 };
 

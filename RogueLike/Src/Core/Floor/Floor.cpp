@@ -51,7 +51,7 @@ Floor::Floor(Rectangle pos)
     addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
     addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
     addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
-    pathFinder = new PathFinder({ pos.width,pos.height }, { 32,32 });
+    pathFinder = new PathFinder({ pos.width,pos.height }, { 10,10 });
     createFloor();
 }
 
@@ -235,7 +235,7 @@ void Floor::update(float deltaTime,Camera2D camera)
     if (reset <= 0)
     {
         pathFinder->clearPaths();
-        reset = 0.5f;
+        reset = 1.0f;
     }
 #endif // ShowPath
 
@@ -261,7 +261,9 @@ void Floor::update(float deltaTime,Camera2D camera)
     else
     {
         Vector2 camPos = camera.target;
-        Vector2 offset = { camera.offset.x * 2.2f / camera.zoom + 300.0f,camera.offset.y * 2.2f / camera.zoom + 300.0f };
+        const float addRange = 600.0f;
+        const float multiRange = 2.5f / camera.zoom;
+        Vector2 offset = { camera.offset.x * multiRange + addRange,camera.offset.y * multiRange + addRange };
 
         camPos = Vector2Subtract(camPos, Vector2Scale(offset, 0.5f));
 

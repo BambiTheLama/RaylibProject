@@ -368,6 +368,7 @@
     <ClCompile Include="Src\GameObjects\Weapon\Bow.cpp">
       <Filter>GameObjects\Weapons</Filter>
     </ClCompile>
+    <ClCompile Include="Src\GameObjects\GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -20,6 +20,11 @@ Bomb::Bomb(float x, float y)
 	time = timerMax;
 }
 
+void Bomb::start()
+{
+	texture = TextureController("Projectal/Bomb.png");
+}
+
 void Bomb::update(float deltaTime)
 {
 	time -= deltaTime;
@@ -59,6 +64,7 @@ void Bomb::explode()
 
 void Bomb::draw()
 {
-	
-	DrawFrameRec(pos, mixColor(YELLOW, RED, time / timerMax));
+	int frame = (timerMax - time) / timerMax * texture.getFrames();
+	texture.draw(RectangleIncreasSize(pos, 32), false, false, frame);
+	//DrawFrameRec(pos, mixColor(YELLOW, RED, time / timerMax));
 }

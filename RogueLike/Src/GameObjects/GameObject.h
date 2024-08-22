@@ -27,6 +27,8 @@ public:
 
     Rectangle getPos() { return pos; }
 
+    Rectangle getColPos();
+
     int getDrawOrder() { return drawOrder; }
 
     ObjectType getType() { return type; }

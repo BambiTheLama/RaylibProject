@@ -29,6 +29,7 @@ Wolf::Wolf(float x, float y)
 	controller.setCharacterType(ObjectType::Enemy);
 	mass = 10;
 	//trigger = true;
+	texture = TextureController("Enemies/Goblin.png");
 }
 
 void Wolf::destroy()
@@ -38,6 +39,7 @@ void Wolf::destroy()
 
 void Wolf::update(float deltaTime)
 {
+	frameTimer += deltaTime;
 	Hitable::update(deltaTime);
 	controller.update(deltaTime);
 	if (!ai)
@@ -58,20 +60,27 @@ void Wolf::update(float deltaTime)
 	}
 	else
 	{
+		ai->lookForTarget();
 		ai->action |= (int)Action::IDE;
 	}
-
+	std::string actionName = ai->getActionName();
+	if (actionName.compare(animationName))
+	{
+		frameTimer = 0.0f;
+		animationName = actionName;
+	}
 }
 
 void Wolf::draw()
 {
-	DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
+	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
+	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
+	texture.draw(pos, false, false, frame);
 	Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 	DrawLineEx({ dir.x*75 + pos.x + pos.width / 2,dir.y*75 + pos.y + pos.height / 2 }, { pos.x + pos.width / 2,pos.y + pos.height / 2 }, 3, BLACK);
 	if (!ai)
 		return;
-	
-	return;
+
 	float range = (float)ai->range;
 	Color c = { 0,0,0,25 };
 	if ((ai->action & (int)Action::GoTo) != 0)

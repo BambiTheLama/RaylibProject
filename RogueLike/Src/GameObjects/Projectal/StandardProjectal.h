@@ -7,6 +7,7 @@
 class StandardProjectal:public Projectal,public GameObject,public Collider
 {
 	float range = 1.0f;
+	float rangeMax = 1.0f;
 	float timer = 1.0f;
 	int pirce = 1;
 	int bounce = 1;

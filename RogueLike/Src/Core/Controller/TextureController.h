@@ -4,13 +4,20 @@
 #include <string>
 #include "json.hpp"
 
+
+struct AnimationData {
+	int start = 0, end = 0;
+};
+
 class TextureController
 {
 	static std::map<std::string, Texture2D> textures;
 	static nlohmann::json texturesData;
 	static std::string dirPath;
+	std::map<std::string, AnimationData> animations;
 	Texture2D texture;
-	int framesInW = 1, framesInH = 1;
+	int frames = 1;
+	Vector2 frameSize = { 1,1 };
 public:
 	TextureController(std::string path="");
 
@@ -20,7 +27,9 @@ public:
 
 	void drawTile(Rectangle pos, float startX, float startY, float repetW, float repetH);
 
-	int getFrames() { return framesInH * framesInW; }
+	int getFrames() { return frames; }
+
+	int getFrame(std::string animationName, int frame);
 
 	Texture getTexture() { return texture; }
 

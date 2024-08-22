@@ -15,11 +15,15 @@ class Wolf :
     float recoveryTime = 0;
     float recoveryTimeMax = 0.5;
     float speed = 200.0f;
+    float frameTimer = 0.0f;
+    const float timePerFrame = 0.1f;
     Vector2 attackDir = { 0.0f,0.0f };
     CharacterController controller;
+    TextureController texture;
     AIController* ai;
     Vector2 dir = { 0.0f,0.0f };
     bool col = false;
+    std::string animationName = "";
 public:
     Wolf(float x,float y);
 
