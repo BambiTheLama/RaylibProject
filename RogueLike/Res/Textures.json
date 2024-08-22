@@ -24,7 +24,7 @@
         ]
     },
     "Enemies/Goblin.png": {
-        "NumberOfFrames": 14,
+        "NumberOfFrames": 20,
         "FrameSize": [ 32, 32 ],
         "Frames": [
             {
@@ -36,6 +36,32 @@
                 "Name": "IDE",
                 "Start": 8,
                 "End": 13
+            },
+            {
+                "Name": "Attack",
+                "Start": 14,
+                "End": 19
+            }
+        ]
+    },
+    "Enemies/Skeletron.png": {
+        "NumberOfFrames": 20,
+        "FrameSize": [ 32, 32 ],
+        "Frames": [
+            {
+                "Name": "Move",
+                "Start": 0,
+                "End": 7
+            },
+            {
+                "Name": "IDE",
+                "Start": 8,
+                "End": 13
+            },
+            {
+                "Name": "Attack",
+                "Start": 14,
+                "End": 19
             }
         ]
     }

@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Res\Enemies.json" />
     <None Include="Res\ItemData.json" />
     <None Include="Res\Projectal.json" />
     <None Include="Res\Rooms.json" />

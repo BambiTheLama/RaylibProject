@@ -104,8 +104,8 @@ void Sword::update(float deltaTime)
 				left = !left;
 			}
 			addLineTimer = 0.0f;
-			Collider::mirror = left;
-			Weapon::mirror = left;
+			Collider::mirror = left != flipHorizontal;
+			Weapon::mirror = left != flipHorizontal;
 		}
 	}
 }
@@ -141,8 +141,8 @@ void Sword::use(Vector2 dir, float deltaTime)
 		useTimeMax = stats.useTime / std::max(numberOfUseMax, 1);
 		useTime = useTimeMax;
 
-		Collider::mirror = left;
-		Weapon::mirror = left;
+		Collider::mirror = left != flipHorizontal;
+		Weapon::mirror = left != flipHorizontal;
 		used = false;
 		updateWeaponSize();
 	}
@@ -184,7 +184,7 @@ void Sword::draw(Rectangle pos, Color c)
 	Vector2 rotationPoint = this->rotationPoint;
 	float angle = this->angle;
 
-	bool mirror = Collider::mirror != flipHorizontal;
+	bool mirror = Collider::mirror;
 
 	if (mirror)
 	{

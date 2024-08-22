@@ -10,14 +10,9 @@ Wolf::Wolf(float x, float y)
 	pos = { x,y,64.0f,64.0f };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
-	std::vector<Vector2> col{
-		{pos.width / 4,					pos.height / 4},
-		{pos.width / 4 + pos.width / 2,	pos.height / 4},
-		{pos.width / 4 + pos.width / 2,	pos.height / 4 + pos.height / 2},
-		{pos.width / 4,					pos.height / 4 + pos.height / 2}
-	};
-	//addCollisionElement(new CollisionElementLines(col));
-	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 4));
+
+	//addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 4));
+	addCollisionElement(new CollisionElementLines({ pos.width / 3+4,pos.height / 3 + 10,pos.width / 3-8,pos.height / 3 }));
 	type = ObjectType::Enemy;
 	ai = new AIController();
 	ai->thisObj = this;
@@ -29,7 +24,7 @@ Wolf::Wolf(float x, float y)
 	controller.setCharacterType(ObjectType::Enemy);
 	mass = 10;
 	//trigger = true;
-	texture = TextureController("Enemies/Goblin.png");
+	texture = TextureController("Enemies/Skeletron.png");
 }
 
 void Wolf::destroy()

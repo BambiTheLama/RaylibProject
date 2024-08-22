@@ -399,6 +399,9 @@
     <None Include="Res\WeaponNodeData.json">
       <Filter>Res</Filter>
     </None>
+    <None Include="Res\Enemies.json">
+      <Filter>Res</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.json" />

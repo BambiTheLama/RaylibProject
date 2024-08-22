@@ -51,7 +51,7 @@ Floor::Floor(Rectangle pos)
     addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
     addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
     addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
-    pathFinder = new PathFinder({ pos.width,pos.height }, { 10,10 });
+    pathFinder = new PathFinder({ pos.width,pos.height }, { 12,12 });
     createFloor();
 }
 
