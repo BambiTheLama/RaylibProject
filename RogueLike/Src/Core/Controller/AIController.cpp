@@ -15,7 +15,7 @@ void AIController::update(float deltaTime)
 	inputDir = { 0,0 };
 	inputs.clear();
 
-	if (action == 0 || (action == (int)Action::IDE && toGoDirNow.z <= 0))
+	if (action == Action::IDE && toGoDirNow.z <= 0)
 		return;
 
 	if (targerType == 0 || !thisObj)
@@ -29,7 +29,7 @@ void AIController::update(float deltaTime)
 	
 	Vector2 pos = target->getPosPoint();
 	Vector2 thisPos = thisObj->getPosPoint();
-	if ((action & (int)Action::RunFrom) != 0)
+	if (action == Action::RunFrom)
 	{
 		if (findPathTimer <= 0 || (toGoDirNow.z <= 0 && toGoDir.size() <= 0))
 		{
@@ -47,7 +47,7 @@ void AIController::update(float deltaTime)
 		readLastMoveData(deltaTime);
 	}
 
-	if ((action & (int)Action::GoTo) != 0)
+	if (action == Action::GoTo)
 	{
 		if (findPathTimer <= 0 || (toGoDirNow.z <= 0 && toGoDir.size() <= 0))
 		{
@@ -61,7 +61,7 @@ void AIController::update(float deltaTime)
 
 
 
-	if ((action & (int)Action::Attack) != 0)
+	if (action == Action::Attack)
 	{
 		inputDir = Vector2Normalize(Vector2Subtract(getMidlePoint(target->getPos()), getMidlePoint(thisObj->getPos())));
 		inputs.push_back(Input::Attack);
@@ -105,9 +105,20 @@ void AIController::newToGoDir()
 
 std::string AIController::getActionName()
 {
-	if (toGoDirNow.z > 0 || toGoDir.size() > 0)
+	if (Action::GoTo == action || action == Action::RunFrom)
 		return "Move";
+	if (action == Action::Attack)
+		return "Attack";
 	return "IDE";
+}
+
+void AIController::setAction(Action action)
+{
+	if (this->action == action)
+		return;
+	this->action = action;
+	findPathTimer = 0.0f;
+	toGoDir.clear();
 }
 
 void AIController::readLastMoveData(float deltaTime)

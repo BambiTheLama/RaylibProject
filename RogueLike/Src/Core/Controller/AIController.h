@@ -18,7 +18,7 @@ public:
     Vector3 toGoDirNow = { 0,0,0 };
     int targerType = 0;
     float range = 0;
-    int action = 0;
+    Action action = Action::NON;
     Vector2 lastMoveDir = { 0.0f,0.0f };
     float findPathTimer = 0.1f;
     const float refresTimer = 0.69f;
@@ -30,6 +30,8 @@ public:
     void newToGoDir();
 
     std::string getActionName();
+
+    void setAction(Action action);
 
 private:
     void readLastMoveData(float deltaTime);

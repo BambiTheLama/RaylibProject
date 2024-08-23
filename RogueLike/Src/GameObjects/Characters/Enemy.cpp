@@ -12,7 +12,7 @@ Enemy::Enemy(float x, float y)
 	ai = new AIController();
 	ai->thisObj = this;
 	ai->targerType = (int)ObjectType::Player;
-	ai->action = (int)Action::GoTo;
+	ai->setAction(Action::GoTo);
 	controller.setController(ai);
 	controller.setCharacter(this);
 	type = ObjectType::Enemy;
@@ -37,9 +37,9 @@ void Enemy::update(float deltaTime)
 		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
 		float distance = Vector2Length(Vector2Subtract(posV , otherPosV));
 		if (distance < 100)
-			ai->action = (int)Action::RunFrom;
+			ai->setAction(Action::RunFrom);
 		else if (distance > 200)
-			ai->action = (int)Action::GoTo;
+			ai->setAction(Action::GoTo);
 	}
 }
 

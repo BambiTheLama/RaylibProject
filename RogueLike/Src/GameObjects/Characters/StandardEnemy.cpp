@@ -16,7 +16,7 @@ StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 	ai = new AIController();
 	ai->thisObj = this;
 	ai->targerType = (int)ObjectType::Player;
-	ai->action = (int)Action::GoTo;
+	ai->action = Action::GoTo;
 	ai->range = 300;
 	controller.setController(ai);
 	controller.setCharacter(this);
@@ -39,24 +39,24 @@ void StandardEnemy::update(float deltaTime)
 	controller.update(deltaTime);
 	if (!ai)
 		return;
-	
-	ai->action = 0;
+
 	Rectangle pos = getPos();
 	if (target != 0 && ai->target)
 	{
-		Rectangle otherPos = ai->target->getPos();
-		Vector2 posV = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
-		Vector2 otherPosV = { otherPos.x + otherPos.width / 2,otherPos.y + otherPos.height / 2 };
+		Vector2 posV = getMidlePoint(pos);
+		Vector2 otherPosV = getMidlePoint(ai->target->getPos());
 		float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
-		if (distance < 200)
-			ai->action |= (int)Action::Attack;
-		
-		ai->action |= (int)Action::GoTo;
+		if (distance > maxRangeAttack)
+			ai->setAction(Action::GoTo);
+		else if (distance > minRangeAttack)
+			ai->setAction(Action::Attack);
+		else
+			ai->setAction(Action::RunFrom);
 	}
 	else
 	{
 		ai->lookForTarget();
-		ai->action |= (int)Action::IDE;
+		ai->setAction(Action::IDE);
 	}
 	std::string actionName = ai->getActionName();
 	if (actionName.compare(animationName))
@@ -78,9 +78,9 @@ void StandardEnemy::draw()
 
 	float range = (float)ai->range;
 	Color c = { 0,0,0,10 };
-	if ((ai->action & (int)Action::GoTo) != 0)
+	if ((ai->action == Action::GoTo) != 0)
 		c.g = 255;
-	if ((ai->action & (int)Action::Attack) != 0)
+	if ((ai->action == Action::Attack) != 0)
 		c.r = 255;
 	DrawRectangleRec({ pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2 }, c);
 	
@@ -107,7 +107,7 @@ void StandardEnemy::onCollision(Collider* collider)
 		Hitable* hit = dynamic_cast<Hitable*>(gm);
 		if (hit)
 		{
-			hit->dealDamage(damge, 0.2f);
+			hit->dealDamage(contactDamage, 0.2f);
 		}
 	}
 
@@ -169,10 +169,15 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 			spawnID = castData.value();
 
 	}
+	if (data[type].contains("MinDist"))
+		minRangeAttack = data[type]["MinDist"];
+	if (data[type].contains("MaxDist"))
+		maxRangeAttack = data[type]["MaxDist"];
+	if (data[type].contains("AttackCDR"))
+		attackCDR = data[type]["AttackCDR"];
+	if (data[type].contains("ContactDamage"))
+		contactDamage = data[type]["ContactDamage"];
 
-
-	if (data[type].contains("WeaponStats"))
-	{
-		//ws.readStatsFromWeapon(data[type]);
-	}
+	ws.readStatsFromWeapon(data[type]);
+	
 }

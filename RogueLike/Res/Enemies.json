@@ -4,6 +4,9 @@
         "Size": [ 32, 32 ],
         "Scale": 3,
         "Range": 600,
+        "MinDist": 200,
+        "MaxDist": 300,
+        "AttackCDR": 0.5,
         "Col": [
             [ 12, 16 ],
             [ 19, 16 ],
@@ -42,6 +45,7 @@
         "Range": 300,
         "MinDist": 0,
         "MaxDist": 0,
+        "ContactDamage": 1.0,
         "Col": [
             [ 6, 23 ],
             [ 2, 19 ],

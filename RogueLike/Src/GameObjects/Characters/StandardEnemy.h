@@ -7,6 +7,7 @@
 #include "../../Core/Controller/AIController.h"
 #include "../Projectal/ProjectalID.h"
 #include "../Weapon/WeaponStats.h"
+
 class StandardEnemy :
     public GameObject,public Hitable,public Collider,public Character
 {
@@ -27,8 +28,12 @@ class StandardEnemy :
     bool col = false;
     std::string animationName = "";
     bool spawn = false;
+    float contactDamage = 0.0f;
+    float attackCDR = 0.0f;
+    float minRangeAttack = 0.0f;
+    float maxRangeAttack = 0.0f;
     ProjectalID spawnID=ProjectalID::Rock;
-    //WeaponStats ws;
+    WeaponStats ws;
 public:
     StandardEnemy(std::string type, nlohmann::json data, int level);
 
