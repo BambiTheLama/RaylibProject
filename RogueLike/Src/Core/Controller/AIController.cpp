@@ -51,7 +51,7 @@ void AIController::update(float deltaTime)
 	{
 		if (findPathTimer <= 0 || (toGoDirNow.z <= 0 && toGoDir.size() <= 0))
 		{
-			toGoDir = Game::getPathToGo(thisObj->getPos(), target->getColPos(), range * 1.5f);
+			toGoDir = Game::getPathToGo(thisObj->getColPos(), target->getColPos(), range * 1.5f);
 			newToGoDir();
 			findPathTimer = refresTimer;
 		}

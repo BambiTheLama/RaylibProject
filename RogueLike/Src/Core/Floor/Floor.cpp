@@ -51,7 +51,7 @@ Floor::Floor(Rectangle pos)
     addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
     addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
     addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
-    pathFinder = new PathFinder({ pos.width,pos.height }, { 12,12 });
+    pathFinder = new PathFinder({ pos.width,pos.height }, { 13,13 });
     createFloor();
 }
 
@@ -200,7 +200,7 @@ void Floor::createFloor()
         }
 
     setUpObjects(std::vector<int>{ 0,1,2 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
-    setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
+    setUpObjects(std::vector<int>{ -1 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
     //setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
     removeCloseEnemies();

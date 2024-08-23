@@ -15,7 +15,7 @@
             [ 30, 8 ]
         ],
         "Size": [ 32, 32 ],
-        "SpawnPoint": [ 20, 20 ],
+        "SpawnPoint": [ 24, 7 ],
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -4, -4 ],
         "FlipHorizontal": true,
@@ -42,11 +42,12 @@
 
     },
     "Bow": {
-        "Size": [ 64, 64 ],
+        "Size": [ 32, 32 ],
         "FlipHorizontal": false,
-        "RotationPoint": [ 32, 32 ],
-        "SpawnPoint": [ 40, 40 ],
+        "RotationPoint": [ 16, 16 ],
+        "SpawnPoint": [ 23, 8 ],
         "Spawn": "Arrow",
+        "Scale": 2,
         "AngleDiff": 90,
         "Textures": [
             "Weapons/Bow.png"
@@ -81,7 +82,7 @@
         "FlipHorizontal": true,
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -16, -16 ],
-        "SpawnPoint": [ 30, 30 ],
+        "SpawnPoint": [ 24, 7 ],
         "RangeScale": 0.5,
         "Textures": [
             "Weapons/RustyDager.png",
@@ -93,7 +94,7 @@
         ],
         "Stats": {
             "Knockback": 10,
-            "Angle": 300,
+            "Angle": 50,
             "CountOfUse": 1,
             "ReloadTime": 0,
             "UseTime": 1,
@@ -114,7 +115,7 @@
         "FlipHorizontal": true,
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -10, -10 ],
-        "SpawnPoint": [ 30, 30 ],
+        "SpawnPoint": [ 25, 6 ],
         "RangeScale": 0.5,
         "Textures": [
             "Weapons/RustyDagerSai.png",
@@ -148,7 +149,7 @@
 
         ],
         "Size": [ 32, 32 ],
-        "SpawnPoint": [ 20, 20 ],
+        "SpawnPoint": [ 24, 7 ],
         "RotationPoint": [ 4, 4 ],
         "RotationPointEnd": [ -4, -4 ],
         "RangeScale": 0.75,
@@ -245,7 +246,7 @@
             [ 12, 5 ]
         ],
         "Size": [ 32, 32 ],
-        "SpawnPoint": [ 20, 20 ],
+        "SpawnPoint": [ 8, 7 ],
         "RotationPoint": [ 0, 0 ],
         "RotationPointEnd": [ 0, 0 ],
         "RangeScale": 0.5,
@@ -281,7 +282,7 @@
         "FlipHorizontal": true,
         "RotationPoint": [ 16, 16 ],
         "RotationPointEnd": [ -64, -64 ],
-        "SpawnPoint": [ 30, 30 ],
+        "SpawnPoint": [ 31, 0 ],
         "RangeScale": 0.5,
         "Textures": [
             "Weapons/Spear.png"
@@ -317,7 +318,7 @@
             [ 7, 26 ]
         ],
         "Size": [ 32, 32 ],
-        "SpawnPoint": [ 16, 16 ],
+        "SpawnPoint": [ 21, 10 ],
         "RotationPoint": [ 4, 4 ],
         "RotationPointEnd": [ -10, -10 ],
         "Slots": [

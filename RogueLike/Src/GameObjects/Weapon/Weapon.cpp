@@ -317,6 +317,7 @@ void Weapon::scaleWeapon(float scale)
 {
 	//rotationPoint = Vector2Scale(rotationPoint, scale);
 	spawnPoint = Vector2Scale(spawnPoint, scale);
+	rotationPoint = Vector2Scale(rotationPoint, scale);
 	rotationPointStart = Vector2Scale(rotationPointStart, scale);
 	rotationPointEnd = Vector2Scale(rotationPointEnd, scale);
 }
@@ -483,6 +484,12 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 	{
 		spawnPoint.x = weaponData[weaponType]["SpawnPoint"][0];
 		spawnPoint.y = weaponData[weaponType]["SpawnPoint"][1];
+		int sizeY = 0;
+		if (weaponData[weaponType].contains("Size"))
+			sizeY = weaponData[weaponType]["Size"][1];
+		if (weaponData[weaponType].contains("FlipHorizontal"))
+			spawnPoint.y = sizeY - spawnPoint.y;
+		
 	}
 
 	if (weaponData[weaponType].contains("Spawn"))

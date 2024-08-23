@@ -10,13 +10,8 @@ Bomb::Bomb(float x, float y)
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
 	mass = 0;
-	std::vector<Vector2> col{
-	{0,         0},
-	{pos.width, 0},
-	{pos.width, pos.height},
-	{0,         pos.height }
-	};
-	addCollisionElement(new CollisionElementLines(col));
+
+	addCollisionElement(new CollisionElementLines({ pos.width / 4,pos.height / 4,pos.width/2,pos.height/2 }));
 	time = timerMax;
 }
 
@@ -65,6 +60,6 @@ void Bomb::explode()
 void Bomb::draw()
 {
 	int frame = (timerMax - time) / timerMax * texture.getFrames();
-	texture.draw(RectangleIncreasSize(pos, 32), false, false, frame);
+	texture.draw(pos, false, false, frame);
 	//DrawFrameRec(pos, mixColor(YELLOW, RED, time / timerMax));
 }
