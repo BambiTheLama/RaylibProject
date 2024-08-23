@@ -10,6 +10,7 @@ class Projectal
 	WeaponNodeTrigger weaponNodeTrigger;
 	GameObject *thisObj = nullptr;
 protected:
+	int target = 0;
 	Vector2 dir = { 1.0f,0.0f };
 	float rotationDiff = 0.0f;
 	GameObject* owner;
@@ -26,6 +27,8 @@ public:
 	bool triggerNode(WeaponNodeActivation activation, WeaponStats stats);
 
 	virtual void update(){}
+
+	void setTarget(int target) { this->target = target; }
 
 private:
 	bool findThisObject();

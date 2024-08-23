@@ -60,7 +60,7 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		return;
 	if (colObj == owner)
 		return;
-	if ((int)colObj->getType() & (int)ObjectType::Enemy)
+	if ((int)colObj->getType() & target)
 	{
 		Hitable* hit = dynamic_cast<Hitable*>(colObj);
 		if (hit)
@@ -92,14 +92,7 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		}
 		angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir)) * RAD2DEG + rotationDiff;
 	}
-	else
-	{
-		Hitable* hit = dynamic_cast<Hitable*>(collider);
-		if (hit)
-		{
-			hit->dealDamage(1.0f);
-		}
-	}
+
 }
 
 

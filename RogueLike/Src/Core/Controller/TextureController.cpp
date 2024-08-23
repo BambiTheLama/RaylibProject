@@ -65,6 +65,14 @@ void TextureController::drawTile(Rectangle pos, float startX, float startY, floa
 	DrawTexturePro(texture, sourse, pos, { 0.0f,0.0f }, 0.0f, WHITE);
 }
 
+int TextureController::getFrames(std::string animationName)
+{
+	if (!animations.contains(animationName))
+		return getFrames();
+	AnimationData animationData = animations.at(animationName);
+	return animationData.end - animationData.start;
+}
+
 int TextureController::getFrame(std::string animationName, int frame)
 {
 	if (!animations.contains(animationName))

@@ -29,6 +29,8 @@ public:
 
 	int getFrames() { return frames; }
 
+	int getFrames(std::string animationName);
+
 	int getFrame(std::string animationName, int frame);
 
 	Texture getTexture() { return texture; }

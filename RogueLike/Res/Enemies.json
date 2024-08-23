@@ -29,7 +29,7 @@
             "UseTime": 1,
             "Range": 600,
             "Damage": 1,
-            "Speed": 50
+            "Speed": 500
         },
         "Col": [
             [ 12, 16 ],

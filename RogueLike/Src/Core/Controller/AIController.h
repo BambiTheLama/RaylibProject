@@ -33,6 +33,8 @@ public:
 
     void setAction(Action action);
 
+    bool hasPath() { return toGoDir.size() > 0 || toGoDirNow.z > 0.0f; }
+
 private:
     void readLastMoveData(float deltaTime);
 

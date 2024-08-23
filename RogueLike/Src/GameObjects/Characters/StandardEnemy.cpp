@@ -5,6 +5,9 @@
 #include "../Game.h"
 #include "../ParticleText.h"
 #include <magic_enum/magic_enum.hpp>
+#include "../Projectal/ProjectalFactory.h"
+
+static float hpBarSize = 100;
 
 StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 {
@@ -37,6 +40,39 @@ void StandardEnemy::update(float deltaTime)
 	frameTimer += deltaTime;
 	Hitable::update(deltaTime);
 	controller.update(deltaTime);
+	if (attackCDR > 0.0f)
+	{
+		attackCDR -= deltaTime;
+		if (attackCDR < 0.0f && spawn)
+		{
+			Projectal* pro = getProjectal(spawnID);
+			if (pro)
+			{
+				Vector2 posV = Vector2Add(getMidlePoint(getColPos()), spawnPoint);
+				Vector2 otherPosV = getMidlePoint({ 0,0,0,0 });
+				if (ai && ai->target)
+					otherPosV = getMidlePoint(ai->target->getColPos());
+				Vector2 dir = Vector2Normalize(Vector2Subtract(otherPosV, posV));
+				float angle = Vector2Angle({ 0.001f,0.001f }, dir);
+				
+				pro->setDir(dir);
+				GameObject* gm = dynamic_cast<GameObject*>(pro);
+				pro->setWeaponStats(ws);
+				pro->setOwner(this);
+				pro->setTarget((int)ObjectType::Player);
+				if (gm)
+				{
+					gm->setPos(posV);
+					Game::addObject(gm);
+				}
+				else
+					delete gm;
+
+
+			}
+		}
+	}
+
 	if (!ai)
 		return;
 
@@ -46,17 +82,18 @@ void StandardEnemy::update(float deltaTime)
 		Vector2 posV = getMidlePoint(pos);
 		Vector2 otherPosV = getMidlePoint(ai->target->getPos());
 		float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
-		if (distance > maxRangeAttack)
+		if (distance > maxRangeAttack && attackCDR <= 0.0f)
 			ai->setAction(Action::GoTo);
-		else if (distance > minRangeAttack)
-			ai->setAction(Action::Attack);
+		else if(distance < minRangeAttack && attackCDR <= 0.0f)
+			ai->setAction(Action::RunFrom);		
 		else
-			ai->setAction(Action::RunFrom);
+			ai->setAction(Action::Attack);
 	}
-	else
+	else if(!ai->hasPath())
 	{
 		ai->lookForTarget();
 		ai->setAction(Action::IDE);
+		attackCDR = 0.0f;
 	}
 	std::string actionName = ai->getActionName();
 	if (actionName.compare(animationName))
@@ -70,32 +107,21 @@ void StandardEnemy::draw()
 {
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
+	if (animationName == "Attack")
+	{
+		float procentOfAnimation = (attackCDRMax - attackCDR) / attackCDRMax;
+		frame = texture.getFrame(animationName, procentOfAnimation * texture.getFrames(animationName));
+	}
+		
 	texture.draw(pos, false, false, frame);
-	Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
-	DrawLineEx({ dir.x*75 + pos.x + pos.width / 2,dir.y*75 + pos.y + pos.height / 2 }, { pos.x + pos.width / 2,pos.y + pos.height / 2 }, 3, BLACK);
-	if (!ai)
-		return;
-
-	float range = (float)ai->range;
-	Color c = { 0,0,0,10 };
-	if ((ai->action == Action::GoTo) != 0)
-		c.g = 255;
-	if ((ai->action == Action::Attack) != 0)
-		c.r = 255;
-	DrawRectangleRec({ pos.x - range, pos.y - range, pos.width + range * 2, pos.height + range * 2 }, c);
-	
+	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
 }
 
 void StandardEnemy::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
-	return;
-	if (input == Input::Attack && attackTime <= 0.0f)
+	if (input == Input::Attack && attackCDR <= 0.0f && spawn)
 	{
-		if (abs(cursorDir.x) <= 0.1 && abs(cursorDir.y) < 0.1)
-			return;
-		attackDir = Vector2Normalize(cursorDir);
-
-		attackTime = attackTimeMax;
+		attackCDR = attackCDRMax;
 	}
 
 }
@@ -174,7 +200,7 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 	if (data[type].contains("MaxDist"))
 		maxRangeAttack = data[type]["MaxDist"];
 	if (data[type].contains("AttackCDR"))
-		attackCDR = data[type]["AttackCDR"];
+		attackCDRMax = data[type]["AttackCDR"];
 	if (data[type].contains("ContactDamage"))
 		contactDamage = data[type]["ContactDamage"];
 

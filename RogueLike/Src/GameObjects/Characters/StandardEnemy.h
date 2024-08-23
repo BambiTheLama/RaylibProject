@@ -13,10 +13,6 @@ class StandardEnemy :
 {
     int target = 0b110;
     float damge = 1.0f;
-    float attackTime = 0.0f;
-    float attackTimeMax = 1.0f;
-    float recoveryTime = 0;
-    float recoveryTimeMax = 0.5;
     float speed = 200.0f;
     float frameTimer = 0.0f;
     const float timePerFrame = 0.1f;
@@ -30,8 +26,10 @@ class StandardEnemy :
     bool spawn = false;
     float contactDamage = 0.0f;
     float attackCDR = 0.0f;
+    float attackCDRMax = 0.0f;
     float minRangeAttack = 0.0f;
     float maxRangeAttack = 0.0f;
+    Vector2 spawnPoint = { 0,0 };
     ProjectalID spawnID=ProjectalID::Rock;
     WeaponStats ws;
 public:

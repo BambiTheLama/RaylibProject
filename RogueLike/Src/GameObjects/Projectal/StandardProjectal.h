@@ -12,6 +12,7 @@ class StandardProjectal:public Projectal,public GameObject,public Collider
 	int pirce = 1;
 	int bounce = 1;
 	float angle = 0.0f;
+
 	TextureController texture;
 	Vector2 rotationPoint = { 0,0 };
 public:
