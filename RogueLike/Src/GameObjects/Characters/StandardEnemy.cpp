@@ -4,6 +4,7 @@
 #include "raymath.h"
 #include "../Game.h"
 #include "../ParticleText.h"
+#include <magic_enum/magic_enum.hpp>
 
 StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 {
@@ -76,7 +77,7 @@ void StandardEnemy::draw()
 		return;
 
 	float range = (float)ai->range;
-	Color c = { 0,0,0,25 };
+	Color c = { 0,0,0,10 };
 	if ((ai->action & (int)Action::GoTo) != 0)
 		c.g = 255;
 	if ((ai->action & (int)Action::Attack) != 0)
@@ -158,5 +159,20 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 		Collider::scaleColliderElements(scale);
 		pos.width *= scale;
 		pos.height *= scale;
+	}
+	if (data[type].contains("Spawn"))
+	{
+		spawn = true;
+		std::string spawnName = data[type]["Spawn"];
+		auto castData = magic_enum::enum_cast<ProjectalID>(spawnName);
+		if (castData.has_value())
+			spawnID = castData.value();
+
+	}
+
+
+	if (data[type].contains("Stats"))
+	{
+		//ws.readStatsFromWeapon(data[type]);
 	}
 }

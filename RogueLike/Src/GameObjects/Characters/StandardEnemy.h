@@ -5,6 +5,8 @@
 #include "../Collider/Collider.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../../Core/Controller/AIController.h"
+#include "../Projectal/ProjectalID.h"
+#include "../Weapon/WeaponStats.h"
 class StandardEnemy :
     public GameObject,public Hitable,public Collider,public Character
 {
@@ -24,6 +26,9 @@ class StandardEnemy :
     Vector2 dir = { 0.0f,0.0f };
     bool col = false;
     std::string animationName = "";
+    bool spawn = false;
+    ProjectalID spawnID=ProjectalID::Rock;
+    //WeaponStats ws;
 public:
     StandardEnemy(std::string type, nlohmann::json data, int level);
 

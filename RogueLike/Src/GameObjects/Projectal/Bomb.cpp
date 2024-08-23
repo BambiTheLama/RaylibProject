@@ -6,7 +6,7 @@
 Bomb::Bomb(float x, float y)
 {
 	
-	pos = { x,y,32,32 };
+	pos = { x,y,64,64 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
 	mass = 0;

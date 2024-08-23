@@ -16,6 +16,18 @@
         "Size": [ 32, 32 ],
         "Scale": 3,
         "Range": 400,
+        "MinDist": 200,
+        "MaxDist": 300,
+        "AttackCDR": 0.5,
+        "Spawn": "Rock",
+        "WeaponStats": {
+            "Angle": 30,
+            "CountOfUse": 1,
+            "UseTime": 1,
+            "Range": 600,
+            "Damage": 1,
+            "Speed": 50
+        },
         "Col": [
             [ 12, 16 ],
             [ 19, 16 ],
@@ -28,6 +40,8 @@
         "Size": [ 32, 32 ],
         "Scale": 1.5,
         "Range": 300,
+        "MinDist": 0,
+        "MaxDist": 0,
         "Col": [
             [ 6, 23 ],
             [ 2, 19 ],

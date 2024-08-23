@@ -6,6 +6,7 @@
 class Chest :
     public GameObject , public Collider, public Interactive
 {
+    TextureController texture;
 public:
     Chest(Rectangle pos, int tier);
 

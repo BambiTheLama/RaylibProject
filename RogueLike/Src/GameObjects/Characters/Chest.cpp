@@ -16,13 +16,14 @@ Chest::Chest(Rectangle pos, int tier)
 	solidObject = true;
 	moving = false;
 	mass = 100;
+	texture = TextureController("Elements/Chest.png");
 }
 
 void Chest::draw()
 {
 	if (isClosestObject)
 	{
-		const float moveBy = 5.0f;
+		const float moveBy = 2.0f;
 		startOutLineShader();
 		draw(moveRectangeBy(pos, { moveBy,0 }));
 		draw(moveRectangeBy(pos, { -moveBy,0 }));
@@ -37,7 +38,8 @@ void Chest::draw()
 
 void Chest::draw(Rectangle pos)
 {
-	DrawFrameRec(pos);
+	//DrawFrameRec(pos);
+	texture.draw(pos);
 }
 
 void Chest::interact(GameObject* interactObj)
