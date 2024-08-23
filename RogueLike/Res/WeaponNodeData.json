@@ -3,7 +3,7 @@
         {
             "Texture": "Icons/DamageIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Damage": [
                     {
                         "Min": 1,
@@ -18,7 +18,7 @@
         {
             "Texture": "Icons/UseTimeIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "UseTime": [
                     {
                         "Min": 0.1,
@@ -31,7 +31,7 @@
         {
             "Texture": "Icons/ReloadIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "ReloadTime": [
                     {
                         "Min": 0.1,
@@ -44,7 +44,7 @@
         {
             "Texture": "Icons/SpeedIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Speed": [
                     {
                         "Min": 100,
@@ -57,7 +57,7 @@
         {
             "Texture": "Icons/RangeIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Range": [
                     {
                         "Min": 100,
@@ -70,7 +70,7 @@
         {
             "Texture": "Icons/KnockbackIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Knockback": [
                     {
                         "Min": 10,
@@ -83,7 +83,7 @@
         {
             "Texture": "Icons/AngleIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Angle": [
                     {
                         "Min": -36,
@@ -96,7 +96,7 @@
         {
             "Texture": "Icons/CountOfUseIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "CountOfUse": [
                     {
                         "Min": 1,
@@ -110,7 +110,7 @@
         {
             "Texture": "Icons/PirceIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Pirce": [
                     {
                         "Min": 1,
@@ -123,7 +123,7 @@
         {
             "Texture": "Icons/BounceIcon.png",
             "Type": 0,
-            "Stats": {
+            "WeaponStats": {
                 "Bounce": [
                     {
                         "Min": 1,
@@ -138,7 +138,7 @@
             "Type": 1,
             "Activation": 1,
             "Spawn": "Bomb",
-            "Stats": {
+            "WeaponStats": {
                 "Bounce": [
                     {
                         "Min": 0,

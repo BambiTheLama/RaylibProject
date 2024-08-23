@@ -75,7 +75,7 @@ WeaponNode::WeaponNode(nlohmann::json j)
 
 	}
 
-	if (j.contains("Stats"))
+	if (j.contains("WeaponStats"))
 		stats.readStatsFromWeapon(j, tier);
 }
 

@@ -2,7 +2,7 @@
 #include "../../Font.h"
 #include "raymath.h"
 
-static const char* statsJsonName = "Stats";
+static const char* statsJsonName = "WeaponStats";
 static const float tolerance = 0.1f;
 
 #pragma region readFromJson

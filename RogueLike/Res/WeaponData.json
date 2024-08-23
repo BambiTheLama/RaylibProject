@@ -1,6 +1,6 @@
 {
     "Axe": {
-        "Stats": {
+        "WeaponStats": {
 
             "Damage": {
                 "Min": 10,
@@ -26,7 +26,7 @@
         }
     },
     "Sword": {
-        "Stats": {
+        "WeaponStats": {
             "Damage": [
                 {
                     "Min": 10,

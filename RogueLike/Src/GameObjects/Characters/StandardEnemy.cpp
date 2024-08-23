@@ -171,7 +171,7 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 	}
 
 
-	if (data[type].contains("Stats"))
+	if (data[type].contains("WeaponStats"))
 	{
 		//ws.readStatsFromWeapon(data[type]);
 	}
