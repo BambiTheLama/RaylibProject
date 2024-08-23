@@ -3,9 +3,15 @@
 #include "../../GameObjects/Characters/BossWall.h"
 #include "../../GameObjects/Characters/SpawnPoint.h"
 #include "../../GameObjects/Characters/BossEnterWall.h"
-#include "../../GameObjects/Characters/Wolf.h"
+#include "../../GameObjects/Characters/StandardEnemy.h"
 #include "../../GameObjects/Characters/LootBlock.h"
 #include "../../GameObjects/Characters/Chest.h"
+#include <magic_enum/magic_enum.hpp>
+
+static int thisFloor = 0;
+static nlohmann::json enemyData;
+static nlohmann::json chestData;
+
 GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 {
 	if (ID <= 0)
@@ -30,26 +36,47 @@ GameObject* getRoomElement(int ID, float x, float y, float w, float h)
 	return NULL;
 }
 
-
-
-GameObject* getEnemy(int ID, Rectangle pos)
+void setUpRoomElement(std::string path)
 {
-	if (ID < 0)
-		return NULL;
+	enemyData = readJson(path + "Enemies.json");
+	chestData = readJson(path + "Chest.json");
+}
+
+void setUpFloor(int floor)
+{
+}
+
+
+
+GameObject* getEnemy(EnemiesID ID)
+{
+	auto name = magic_enum::enum_name(ID);
+	std::string dataName = name.data();
 	switch (ID)
 	{
-	case 0:
-		return new Wolf(pos.x + pos.width / 2, pos.y + pos.height / 2);
+	case EnemiesID::Goblin:
+	case EnemiesID::Skeletron:
+	case EnemiesID::Slime:
+		return new StandardEnemy(dataName, enemyData, thisFloor);
 	default:
 		break;
 	}
-	return NULL;
+	return nullptr;
+}
+
+GameObject* getEnemy(int ID, Rectangle pos)
+{
+	GameObject* gm = getEnemy((EnemiesID)ID);
+	if (!gm)
+		return nullptr;
+	gm->setPos(getMidlePoint(pos));
+	return gm;
 }
 
 GameObject* getChest(int ID, Rectangle pos)
 {
 	if (ID < 0)
-		return NULL;
+		return nullptr;
 	
 	return new Chest(pos, ID);
 }
@@ -57,7 +84,7 @@ GameObject* getChest(int ID, Rectangle pos)
 GameObject* getObject(int ID, Rectangle pos)
 {
 	if (ID < 0)
-		return NULL;
+		return nullptr;
 	switch (ID)
 	{
 	case 0:
@@ -65,5 +92,5 @@ GameObject* getObject(int ID, Rectangle pos)
 	default:
 		break;
 	}
-	return NULL;
+	return nullptr;
 }

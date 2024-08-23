@@ -3,7 +3,7 @@
 #include "../GameObjects/Game.h"
 #include <algorithm>
 #include "../GameObjects/Characters/Wall.h"
-#include "../GameObjects/Characters/Wolf.h"
+#include "../GameObjects/Characters/StandardEnemy.h"
 #include "../GameObjects/Characters/SpawnPoint.h"
 #include "Controller/Controller.h"
 #include "rlgl.h"
@@ -11,10 +11,12 @@
 #include "../GameObjects/Weapon/Weapon.h"
 #include "../GameObjects/Items/ItemFactory.h"
 #include "../GameObjects/Projectal/ProjectalFactory.h"
+#include "Floor/RoomElements.h"
 
 GameScene::GameScene() {
     setUpItemFactory("Res/");
     setUpProjectals("Res/");
+    setUpRoomElement("Res/");
     Weapon::loadWeaponData("Res/Weapon.json");
     camera.zoom = 1.01f;
     camera.rotation = 0;
@@ -88,7 +90,10 @@ void GameScene::update(float deltaTime) {
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
         for (int i = 0; i < 1; i++)
-            addObject(new Wolf(cursor.x + i, cursor.y + i));
+        {
+            addObject(getEnemy(0, { cursor.x,cursor.y,1,1 }));
+        }
+
     }
 
     if (false && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {

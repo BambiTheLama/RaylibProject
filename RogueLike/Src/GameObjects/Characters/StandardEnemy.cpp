@@ -1,19 +1,17 @@
-#include "Wolf.h"
+#include "StandardEnemy.h"
 #include "../Collider/CollisionElementCircle.h"
 #include "../Collider/CollisionElementLines.h"
 #include "raymath.h"
 #include "../Game.h"
 #include "../ParticleText.h"
 
-Wolf::Wolf(float x, float y)
+StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 {
-	pos = { x,y,64.0f,64.0f };
-	pos.x -= pos.width / 2;
-	pos.y -= pos.height / 2;
 
+	pos = { 0,0,64.0f,64.0f };
 	//addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 4));
-	addCollisionElement(new CollisionElementLines({ pos.width / 3+4,pos.height / 3 + 10,pos.width / 3-8,pos.height / 3 }));
-	type = ObjectType::Enemy;
+	//addCollisionElement(new CollisionElementLines({ pos.width / 3+4,pos.height / 3 + 10,pos.width / 3-8,pos.height / 3 }));
+	this->type = ObjectType::Enemy;
 	ai = new AIController();
 	ai->thisObj = this;
 	ai->targerType = (int)ObjectType::Player;
@@ -25,14 +23,15 @@ Wolf::Wolf(float x, float y)
 	mass = 10;
 	//trigger = true;
 	texture = TextureController("Enemies/Skeletron.png");
+	readData(type, data, level);
 }
 
-void Wolf::destroy()
+void StandardEnemy::destroy()
 {
 
 }
 
-void Wolf::update(float deltaTime)
+void StandardEnemy::update(float deltaTime)
 {
 	frameTimer += deltaTime;
 	Hitable::update(deltaTime);
@@ -66,7 +65,7 @@ void Wolf::update(float deltaTime)
 	}
 }
 
-void Wolf::draw()
+void StandardEnemy::draw()
 {
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
@@ -86,7 +85,7 @@ void Wolf::draw()
 	
 }
 
-void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
+void StandardEnemy::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
 	return;
 	if (input == Input::Attack && attackTime <= 0.0f)
@@ -100,7 +99,7 @@ void Wolf::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTi
 
 }
 
-void Wolf::onCollision(Collider* collider)
+void StandardEnemy::onCollision(Collider* collider)
 {
 	GameObject* gm = collider->getThisObj();
 	if (((int)gm->getType() & target) != 0) {
@@ -113,13 +112,51 @@ void Wolf::onCollision(Collider* collider)
 
 }
 
-void Wolf::destoryController()
+void StandardEnemy::destoryController()
 {
 	controller.destoryController();
 	ai = nullptr;
 }
 
-void Wolf::onHit()
+void StandardEnemy::onHit()
 {
 
+}
+
+void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
+{
+	if (!data.contains(type))
+		return;
+	if (data[type].contains("Size"))
+	{
+		pos.width = data[type]["Size"][0];
+		pos.height = data[type]["Size"][1];
+	}
+	if (data[type].contains("Texture"))
+		texture = TextureController(data[type]["Texture"]);
+
+	if (data[type].contains("Col"))
+	{
+		std::vector<Vector2> col;
+		
+		for (int i = 0; i < data[type]["Col"].size(); i++)
+		{
+			int x = data[type]["Col"][i][0];
+			int y = data[type]["Col"][i][1];
+			col.push_back({ (float)x,(float)y });
+		}
+		addCollisionElement(new CollisionElementLines(col));
+	}
+	if (data[type].contains("Mass"))
+		mass = data[type]["Mass"];
+	if (data[type].contains("Range"))
+		ai->range = data[type]["Range"];
+	if (data[type].contains("Scale"))
+	{
+		float scale = data[type]["Scale"];
+
+		Collider::scaleColliderElements(scale);
+		pos.width *= scale;
+		pos.height *= scale;
+	}
 }

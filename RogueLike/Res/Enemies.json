@@ -2,6 +2,20 @@
     "Goblin": {
         "Texture": "Enemies/Goblin.png",
         "Size": [ 32, 32 ],
+        "Scale": 2,
+        "Range": 600,
+        "Col": [
+            [ 12, 16 ],
+            [ 19, 16 ],
+            [ 19, 26 ],
+            [ 12, 26 ]
+        ]
+    },
+    "Skeletron": {
+        "Texture": "Enemies/Skeletron.png",
+        "Size": [ 32, 32 ],
+        "Scale": 2,
+        "Range": 400,
         "Col": [
             [ 12, 16 ],
             [ 19, 16 ],
@@ -12,6 +26,8 @@
     "Slime": {
         "Texture": "Enemies/Slime.png",
         "Size": [ 32, 32 ],
+        "Scale": 2,
+        "Range": 300,
         "Col": [
             [ 6, 23 ],
             [ 2, 19 ],

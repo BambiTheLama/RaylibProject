@@ -5,7 +5,7 @@
 #include "../Collider/Collider.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../../Core/Controller/AIController.h"
-class Wolf :
+class StandardEnemy :
     public GameObject,public Hitable,public Collider,public Character
 {
     int target = 0b110;
@@ -25,7 +25,7 @@ class Wolf :
     bool col = false;
     std::string animationName = "";
 public:
-    Wolf(float x,float y);
+    StandardEnemy(std::string type, nlohmann::json data, int level);
 
     void destroy();
 
@@ -44,5 +44,7 @@ public:
     void onHit();
 
     virtual float getSpeed() { return speed; }
+private:
+    void readData(std::string type, nlohmann::json data, int level);
 };
 
