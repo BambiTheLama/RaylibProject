@@ -27,7 +27,7 @@ Player::Player(float x, float y):Hitable(100.0f){
     //reactOnlyToSolid = true;
     //drawOrder = 10;
     type = ObjectType::Player;
-    mass = 1000;
+    mass = 10;
     trigger = false;
     inventory = Inventory(this);
     ///*

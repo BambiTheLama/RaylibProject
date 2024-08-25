@@ -12,7 +12,7 @@ static float hpBarSize = 100;
 
 StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 {
-	setMaxHp(100);
+	setMaxHp(10);
 	pos = { 0,0,64.0f,64.0f };
 	//addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 4));
 	//addCollisionElement(new CollisionElementLines({ pos.width / 3+4,pos.height / 3 + 10,pos.width / 3-8,pos.height / 3 }));

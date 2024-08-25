@@ -157,9 +157,8 @@ void Sword::onTriggerEnter(Collider* collider)
 		return;
 	if ((int)gm->getType() & target)
 	{
-		Rectangle pos = gm->getPos();
-		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
-		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
+		Vector2 vPos = getMidlePoint(gm->getPos());
+		Vector2 rPos = Vector2Add(getRotationPoint(), getMidlePoint(getPos()));
 		Hitable* hit = dynamic_cast<Hitable*>(collider);
 		if (hit && hit->dealDamage(stats.getDamage()))
 		{
@@ -278,8 +277,6 @@ void Sword::updateWeaponSize()
 		scale = 16 / pos.height;
 	pos.width *= scale;
 	pos.height *= scale;
-	rotationPoint.x *= scale;
-	rotationPoint.y *= scale;
 	scaleColliderElements(scale);
 	Weapon::scaleWeapon(scale);
 
