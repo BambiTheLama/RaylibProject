@@ -11,6 +11,13 @@ Hitable::Hitable(float hp)
 	this->hp = maxHp;
 }
 
+void Hitable::setMaxHp(float maxHp)
+{
+	float procent = this->hp / this->maxHp;
+	this->maxHp = maxHp;
+	this->hp = procent * maxHp;
+}
+
 bool Hitable::dealDamage(float damage, float invisibleFrames)
 {
 	if (this->invisibleFrames > 0.0f)

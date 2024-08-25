@@ -158,7 +158,7 @@ void Player::draw() {
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 
     float range = 50.0f;
-    float rangeMax = inventory.getRange();
+    float rangeMax = 100.0f;
     const int minSegments = 5;
 
     int segments = (int)(rangeMax / (2 * range));

@@ -19,7 +19,7 @@
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -4, -4 ],
         "FlipHorizontal": true,
-        "RangeScale": 0.75,
+        "RangeScale": 0.06,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -30,14 +30,34 @@
         ],
 
         "WeaponStats": {
-            "Knockback": 25,
-            "Angle": [
-                240,
-                360
-            ],
-            "CountOfUse": 1,
-            "Bounce": 0,
-            "Pirce": 0
+            "Knockback": {
+                "Value": 25,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 250,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
 
     },
@@ -57,16 +77,44 @@
             [ 2, 3 ]
         ],
         "WeaponStats": {
-            "Knockback": 10,
-            "Angle": 20,
-            "CountOfUse": 1,
-            "ReloadTime": 0,
-            "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 1,
-            "Speed": 300,
-            "Damage": 1,
-            "Range": 1000
+
+            "Bounce": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "Pirce": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "Speed": {
+                "Value": 300,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
+
         }
 
     },
@@ -83,7 +131,7 @@
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -16, -16 ],
         "SpawnPoint": [ 24, 7 ],
-        "RangeScale": 0.5,
+        "RangeScale": 0.02,
         "Textures": [
             "Weapons/RustyDager.png",
             "Weapons/Dager.png"
@@ -93,13 +141,34 @@
             [ 2, 3 ]
         ],
         "WeaponStats": {
-            "Knockback": 10,
-            "Angle": 50,
-            "CountOfUse": 1,
-            "ReloadTime": 0,
-            "UseTime": 1,
-            "Range": 100,
-            "Damage": 1
+            "Knockback": {
+                "Value": 2,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 60,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 2000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
     },
     "DagerSai": {
@@ -116,7 +185,7 @@
         "RotationPoint": [ 8, 8 ],
         "RotationPointEnd": [ -10, -10 ],
         "SpawnPoint": [ 25, 6 ],
-        "RangeScale": 0.5,
+        "RangeScale": 0.02,
         "Textures": [
             "Weapons/RustyDagerSai.png",
             "Weapons/DagerSai.png"
@@ -126,13 +195,34 @@
             [ 2, 3 ]
         ],
         "WeaponStats": {
-            "Knockback": 10,
-            "Angle": 0,
-            "CountOfUse": 1,
-            "ReloadTime": 0,
-            "UseTime": 1,
-            "Range": 100,
-            "Damage": 1
+            "Knockback": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 30,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.2,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 2000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
     },
     "Hamer": {
@@ -152,7 +242,7 @@
         "SpawnPoint": [ 24, 7 ],
         "RotationPoint": [ 4, 4 ],
         "RotationPointEnd": [ -4, -4 ],
-        "RangeScale": 0.75,
+        "RangeScale": 0.06,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -165,13 +255,34 @@
         ],
 
         "WeaponStats": {
-            "Range": 100,
-            "Knockback": 10,
-            "Angle": 180,
-            "CountOfUse": 1,
-            "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 0
+            "Knockback": {
+                "Value": 30,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 300,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
     },
     "Shuriken": {
@@ -215,15 +326,44 @@
         ],
 
         "WeaponStats": {
-            "Damage": 1.0,
-            "Range": 1000,
-            "Knockback": 10,
-            "Angle": 25,
-            "CountOfUse": 3,
-            "Speed": 100,
-            "UseTime": 1,
-            "Bounce": 1,
-            "Pirce": 0
+
+            "Bounce": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "Pirce": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "Speed": {
+                "Value": 300,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
+
         }
     },
     "Sicle": {
@@ -249,7 +389,7 @@
         "SpawnPoint": [ 8, 7 ],
         "RotationPoint": [ 0, 0 ],
         "RotationPointEnd": [ 0, 0 ],
-        "RangeScale": 0.5,
+        "RangeScale": 0.06,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -261,13 +401,34 @@
         ],
 
         "WeaponStats": {
-            "Knockback": 10,
-            "Angle": 180,
-            "CountOfUse": 1,
-            "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 0,
-            "Range": 100
+            "Knockback": {
+                "Value": 30,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 300,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
     },
     "Spear": {
@@ -283,7 +444,7 @@
         "RotationPoint": [ 16, 16 ],
         "RotationPointEnd": [ -64, -64 ],
         "SpawnPoint": [ 31, 0 ],
-        "RangeScale": 0.5,
+        "RangeScale": 0.06,
         "Textures": [
             "Weapons/Spear.png"
 
@@ -293,15 +454,34 @@
             [ 2, 3 ]
         ],
         "WeaponStats": {
-            "Knockback": 10,
-            "Angle": 90,
-            "CountOfUse": 1,
-            "ReloadTime": 0,
-            "UseTime": 1,
-            "Bounce": 0,
-            "Pirce": 5,
-            "Range": 100,
-            "Damage": 1
+            "Knockback": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
     },
     "Sword": {
@@ -321,6 +501,7 @@
         "SpawnPoint": [ 21, 10 ],
         "RotationPoint": [ 4, 4 ],
         "RotationPointEnd": [ -10, -10 ],
+        "RangeScale": 0.06,
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]
@@ -333,11 +514,34 @@
         ],
 
         "WeaponStats": {
-            "Knockback": 10,
-            "Angle": 300,
-            "CountOfUse": 1,
-            "Bounce": 0,
-            "Pirce": 0
+            "Knockback": {
+                "Value": 30,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 300,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.5,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
         }
     }
 }

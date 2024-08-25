@@ -43,76 +43,87 @@ StatInt& StatInt::operator-=(const StatInt& stat)
 }
 
 #pragma region readFromJson
-static void getJsonData(nlohmann::json& json,float* stat,float* statMul)
+static void getJsonData(nlohmann::json& json, StatFloatMulti* stat)
 {
-	if (stat)
+	if (json.contains("Min") && json.contains("Max"))
 	{
-		if (json.contains("Min") && json.contains("Max"))
-		{
-			float min = json["Min"];
-			float max = json["Max"];
-			float procent = (rand() % 100) / 100.0f;
-			(*stat) = (min + (max - min) * procent);
-		}
-		else if (json.contains("Value"))
-		{
-			(*stat) = json["Value"];
-		}
-		else if (json.is_number())
-		{
-			(*stat) = json;
-		}
+		float min = json["Min"];
+		float max = json["Max"];
+		float procent = (rand() % 100) / 100.0f;
+		stat->value = (min + (max - min) * procent);
 	}
-	if (statMul)
+	else if (json.contains("Value"))
 	{
-		if (json.contains("MulMin") && json.contains("MulMax"))
-		{
-			float min = json["MulMin"];
-			float max = json["MulMax"];
-			float procent = (rand() % 1000) / 1000.0f;
-			(*statMul) = (min + (max - min) * procent);
-		}
-		else if (json.contains("MulValue"))
-		{
-			(*statMul) = json["MulValue"];
-		}
+		stat->value = json["Value"];
 	}
+	else if (json.is_number())
+	{
+		stat->value = json;
+	}
+
+	if (json.contains("MulMin") && json.contains("MulMax"))
+	{
+		float min = json["MulMin"];
+		float max = json["MulMax"];
+		float procent = (rand() % 1000) / 1000.0f;
+		stat->multiplier = (min + (max - min) * procent);
+	}
+	else if (json.contains("MulValue"))
+	{
+		stat->multiplier = json["MulValue"];
+	}
+	if (json.contains("Inportant"))
+		stat->inportant = json["Inportant"];
 }
 
-static void getJsonData(nlohmann::json& json,int tier, float* stat, float* statMul)
+static void getJsonData(nlohmann::json& json,int tier, StatFloatMulti* stat)
 {
 	if (!json.is_array())
 	{
-		getJsonData(json, stat, statMul);
+		getJsonData(json, stat);
 		return;
 	}
 	if (json.size() <= 0)
 		return;
 	int tiers = (int)Clamp(tier, 0, json.size() - 1.0f);
 	
-	getJsonData(json[tiers], stat, statMul);
+	getJsonData(json[tiers], stat);
 }
 
-static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, float* stat, float* statMultiplier = nullptr)
+static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, StatFloatMulti* stat)
 {
 	if (!json.contains(statProperty))
 		return;
 	if (json[statProperty].is_number())
 	{
 		if (stat)
-			*stat = json[statProperty];
+			stat->value = json[statProperty];
 		return;
 	}
-	getJsonData(json[statProperty], tier, stat, statMultiplier);
+	getJsonData(json[statProperty], tier, stat);
 }
 
-static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, int* stat)
+static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, StatFloat* stat)
 {
 	if (!json.contains(statProperty))
 		return;
-	float data = 0.0f;
-	readStatFromWeapon(json, statProperty, tier, &data);
-	*stat = (int)data;
+	StatFloatMulti tmpStat;
+	tmpStat.value = stat->value;
+	tmpStat.inportant = stat->inportant;
+	readStatFromWeapon(json, statProperty, tier, &tmpStat);
+	stat->value = tmpStat.value;
+	stat->inportant = tmpStat.inportant;
+}
+static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, StatInt* stat)
+{
+	if (!json.contains(statProperty))
+		return;
+	StatFloatMulti tmpStat;
+	tmpStat.value = stat->value;
+	tmpStat.inportant = stat->inportant;
+	readStatFromWeapon(json, statProperty, tier, &tmpStat);
+	stat->value = (int)tmpStat.value;
+	stat->inportant = tmpStat.inportant;
 }
 #pragma endregion readFromJson
 
@@ -121,16 +132,16 @@ void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
 	if (!json.contains(statsJsonName))
 		return;
 
-	readStatFromWeapon(json[statsJsonName], "Damage",		tier, &damage.value,		&damage.multiplier);
-	readStatFromWeapon(json[statsJsonName], "UseTime",		tier, &useTime.value,		&useTime.multiplier);
-	readStatFromWeapon(json[statsJsonName], "ReloadTime",	tier, &reloadTime.value,	&reloadTime.multiplier);
-	readStatFromWeapon(json[statsJsonName], "Speed",		tier, &speed.value,			&speed.multiplier);
-	readStatFromWeapon(json[statsJsonName], "Range",		tier, &range.value,			&range.multiplier);
-	readStatFromWeapon(json[statsJsonName], "Knockback",	tier, &knockback.value,		&knockback.multiplier);
-	readStatFromWeapon(json[statsJsonName], "Angle",		tier, &angle.value);
-	readStatFromWeapon(json[statsJsonName], "CountOfUse",	tier, &countOfUse.value);
-	readStatFromWeapon(json[statsJsonName], "Bounce",		tier, &bounce.value);
-	readStatFromWeapon(json[statsJsonName], "Pirce"     ,	tier, &pirce.value);
+	readStatFromWeapon(json[statsJsonName], "Damage",		tier, &damage);
+	readStatFromWeapon(json[statsJsonName], "UseTime",		tier, &useTime);
+	readStatFromWeapon(json[statsJsonName], "ReloadTime",	tier, &reloadTime);
+	readStatFromWeapon(json[statsJsonName], "Speed",		tier, &speed);
+	readStatFromWeapon(json[statsJsonName], "Range",		tier, &range);
+	readStatFromWeapon(json[statsJsonName], "Knockback",	tier, &knockback);
+	readStatFromWeapon(json[statsJsonName], "Angle",		tier, &angle);
+	readStatFromWeapon(json[statsJsonName], "CountOfUse",	tier, &countOfUse);
+	readStatFromWeapon(json[statsJsonName], "Bounce",		tier, &bounce);
+	readStatFromWeapon(json[statsJsonName], "Pirce"     ,	tier, &pirce);
 }
 
 void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& statMultiplier)
@@ -229,7 +240,9 @@ void addToStringData(std::string& data, StatFloatMulti stat, std::string name, b
 
 	else
 		data += dataValue;
-	data += std::string("\n");
+	if (stat.inportant)
+		data += "{Icon:10}";
+	data += "\n";
 }
 
 void addToStringData(std::string& data, StatFloat stat, std::string name, bool icon = false, int ID = 0, bool skip = false)
@@ -240,7 +253,10 @@ void addToStringData(std::string& data, StatFloat stat, std::string name, bool i
 	dataValue.erase(dataValue.size() - 5, 5);
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
-	data += "{" + name + "}: " + dataValue + std::string("\n");
+	data += "{" + name + "}: " + dataValue;
+	if (stat.inportant)
+		data += "{Icon:10}";
+	data += "\n";
 }
 
 void addToStringData(std::string& data, StatInt stat, std::string name, bool icon = false, int ID = 0, bool skip = false)
@@ -249,7 +265,10 @@ void addToStringData(std::string& data, StatInt stat, std::string name, bool ico
 		return;
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
-	data += "{" + name + "}: " + std::to_string(stat.value) + std::string("\n");
+	data += "{" + name + "}: " + std::to_string(stat.value);
+	if (stat.inportant)
+		data += "{Icon:10}";
+	data += "\n";
 }
 
 

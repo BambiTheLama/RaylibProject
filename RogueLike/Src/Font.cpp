@@ -29,6 +29,7 @@ namespace MyFont
 		icons.push_back(TextureController("Icons/CountOfUseIcon.png"));
 		icons.push_back(TextureController("Icons/BounceIcon.png"));
 		icons.push_back(TextureController("Icons/PirceIcon.png"));
+		icons.push_back(TextureController("Icons/PirceIcon.png"));
 	}
 
 	void ClearFont()
