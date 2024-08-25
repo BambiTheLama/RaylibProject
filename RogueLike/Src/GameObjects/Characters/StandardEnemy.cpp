@@ -6,6 +6,7 @@
 #include "../ParticleText.h"
 #include <magic_enum/magic_enum.hpp>
 #include "../Projectal/ProjectalFactory.h"
+#include "../Items/ItemFactory.h"
 
 static float hpBarSize = 100;
 
@@ -30,49 +31,29 @@ StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 	readData(type, data, level);
 }
 
-void StandardEnemy::destroy()
+StandardEnemy::~StandardEnemy()
 {
 
+}
+
+void StandardEnemy::destroy()
+{
+	if (!weapon)
+		return;
+	GameObject* gm = dynamic_cast<GameObject*>(weapon);
+	if (gm)
+		Game::deleteObject(gm);
+	weapon = nullptr;
 }
 
 void StandardEnemy::update(float deltaTime)
 {
 	frameTimer += deltaTime;
+	if (item)
+		item->update(deltaTime, attackDir);
 	Hitable::update(deltaTime);
+	
 	controller.update(deltaTime);
-	if (attackCDR > 0.0f)
-	{
-		attackCDR -= deltaTime;
-		if (attackCDR < 0.0f && spawn)
-		{
-			Projectal* pro = getProjectal(spawnID);
-			if (pro)
-			{
-				Vector2 posV = Vector2Add(getMidlePoint(getColPos()), spawnPoint);
-				Vector2 otherPosV = getMidlePoint({ 0,0,0,0 });
-				if (ai && ai->target)
-					otherPosV = getMidlePoint(ai->target->getColPos());
-				Vector2 dir = Vector2Normalize(Vector2Subtract(otherPosV, posV));
-				float angle = Vector2Angle({ 0.001f,0.001f }, dir);
-				
-				pro->setDir(dir);
-				GameObject* gm = dynamic_cast<GameObject*>(pro);
-				pro->setWeaponStats(ws);
-				pro->setOwner(this);
-				pro->setTarget((int)ObjectType::Player);
-				if (gm)
-				{
-					gm->setPos(posV);
-					Game::addObject(gm);
-				}
-				else
-					delete gm;
-
-
-			}
-		}
-	}
-
 	if (!ai)
 		return;
 
@@ -82,18 +63,27 @@ void StandardEnemy::update(float deltaTime)
 		Vector2 posV = getMidlePoint(pos);
 		Vector2 otherPosV = getMidlePoint(ai->target->getPos());
 		float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
-		if (distance > maxRangeAttack && attackCDR <= 0.0f)
+		bool canSwap = true;
+		bool chargeWeapon = false;
+		if (item)
+			canSwap = item->canSwap();
+		if (weapon)
+			chargeWeapon = weapon->isChargeWeapon();
+		if (chargeWeapon)
+			canSwap = true;
+		if (distance > maxRangeAttack && canSwap)
 			ai->setAction(Action::GoTo);
-		else if(distance < minRangeAttack && attackCDR <= 0.0f)
+		else if (distance < minRangeAttack && canSwap)
 			ai->setAction(Action::RunFrom);		
-		else
+		else if (distance < maxRangeAttack && distance > minRangeAttack)
 			ai->setAction(Action::Attack);
+		else 
+			ai->setAction(Action::IDE);
 	}
 	else if(!ai->hasPath())
 	{
 		ai->lookForTarget();
 		ai->setAction(Action::IDE);
-		attackCDR = 0.0f;
 	}
 	std::string actionName = ai->getActionName();
 	if (actionName.compare(animationName))
@@ -107,22 +97,31 @@ void StandardEnemy::draw()
 {
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
-	if (animationName == "Attack")
-	{
-		float procentOfAnimation = (attackCDRMax - attackCDR) / attackCDRMax;
-		frame = texture.getFrame(animationName, procentOfAnimation * texture.getFrames(animationName));
-	}
 		
 	texture.draw(pos, false, false, frame);
 	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
+	GameObject* gm = dynamic_cast<GameObject*>(weapon);
+	if (gm)
+		gm->draw();
+		
 }
 
 void StandardEnemy::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
-	if (input == Input::Attack && attackCDR <= 0.0f && spawn)
+	if (input == Input::Attack && weapon)
 	{
-		attackCDR = attackCDRMax;
+		GameObject* gm = dynamic_cast<GameObject*>(weapon);
+		Item* item = dynamic_cast<Item*>(weapon);
+		if (weapon)
+			weapon->setTarget(target);
+		if (item)
+			item->setOwner(this);
+		Game::addObject(gm);
+		weapon->use(cursorDir, deltaTime);
+		if (weapon->stopUseWeapon())
+			weapon->stopUse(attackDir, deltaTime);
 	}
+	attackDir = cursorDir;
 
 }
 
@@ -178,6 +177,18 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 		mass = data[type]["Mass"];
 	if (data[type].contains("Range"))
 		ai->range = data[type]["Range"];
+
+	if (data[type].contains("MinDist"))
+		minRangeAttack = data[type]["MinDist"];
+	if (data[type].contains("MaxDist"))
+		maxRangeAttack = data[type]["MaxDist"];
+	if (data[type].contains("ContactDamage"))
+		contactDamage = data[type]["ContactDamage"];
+	if (data[type].contains("SpawnPoint"))
+	{
+		spawnPoint.x = data[type]["SpawnPoint"][0];
+		spawnPoint.y = data[type]["SpawnPoint"][1];
+	}
 	if (data[type].contains("Scale"))
 	{
 		float scale = data[type]["Scale"];
@@ -185,25 +196,40 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 		Collider::scaleColliderElements(scale);
 		pos.width *= scale;
 		pos.height *= scale;
+		spawnPoint = Vector2Scale(spawnPoint, scale);
 	}
-	if (data[type].contains("Spawn"))
+	if (data[type].contains("Weapon"))
 	{
-		spawn = true;
-		std::string spawnName = data[type]["Spawn"];
-		auto castData = magic_enum::enum_cast<ProjectalID>(spawnName);
-		if (castData.has_value())
-			spawnID = castData.value();
+		int tier = 0;
+		int variant = 0;
+		WeaponType weaponType = WeaponType::Sword;
+		if (data[type]["Weapon"].contains("Tier"))
+			tier = data[type]["Weapon"]["Tier"];
+		if (data[type]["Weapon"].contains("Variant"))
+			variant = data[type]["Weapon"]["Variant"];
+		if (data[type]["Weapon"].contains("Type"))
+		{
+			std::string name = data[type]["Weapon"]["Type"];
+			auto castName = magic_enum::enum_cast<WeaponType>(name);
+			if (castName.has_value())
+				weaponType = castName.value();
+		}
+
+		weapon = getWeapon(variant, tier, weaponType);
+		if (weapon)
+		{
+			item = dynamic_cast<Item*>(weapon);
+			GameObject* gm = dynamic_cast<GameObject*>(weapon);
+
+			if (item)
+				item->setOwner(this);
+			Game::addObject(gm);
+			weapon->use({ 0,0 }, 0);
+			if (item)
+				item->update(1000);
+
+		}
+
 
 	}
-	if (data[type].contains("MinDist"))
-		minRangeAttack = data[type]["MinDist"];
-	if (data[type].contains("MaxDist"))
-		maxRangeAttack = data[type]["MaxDist"];
-	if (data[type].contains("AttackCDR"))
-		attackCDRMax = data[type]["AttackCDR"];
-	if (data[type].contains("ContactDamage"))
-		contactDamage = data[type]["ContactDamage"];
-
-	ws.readStatsFromWeapon(data[type]);
-	
 }

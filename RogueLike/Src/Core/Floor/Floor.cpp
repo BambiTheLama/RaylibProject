@@ -158,9 +158,10 @@ Floor::~Floor()
     for (auto o : toDelete)
     {
         removeObj(o);
-        delete o;
+        o->destroy();
     }
-
+    for (auto o : toDelete)
+        delete o;
     toDelete.clear();
     delete tree;
 }
@@ -389,7 +390,11 @@ bool Floor::deleteObject(GameObject* obj)
     if (std::find(allGameObjects.begin(), allGameObjects.end(), obj) == allGameObjects.end())
         return false;
     if (std::find(toDelete.begin(), toDelete.end(), obj) == toDelete.end())
+    {
         toDelete.push_back(obj);
+        obj->destroy();
+    }
+
     return true;
 }
 

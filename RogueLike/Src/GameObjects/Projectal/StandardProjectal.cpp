@@ -23,7 +23,7 @@ void StandardProjectal::start()
 	angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir) ) * RAD2DEG + rotationDiff;
 	drawOrder = 10;
 	trigger = true;
-	range = stats.range;
+	range = stats.getRange();
 	rangeMax = range;
 }
 
@@ -34,9 +34,9 @@ void StandardProjectal::destroy()
 
 void StandardProjectal::update(float deltaTime)
 {
-	pos.x += dir.x * stats.speed * deltaTime;
-	pos.y += dir.y * stats.speed * deltaTime;
-	range -= stats.speed * deltaTime;
+	pos.x += dir.x * stats.getSpeed() * deltaTime;
+	pos.y += dir.y * stats.getSpeed() * deltaTime;
+	range -= stats.getSpeed() * deltaTime;
 	timer -= deltaTime;
 	if (range <= 0.0f)
 		Game::deleteObject(this);
@@ -48,7 +48,10 @@ void StandardProjectal::draw()
 {
 	//DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
 	int frame = (rangeMax - range) / rangeMax * (texture.getFrames());
-	texture.draw(pos, false, false, frame, rotationPoint, angle);
+	Color c = WHITE;
+	if (target & (int)ObjectType::Player)
+		c = RED;
+	texture.draw(pos, false, false, frame, rotationPoint, angle, c);
 }
 
 
@@ -65,7 +68,7 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		Hitable* hit = dynamic_cast<Hitable*>(colObj);
 		if (hit)
 		{
-			hit->dealDamage(stats.damage);
+			hit->dealDamage(stats.getDamage());
 			if (!hit->isAlive())
 				triggerNode(WeaponNodeActivation::OnKill, stats);
 			pirce--;
@@ -98,10 +101,10 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 
 void StandardProjectal::updateStatsAfterSetStats()
 {
-	pirce = stats.pirce;
-	bounce = stats.bounce;
-	range = stats.range;
-	timer = stats.useTime;
+	pirce = stats.getPirce();
+	bounce = stats.getBounce();
+	range = stats.getRange();
+	timer = stats.getUseTime();
 	
 }
 

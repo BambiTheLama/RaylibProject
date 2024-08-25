@@ -93,12 +93,12 @@ WeaponStats WeaponNode::getNextStats(WeaponNode node)
 {
 	WeaponStats stats = this->stats;
 	WeaponStats lastStats = node.stats;
-	stats.damage += stats.damageMultiplier * lastStats.damage;
-	stats.knockbackMultiplier += stats.knockbackMultiplier * lastStats.knockback;
-	stats.range += stats.rangeMultiplier * lastStats.range;
-	stats.speed += stats.speedMultiplier * lastStats.speed;
-	stats.useTime += stats.useTimeMultiplier * lastStats.useTime;
-	stats.reloadTime += stats.reloadTimeMultiplier * lastStats.reloadTime;
+	stats.damage.value		+= stats.damage.value		* lastStats.damage.multiplier;
+	stats.knockback.value	+= stats.knockback.value	* lastStats.knockback.multiplier;
+	stats.range.value		+= stats.range.value		* lastStats.range.multiplier;
+	stats.speed.value		+= stats.speed.value		* lastStats.speed.multiplier;
+	stats.useTime.value		+= stats.useTime.value		* lastStats.useTime.multiplier;
+	stats.reloadTime.value	+= stats.reloadTime.value	* lastStats.reloadTime.multiplier;
 	return stats;
 }
 #pragma endregion Getters

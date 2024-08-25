@@ -16,10 +16,10 @@ void Explosion::update(float deltaTime)
 	time -= deltaTime;
 	float procent = powf(sinf(time * 3.0f / timeMax), 4.0f);
 	float lastRange = range;
-	range = procent * (stats.range - minRange) + minRange;
+	range = procent * (stats.getRange() - minRange) + minRange;
 	pos.width = range;
 	pos.height = range;
-	damage = procent * stats.damage;
+	damage = procent * stats.getDamage();
 	if (range < minRange)
 		range = minRange;
 	scaleColliderElements(range / lastRange);
@@ -37,7 +37,7 @@ void Explosion::draw()
 	Color c = WHITE;
 	c.b = 0;
 	c.g = 0;
-	c.r = (unsigned char)(255 * damage / stats.damage);
+	c.r = (unsigned char)(255 * damage / stats.getDamage());
 	DrawCircleV({ pos.x, pos.y }, range, c);
 	//DrawRectangleRec(pos, { 0,0,0,128 });
 }
@@ -70,7 +70,7 @@ void Explosion::onTriggerEnter(Collider* collider)
 
 void Explosion::updateStatsAfterSetStats()
 {
-	time = stats.useTime;
+	time = stats.getUseTime();
 	timeMax = time;
-	damage = stats.damage;
+	damage = stats.getDamage();
 }

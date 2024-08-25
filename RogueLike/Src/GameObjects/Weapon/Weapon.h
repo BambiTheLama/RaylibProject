@@ -43,6 +43,7 @@ class Weapon
 	ProjectalID spawnID = ProjectalID::Arrow;
 protected:
 	static nlohmann::json weaponData;
+	int target = 0;
 	bool mirror = false;
 	int weaponTier = 0;
 	float angle = 0.0f;
@@ -106,10 +107,12 @@ public:
 	void scaleWeapon(float scale);
 	
 	void setStats(WeaponStats ws) { difoltStats = ws; stats = ws; }
+
+	void setTarget(int target) { this->target = target; }
 #pragma endregion Setters
 
 #pragma region Getters
-	float getRange() { return stats.range * stats.rangeMultiplier; }
+	float getRange() { return stats.getRange(); }
 
 	float getAngle() { return angle; }
 
@@ -120,6 +123,10 @@ public:
 	bool isSpawningProjectal() { return spawn; }
 	
 	static int getNumberOfSlotsInRow(float w, float size = 64.0f, float itemSpaceing = 10.0f);
+
+	virtual bool isChargeWeapon() { return false; }
+
+	virtual bool stopUseWeapon() { return false; }
 #pragma endregion Getters
 	friend class GameScene;
 private:

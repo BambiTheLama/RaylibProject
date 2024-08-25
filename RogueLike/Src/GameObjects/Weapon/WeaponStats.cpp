@@ -5,6 +5,43 @@
 static const char* statsJsonName = "WeaponStats";
 static const float tolerance = 0.1f;
 
+
+StatFloatMulti& StatFloatMulti::operator+=(const StatFloatMulti& stat)
+{
+	value += stat.value;
+	multiplier += stat.multiplier;
+	return *this;
+}
+StatFloatMulti& StatFloatMulti::operator-=(const StatFloatMulti& stat)
+{
+	value -= stat.value;
+	multiplier -= stat.multiplier;
+	return *this;
+}
+
+StatFloat& StatFloat::operator+=(const StatFloat& stat)
+{
+	value += stat.value;
+	return *this;
+}
+StatFloat& StatFloat::operator-=(const StatFloat& stat)
+{
+	value -= stat.value;
+	return *this;
+}
+
+StatInt& StatInt::operator+=(const StatInt& stat)
+{
+	value += stat.value;
+	return *this;
+}
+
+StatInt& StatInt::operator-=(const StatInt& stat)
+{
+	value -= stat.value;
+	return *this;
+}
+
 #pragma region readFromJson
 static void getJsonData(nlohmann::json& json,float* stat,float* statMul)
 {
@@ -84,16 +121,16 @@ void WeaponStats::readStatsFromWeapon(nlohmann::json json, int tier)
 	if (!json.contains(statsJsonName))
 		return;
 
-	readStatFromWeapon(json[statsJsonName], "Damage",		tier, &damage		, &damageMultiplier);
-	readStatFromWeapon(json[statsJsonName], "UseTime",		tier, &useTime		, &useTimeMultiplier);
-	readStatFromWeapon(json[statsJsonName], "ReloadTime",	tier, &reloadTime	, &reloadTimeMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Speed",		tier, &speed		, &speedMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Range",		tier, &range		, &rangeMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Knockback",	tier, &knockback	, &knockbackMultiplier);
-	readStatFromWeapon(json[statsJsonName], "Angle",		tier, &angle);
-	readStatFromWeapon(json[statsJsonName], "CountOfUse",	tier, &countOfUse);
-	readStatFromWeapon(json[statsJsonName], "Bounce",		tier, &bounce);
-	readStatFromWeapon(json[statsJsonName], "Pirce"     ,	tier, &pirce);
+	readStatFromWeapon(json[statsJsonName], "Damage",		tier, &damage.value,		&damage.multiplier);
+	readStatFromWeapon(json[statsJsonName], "UseTime",		tier, &useTime.value,		&useTime.multiplier);
+	readStatFromWeapon(json[statsJsonName], "ReloadTime",	tier, &reloadTime.value,	&reloadTime.multiplier);
+	readStatFromWeapon(json[statsJsonName], "Speed",		tier, &speed.value,			&speed.multiplier);
+	readStatFromWeapon(json[statsJsonName], "Range",		tier, &range.value,			&range.multiplier);
+	readStatFromWeapon(json[statsJsonName], "Knockback",	tier, &knockback.value,		&knockback.multiplier);
+	readStatFromWeapon(json[statsJsonName], "Angle",		tier, &angle.value);
+	readStatFromWeapon(json[statsJsonName], "CountOfUse",	tier, &countOfUse.value);
+	readStatFromWeapon(json[statsJsonName], "Bounce",		tier, &bounce.value);
+	readStatFromWeapon(json[statsJsonName], "Pirce"     ,	tier, &pirce.value);
 }
 
 void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& statMultiplier)
@@ -106,51 +143,45 @@ void readStat(nlohmann::json& json,const char* statProperty,float& stat,float& s
 
 void WeaponStats::readStats(nlohmann::json json)
 {
-	readStat(json, "Damage",		damage,		damageMultiplier);
-	readStat(json, "UseTime",		useTime,	useTimeMultiplier);
-	readStat(json, "ReloadTime",	reloadTime, reloadTimeMultiplier);
-	readStat(json, "Speed",			speed,		speedMultiplier);
-	readStat(json, "Range",			range,		rangeMultiplier);
-	readStat(json, "Knockback",		knockback,	knockbackMultiplier);
+	readStat(json, "Damage",		damage.value,		damage.multiplier);
+	readStat(json, "UseTime",		useTime.value,		useTime.multiplier);
+	readStat(json, "ReloadTime",	reloadTime.value,	reloadTime.multiplier);
+	readStat(json, "Speed",			speed.value,		speed.multiplier);
+	readStat(json, "Range",			range.value,		range.multiplier);
+	readStat(json, "Knockback",		knockback.value,	knockback.multiplier);
 	if (json[statsJsonName].contains("Angle"))
-		angle = json[statsJsonName]["Angle"];
+		angle.value = json[statsJsonName]["Angle"];
 	if (json[statsJsonName].contains("CountOfUse"))
-		countOfUse = json[statsJsonName]["CountOfUse"];
+		countOfUse.value = json[statsJsonName]["CountOfUse"];
 	if (json[statsJsonName].contains("Bounce"))
-		bounce = json[statsJsonName]["Bounce"];
+		bounce.value = json[statsJsonName]["Bounce"];
 	if (json[statsJsonName].contains("Pirce"))
-		pirce = json[statsJsonName]["Pirce"];
+		pirce.value = json[statsJsonName]["Pirce"];
 }
 
 void WeaponStats::saveStats(nlohmann::json& json)
 {
-	json[statsJsonName]["Damage"]		= { damage ,damageMultiplier };
-	json[statsJsonName]["UseTime"]		= { useTime ,useTimeMultiplier };
-	json[statsJsonName]["ReloadTime"]	= { reloadTime ,reloadTimeMultiplier };
-	json[statsJsonName]["Speed"]		= { speed ,speedMultiplier };
-	json[statsJsonName]["Range"]		= { range ,rangeMultiplier };
-	json[statsJsonName]["Angle"]		= angle;
-	json[statsJsonName]["Knockback"]	= { knockback ,knockbackMultiplier };
-	json[statsJsonName]["CountOfUse"]	= countOfUse;
-	json[statsJsonName]["Bounce"]		= bounce;
-	json[statsJsonName]["Pirce"]		= pirce;
+	json[statsJsonName]["Damage"]		= { damage.value ,damage.multiplier };
+	json[statsJsonName]["UseTime"]		= { useTime.value ,useTime.multiplier };
+	json[statsJsonName]["ReloadTime"]	= { reloadTime.value ,reloadTime.multiplier };
+	json[statsJsonName]["Speed"]		= { speed.value ,speed.multiplier };
+	json[statsJsonName]["Range"]		= { range.value ,range.multiplier };
+	json[statsJsonName]["Angle"]		=   angle.value;
+	json[statsJsonName]["Knockback"]	= { knockback.value ,knockback.multiplier };
+	json[statsJsonName]["CountOfUse"]	=   countOfUse.value;
+	json[statsJsonName]["Bounce"]		=   bounce.value;
+	json[statsJsonName]["Pirce"]		=   pirce.value;
 }
 
 WeaponStats& WeaponStats::operator+=(const WeaponStats& ws)
 {
 	damage					+= ws.damage;
-	damageMultiplier		+= ws.damageMultiplier;
 	useTime					+= ws.useTime;
-	useTimeMultiplier		+= ws.useTimeMultiplier;
 	reloadTime				+= ws.reloadTime;
-	reloadTimeMultiplier	+= ws.reloadTimeMultiplier;
 	speed					+= ws.speed;
-	speedMultiplier			+= ws.speedMultiplier;
 	range					+= ws.range;
-	rangeMultiplier			+= ws.rangeMultiplier;
 	angle					+= ws.angle;
 	knockback				+= ws.knockback;
-	knockbackMultiplier		+= ws.knockbackMultiplier;
 	countOfUse				+= ws.countOfUse;
 	bounce					+= ws.bounce;
 	pirce					+= ws.pirce;
@@ -160,31 +191,25 @@ WeaponStats& WeaponStats::operator+=(const WeaponStats& ws)
 WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
 {
 	damage					-= ws.damage;
-	damageMultiplier		-= ws.damageMultiplier;
 	useTime					-= ws.useTime;
-	useTimeMultiplier		-= ws.useTimeMultiplier;
 	reloadTime				-= ws.reloadTime;
-	reloadTimeMultiplier	-= ws.reloadTimeMultiplier;
 	speed					-= ws.speed;
-	speedMultiplier			-= ws.speedMultiplier;
 	range					-= ws.range;
-	rangeMultiplier			-= ws.rangeMultiplier;
 	angle					-= ws.angle;
 	knockback				-= ws.knockback;
-	knockbackMultiplier		-= ws.knockbackMultiplier;
 	countOfUse				-= ws.countOfUse;
 	bounce					-= ws.bounce;
 	pirce					-= ws.pirce;
 	return *this;
 }
-void addToStringData(std::string& data, float value, float valueMulti, std::string name, bool icon = false,
+void addToStringData(std::string& data, StatFloatMulti stat, std::string name, bool icon = false,
 	int ID = 0, bool skip = false, bool showProcent = true, char separator = '+')
 {
-	if (skip && fabs(value) < tolerance && fabs(valueMulti) < tolerance)
+	if (skip && fabs(stat.value) < tolerance && fabs(stat.multiplier) < tolerance)
 		return;
 	
-	std::string dataValue = std::to_string(value);
-	std::string dataValueMulti = std::to_string(valueMulti*100);
+	std::string dataValue = std::to_string(stat.value);
+	std::string dataValueMulti = std::to_string(stat.multiplier*100);
 	dataValue.erase(dataValue.size() - 5, 5);
 	dataValueMulti.erase(dataValueMulti.size() - 4, 5);
 	if (icon)
@@ -194,7 +219,7 @@ void addToStringData(std::string& data, float value, float valueMulti, std::stri
 	{
 		if (separator == '*')
 		{
-			std::string dataV = std::to_string(value * valueMulti);
+			std::string dataV = std::to_string(stat.value * stat.multiplier);
 			dataV.erase(dataV.size() - 5, 5);
 			data += dataV + " = " + dataValue + ' ' + separator + ' ' + dataValueMulti + '%';
 		}
@@ -207,24 +232,24 @@ void addToStringData(std::string& data, float value, float valueMulti, std::stri
 	data += std::string("\n");
 }
 
-void addToStringData(std::string& data, float value, std::string name, bool icon = false, int ID = 0, bool skip = false)
+void addToStringData(std::string& data, StatFloat stat, std::string name, bool icon = false, int ID = 0, bool skip = false)
 {
-	if (skip && fabs(value) < tolerance)
+	if (skip && fabs(stat.value) < tolerance)
 		return;
-	std::string dataValue = std::to_string(value);
+	std::string dataValue = std::to_string(stat.value);
 	dataValue.erase(dataValue.size() - 5, 5);
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
 	data += "{" + name + "}: " + dataValue + std::string("\n");
 }
 
-void addToStringData(std::string& data, int value, std::string name, bool icon = false, int ID = 0, bool skip = false)
+void addToStringData(std::string& data, StatInt stat, std::string name, bool icon = false, int ID = 0, bool skip = false)
 {
-	if (skip && labs(value) <= 0)
+	if (skip && labs(stat.value) <= 0)
 		return;
 	if (icon)
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
-	data += "{" + name + "}: " + std::to_string(value) + std::string("\n");
+	data += "{" + name + "}: " + std::to_string(stat.value) + std::string("\n");
 }
 
 
@@ -232,16 +257,16 @@ std::string WeaponStats::toString(bool skipZero,bool showProcent,char separator)
 {
 	std::string data="";
 
-	addToStringData(data, damage		, damageMultiplier		, "Damage"		, true, 0, skipZero, showProcent, separator);
-	addToStringData(data, useTime		, useTimeMultiplier		, "UseTime"		, true, 1, skipZero, showProcent, separator);
-	addToStringData(data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, true, 2, skipZero, showProcent, separator);
-	addToStringData(data, speed			, speedMultiplier		, "Speed"		, true, 3, skipZero, showProcent, separator);
-	addToStringData(data, range			, rangeMultiplier		, "Range"		, true, 4, skipZero, showProcent, separator);
-	addToStringData(data, angle									, "Angle"		, true, 5, skipZero);
-	addToStringData(data, knockback		, knockbackMultiplier	, "Knockback"	, true, 6, skipZero, showProcent, separator);
-	addToStringData(data, countOfUse							, "CountOfUse"	, true, 7, skipZero);
-	addToStringData(data, bounce								, "Bounce"		, true, 8, skipZero);
-	addToStringData(data, pirce									, "Pirce"		, true, 9, skipZero);
+	addToStringData(data, damage,		"Damage"		, true, 0, skipZero, showProcent, separator);
+	addToStringData(data, useTime,		"UseTime"		, true, 1, skipZero, showProcent, separator);
+	addToStringData(data, reloadTime,	"ReloadTime"	, true, 2, skipZero, showProcent, separator);
+	addToStringData(data, speed,		"Speed"			, true, 3, skipZero, showProcent, separator);
+	addToStringData(data, range,		"Range"			, true, 4, skipZero, showProcent, separator);
+	addToStringData(data, angle,		"Angle"			, true, 5, skipZero);
+	addToStringData(data, knockback,	"Knockback"		, true, 6, skipZero, showProcent, separator);
+	addToStringData(data, countOfUse,	"CountOfUse"	, true, 7, skipZero);
+	addToStringData(data, bounce,		"Bounce"		, true, 8, skipZero);
+	addToStringData(data, pirce,		"Pirce"			, true, 9, skipZero);
 	return data;
 }
 
@@ -300,51 +325,51 @@ void isLineEgsist(int& lines, float v, float vMultiplier)
 int WeaponStats::getNumberOflines()
 {
 	int lines = 0;
-	isLineEgsist(lines, damage		, damageMultiplier		);
-	isLineEgsist(lines, useTime		, useTimeMultiplier		);
-	isLineEgsist(lines, reloadTime	, reloadTimeMultiplier	);
-	isLineEgsist(lines, speed		, speedMultiplier		);
-	isLineEgsist(lines, range		, rangeMultiplier		);
-	isLineEgsist(lines, angle								);
-	isLineEgsist(lines, knockback	, knockbackMultiplier	);
-	isLineEgsist(lines, countOfUse							);
-	isLineEgsist(lines, bounce								);
-	isLineEgsist(lines, pirce								);
+	isLineEgsist(lines, damage.value,		damage.multiplier);
+	isLineEgsist(lines, useTime.value,		useTime.multiplier);
+	isLineEgsist(lines, reloadTime.value,	reloadTime.multiplier);
+	isLineEgsist(lines, speed.value,		speed.multiplier);
+	isLineEgsist(lines, range.value,		range.multiplier);
+	isLineEgsist(lines, angle.value								);
+	isLineEgsist(lines, knockback.value,	knockback.multiplier);
+	isLineEgsist(lines, countOfUse.value);
+	isLineEgsist(lines, bounce.value);
+	isLineEgsist(lines, pirce.value);
 	return lines;
 }
 
-void toStringData(int& line, int i, std::string& data, float value, float valueMulti, std::string name, int ID,
+void toStringData(int& line, int i, std::string& data, StatFloatMulti stat, std::string name, int ID,
 	StatType& statType, bool reversStat = false)
 {
-	if (fabs(value) < tolerance && fabs(valueMulti) < tolerance)
+	if (fabs(stat.value) < tolerance && fabs(stat.multiplier) < tolerance)
 		return;
 	if (line == i)
 	{
-		addToStringData(data, value, valueMulti, name, true, ID);
-		if (value == 0.0f)
+		addToStringData(data, stat, name, true, ID);
+		if (stat.value == 0.0f)
 			statType = StatType::neutral;
-		else if (value < 0.0f)
+		else if (stat.value < 0.0f)
 			statType = StatType::negative;
 		else
 			statType = StatType::positive;
 
 		if (statType == StatType::neutral)
 		{
-			if (valueMulti == 0.0f)
+			if (stat.multiplier == 0.0f)
 				statType = StatType::neutral;
-			else if (valueMulti < 0.0f)
+			else if (stat.multiplier < 0.0f)
 				statType = StatType::negative;
 			else
 				statType = StatType::positive;
 		}
 		else if (statType == StatType::negative)
 		{
-			if (valueMulti > 0.0f)
+			if (stat.multiplier > 0.0f)
 				statType = StatType::mix;
 		}
 		else
 		{
-			if (valueMulti < 0.0f)
+			if (stat.multiplier < 0.0f)
 				statType = StatType::mix;
 		}
 		if (reversStat)
@@ -359,16 +384,16 @@ void toStringData(int& line, int i, std::string& data, float value, float valueM
 	line++;
 }
 
-void toStringData(int& line, int i, std::string& data, float value, std::string name, int ID, StatType& statType)
+void toStringData(int& line, int i, std::string& data, StatFloat stat, std::string name, int ID, StatType& statType)
 {
-	if (fabs(value) < tolerance)
+	if (fabs(stat.value) < tolerance)
 		return;
 	if (line == i)
 	{
-		addToStringData(data, value, name, true, ID);
-		if (value == 0)
+		addToStringData(data, stat, name, true, ID);
+		if (stat.value == 0)
 			statType = StatType::neutral;
-		else if (value < 0.0f)
+		else if (stat.value < 0.0f)
 			statType = StatType::negative;
 		else
 			statType = StatType::positive;
@@ -377,18 +402,18 @@ void toStringData(int& line, int i, std::string& data, float value, std::string 
 	line++;
 }
 
-void toStringData(int& line, int i, std::string& data, int value, std::string name, int ID, StatType& statType)
+void toStringData(int& line, int i, std::string& data, StatInt stat, std::string name, int ID, StatType& statType)
 {
-	if (labs(value) <= 0)
+	if (labs(stat.value) <= 0)
 		return;
 	if (line == i)
 	{
-		addToStringData(data, value, name, true, 0);
-		if (value == 0)
+		addToStringData(data, stat, name, true, 0);
+		if (stat.value == 0)
 			statType = StatType::neutral;
-		else if (value < 0)
+		else if (stat.value < 0)
 			statType = StatType::negative;
-		else if (value > 0)
+		else if (stat.value > 0)
 			statType = StatType::positive;
 	}
 
@@ -400,18 +425,16 @@ std::string WeaponStats::getStringLine(int l, StatType& statType)
 	std::string data="";
 	int line = 0;
 	StatType type;
-	toStringData(line, l, data, damage		, damageMultiplier		, "Damage"		, 0, statType);
-
-	toStringData(line, l, data, useTime		, useTimeMultiplier		, "UseTime"		, 1, statType);
-	toStringData(line, l, data, reloadTime	, reloadTimeMultiplier	, "ReloadTime"	, 2, statType);
-
-	toStringData(line, l, data, speed		, speedMultiplier		, "Speed"		, 3, statType);
-	toStringData(line, l, data, range		, rangeMultiplier		, "Range"		, 4, statType);
-	toStringData(line, l, data, angle								, "Angle"		, 5, type);
-	toStringData(line, l, data, knockback	, knockbackMultiplier	, "Knockback"	, 6, statType);
-	toStringData(line, l, data, countOfUse							, "CountOfUse"	, 7, statType);
-	toStringData(line, l, data, bounce								, "Bounce"		, 8, statType);
-	toStringData(line, l, data, pirce								, "Pirce"		, 9, statType);
+	toStringData(line, l, data, damage,		"Damage"		, 0, statType);
+	toStringData(line, l, data, useTime,	"UseTime"		, 1, statType);
+	toStringData(line, l, data, reloadTime,	"ReloadTime"	, 2, statType);
+	toStringData(line, l, data, speed,		"Speed"		, 3, statType);
+	toStringData(line, l, data, range,		"Range"		, 4, statType);
+	toStringData(line, l, data, angle,		"Angle"		, 5, type);
+	toStringData(line, l, data, knockback,	"Knockback"	, 6, statType);
+	toStringData(line, l, data, countOfUse,	"CountOfUse"	, 7, statType);
+	toStringData(line, l, data, bounce,		"Bounce"		, 8, statType);
+	toStringData(line, l, data, pirce,		"Pirce"		, 9, statType);
 	return data;
 }
 
@@ -440,3 +463,5 @@ void WeaponStats::drawColorStats(float x, float y, float textSize, Color negativ
 		y += textSize;
 	}
 }
+
+

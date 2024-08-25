@@ -25,14 +25,14 @@ void Bow::use(Vector2 dir, float deltaTime)
 {
 	angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 	loadTime += deltaTime;
-	if (loadTime > stats.useTime)
-		loadTime = stats.useTime;
+	if (loadTime > stats.getUseTime())
+		loadTime = stats.getUseTime();
 }
 
 void Bow::stopUse(Vector2 dir, float deltaTime)
 {
 	loadTime += deltaTime;
-	if (loadTime >= stats.useTime)
+	if (loadTime >= stats.getUseTime())
 		triggerNode(WeaponNodeActivation::OnUse, stats);
 	loadTime = 0.0f;
 
@@ -59,7 +59,7 @@ void Bow::draw(Rectangle pos)
 {
 	Vector2 rotationPoint = this->rotationPoint;
 	float angle = this->angle;
-	int frame = (int)(loadTime / stats.useTime * (texture.getFrames() - 1));
+	int frame = (int)(loadTime / stats.getUseTime() * (texture.getFrames() - 1));
 	texture.draw(pos, false, false, frame, rotationPoint, angle + angleDiff);
 }
 
@@ -72,7 +72,7 @@ void Bow::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 	float procent = 0.0f;
 	if (loadTime > 0)
 	{
-		procent = (loadTime) / (stats.useTime);
+		procent = (loadTime) / (stats.getUseTime());
 		c.b = 255;
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
@@ -93,7 +93,7 @@ void Bow::draw()
 		EndShaderMode();
 	}
 	draw(pos);
-	drawWeaponPoints();
+	//drawWeaponPoints();
 }
 
 void Bow::readFromWeaponData(std::string weaponType, int variant)

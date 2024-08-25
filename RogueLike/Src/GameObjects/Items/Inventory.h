@@ -72,6 +72,8 @@ public:
 	void setHandItem(Item* i) { itemInHand = i; }
 
 	void swapVisibleDescriptions();
+
+	void setTarget(int target);
 #pragma endregion Setters
 
 

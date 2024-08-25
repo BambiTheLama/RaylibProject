@@ -356,6 +356,12 @@ void Inventory::swapVisibleDescriptions()
 	}
 	itemInHand = nullptr;
 }
+void Inventory::setTarget(int target)
+{
+	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);
+	if (w)
+		w->setTarget(target);
+}
 #pragma endregion Setters
 
 void Inventory::hideItem()

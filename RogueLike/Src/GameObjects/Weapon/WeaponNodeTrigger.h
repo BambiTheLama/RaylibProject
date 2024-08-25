@@ -11,7 +11,7 @@ class WeaponNodeTrigger
 public:
 	void pushBackNodeTrigger(WeaponNode node) { nodes.push_back(node); }
 
-	bool activateTrigger(WeaponNodeActivation activation, GameObject* weapon, WeaponStats stats, Vector2 spawnOffset=Vector2());
+	bool activateTrigger(WeaponNodeActivation activation, GameObject* weapon, WeaponStats stats, Vector2 spawnOffset=Vector2(), int target=0b0);
 
 #pragma region Getters	
 	WeaponNode getNode(int i) { return nodes[i]; }

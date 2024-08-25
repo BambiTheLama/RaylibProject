@@ -40,6 +40,8 @@ public:
 #pragma region Getters
 	GameObject* getThisObj();
 
+	bool hasOwner() { return owner; }
+
 	virtual bool canSwap() { return true; }
 #pragma endregion Getters
 

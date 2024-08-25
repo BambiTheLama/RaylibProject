@@ -9,5 +9,7 @@ public:
     Engine();
 
     void setScene(Scene *s);
+
+    void clearScene();
 };
 

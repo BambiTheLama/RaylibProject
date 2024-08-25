@@ -18,6 +18,7 @@ class Player
     Vector2 useDir = { 0.0f,0.0f };
     Interactive* closeObj = nullptr;
     float timer=0.0f;
+    int target = 0b010001;
 public:
     Player(float x,float y);
 

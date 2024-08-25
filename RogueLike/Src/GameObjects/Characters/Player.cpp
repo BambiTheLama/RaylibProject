@@ -101,6 +101,7 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::Attack:
         //weapon->use(cursorDir, deltaTime);
         inventory.use(useDir, deltaTime);
+        inventory.setTarget(target);
         break;
     case Input::StopAttack:
         inventory.stopUse(useDir, deltaTime);
@@ -214,7 +215,7 @@ Interactive* Player::getCloseInteractiveObjects()
         if (!iObj)
             continue;
         Item* item = dynamic_cast<Item*>(o);
-        if (item && inventory.hasThisItem(item))
+        if (item && item->hasOwner())
             continue;
         if (interactObj)
         {

@@ -29,10 +29,17 @@ Engine::Engine() {
     float timer = 0.1f;
     while (!WindowShouldClose() && s) {
 
-        if(IsKeyPressed(KEY_F1))
+        if (IsKeyPressed(KEY_F1))
+        {
+            clearScene();
             setScene(new GameScene());
+        }
         if (IsKeyPressed(KEY_F2))
+        {
+            clearScene();
             setScene(new RoomEdytor());
+        }
+
 
         float deltaTime = fminf(GetFrameTime(), 1.0f / 30.0f);
 
@@ -74,4 +81,11 @@ void Engine::setScene(Scene *s) {
 
     this->s = s;
     s->start();
+}
+void Engine::clearScene()
+{
+    if (!s)
+        return;
+    delete s;
+    s = nullptr;
 }

@@ -29,7 +29,13 @@ public:
 
     void draw();
 
-    virtual bool getIsUpdate() { return owner; }
+    bool canSwap() { return loadTime <= 0.0f; }
+
+    virtual float getUseTime() { return loadTime >= stats.getUseTime(); }
+
+    bool isChargeWeapon()override { return true; }
+
+    virtual bool stopUseWeapon() override { return loadTime >= stats.getUseTime(); }
 protected:
     void readFromWeaponData(std::string weaponType, int variant);
 };

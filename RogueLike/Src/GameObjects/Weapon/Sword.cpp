@@ -94,8 +94,8 @@ void Sword::update(float deltaTime)
 			points.clear();
 			if (numberOfUse <= 0)
 			{
-				reloadTime = stats.reloadTime;
-				numberOfUse = stats.countOfUse;
+				reloadTime  = stats.getReloadTime();
+				numberOfUse = stats.getCountOfUse();
 			}
 			else
 			{
@@ -118,7 +118,7 @@ void Sword::update(float deltaTime, Vector2 dir)
 	if (useTime <= 0 && reloadTime <= 0)
 	{
 		if (!hasOwnRotationAngle)
-			rotationAgnel = stats.angle;
+			rotationAgnel = stats.getAngle();
 		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
 		if (!left)
 			angle -= rotationAgnel / 2;
@@ -133,12 +133,12 @@ void Sword::use(Vector2 dir, float deltaTime)
 	if (useTime <= 0 && reloadTime <= 0)
 	{
 		if (!hasOwnRotationAngle)
-			rotationAgnel = stats.angle;
+			rotationAgnel = stats.getAngle();
 		if (!hasDefineNumberOfUse)
-			numberOfUseMax = stats.countOfUse;
+			numberOfUseMax = stats.getCountOfUse();
 		numberOfUse = numberOfUseMax;
 		left = !left;
-		useTimeMax = stats.useTime / std::max(numberOfUseMax, 1);
+		useTimeMax = stats.getUseTime() / std::max(numberOfUseMax, 1);
 		useTime = useTimeMax;
 
 		Collider::mirror = left != flipHorizontal;
@@ -155,25 +155,19 @@ void Sword::onTriggerEnter(Collider* collider)
 	GameObject* gm = collider->getThisObj();
 	if (gm == owner || !gm)
 		return;
-	if ((int)gm->getType() & (int)ObjectType::Enemy)
+	if ((int)gm->getType() & target)
 	{
 		Rectangle pos = gm->getPos();
 		Vector2 vPos = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 		Vector2 rPos = Vector2Add(getRotationPoint(), getPosPoint());
 		Hitable* hit = dynamic_cast<Hitable*>(collider);
-		if (hit && hit->dealDamage(stats.damage))
+		if (hit && hit->dealDamage(stats.getDamage()))
 		{
 			if (!hit->isAlive())
 				triggerNode(WeaponNodeActivation::OnKill, stats);
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.knockback * stats.knockbackMultiplier, 1);
+			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.getKnockback(), 1);
 			triggerNode(WeaponNodeActivation::OnHit, stats);
 		}
-		return;
-	}
-	Hitable* hit = dynamic_cast<Hitable*>(collider);
-	if (hit)
-	{
-		hit->dealDamage(1.0f);
 	}
 
 }
@@ -220,7 +214,7 @@ void Sword::draw()
 	}
 
 	draw(pos, WHITE);
-	drawWeaponPoints();
+	//drawWeaponPoints();
 }
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
@@ -231,7 +225,7 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 	Color c = { 128,128,128,200 };
 	float procent = 0.0f;
 	if (reloadTime > 0)
-		procent = reloadTime / stats.reloadTime;
+		procent = reloadTime / stats.getReloadTime();
 	else if (useTime > 0)
 	{
 		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (numberOfUseMax);
@@ -277,7 +271,7 @@ Vector2 Sword::getRotationPoint()
 
 void Sword::updateWeaponSize()
 {
-	float scale = (stats.range * rangeScale + 16) / (pos.width);
+	float scale = (stats.getRange() * rangeScale + 16) / (pos.width);
 	if (pos.width * scale < 16)
 		scale = 16 / pos.width;
 	if (pos.height * scale < 16)

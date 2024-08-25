@@ -5,7 +5,8 @@
 #include <raymath.hpp>
 #include "Weapon.h"
 #include <magic_enum/magic_enum.hpp>
-bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObject* weapon,WeaponStats weaponStats, Vector2 spawnOffset)
+bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObject* weapon,
+	WeaponStats weaponStats, Vector2 spawnOffset,int target)
 {
 	if (nodes.size() <= 0)
 		return false;
@@ -15,11 +16,12 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 	if (!weapon)
 		return false;
 	WeaponStats stats = n.getStats();
-	for (int i = 0; i < stats.countOfUse; i++)
+	for (int i = 0; i < stats.getCountOfUse(); i++)
 	{
 		Projectal* projectal = getProjectal(n.getSpawnID());
 		if (!projectal)
 			return false;
+		projectal->setTarget(target);
 		projectal->setOwner(owner);
 		GameObject* gm = dynamic_cast<GameObject*>(projectal);
 		if (!gm)
@@ -33,7 +35,7 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 
 		projectal->setWeaponNodeTrigger(getNextTriggerNode());
 		projectal->setWeaponStats(n.getNextStats(weaponStats));
-		float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().angle / 2;
+		float angleDiff = (((float)rand() / RAND_MAX) * 2.0f - 1.0f) * n.getStats().getAngle() / 2;
 		Weapon* w = dynamic_cast<Weapon*>(weapon);
 		float weaponAngle = 0.0f;
 		if (!w)

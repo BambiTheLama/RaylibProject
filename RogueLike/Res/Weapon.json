@@ -58,15 +58,15 @@
         ],
         "WeaponStats": {
             "Knockback": 10,
-            "Angle": 10,
-            "CountOfUse": 10,
+            "Angle": 20,
+            "CountOfUse": 1,
             "ReloadTime": 0,
             "UseTime": 1,
-            "Bounce": 10,
-            "Pirce": 50,
-            "Speed": 1000,
+            "Bounce": 0,
+            "Pirce": 1,
+            "Speed": 300,
             "Damage": 1,
-            "Range": 5000
+            "Range": 1000
         }
 
     },
