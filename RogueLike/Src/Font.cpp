@@ -29,7 +29,7 @@ namespace MyFont
 		icons.push_back(TextureController("Icons/CountOfUseIcon.png"));
 		icons.push_back(TextureController("Icons/BounceIcon.png"));
 		icons.push_back(TextureController("Icons/PirceIcon.png"));
-		icons.push_back(TextureController("Icons/PirceIcon.png"));
+		icons.push_back(TextureController("Icons/InportantStat.png"));
 	}
 
 	void ClearFont()
@@ -41,15 +41,40 @@ namespace MyFont
 	int getIconID(std::string text)
 	{
 		int v = 0;
-		for (auto c : text)
+		auto findStart = text.find(":");
+		if (findStart == std::string::npos)
+			return v;
+		for (int i = (int)findStart + 1; i < text.size(); i++)
 		{
+			char c = text[i];
 			if (c >= '0' && c <= '9')
 				v = (c - '0') + v * 10;
+			else
+				break;
 		}
+
 		return v;
 	}
+	bool hasIconColor(std::string text)
+	{
+		auto findStart = text.find("[");
+		auto findEnd = text.find("]");
+		return findStart != std::string::npos && findEnd != std::string::npos;
+	}
+	Color getIconColor(std::string text)
+	{
+		auto findStart = text.find("[");
+		auto findEnd = text.find("]");
+		if (findStart == std::string::npos || findEnd == std::string::npos)
+			return WHITE;
+		std::string s = "0x";
+		for (int i = (int)findStart + 1; i < findEnd; i++)
+			s += text[i];
+		unsigned int colorV = std::stoul(s, nullptr, 16);
+		return GetColor(colorV);
+	}
 
-	std::string removeAllIcons(std::string text, std::vector<Vector2>* icons)
+	std::string removeAllIcons(std::string text, std::vector<IconData>* icons)
 	{
 		const std::string str2("{Icon:");
 		int toErase = 0;
@@ -71,7 +96,13 @@ namespace MyFont
 				{
 					if (icons)
 					{
-						icons->push_back({ (float)getIconID(text.substr(find,toErase)), (float)find });
+						std::string iconData = text.substr(find, toErase);
+						IconData data;
+						data.x = find;
+						data.ID = getIconID(iconData);
+						data.color = getIconColor(iconData);
+						data.customColor = hasIconColor(iconData);
+						icons->push_back(data);
 					}
 					text = text.substr(0, find) + std::string("     ") + text.substr(endOfIcon, text.size() - endOfIcon);
 				}
@@ -82,26 +113,36 @@ namespace MyFont
 		return text;
 	}
 
-	std::vector<std::string> splitLines(const char* text, std::vector<Vector3>* icons) {
+	std::vector<std::string> splitLines(const char* text, std::vector<IconData>* icons) {
 		std::istringstream stream = std::istringstream(std::string(text));
 		std::vector<std::string> lines;
 		std::string line;
 		int y = 0;
 		while (std::getline(stream, line)) {
-			std::vector<Vector2> iconsPos;
+			std::vector<IconData> iconsPos;
 			lines.push_back(removeAllIcons(line, &iconsPos));
 			if (icons)
-			{
 				for (auto i : iconsPos)
-					icons->push_back({ (float)i.y,(float)y,(float)i.x });
-			}
+				{
+					i.y = y;
+					icons->push_back(i);
+				}
 			y++;
 		}
 		return lines;
 	}
+	unsigned char mixColorV(unsigned char c1, unsigned char c2)
+	{
+		return (unsigned char)((c1 / 255.0f * c2 / 255.0f) * 255);
+	}
+	Color mixColor(Color c1, Color c2)
+	{
+		return { mixColorV(c1.r,c2.r),mixColorV(c1.g,c2.g) ,mixColorV(c1.b,c2.b) ,mixColorV(c1.a,c2.a) };
+	}
+
 	void DrawText(const char* text, float x, float y, float size, Color color,Vector2 rotationPoint,float angle,bool withIcons)
 	{
-		std::vector<Vector3> iconsToDraw;
+		std::vector<IconData> iconsToDraw;
 		std::vector<std::string> splitedLines = splitLines(text, &iconsToDraw);
 		int i = 0;
 		for (auto s : splitedLines)
@@ -114,16 +155,17 @@ namespace MyFont
 		const float bolder = 0.2f;
 		for (auto icon : iconsToDraw)
 		{
-			int inTextx = (int)icon.x;
-			int inTexty = (int)icon.y;
-			int ID = (int)icon.z;
-			if (ID < 0 || ID >= icons.size())
+			if (icon.ID < 0 || icon.ID >= icons.size())
 				continue;
-			std::string text = splitedLines[inTexty].substr(0, inTextx);
+			std::string text = splitedLines[icon.y].substr(0, icon.x);
 			Vector2 textS = TextSize(text.c_str(), size, 0.0f);
 			Rectangle pos = { x ,y,(1.0f - bolder * 2) * size,(1.0f - bolder * 2) * size };
-			Vector2 orgin = { rotationPoint.x - (textS.x + bolder * size),rotationPoint.y - size * (inTexty + bolder) };
-			icons[ID].draw(pos, false, false, 0, orgin, angle, color);
+			Vector2 orgin = { rotationPoint.x - (textS.x + bolder * size),rotationPoint.y - size * (icon.y + bolder) };
+			Color c = color;
+			if (icon.customColor)
+				c = mixColor(icon.color, c);
+
+			icons[icon.ID].draw(pos, false, false, 0, orgin, angle, c);
 		}
 	}
 	Vector2 TextSize(const char* text, float size, float spacing)

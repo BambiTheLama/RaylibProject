@@ -4,13 +4,21 @@
 #include <string>
 #include <json.hpp>
 
+struct IconData
+{
+	int x = 0, y = 0;
+	int ID = 0;
+	bool customColor = false;
+	Color color = WHITE;
+};
+
 namespace MyFont {
 #define OutlineSpacing 2
 	void SetUpFont();
 
 	void ClearFont();
 
-	std::vector<std::string> splitLines(const char* text, std::vector<Vector3>* icons = nullptr);
+	std::vector<std::string> splitLines(const char* text, std::vector<IconData>* icons = nullptr);
 
 	void DrawText(const char* text, float x, float y, float size, Color color = BLACK, Vector2 rotationPoint = { 0.0f,0.0f }, float angle = 0.0f, bool withIcons = true);
 

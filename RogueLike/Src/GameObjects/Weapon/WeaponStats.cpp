@@ -3,6 +3,7 @@
 #include "raymath.h"
 
 static const char* statsJsonName = "WeaponStats";
+static const char* inportantStatColor = "[00ff00ff]";
 static const float tolerance = 0.1f;
 
 
@@ -114,6 +115,7 @@ static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, i
 	stat->value = tmpStat.value;
 	stat->inportant = tmpStat.inportant;
 }
+
 static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, int tier, StatInt* stat)
 {
 	if (!json.contains(statProperty))
@@ -213,6 +215,7 @@ WeaponStats& WeaponStats::operator-=(const WeaponStats& ws)
 	pirce					-= ws.pirce;
 	return *this;
 }
+
 void addToStringData(std::string& data, StatFloatMulti stat, std::string name, bool icon = false,
 	int ID = 0, bool skip = false, bool showProcent = true, char separator = '+')
 {
@@ -241,7 +244,8 @@ void addToStringData(std::string& data, StatFloatMulti stat, std::string name, b
 	else
 		data += dataValue;
 	if (stat.inportant)
-		data += "{Icon:10}";
+		data += "{Icon:10" + std::string(inportantStatColor) + "}";
+
 	data += "\n";
 }
 
@@ -255,7 +259,7 @@ void addToStringData(std::string& data, StatFloat stat, std::string name, bool i
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
 	data += "{" + name + "}: " + dataValue;
 	if (stat.inportant)
-		data += "{Icon:10}";
+		data += "{Icon:10" + std::string(inportantStatColor) + "}";
 	data += "\n";
 }
 
@@ -267,7 +271,7 @@ void addToStringData(std::string& data, StatInt stat, std::string name, bool ico
 		data += std::string("{Icon:") + std::to_string(ID) + std::string("}");
 	data += "{" + name + "}: " + std::to_string(stat.value);
 	if (stat.inportant)
-		data += "{Icon:10}";
+		data += "{Icon:10" + std::string(inportantStatColor) + "}";
 	data += "\n";
 }
 
