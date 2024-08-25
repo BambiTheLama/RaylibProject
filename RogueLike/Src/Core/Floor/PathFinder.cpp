@@ -117,8 +117,8 @@ bool PathFinder::checkCell(std::list<Vector2>& toCheck, int x, int y,int comeFro
 {
 	if (!hasGridCell(x, y) || grid[y][x].solidBlock)
 		return false;
-	for (int j = y - objSizeH / 2; j < y + objSizeH / 2; j++)
-		for (int i = x - objSizeW / 2; i < x + objSizeW / 2; i++)
+	for (int j = y - objSizeH / 2; j < y + objSizeH / 2.0f; j++)
+		for (int i = x - objSizeW / 2; i < x + objSizeW / 2.0f; i++)
 		{
 			if (hasGridCell(i, j) && grid[j][i].solidBlock)
 				return false;
@@ -254,19 +254,15 @@ std::list<Vector3> PathFinder::getPathToGo(Rectangle start, Rectangle end, float
 	const int centerEndX = clamp((int)((end.x + end.width / 2) / resolution.x), 1, (int)grid[0].size() - 1);
 	const int centerEndY = clamp((int)((end.y + end.height / 2) / resolution.y), 1, (int)grid.size() - 1);
 
-	objSizeW = (int)(start.width  / resolution.x);
-	objSizeH = (int)(start.height / resolution.y);
-	if ((int)start.width % (int)resolution.x > 0)
-		objSizeW++;
-	if ((int)start.height % (int)resolution.y > 0)
-		objSizeH++;
+	objSizeW = (int)(start.width / resolution.x) + 1;
+	objSizeH = (int)(start.height / resolution.y) + 1;
 	const int x = clamp((int)((start.x + start.width / 2 - range) / resolution.x), 1, (int)grid[0].size() - 1);
 	const int y = clamp((int)((start.y + start.height / 2 - range) / resolution.y), 1, (int)grid.size() - 1);
 	const int w = clamp(getGridSize(start.x + start.width / 2 - range, range * 2, resolution.x), 1, (int)grid[0].size());
 	const int h = clamp(getGridSize(start.y + start.height / 2 - range, range * 2, resolution.y), 1, (int)grid.size());
 
 	cellRangeX = (int)(range / resolution.x) + 1;
-	cellRangeY = (int)(range / resolution.x) + 1;
+	cellRangeY = (int)(range / resolution.y) + 1;
 
 
 	for (int i = y; i < h; i++)
