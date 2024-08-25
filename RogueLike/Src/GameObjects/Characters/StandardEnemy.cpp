@@ -60,9 +60,12 @@ void StandardEnemy::update(float deltaTime)
 	Rectangle pos = getPos();
 	if (target != 0 && ai->target)
 	{
+
 		Vector2 posV = getMidlePoint(pos);
 		Vector2 otherPosV = getMidlePoint(ai->target->getPos());
-		float distance = Vector2Length(Vector2Subtract(posV, otherPosV));
+		attackDir = Vector2Subtract(otherPosV, posV);
+		float distance = Vector2Length(attackDir);
+		attackDir = Vector2Normalize(attackDir);
 		bool canSwap = true;
 		bool chargeWeapon = false;
 		if (item)
@@ -108,6 +111,7 @@ void StandardEnemy::draw()
 
 void StandardEnemy::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)
 {
+
 	if (input == Input::Attack && weapon)
 	{
 		GameObject* gm = dynamic_cast<GameObject*>(weapon);
@@ -119,7 +123,7 @@ void StandardEnemy::action(Input input, Vector2 movedir, Vector2 cursorDir, floa
 		Game::addObject(gm);
 		weapon->use(cursorDir, deltaTime);
 		if (weapon->stopUseWeapon())
-			weapon->stopUse(attackDir, deltaTime);
+			weapon->stopUse(cursorDir, deltaTime);
 	}
 	attackDir = cursorDir;
 
