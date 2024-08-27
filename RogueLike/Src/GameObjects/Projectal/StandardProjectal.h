@@ -12,7 +12,7 @@ class StandardProjectal:public Projectal,public GameObject,public Collider
 	int pirce = 1;
 	int bounce = 1;
 	float angle = 0.0f;
-
+	float frameTimer = 0.0f;
 	TextureController texture;
 	Vector2 rotationPoint = { 0,0 };
 public:
@@ -34,7 +34,7 @@ public:
 
 	Vector2 getRotationPoint() { return rotationPoint; }
 
-	void setPos(Vector2 p)override { pos.x = p.x - rotationPoint.x; pos.y = p.y-rotationPoint.y; }
+	void setPos(Vector2 p)override { pos.x = p.x ; pos.y = p.y ; }
 
 private:
 	virtual void updateStatsAfterSetStats();

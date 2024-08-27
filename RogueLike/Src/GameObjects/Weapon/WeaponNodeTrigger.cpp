@@ -16,6 +16,8 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 	if (!weapon)
 		return false;
 	WeaponStats stats = n.getStats();
+	Rectangle weaponPos = weapon->getPos();
+	Vector2 weaponPosV = { weaponPos.x,weaponPos.y };
 	for (int i = 0; i < stats.getCountOfUse(); i++)
 	{
 		Projectal* projectal = getProjectal(n.getSpawnID());
@@ -30,7 +32,7 @@ bool WeaponNodeTrigger::activateTrigger(WeaponNodeActivation activation, GameObj
 			return false;
 		}
 
-		gm->setPos(Vector2Add(getMidlePoint(weapon->getPos()), spawnOffset));
+		gm->setPos(Vector2Add(weaponPosV, spawnOffset));
 		
 
 		projectal->setWeaponNodeTrigger(getNextTriggerNode());

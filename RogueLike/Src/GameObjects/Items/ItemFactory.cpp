@@ -21,7 +21,7 @@ WeaponNodeItem* getWeaponNode(int tier)
 	if (weaponNodeData.size() <= 0)
 		return nullptr;
 	if (tier >= weaponNodeData.size())
-		tier = weaponNodeData.size() - 1;
+		tier = (int)weaponNodeData.size() - 1;
 
 	if (weaponNodeData[tier].size() <= 0)
 		return nullptr;

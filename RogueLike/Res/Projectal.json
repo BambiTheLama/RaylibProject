@@ -69,6 +69,26 @@
         "Size": [ 32, 32 ],
         "RotationPoint": [ 16, 16 ],
         "ScaleSize": 1
+    },
+    "MagicMissile": {
+        "Texture": "Projectal/MagicMissile.png",
+        "Col": [
+            [ 9, 14 ],
+            [ 11, 11 ],
+            [ 14, 9 ],
+            [ 17, 9 ],
+            [ 20, 11 ],
+            [ 22, 14 ],
+            [ 22, 17 ],
+            [ 20, 20 ],
+            [ 17, 22 ],
+            [ 14, 22 ],
+            [ 11, 20 ],
+            [ 9, 17 ]
+        ],
+        "Size": [ 32, 32 ],
+        "RotationPoint": [ 16, 16 ],
+        "ScaleSize": 5
     }
 
 }

@@ -106,6 +106,9 @@ void StandardEnemy::draw()
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
 		gm->draw();
+	Color c = GREEN;
+	c.a = 20;
+	DrawRectangleRec(RectangleIncreasSize(pos, ai->range), c);
 		
 }
 

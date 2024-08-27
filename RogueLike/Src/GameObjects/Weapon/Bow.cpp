@@ -93,7 +93,7 @@ void Bow::draw()
 		EndShaderMode();
 	}
 	draw(pos);
-	//drawWeaponPoints();
+	drawWeaponPoints();
 }
 
 void Bow::readFromWeaponData(std::string weaponType, int variant)

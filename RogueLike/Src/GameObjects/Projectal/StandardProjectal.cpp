@@ -34,6 +34,7 @@ void StandardProjectal::destroy()
 
 void StandardProjectal::update(float deltaTime)
 {
+	frameTimer += deltaTime;
 	pos.x += dir.x * stats.getSpeed() * deltaTime;
 	pos.y += dir.y * stats.getSpeed() * deltaTime;
 	range -= stats.getSpeed() * deltaTime;
@@ -47,7 +48,8 @@ void StandardProjectal::update(float deltaTime)
 void StandardProjectal::draw()
 {
 	//DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
-	int frame = (rangeMax - range) / rangeMax * (texture.getFrames());
+
+	int frame = texture.getFrame("", (int)(frameTimer / timePerFrame));
 	Color c = WHITE;
 	if (target & (int)ObjectType::Player)
 		c = RED;

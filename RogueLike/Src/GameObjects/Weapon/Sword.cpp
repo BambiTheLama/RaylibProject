@@ -74,7 +74,7 @@ void Sword::update(float deltaTime)
 		useTime -= deltaTime;
 		
 		addLineTimer -= deltaTime;
-		if (addLineTimer <= 0 || labs(lastAngle - angle) > angleDiffMax)
+		if (addLineTimer <= 0 || fabs(lastAngle - angle) > angleDiffMax)
 		{
 			Vector2 p = DirFromAngle(angle);
 			Vector2 p2 = Vector2Multiply(p, rotationPoint);

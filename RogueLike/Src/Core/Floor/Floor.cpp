@@ -299,13 +299,20 @@ static bool pressedControl = false;
 static bool pressedColliders = false;
 static bool pressedQuadtree = false;
 static bool pressedPathfinder = false;
+static int typeBlend = 0;
 void Floor::draw()
 {
+
+    if (IsKeyPressed(KEY_T))
+        typeBlend++;
+    if (IsKeyPressed(KEY_G))
+        typeBlend--;
+    BeginBlendMode(typeBlend);
     for (auto o : closeObjects)
     {
         o->draw();
     }
-
+    EndBlendMode();
 
     if (IsKeyPressed(KEY_LEFT_CONTROL))
     {
@@ -356,6 +363,7 @@ void Floor::drawUI()
     const float textSize = 32;
     if (pressedControl)
         MyFont::DrawTextWithOutline(ctext, 0, GetScreenHeight() - MyFont::TextSize(ctext, textSize, 0).y, textSize, WHITE, BLACK);
+    MyFont::DrawTextWithOutline(TextFormat("BlendType:%d", typeBlend), 800, GetScreenHeight() - MyFont::TextSize(ctext, textSize, 0).y, textSize, WHITE, BLACK);
 
 
 }

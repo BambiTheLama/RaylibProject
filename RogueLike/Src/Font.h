@@ -4,6 +4,8 @@
 #include <string>
 #include <json.hpp>
 
+const float timePerFrame = 0.1f;
+
 struct IconData
 {
 	int x = 0, y = 0;

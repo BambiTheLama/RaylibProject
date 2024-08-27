@@ -243,7 +243,7 @@ bool Weapon::triggerNode(WeaponNodeActivation activation, WeaponStats stats)
 		offset = { 0 ,0  };
 	}
 
-	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, Vector2Add(offset, getSpawnPoint()),target);
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, getSpawnPoint(), target);
 }
 
 #pragma region DrawFun

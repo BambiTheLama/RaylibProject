@@ -327,8 +327,8 @@ std::list<Vector3> PathFinder::getPathToGo(Rectangle start, Rectangle end, float
 			{
 				if (dir.z > 0)
 					path.push_front(dir);
-				dir.x = lastX - thisX;
-				dir.y = lastY - thisY;
+				dir.x = (float)(lastX - thisX);
+				dir.y = (float)(lastY - thisY);
 				if ((int)(dir.y) == 0)
 					distToMove = resolution.x;
 				else if ((int)(dir.x) == 0)

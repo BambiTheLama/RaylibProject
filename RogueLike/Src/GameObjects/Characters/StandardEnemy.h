@@ -15,7 +15,6 @@ class StandardEnemy :
     float damge = 1.0f;
     float speed = 200.0f;
     float frameTimer = 0.0f;
-    const float timePerFrame = 0.1f;
     CharacterController controller;
     TextureController texture;
     AIController* ai;

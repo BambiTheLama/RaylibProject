@@ -29,6 +29,7 @@ Projectal* getProjectal(ProjectalID projectalID,Vector2 dir)
 	case ProjectalID::Shuriken:
 	case ProjectalID::Bomb:
 	case ProjectalID::Rock:
+	case ProjectalID::MagicMissile:
 		return new StandardProjectal(projectalData, text);
 		break;
 	default:

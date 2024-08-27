@@ -98,7 +98,7 @@ namespace MyFont
 					{
 						std::string iconData = text.substr(find, toErase);
 						IconData data;
-						data.x = find;
+						data.x = (int)(find);
 						data.ID = getIconID(iconData);
 						data.color = getIconColor(iconData);
 						data.customColor = hasIconColor(iconData);

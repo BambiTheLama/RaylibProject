@@ -12,6 +12,10 @@
         "NumberOfFrames": 12,
         "FrameSize": [ 32, 32 ]
     },
+    "Projectal/MagicMissile.png": {
+        "NumberOfFrames": 3,
+        "FrameSize": [ 32, 32 ]
+    },
     "Enemies/Slime.png": {
         "NumberOfFrames": 6,
         "FrameSize": [ 32, 32 ],

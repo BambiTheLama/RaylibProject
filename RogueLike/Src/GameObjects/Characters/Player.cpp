@@ -12,7 +12,7 @@
 #include "../AddisionalTypes/Interactive.h"
 #include "../Items/ItemFactory.h"
 
-Player::Player(float x, float y):Hitable(100.0f){
+Player::Player(float x, float y):Hitable(1000.0f){
 
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
