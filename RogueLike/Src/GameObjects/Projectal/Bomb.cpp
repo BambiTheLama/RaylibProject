@@ -9,7 +9,7 @@ Bomb::Bomb(float x, float y)
 	pos = { x,y,64,64 };
 	pos.x -= pos.width / 2;
 	pos.y -= pos.height / 2;
-	mass = 0;
+	mass = 5;
 
 	addCollisionElement(new CollisionElementLines({ pos.width / 4,pos.height / 4,pos.width/2,pos.height/2 }));
 	time = timerMax;

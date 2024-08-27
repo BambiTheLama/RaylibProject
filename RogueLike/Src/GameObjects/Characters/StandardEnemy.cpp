@@ -3,10 +3,11 @@
 #include "../Collider/CollisionElementLines.h"
 #include "raymath.h"
 #include "../Game.h"
-#include "../ParticleText.h"
+#include "../Particle/ParticleText.h"
 #include <magic_enum/magic_enum.hpp>
 #include "../Projectal/ProjectalFactory.h"
 #include "../Items/ItemFactory.h"
+#include "../Particle/TextureDestroyParticleSystem.h"
 
 static float hpBarSize = 100;
 
@@ -38,12 +39,18 @@ StandardEnemy::~StandardEnemy()
 
 void StandardEnemy::destroy()
 {
+	if (!Game::isGameScene())
+		return;
+	Game::addObject(new TextureDestroyParticleSystem(texture, 0, pos, 9, 9, 0.69, 100));
 	if (!weapon)
 		return;
+	weapon->destory();
+
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
 		Game::deleteObject(gm);
 	weapon = nullptr;
+
 }
 
 void StandardEnemy::update(float deltaTime)
@@ -106,9 +113,9 @@ void StandardEnemy::draw()
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
 		gm->draw();
-	Color c = GREEN;
-	c.a = 20;
-	DrawRectangleRec(RectangleIncreasSize(pos, ai->range), c);
+	//Color c = GREEN;
+	//c.a = 20;
+	//DrawRectangleRec(RectangleIncreasSize(pos, ai->range), c);
 		
 }
 

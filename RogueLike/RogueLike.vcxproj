@@ -64,7 +64,8 @@
     <ClInclude Include="Src\GameObjects\Items\ItemFactory.h" />
     <ClInclude Include="Src\GameObjects\Items\WeaponNodeItem.h" />
     <ClInclude Include="Src\GameObjects\ObjectType.h" />
-    <ClInclude Include="Src\GameObjects\ParticleText.h" />
+    <ClInclude Include="Src\GameObjects\Particle\ParticleText.h" />
+    <ClInclude Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Bomb.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Explosion.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Projectal.h" />
@@ -120,7 +121,8 @@
     <ClCompile Include="Src\GameObjects\Items\Item.cpp" />
     <ClCompile Include="Src\GameObjects\Items\ItemFactory.cpp" />
     <ClCompile Include="Src\GameObjects\Items\WeaponNodeItem.cpp" />
-    <ClCompile Include="Src\GameObjects\ParticleText.cpp" />
+    <ClCompile Include="Src\GameObjects\Particle\ParticleText.cpp" />
+    <ClCompile Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Bomb.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp" />

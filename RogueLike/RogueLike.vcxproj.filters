@@ -37,6 +37,9 @@
     <Filter Include="Res\Shader">
       <UniqueIdentifier>{3945ee78-5496-4cdc-bebf-7932f9ce09e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Particle">
+      <UniqueIdentifier>{a7a8225c-a678-4ac1-a02d-c63fc06a52b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -93,9 +96,6 @@
     </ClInclude>
     <ClInclude Include="Src\Core\RoomEdytor.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\ParticleText.h">
-      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h">
       <Filter>GameObjects\Characters</Filter>
@@ -211,6 +211,12 @@
     <ClInclude Include="Src\GameObjects\Projectal\ProjectalID.h">
       <Filter>GameObjects\Projectal</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.h">
+      <Filter>GameObjects\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Particle\ParticleText.h">
+      <Filter>GameObjects\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -262,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="Src\Core\RoomEdytor.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\ParticleText.cpp">
-      <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp">
       <Filter>GameObjects\Characters</Filter>
@@ -369,6 +372,12 @@
       <Filter>GameObjects\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\GameObject.cpp" />
+    <ClCompile Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.cpp">
+      <Filter>GameObjects\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Particle\ParticleText.cpp">
+      <Filter>GameObjects\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

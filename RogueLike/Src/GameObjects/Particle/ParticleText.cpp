@@ -1,5 +1,5 @@
 #include "ParticleText.h"
-#include "Game.h"
+#include "../Game.h"
 
 ParticleText::ParticleText(float x, float y, float time, std::string text,Color color)
 {

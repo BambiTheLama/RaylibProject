@@ -87,6 +87,8 @@ private:
 public:
 #pragma endregion Slots
 
+	void destory();
+
 	void start();
 
 	virtual void use(Vector2 dir, float deltaTime) = 0;

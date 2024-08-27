@@ -35,6 +35,8 @@ public:
 
 	Texture getTexture() { return texture; }
 
+	Vector2 getFrameSize() { return frameSize; }
+
 	friend class Engine;
 
 private:

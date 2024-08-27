@@ -1,6 +1,6 @@
 #include "Hitable.h"
 #include "../Game.h"
-#include "../ParticleText.h"
+#include "../Particle/ParticleText.h"
 #include <string>
 
 int Hitable::showParticle = 0b1111101111;

@@ -5,6 +5,8 @@
 #include "math.h"
 #include "raymath.h"
 #include <magic_enum/magic_enum.hpp>
+#include "../Game.h"
+#include "../Particle/TextureDestroyParticleSystem.h"
 
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
@@ -223,6 +225,15 @@ void Weapon::setNumberOfSlots(int slots)
 }
 
 #pragma endregion Slots
+
+void Weapon::destory()
+{
+	if (!Game::isGameScene())
+		return;
+	GameObject* gm = dynamic_cast<GameObject*>(this);
+	if (gm)
+		Game::addObject(new TextureDestroyParticleSystem(texture, 0, gm->getPos(), 9, 9,  0.75, 100));
+}
 
 void Weapon::start()
 {
