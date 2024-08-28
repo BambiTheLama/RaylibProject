@@ -17,7 +17,7 @@ void TextureDestroyParticle::draw(TextureController& texture)
 		c.a *= timer / startTime;
 	else
 		c.a = 0;
-	DrawTexturePro(text, textPos, pos, { pos.width / 2,pos.height / 2 }, angle, c);
+	DrawTexturePro(text, textPos, pos, rotationPoint, angle, c);
 }
 
 TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController texture,int frame, Rectangle pos, int w, int h, float timer, float speed)
@@ -46,6 +46,7 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 			particle.pos = { pos.x + posW * x,pos.y + posH * y,posW,posH };
 			particle.textPos = { startTexturePos + textureX * x,textureY * y,textureX,textureY };
 			particle.dir = DirFromAngle(GetRandomValue(0, 360));
+			particle.rotationPoint = { posW / 2,posH / 2 };
 			particle.anglePerSec = (float)GetRandomValue(minAngle, maxAngle);
 			particle.timer = ((rand() % 1000) / 1000.0f) * timer / 2.0f + timer / 2.0f;
 			particle.startTime = particle.timer;
@@ -56,6 +57,16 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 	}
 
 
+}
+
+void TextureDestroyParticleSystem::setRotationPoint(Vector2 rotationPoint, float angle)
+{
+	for (auto& p : particles)
+	{
+		p.rotationPoint.x = pos.x - p.pos.x;
+		p.rotationPoint.y = pos.y - p.pos.y;
+		p.angle = angle;
+	}
 }
 
 void TextureDestroyParticleSystem::update(float deltaTime)

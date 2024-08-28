@@ -5,11 +5,13 @@ struct TextureDestroyParticle {
     Rectangle pos = { 0,0,1,1 };
     Rectangle textPos = { 0,0,1,1 };
     Vector2 dir = { 0,0 };
+    Vector2 rotationPoint = { 0,0 };
     float angle=0.0f;
     float anglePerSec = 0.0f;
     float timer=1.0f;
     float startTime=1.0f;
     float speed = 0.0f;
+
 
     void update(float deltaTime);
 
@@ -24,6 +26,8 @@ class TextureDestroyParticleSystem :
     std::vector<TextureDestroyParticle> particles;
 public:
     TextureDestroyParticleSystem(TextureController texture,int frame, Rectangle pos, int w = 3, int h = 3, float timer = 1.0f,float speed=20.0f);
+
+    void setRotationPoint(Vector2 rotationPoint, float angle);
 
     void update(float deltaTime)override;
 

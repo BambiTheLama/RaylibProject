@@ -232,7 +232,12 @@ void Weapon::destory()
 		return;
 	GameObject* gm = dynamic_cast<GameObject*>(this);
 	if (gm)
-		Game::addObject(new TextureDestroyParticleSystem(texture, 0, gm->getPos(), 9, 9,  0.75, 100));
+	{
+		TextureDestroyParticleSystem* tdps = new TextureDestroyParticleSystem(texture, 0, gm->getPos(), 9, 9, 0.75, 100);
+		tdps->setRotationPoint(rotationPoint,angle);
+		Game::addObject(tdps);
+	}
+
 }
 
 void Weapon::start()
