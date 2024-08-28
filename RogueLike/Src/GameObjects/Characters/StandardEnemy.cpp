@@ -41,7 +41,14 @@ void StandardEnemy::destroy()
 {
 	if (!Game::isGameScene())
 		return;
-	Game::addObject(new TextureDestroyParticleSystem(texture, 0, pos, 9, 9, 0.69, 100));
+
+	if (!particleActivated)
+	{
+		int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
+		Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos()));
+		particleActivated = true;
+	}
+
 	if (!weapon)
 		return;
 	weapon->destory();
@@ -105,6 +112,7 @@ void StandardEnemy::update(float deltaTime)
 
 void StandardEnemy::draw()
 {
+	DrawRectangleRec(pos, { 255,255,0,69 });
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
 		
@@ -116,7 +124,7 @@ void StandardEnemy::draw()
 	//Color c = GREEN;
 	//c.a = 20;
 	//DrawRectangleRec(RectangleIncreasSize(pos, ai->range), c);
-		
+
 }
 
 void StandardEnemy::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime)

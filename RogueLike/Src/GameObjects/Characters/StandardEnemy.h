@@ -28,6 +28,7 @@ class StandardEnemy :
     Vector2 spawnPoint = { 0,0 };
     Weapon* weapon = nullptr;
     Item* item = nullptr;
+    bool particleActivated = false;
 public:
     StandardEnemy(std::string type, nlohmann::json data, int level);
 
