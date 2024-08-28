@@ -168,19 +168,8 @@ Floor::~Floor()
 
 void Floor::createFloor()
 {
-    //std::string path = "Res/Rooms.json";
-    //std::ifstream reader(path.c_str());
-    //if (reader.is_open())
-    //{
-    //    nlohmann::json j;
-    //    reader >> j;
-    //    reader.close();
-    //    loadRooms(j);
-    //}
 
     loadRoomsFromPng("Res/Rooms/");
-
-
 
     FloorRooms floorRooms = getFloorRooms();
 
@@ -209,11 +198,7 @@ void Floor::createFloor()
 
 void Floor::start()
 {
-    for (auto o : allGameObjects)
-    {
-        o->start();
-        Game::addObject(o);
-    }
+
 
 }
 
@@ -243,11 +228,11 @@ void Floor::update(float deltaTime,Camera2D camera)
 
     if (pathFinder)
         pathFinder->update();
-
+    for (auto o : toAdd)
+        o->start();
+    toAdd.clear();
     for (auto o : toRemove)
-    {
         removeObj(o);
-    }
     toRemove.clear();
     for (auto o : toDelete)
     {
@@ -384,10 +369,10 @@ bool Floor::addObject(GameObject* obj)
     }
 
     toRemove.remove(obj);
-    
-    allGameObjects.push_back(obj);
+    toAdd.push_back(obj);
     tree->addObj(obj);
-    obj->start();
+    allGameObjects.push_back(obj);
+
     return true;
 }
 
@@ -395,6 +380,7 @@ bool Floor::deleteObject(GameObject* obj)
 {
     if (!obj)
         return true;
+    toAdd.remove(obj);
     if (std::find(allGameObjects.begin(), allGameObjects.end(), obj) == allGameObjects.end())
         return false;
     if (std::find(toDelete.begin(), toDelete.end(), obj) == toDelete.end())
@@ -410,6 +396,7 @@ void Floor::removeObject(GameObject* obj)
 {
     if (!obj)
         return;
+    toAdd.remove(obj);
     if (std::find(toDelete.begin(), toDelete.end(), obj) != toDelete.end())
         return;
     if (std::find(toRemove.begin(), toRemove.end(), obj) == toRemove.end())

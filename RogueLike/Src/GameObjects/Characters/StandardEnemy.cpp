@@ -37,6 +37,11 @@ StandardEnemy::~StandardEnemy()
 
 }
 
+void StandardEnemy::start()
+{
+	particleActivated = false;
+}
+
 void StandardEnemy::destroy()
 {
 	if (!Game::isGameScene())

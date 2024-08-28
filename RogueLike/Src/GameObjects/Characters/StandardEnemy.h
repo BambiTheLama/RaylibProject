@@ -28,13 +28,15 @@ class StandardEnemy :
     Vector2 spawnPoint = { 0,0 };
     Weapon* weapon = nullptr;
     Item* item = nullptr;
-    bool particleActivated = false;
+    bool particleActivated = true;
 public:
     StandardEnemy(std::string type, nlohmann::json data, int level);
 
     ~StandardEnemy();
 
-    void destroy();
+    void start() override;
+
+    void destroy() override;
 
     void update(float deltaTime);
 

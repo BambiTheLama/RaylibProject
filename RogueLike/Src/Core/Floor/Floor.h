@@ -15,6 +15,7 @@ class Floor
     std::list<GameObject*> closeObjects;
     std::list<GameObject*> toDelete;
     std::list<GameObject*> toRemove;
+    std::list<GameObject*> toAdd;
     std::list<Collider*> colliders;
     PathFinder* pathFinder = nullptr;
     QuadTree* tree;

@@ -24,7 +24,7 @@ class TextureDestroyParticleSystem :
     float timer = 0.0f;
     std::vector<TextureDestroyParticle> particles;
 public:
-    TextureDestroyParticleSystem(TextureController texture,int frame, Rectangle pos, int w = 5, int h = 5, float timer = 1.0f,float speed=80.0f);
+    TextureDestroyParticleSystem(TextureController texture,int frame, Rectangle pos, int w = 5, int h = 5, float timer = 3.0f,float speed=30.0f);
 
     void update(float deltaTime)override;
 

@@ -13,7 +13,7 @@ void TextureDestroyParticle::draw(TextureController& texture)
 {
 	float scale = fmaxf(timer / startTime, 0.0f);
 	Texture2D text = texture.getTexture();
-	Rectangle pos = RectangleDecreasSize(this->pos, fminf(this->pos.width, this->pos.height) * (1.0f - scale));
+	Rectangle pos = RectangleDecreasSize(this->pos, fminf(this->pos.width, this->pos.height) * (1.0f - scale) / 2);
 	Color c = WHITE;
 	c.a *= scale;
 	pos.x += pos.width / 2;
