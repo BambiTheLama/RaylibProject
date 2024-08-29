@@ -15,6 +15,7 @@ class StandardProjectal:public Projectal,public GameObject,public Collider
 	float frameTimer = 0.0f;
 	TextureController texture;
 	Vector2 rotationPoint = { 0,0 };
+	bool wasParticleSpawned = true;
 public:
 	StandardProjectal();
 

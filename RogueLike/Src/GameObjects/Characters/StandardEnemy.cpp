@@ -117,12 +117,12 @@ void StandardEnemy::update(float deltaTime)
 
 void StandardEnemy::draw()
 {
-	DrawRectangleRec(pos, { 255,255,0,69 });
+	//DrawRectangleRec(pos, { 255,255,0,69 });
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
 		
 	texture.draw(pos, false, false, frame);
-	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
+	//Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
 		gm->draw();

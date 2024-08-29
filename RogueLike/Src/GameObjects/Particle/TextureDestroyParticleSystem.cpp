@@ -72,7 +72,7 @@ void TextureDestroyParticleSystem::update(float deltaTime)
 void TextureDestroyParticleSystem::draw()
 {
 	//DrawRectangleRec(pos, RED);
-	DrawRectangleRec(pos, { 255,0,255,69 });
+	//DrawRectangleRec(pos, { 255,0,255,69 });
 	for (auto p : particles)
 		p.draw(texture);
 }

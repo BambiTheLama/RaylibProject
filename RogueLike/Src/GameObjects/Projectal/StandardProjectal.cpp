@@ -4,6 +4,7 @@
 #include "../AddisionalTypes/Hitable.h"
 #include "../Game.h"
 #include "raymath.h"
+#include "../Particle/TextureDestroyParticleSystem.h"
 
 StandardProjectal::StandardProjectal()
 {
@@ -25,11 +26,20 @@ void StandardProjectal::start()
 	trigger = true;
 	range = stats.getRange();
 	rangeMax = range;
+	wasParticleSpawned = false;
 }
 
 void StandardProjectal::destroy()
 {
 	triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
+	if (Game::isGameScene() &&!wasParticleSpawned)
+	{
+		wasParticleSpawned = true;
+		Rectangle pos = getPos();
+		pos.x -= rotationPoint.x;
+		pos.y -= rotationPoint.y;
+		Game::addObject(new TextureDestroyParticleSystem(texture, 0, pos, 5, 5, 0.3f, 400));
+	}
 }
 
 void StandardProjectal::update(float deltaTime)
