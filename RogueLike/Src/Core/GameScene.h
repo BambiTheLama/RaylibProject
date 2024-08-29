@@ -33,6 +33,8 @@ public:
 
     std::list<Vector3> getPathToGo(Rectangle start, Rectangle end, float range);
 
+    bool isObjectAtScene(GameObject* gm);
+
     bool addObject(GameObject *obj);
 
     bool deleteObject(GameObject* obj);

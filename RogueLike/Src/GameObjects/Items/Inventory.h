@@ -80,6 +80,8 @@ public:
 
 
 private:
+	bool isItemInMap();
+
 	void hideItem();
 
 	void showItem();

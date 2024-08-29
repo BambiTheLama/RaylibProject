@@ -43,12 +43,13 @@ Weapon* getWeapon(int variant, int tier, WeaponType wt)
 	case WeaponType::Hamer:
 	case WeaponType::Shuriken:
 	case WeaponType::Sicle:
+	case WeaponType::Staf:
 	case WeaponType::Spear:
 	case WeaponType::Sword:
 		return new Sword(name, variant, weaponData, tier);
 		break;
 	case WeaponType::Bow:
-		return new Bow("Bow", variant, weaponData, tier);
+		return new Bow(name, variant, weaponData, tier);
 		break;
 	default:
 		break;

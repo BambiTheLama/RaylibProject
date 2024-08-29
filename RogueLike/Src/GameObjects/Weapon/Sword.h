@@ -14,9 +14,9 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	float useTime = 0.0f;
 	float useTimeMax = 0.0f;
 	float addLineTimer = 0.0f;
-	const float addLineTimerMax = 0.05f;
+	const float addLineTimerMax = 0.02f;
 	float lastAngle = 0.0f;
-	const float angleDiffMax = 5.0f;
+	const float angleDiffMax = 1.0f;
 	int numberOfUse = 0;
 	bool hasDefineNumberOfUse = false;
 	int numberOfUseMax = 1;
@@ -28,6 +28,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool flipHorizontal = false;
 	bool flipHorizontalFromFile = false;
 	bool flipVertical = false;
+	bool isRangeScale = false;
 public:
 #pragma region Constructor
 	Sword(std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(), int weaponTier = 0);
@@ -73,6 +74,7 @@ private:
 
 	void updateWeaponSize();
 
+	void scaleWeapon(float scale);
 protected:
 
 	void readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant = 0);

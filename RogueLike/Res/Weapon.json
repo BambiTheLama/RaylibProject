@@ -43,11 +43,11 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.5,
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 0.5,
+                "Value": 1.5,
                 "Inportant": true
             },
             "Range": {
@@ -99,7 +99,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.0,
                 "Inportant": true
             },
             "UseTime": {
@@ -154,7 +154,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {
@@ -208,7 +208,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {
@@ -268,7 +268,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {
@@ -348,7 +348,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {
@@ -414,7 +414,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {
@@ -467,7 +467,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {
@@ -482,6 +482,65 @@
                 "Value": 3,
                 "Inportant": true
             }
+        }
+    },
+    "Staf": {
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 22, 8 ],
+        "RotationPoint": [ 11, 11 ],
+        "RotationPointEnd": [ 0, 0 ],
+        "RotationAngle": 0,
+        "NumberOfUse": 1,
+        "Scale": 2,
+        "isRangeScale": false,
+        "Spawn": "MagicMissile",
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "Textures": [
+            "Weapons/Staf.png"
+        ],
+
+        "WeaponStats": {
+            "Bounce": {
+                "Value": 5,
+                "Inportant": true
+            },
+            "Pirce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Speed": {
+                "Value": 300,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 20,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0.4,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.1,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
+
         }
     },
     "Sword": {
@@ -527,7 +586,7 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0,
+                "Value": 0.2,
                 "Inportant": true
             },
             "UseTime": {

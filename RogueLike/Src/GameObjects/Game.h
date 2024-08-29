@@ -16,6 +16,8 @@ public:
 
     static bool deleteObject(GameObject *obj);
 
+    static bool isObjectAtScene(GameObject* gm);
+
     static void removeObject(GameObject* obj);
 
     static bool addObject(GameObject *obj);

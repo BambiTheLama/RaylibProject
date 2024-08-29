@@ -214,7 +214,10 @@ void Inventory::update(float deltaTime,Vector2 dir)
 	if (!items[usingItem])
 		return;
 	showItem();
-	items[usingItem]->update(deltaTime,dir);
+	float dt = deltaTime;
+	if (isItemInMap())
+		dt = 0.0f;
+	items[usingItem]->update(dt, dir);
 }
 
 void Inventory::use(Vector2 dir, float deltaTime)
@@ -363,6 +366,17 @@ void Inventory::setTarget(int target)
 		w->setTarget(target);
 }
 #pragma endregion Setters
+
+bool Inventory::isItemInMap()
+{
+	Item* i = items[usingItem];
+	if (!i)
+		return false;
+	GameObject* gm = dynamic_cast<GameObject*>(i);
+	if (!gm)
+		return false;
+	return Game::isObjectAtScene(gm);
+}
 
 void Inventory::hideItem()
 {

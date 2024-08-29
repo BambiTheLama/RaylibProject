@@ -147,6 +147,13 @@ std::list<Vector3> GameScene::getPathToGo(Rectangle start, Rectangle end, float 
     return floor->getPathToGo(start, end, range);
 }
 
+bool GameScene::isObjectAtScene(GameObject* gm)
+{
+    if (!floor)
+        return false;
+    return floor->isObjectAtScene(gm);
+}
+
 
 bool GameScene::addObject(GameObject *obj) {
     if (floor)

@@ -227,7 +227,7 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 		procent = reloadTime / stats.getReloadTime();
 	else if (useTime > 0)
 	{
-		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (numberOfUseMax);
+		procent = useTime / useTimeMax;
 		c.b = 255;
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
@@ -257,9 +257,17 @@ void Sword::setOwner(GameObject* owner)
 Vector2 Sword::getRotationPoint() 
 { 
 	float scale = 1.0f;
-	if (useTime > 0.0)
+	if (useTime > 0.0f)
 	{
-		scale = fabsf((useTime / useTimeMax) - 0.5f) * 2;
+		if (numberOfUse <= 1)
+			scale = fabsf((useTime / useTimeMax));
+		else
+			scale = fabsf((useTime / useTimeMax) - 0.5f) * 2;
+
+	}
+	else if (reloadTime > 0.0f)
+	{
+		scale = fabsf((reloadTime / stats.getReloadTime()) - 1.0f);
 	}
 	rotationPoint = Vector2Add(Vector2Scale(rotationPointStart, scale), Vector2Scale(rotationPointEnd, 1.0f - scale));
 	return rotationPoint;
@@ -270,16 +278,25 @@ Vector2 Sword::getRotationPoint()
 
 void Sword::updateWeaponSize()
 {
+	if (!isRangeScale)
+		return;
 	float scale = (stats.getRange() * rangeScale + 16) / (pos.width);
 	if (pos.width * scale < 16)
 		scale = 16 / pos.width;
 	if (pos.height * scale < 16)
 		scale = 16 / pos.height;
+	scaleWeapon(scale);
+
+}
+
+void Sword::scaleWeapon(float scale)
+{
+	if (scale <= 0)
+		return;
 	pos.width *= scale;
 	pos.height *= scale;
 	scaleColliderElements(scale);
 	Weapon::scaleWeapon(scale);
-
 }
 
 void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant)
@@ -306,7 +323,10 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 		}
 	}
 	if (weaponData[weaponType].contains("RangeScale"))
+	{
 		rangeScale = weaponData[weaponType]["RangeScale"];
+		isRangeScale = true;
+	}
 	if (weaponData[weaponType].contains("RotationAngle"))
 	{
 		rotationAgnel = weaponData[weaponType]["RotationAngle"];
@@ -317,5 +337,9 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 		numberOfUseMax = weaponData[weaponType]["NumberOfUse"];
 		hasDefineNumberOfUse = true;
 	}
-
+	if (weaponData[weaponType].contains("Scale"))
+	{
+		float scale = weaponData[weaponType]["Scale"];
+		scaleWeapon(scale);
+	}
 }

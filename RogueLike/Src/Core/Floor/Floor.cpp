@@ -51,7 +51,7 @@ Floor::Floor(Rectangle pos)
     addObject(new BossWall(pos.x - wallSize, pos.y - wallSize, pos.width + wallSize * 2, wallSize));
     addObject(new BossWall(pos.x + pos.width, pos.y - wallSize, wallSize, pos.height + wallSize * 2));
     addObject(new BossWall(pos.x - wallSize, pos.y + pos.height, pos.width + wallSize * 2, wallSize));
-    pathFinder = new PathFinder({ pos.width,pos.height }, { 13,13 });
+    pathFinder = new PathFinder({ pos.width,pos.height }, { 16,16 });
     createFloor();
 }
 
@@ -414,6 +414,11 @@ bool Floor::canPassMap()
     if (!pathFinder)
         return true;
     return pathFinder->hasPath(startPos, endPos);
+}
+
+bool Floor::isObjectAtScene(GameObject* gm)
+{
+    return std::find(closeObjects.begin(), closeObjects.end(), gm) != closeObjects.end();
 }
 
 void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockType type, std::vector<std::vector<RoomData>>& roomGrid, CreateObjectFun fun, int rangeW, int rangeH)

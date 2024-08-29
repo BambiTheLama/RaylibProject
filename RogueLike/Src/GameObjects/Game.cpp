@@ -25,6 +25,15 @@ bool Game::deleteObject(GameObject *obj) {
     return gameScene->deleteObject(obj);
 }
 
+bool Game::isObjectAtScene(GameObject* obj)
+{
+    if (!obj)
+        return true;
+    if (!gameScene)
+        return false;
+    return gameScene->isObjectAtScene(obj);
+}
+
 Rectangle Game::convertFromWorldToScrean(Rectangle pos)
 {
     if (!gameScene)
