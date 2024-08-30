@@ -46,6 +46,7 @@ Weapon* getWeapon(int variant, int tier, WeaponType wt)
 	case WeaponType::Staf:
 	case WeaponType::Spear:
 	case WeaponType::Sword:
+	case WeaponType::Book:
 		return new Sword(name, variant, weaponData, tier);
 		break;
 	case WeaponType::Bow:

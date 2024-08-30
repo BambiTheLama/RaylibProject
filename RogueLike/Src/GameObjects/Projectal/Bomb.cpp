@@ -2,6 +2,8 @@
 #include "../Game.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../Characters/Wall.h"
+#include "../Particle/TextureDestroyParticleSystem.h"
+#include "../Particle/ExplodeParticleSystem.h"
 
 Bomb::Bomb(float x, float y)
 {
@@ -52,9 +54,10 @@ void Bomb::explode()
 		explodePos.width -= 2 * delta;
 		explodePos.y -= delta;
 		explodePos.height += 2 * delta;
-
-
 	}
+	Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos(), 5, 5, 1.0f, 400));
+	Game::addObject(new ExplodeParticleSystem(RectangleIncreasSize(getPos(), range / 2), 100, 1));
+
 }
 
 void Bomb::draw()

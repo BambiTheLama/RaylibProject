@@ -31,7 +31,7 @@ public:
 
 	void onTriggerEnter(Collider* collider);
 
-	float getAngle() { return angle; }
+	float getAngle();
 
 	Vector2 getRotationPoint() { return rotationPoint; }
 

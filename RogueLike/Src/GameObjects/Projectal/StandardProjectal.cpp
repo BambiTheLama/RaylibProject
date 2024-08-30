@@ -83,11 +83,8 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 			hit->dealDamage(stats.getDamage());
 			if (!hit->isAlive())
 				triggerNode(WeaponNodeActivation::OnKill, stats);
-			pirce--;
-			if (pirce <= 0)
-			{
+			if (pirce-- <= 0)
 				Game::deleteObject(this);
-			}
 
 			triggerNode(WeaponNodeActivation::OnHit, stats);
 		}
@@ -101,15 +98,17 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		else
 			dir.y = -dir.y;
 		if (bounce-- <= 0)
-		{
-			triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
 			Game::deleteObject(this);
-		}
-		angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir)) * RAD2DEG + rotationDiff;
+		getAngle();
 	}
 
 }
 
+float StandardProjectal::getAngle()
+{
+	angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir)) * RAD2DEG + rotationDiff;
+	return angle;
+}
 
 void StandardProjectal::updateStatsAfterSetStats()
 {

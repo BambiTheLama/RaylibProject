@@ -31,7 +31,7 @@
 
         "WeaponStats": {
             "Knockback": {
-                "Value": 25,
+                "Value": 70,
                 "Inportant": true
             },
             "Angle": {
@@ -39,7 +39,7 @@
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 3,
                 "Inportant": true
             },
             "ReloadTime": {
@@ -55,11 +55,70 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 20,
                 "Inportant": true
             }
         }
 
+    },
+    "Book": {
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 15, 15 ],
+        "RotationPoint": [ 11, 11 ],
+        "RotationPointEnd": [ 0, 0 ],
+        "RotationAngle": 30,
+        "NumberOfUse": 1,
+        "Scale": 2,
+        "isRangeScale": false,
+        "Spawn": "MagicMissile",
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "Textures": [
+            "Weapons/Book.png"
+        ],
+
+        "WeaponStats": {
+            "Bounce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Pirce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Speed": {
+                "Value": 600,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 20,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 5,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0.2,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.1,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 1,
+                "Inportant": true
+            }
+
+        }
     },
     "Bow": {
         "Size": [ 32, 32 ],
@@ -79,19 +138,19 @@
         "WeaponStats": {
 
             "Bounce": {
-                "Value": 1,
+                "Value": 0,
                 "Inportant": true
             },
             "Pirce": {
-                "Value": 1,
+                "Value": 3,
                 "Inportant": true
             },
             "Speed": {
-                "Value": 300,
+                "Value": 1000,
                 "Inportant": true
             },
             "Angle": {
-                "Value": 10,
+                "Value": 5,
                 "Inportant": true
             },
             "CountOfUse": {
@@ -100,7 +159,7 @@
             },
             "ReloadTime": {
                 "Value": 0.0,
-                "Inportant": true
+                "Inportant": false
             },
             "UseTime": {
                 "Value": 0.5,
@@ -142,7 +201,7 @@
         ],
         "WeaponStats": {
             "Knockback": {
-                "Value": 2,
+                "Value": 0,
                 "Inportant": true
             },
             "Angle": {
@@ -150,7 +209,7 @@
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 6,
                 "Inportant": true
             },
             "ReloadTime": {
@@ -158,7 +217,7 @@
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 0.5,
+                "Value": 1.5,
                 "Inportant": true
             },
             "Range": {
@@ -166,7 +225,7 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 0.75,
                 "Inportant": true
             }
         }
@@ -204,7 +263,7 @@
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 6,
                 "Inportant": true
             },
             "ReloadTime": {
@@ -212,7 +271,7 @@
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 0.2,
+                "Value": 1.7,
                 "Inportant": true
             },
             "Range": {
@@ -220,7 +279,7 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 1,
                 "Inportant": true
             }
         }
@@ -256,23 +315,23 @@
 
         "WeaponStats": {
             "Knockback": {
-                "Value": 30,
+                "Value": 150,
                 "Inportant": true
             },
             "Angle": {
-                "Value": 300,
+                "Value": 360,
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 2,
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0.2,
+                "Value": 0.5,
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 0.5,
+                "Value": 1.0,
                 "Inportant": true
             },
             "Range": {
@@ -280,7 +339,7 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 10,
                 "Inportant": true
             }
         }
@@ -332,19 +391,19 @@
                 "Inportant": true
             },
             "Pirce": {
-                "Value": 1,
+                "Value": 2,
                 "Inportant": true
             },
             "Speed": {
-                "Value": 300,
+                "Value": 500,
                 "Inportant": true
             },
             "Angle": {
-                "Value": 10,
+                "Value": 60,
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 3,
                 "Inportant": true
             },
             "ReloadTime": {
@@ -352,7 +411,7 @@
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 0.5,
+                "Value": 0.2,
                 "Inportant": true
             },
             "Range": {
@@ -360,7 +419,7 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 1.5,
                 "Inportant": true
             }
 
@@ -387,7 +446,7 @@
         ],
         "Size": [ 32, 32 ],
         "SpawnPoint": [ 8, 7 ],
-        "RotationPoint": [ 0, 0 ],
+        "RotationPoint": [ 6, 6 ],
         "RotationPointEnd": [ 0, 0 ],
         "RangeScale": 0.06,
         "Slots": [
@@ -402,7 +461,7 @@
 
         "WeaponStats": {
             "Knockback": {
-                "Value": 30,
+                "Value": 25,
                 "Inportant": true
             },
             "Angle": {
@@ -410,7 +469,7 @@
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 2,
                 "Inportant": true
             },
             "ReloadTime": {
@@ -418,7 +477,7 @@
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 0.5,
+                "Value": 1.0,
                 "Inportant": true
             },
             "Range": {
@@ -426,7 +485,7 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 6,
                 "Inportant": true
             }
         }
@@ -442,7 +501,7 @@
         "Size": [ 32, 32 ],
         "FlipHorizontal": true,
         "RotationPoint": [ 16, 16 ],
-        "RotationPointEnd": [ -64, -64 ],
+        "RotationPointEnd": [ -32, -32 ],
         "SpawnPoint": [ 31, 0 ],
         "RangeScale": 0.06,
         "Textures": [
@@ -455,19 +514,19 @@
         ],
         "WeaponStats": {
             "Knockback": {
-                "Value": 10,
+                "Value": 50,
                 "Inportant": true
             },
             "Angle": {
-                "Value": 10,
+                "Value": 0,
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 1,
+                "Value": 2,
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0.2,
+                "Value": 0.3,
                 "Inportant": true
             },
             "UseTime": {
@@ -482,65 +541,6 @@
                 "Value": 3,
                 "Inportant": true
             }
-        }
-    },
-    "Staf": {
-        "Size": [ 32, 32 ],
-        "SpawnPoint": [ 22, 8 ],
-        "RotationPoint": [ 11, 11 ],
-        "RotationPointEnd": [ 0, 0 ],
-        "RotationAngle": 0,
-        "NumberOfUse": 1,
-        "Scale": 2,
-        "isRangeScale": false,
-        "Spawn": "MagicMissile",
-        "Slots": [
-            [ 1, 2 ],
-            [ 2, 3 ]
-        ],
-        "FlipHorizontal": true,
-        "Textures": [
-            "Weapons/Staf.png"
-        ],
-
-        "WeaponStats": {
-            "Bounce": {
-                "Value": 5,
-                "Inportant": true
-            },
-            "Pirce": {
-                "Value": 0,
-                "Inportant": true
-            },
-            "Speed": {
-                "Value": 300,
-                "Inportant": true
-            },
-            "Angle": {
-                "Value": 20,
-                "Inportant": true
-            },
-            "CountOfUse": {
-                "Value": 5,
-                "Inportant": true
-            },
-            "ReloadTime": {
-                "Value": 0.4,
-                "Inportant": true
-            },
-            "UseTime": {
-                "Value": 0.1,
-                "Inportant": true
-            },
-            "Range": {
-                "Value": 1000,
-                "Inportant": true
-            },
-            "Damage": {
-                "Value": 3,
-                "Inportant": true
-            }
-
         }
     },
     "Sword": {
@@ -598,9 +598,68 @@
                 "Inportant": true
             },
             "Damage": {
-                "Value": 3,
+                "Value": 8,
                 "Inportant": true
             }
+        }
+    },
+    "Staf": {
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 22, 8 ],
+        "RotationPoint": [ 11, 11 ],
+        "RotationPointEnd": [ 0, 0 ],
+        "RotationAngle": 30,
+        "NumberOfUse": 1,
+        "Scale": 2,
+        "isRangeScale": false,
+        "Spawn": "MagicMissile",
+        "Slots": [
+            [ 1, 2 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "Textures": [
+            "Weapons/Staf.png"
+        ],
+
+        "WeaponStats": {
+            "Bounce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Pirce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Speed": {
+                "Value": 750,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 0.4,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.1,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 1000,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 10,
+                "Inportant": true
+            }
+
         }
     }
 }

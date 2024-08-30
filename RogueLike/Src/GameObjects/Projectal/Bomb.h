@@ -16,6 +16,7 @@ class Bomb :
     const float timerMax = 2.0f;
     float range = 250.0f;
     TextureController texture;
+
 public:
     Bomb(float x, float y);
 

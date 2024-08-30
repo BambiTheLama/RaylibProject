@@ -69,7 +69,7 @@ void StandardEnemy::update(float deltaTime)
 {
 	frameTimer += deltaTime;
 	if (item)
-		item->update(deltaTime, attackDir);
+		item->update(0.0f, attackDir);
 	Hitable::update(deltaTime);
 	
 	controller.update(deltaTime);
@@ -251,9 +251,6 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 			if (item)
 				item->setOwner(this);
 			Game::addObject(gm);
-			weapon->use({ 0,0 }, 0);
-			if (item)
-				item->update(1000);
 
 		}
 
