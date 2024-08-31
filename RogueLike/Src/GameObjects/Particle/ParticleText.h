@@ -11,6 +11,7 @@ class ParticleText :
     Color color;
     float angleRotation = 0.0f;
     float angle = 0.0f;
+    static int seed;
 public:
     ParticleText(float x, float y, float time, std::string text, Color color = RED);
 

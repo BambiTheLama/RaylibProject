@@ -39,8 +39,9 @@ FloorRooms getFloorRooms()
     return floorRooms;
 }
 
-Floor::Floor(Rectangle pos)
+Floor::Floor(Rectangle pos, int seed)
 {
+    this->seed = seed;
     pos.width = (float)(((int)pos.width / (int)roomW) * (int)roomW);
     pos.height = (float)(((int)pos.height / (int)roomH) * (int)roomH);
     this->pos = pos;
@@ -175,6 +176,7 @@ void Floor::createFloor()
 
     int floorW = (int)(pos.width / roomW);
     int floorH = (int)(pos.height / roomH);
+    srand(seed);
     std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
     for (int i = 0; i < floorW; i++)
         for (int j = 0; j < floorH; j++)
@@ -462,7 +464,7 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
             {
                 for (auto o : elementsPos)
                 {
-                    int ID = objects[rand() % objects.size()];
+                    int ID = objects[rand() % (int)objects.size()];
                     Rectangle pos = { o.x,o.y,tileW,tileH };
                     addObject(fun(ID, pos));
                 }
@@ -474,7 +476,7 @@ void Floor::setUpObjects(std::vector<int> objects, int numberOfObjects, BlockTyp
                     int e = rand() % elementsPos.size();
                     Vector2 vPos = elementsPos[e];
                     Rectangle pos = { vPos.x,vPos.y,tileW,tileH };
-                    int ID = objects[rand() % objects.size()];
+                    int ID = objects[rand() % (int)objects.size()];
                     addObject(fun(ID, pos));
                     elementsPos.erase(elementsPos.begin() + e);
                 }

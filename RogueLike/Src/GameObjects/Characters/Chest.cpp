@@ -7,6 +7,8 @@
 extern const float tileW;
 extern const float tileH;
 
+int Chest::seed = 0;
+
 Chest::Chest(Rectangle pos, int tier)
 {
 	pos.width = tileW;
@@ -39,12 +41,14 @@ void Chest::draw()
 void Chest::draw(Rectangle pos)
 {
 	//DrawFrameRec(pos);
-	texture.draw(pos);
+	texture.draw(pos, false, false, open ? 1 : 0);
 }
 
 void Chest::interact(GameObject* interactObj)
 {
-	int n = (rand() % 3) + 1;
+	if (open)
+		return;
+	int n = getRandom(seed, 1, 10);
 	for (int i = 0; i < n; i++)
 	{
 		//Weapon* w = getWeapon(0, 0, getRandomWeaponType());
@@ -62,9 +66,9 @@ void Chest::interact(GameObject* interactObj)
 		Game::addObject(o);
 	}
 
+	open = true;
 
 
-
-	Game::deleteObject(this);
+	//Game::deleteObject(this);
 }
 

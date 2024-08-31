@@ -4,6 +4,8 @@
 #include "raymath.hpp"
 #include "Core/Controller/ShaderController.h"
 #include <fstream>
+#include <random>
+#include <limits>
 
 static ShaderController outline;
 

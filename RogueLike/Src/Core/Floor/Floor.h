@@ -22,8 +22,9 @@ class Floor
     Rectangle pos;
     Rectangle startPos = { 0,0,32,32 };
     Rectangle endPos = { 0,0,32,32 };
+    int seed = 0;
 public:
-    Floor(Rectangle pos);
+    Floor(Rectangle pos, int seed = 0);
 
     ~Floor();
 

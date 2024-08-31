@@ -1,6 +1,8 @@
 #include "ParticleText.h"
 #include "../Game.h"
 
+int ParticleText::seed = 1000;
+
 ParticleText::ParticleText(float x, float y, float time, std::string text,Color color)
 {
 	this->color = color;
@@ -10,7 +12,7 @@ ParticleText::ParticleText(float x, float y, float time, std::string text,Color 
 	lifeTimeMax = time;
 	lifeTime = lifeTimeMax;
 	drawOrder = 10;
-	angleRotation = ((rand() % 101) / 50.0f - 1.0f);
+	angleRotation = getRandom(seed, -1.0f, 1.0f);
 }
 
 void ParticleText::update(float deltaTime)

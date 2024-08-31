@@ -10,10 +10,16 @@
 
 nlohmann::json Weapon::weaponData;
 static Rectangle weaponSlotPos = { 0,0,0,0 };
+static int seed;
+
+void setWeaponSeed(int s)
+{
+	seed = s;
+}
 
 WeaponType getRandomWeaponType()
 {
-	return (WeaponType)(rand() % (int)magic_enum::enum_count<WeaponType>());
+	return (WeaponType)getRandom(seed, 0, (int)magic_enum::enum_count<WeaponType>() - 1);
 }
 
 static int getNumberOfRows(int allSlots, int slotsInRow)
@@ -463,7 +469,7 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 				int slotsMax = weaponData[weaponType]["Slots"][variant][1];
 				slots = std::min(slotsMin, slotsMax);
 				if (slotsMin != slotsMax)
-					slots += rand() % (abs(slotsMax - slotsMin) + 1);
+					slots += getRandom(seed, 1, abs(slotsMax - slotsMin) - 1);
 			}
 			else if (weaponData[weaponType]["Slots"][variant].size() > 0)
 			{

@@ -23,6 +23,8 @@ enum class WeaponType {
 	Wand,
 };
 
+void setWeaponSeed(int seed);
+
 WeaponType getRandomWeaponType();
 
 class Inventory;

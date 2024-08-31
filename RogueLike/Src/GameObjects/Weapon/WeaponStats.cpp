@@ -5,7 +5,7 @@
 static const char* statsJsonName = "WeaponStats";
 static const char* inportantStatColor = "[00ff00ff]";
 static const float tolerance = 0.1f;
-
+static int seed = 1000;
 
 StatFloatMulti& StatFloatMulti::operator+=(const StatFloatMulti& stat)
 {
@@ -50,7 +50,7 @@ static void getJsonData(nlohmann::json& json, StatFloatMulti* stat)
 	{
 		float min = json["Min"];
 		float max = json["Max"];
-		float procent = (rand() % 100) / 100.0f;
+		float procent = getRandom(seed, 0.0f, 1.0f);
 		stat->value = (min + (max - min) * procent);
 	}
 	else if (json.contains("Value"))
@@ -66,7 +66,7 @@ static void getJsonData(nlohmann::json& json, StatFloatMulti* stat)
 	{
 		float min = json["MulMin"];
 		float max = json["MulMax"];
-		float procent = (rand() % 1000) / 1000.0f;
+		float procent = getRandom(seed, 0.0f, 1.0f);
 		stat->multiplier = (min + (max - min) * procent);
 	}
 	else if (json.contains("MulValue"))
@@ -487,4 +487,7 @@ void WeaponStats::drawColorStats(float x, float y, float textSize, Color negativ
 	}
 }
 
-
+void setWeaponStatsSeed(int s)
+{
+	seed = s;
+}

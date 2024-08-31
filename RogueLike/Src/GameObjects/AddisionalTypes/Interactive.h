@@ -8,5 +8,7 @@ public:
 	virtual void interact(GameObject* interactObject) = 0;
 
 	void setIsClosesObject(bool closest);
+
+	virtual bool canInteract() { return true; }
 };
 

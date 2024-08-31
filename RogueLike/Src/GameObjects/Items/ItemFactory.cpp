@@ -8,6 +8,12 @@
 static nlohmann::json weaponData;
 static nlohmann::json weaponNodeData;
 static nlohmann::json itemData;
+static int seed = 1000;
+
+void setFactoryItemSeed(int s)
+{
+	seed = s;
+}
 
 void setUpItemFactory(std::string path)
 {
@@ -25,7 +31,7 @@ WeaponNodeItem* getWeaponNode(int tier)
 
 	if (weaponNodeData[tier].size() <= 0)
 		return nullptr;
-	int itemInTier = rand() % weaponNodeData[tier].size();
+	int itemInTier = getRandom(seed, 0, weaponNodeData[tier].size());
 	return new WeaponNodeItem(weaponNodeData[tier][itemInTier]);
 }
 

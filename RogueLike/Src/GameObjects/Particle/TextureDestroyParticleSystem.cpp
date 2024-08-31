@@ -21,6 +21,8 @@ void TextureDestroyParticle::draw(TextureController& texture)
 	DrawTexturePro(text, textPos, pos, { pos.width / 2,pos.height / 2 }, angle, c);
 }
 
+int TextureDestroyParticleSystem::seed = 1000;
+
 TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController texture,int frame, Rectangle pos, int w, int h, float timer, float speed)
 {
 	GameObject::pos = pos;
@@ -37,8 +39,8 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 	const float posH = pos.height / h;
 	const float textureX = frameSize.x / w;
 	const float textureY = frameSize.y / h;
-	const int minAngle = -30.0f;
-	const int maxAngle = 30.0f;
+	const float minAngle = -30.0f;
+	const float maxAngle = 30.0f;
 	for (int x = 0; x < w; x++)
 	{
 		for (int y = 0; y < h; y++)
@@ -46,11 +48,11 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 			TextureDestroyParticle particle;
 			particle.pos = { pos.x + posW * x,pos.y + posH * y,posW,posH };
 			particle.textPos = { startTexturePos + textureX * x,textureY * y,textureX,textureY };
-			particle.dir = DirFromAngle(GetRandomValue(0, 360));
-			particle.anglePerSec = (float)GetRandomValue(minAngle, maxAngle);
-			particle.timer = ((rand() % 1000) / 1000.0f) * timer / 2.0f + timer / 2.0f;
+			particle.dir = DirFromAngle(getRandom(seed, 0, 360));
+			particle.anglePerSec = getRandom(seed, minAngle, maxAngle);
+			particle.timer = getRandom(seed, timer / 2.0f, timer);
 			particle.startTime = particle.timer;
-			particle.speed = (rand() % 100) / 100.0f * speed / 2.0f + speed / 2.0f;
+			particle.speed = getRandom(seed, speed / 2, speed);
 
 			particles.push_back(particle);
 		}

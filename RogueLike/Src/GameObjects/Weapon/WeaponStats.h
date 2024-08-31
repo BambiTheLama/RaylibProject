@@ -35,6 +35,9 @@ struct StatInt
 
 	StatInt& operator-=(const StatInt& stat);
 };
+
+void setWeaponStatsSeed(int seed);
+
 class WeaponStats
 {
 	StatFloatMulti damage, useTime, reloadTime, speed, range, knockback;

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <json.hpp>
+#include "Random.h"
 
 const float timePerFrame = 0.1f;
 
@@ -60,3 +61,6 @@ Vector2 randVector2();
 Color mixColor(Color c1, Color c2, float procent);
 
 Vector2 DirFromAngle(float angle);
+
+
+

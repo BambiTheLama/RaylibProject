@@ -1,0 +1,12 @@
+#include "Random.h"
+#include <random>
+#include <assert.h>
+#include <math.h>
+
+int getRandom(int& seed, int min, int max)
+{
+	seed = (seed * 38261 + 58243) % 93871;
+	float procent = seed / 93871.0f;
+	int v = min * procent + max * (1.0f - procent);
+	return std::clamp(v, min, max);
+}

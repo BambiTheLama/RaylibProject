@@ -19,6 +19,7 @@ enum class WeaponNodeActivation
 
 std::string to_string(WeaponNodeActivation wna);
 
+void setWeaponNodeSeed(int seed);
 
 class WeaponNode
 {

@@ -214,10 +214,7 @@ Interactive* Player::getCloseInteractiveObjects()
     for (GameObject* o : gms)
     {
         Interactive* iObj = dynamic_cast<Interactive*>(o);
-        if (!iObj)
-            continue;
-        Item* item = dynamic_cast<Item*>(o);
-        if (item && item->hasOwner())
+        if (!iObj || !iObj->canInteract())
             continue;
         if (interactObj)
         {

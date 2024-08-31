@@ -51,7 +51,7 @@ void setUpFloor(int floor)
 GameObject* getEnemy(EnemiesID ID)
 {
 	auto name = magic_enum::enum_name(ID);
-	std::string dataName = name.data();
+	const char* dataName = name.data();
 	switch (ID)
 	{
 	case EnemiesID::Goblin:

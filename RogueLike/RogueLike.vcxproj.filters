@@ -220,6 +220,7 @@
     <ClInclude Include="Src\GameObjects\Particle\ExplodeParticleSystem.h">
       <Filter>GameObjects\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -384,6 +385,7 @@
     <ClCompile Include="Src\GameObjects\Particle\ExplodeParticleSystem.cpp">
       <Filter>GameObjects\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

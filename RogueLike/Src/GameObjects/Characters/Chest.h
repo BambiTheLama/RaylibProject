@@ -6,7 +6,9 @@
 class Chest :
     public GameObject , public Collider, public Interactive
 {
+    static int seed;
     TextureController texture;
+    bool open = false;
 public:
     Chest(Rectangle pos, int tier);
 
@@ -15,5 +17,7 @@ public:
     void draw(Rectangle pos);
 
     void interact(GameObject* interactObj);
+
+    virtual bool canInteract()override { return !open; }
 };
 

@@ -1,5 +1,9 @@
 #include "WeaponNode.h"
 #include <magic_enum/magic_enum.hpp>
+#include "../../Random.h"
+
+
+static int seed = 1000;
 std::string to_string(WeaponNodeActivation wna)
 {
 	switch (wna)
@@ -20,6 +24,11 @@ std::string to_string(WeaponNodeActivation wna)
 	return "";
 }
 
+void setWeaponNodeSeed(int s)
+{
+	seed = s;
+}
+
 int getWeaponTier(nlohmann::json j)
 {
 	if (!j.contains("Tiers"))
@@ -33,7 +42,7 @@ int getWeaponTier(nlohmann::json j)
 	if (sum <= 0)
 		return 0;
 	
-	int randSum = rand() % sum;
+	int randSum = getRandom(seed, 0, sum - 1);
 	sum = 0;
 	for (int i = 0; i < tiers; i++)
 	{

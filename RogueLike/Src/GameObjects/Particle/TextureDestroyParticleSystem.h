@@ -20,6 +20,7 @@ struct TextureDestroyParticle {
 class TextureDestroyParticleSystem :
     public GameObject
 {
+    static int seed;
     TextureController texture;
     float timer = 0.0f;
     std::vector<TextureDestroyParticle> particles;
@@ -29,5 +30,8 @@ public:
     void update(float deltaTime)override;
 
     void draw()override;
+
+    static void setSeed(int seed) { TextureDestroyParticleSystem::seed = seed; }
+
 };
 

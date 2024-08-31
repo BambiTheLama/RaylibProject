@@ -42,6 +42,8 @@ public:
 
 	bool hasOwner() { return owner; }
 
+	virtual bool canInteract()override { return !hasOwner(); }
+
 	virtual bool canSwap() { return true; }
 #pragma endregion Getters
 
