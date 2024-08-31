@@ -16,6 +16,14 @@
         "NumberOfFrames": 13,
         "FrameSize": [ 32, 32 ]
     },
+    "Elements/Chest.png": {
+        "NumberOfFrames": 3,
+        "FrameSize": [ 32, 32 ]
+    },
+    "Elements/Mimic.png": {
+        "NumberOfFrames": 9,
+        "FrameSize": [ 32, 32 ]
+    },
     "Projectal/MagicMissile.png": {
         "NumberOfFrames": 3,
         "FrameSize": [ 32, 32 ]

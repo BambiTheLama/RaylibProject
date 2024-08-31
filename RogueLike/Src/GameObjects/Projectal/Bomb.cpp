@@ -56,7 +56,7 @@ void Bomb::explode()
 		explodePos.height += 2 * delta;
 	}
 	Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos(), 5, 5, 1.0f, 400));
-	Game::addObject(new ExplodeParticleSystem(getMidlePoint(getPos()), range, 200, 1, 200));
+	Game::addObject(new ExplodeParticleSystem(getMidlePoint(getPos()), range, 200, 1.25f, 200));
 
 }
 

@@ -64,7 +64,7 @@ ExplodeParticleSystem::ExplodeParticleSystem(Vector2 pos,float range, int partic
 		ep.acceleration = -ep.speed / GetRandomValue(1, 100) / 30.0f;
 		ep.timer = timer / 6.0f * 5.0f * GetRandomValue(1, 1000) / 1000.0f + timer / 6.0f;
 		ep.size = GetRandomValue(100, 200);
-		ep.deltaSize = GetRandomValue(-100, 100);
+		//ep.deltaSize = GetRandomValue(-100, -50);
 		ep.timerMax = ep.timer;
 		this->particles.push_back(ep);
 
