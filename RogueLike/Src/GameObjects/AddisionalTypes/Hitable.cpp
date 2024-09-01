@@ -69,10 +69,14 @@ void Hitable::deadTrigger()
 }
 
 void Hitable::draw(Rectangle pos) {
-	DrawRectangleRec(pos, GRAY);
-	DrawRectangleRec({ pos.x, pos.y, pos.width * getAnimateHp(), pos.height }, GREEN);
-	//DrawRectangleRec({ pos.x, pos.y, pos.width * getProcentHp(), pos.height }, RED);
-	DrawRectangleLinesEx(pos, 3, BLACK);
+	float procentHp = getAnimateHp();
+	const char alpha = 120;
+	Color green = { 0,228,48,alpha };
+	Color gray = { 130,130,130,alpha };
+	Color black = { 0,0,0,alpha };
+	DrawRectangleRec({ pos.x + pos.width * procentHp,pos.y,pos.width * (1.0f - procentHp),pos.height }, gray);
+	DrawRectangleRec({ pos.x, pos.y, pos.width * procentHp, pos.height }, green);
+	DrawRectangleLinesEx(RectangleIncreasSize(pos, 3), 3, black);
 }
 
 Color Hitable::getHitColor(Color c)

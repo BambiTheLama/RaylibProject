@@ -29,6 +29,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool flipHorizontalFromFile = false;
 	bool flipVertical = false;
 	bool isRangeScale = false;
+	Vector2 faceingDir = { 0,0 };
 public:
 #pragma region Constructor
 	Sword(std::string weaponType = "", int variant = 0, nlohmann::json data = nlohmann::json(), int weaponTier = 0);
@@ -75,6 +76,8 @@ private:
 	void updateWeaponSize();
 
 	void scaleWeapon(float scale);
+
+	float getWeaponRotation();
 protected:
 
 	void readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant = 0);

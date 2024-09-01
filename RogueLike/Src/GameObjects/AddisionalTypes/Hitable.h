@@ -19,7 +19,7 @@ public:
 
     void setMaxHp(float maxHp);
 
-    bool dealDamage(float damage, float invisibleFrames = 0.01f);
+    bool dealDamage(float damage, float invisibleFrames = 0.15f);
 
     void update(float deltaTime);
 

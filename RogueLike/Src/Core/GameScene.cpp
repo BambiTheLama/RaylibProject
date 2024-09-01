@@ -21,7 +21,7 @@ GameScene::GameScene() {
     camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
-    Rectangle pos = { 0,0,5000,5000 };
+    Rectangle pos = { 0,0,7000,7000 };
     
     do {
         if (floor)

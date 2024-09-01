@@ -80,9 +80,8 @@ void StandardProjectal::onTriggerEnter(Collider* collider)
 		Hitable* hit = dynamic_cast<Hitable*>(colObj);
 		if (hit)
 		{
-			Vector2 vPos = getMidlePoint(colObj->getPos());
-			Vector2 rPos = Vector2Add(getRotationPoint(), { pos.x,pos.y });
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.getKnockback(), 1);
+			Vector2 colDir = collider->getCollisionDir(this);
+			collider->addForce(colDir, stats.getKnockback(), 1);
 			hit->dealDamage(stats.getDamage());
 			if (!hit->isAlive())
 				triggerNode(WeaponNodeActivation::OnKill, stats);

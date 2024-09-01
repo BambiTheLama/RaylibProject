@@ -133,8 +133,8 @@ Vector2 Collider::getCollisionDir(Collider* collider)
         {
             Vector2 dir;
             float dist;
-            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist)) 
-                return dir;
+            if (c->isCollidiongWith(pos, c2, otherPos, &dir, &dist))
+                return Vector2Normalize(dir);
             
         }
 

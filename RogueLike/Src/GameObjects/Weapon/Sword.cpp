@@ -59,7 +59,7 @@ void Sword::update(float deltaTime)
 		points.clear();
 		return;
 	}
-	if (useTime > 0)
+	else if (useTime > 0)
 	{
 
 		if (left)
@@ -101,6 +101,7 @@ void Sword::update(float deltaTime)
 			{
 				useTime = useTimeMax;
 				used = false;
+				angle = getWeaponRotation();
 				left = !left;
 			}
 			addLineTimer = 0.0f;
@@ -112,19 +113,10 @@ void Sword::update(float deltaTime)
 
 void Sword::update(float deltaTime, Vector2 dir)
 {
-
 	Item::update(deltaTime, dir);
-	
+	faceingDir = dir;
 	if (useTime <= 0 && reloadTime <= 0)
-	{
-		if (!hasOwnRotationAngle)
-			rotationAgnel = stats.getAngle();
-		angle = Vector2Angle({ 0.0000001f,0.0000001f }, dir) * 180 / PI;
-		if (!left)
-			angle -= rotationAgnel / 2;
-		else
-			angle += rotationAgnel / 2;
-	}
+		angle = getWeaponRotation();
 
 }
 
@@ -157,14 +149,13 @@ void Sword::onTriggerEnter(Collider* collider)
 		return;
 	if ((int)gm->getType() & target)
 	{
-		Vector2 vPos = getMidlePoint(gm->getPos());
-		Vector2 rPos = Vector2Add(getRotationPoint(), getMidlePoint(getPos()));
+		Vector2 colDir = collider->getCollisionDir(this);
 		Hitable* hit = dynamic_cast<Hitable*>(collider);
 		if (hit && hit->dealDamage(stats.getDamage()))
 		{
 			if (!hit->isAlive())
 				triggerNode(WeaponNodeActivation::OnKill, stats);
-			collider->addForce(Vector2Normalize(Vector2Subtract(vPos, rPos)), stats.getKnockback(), 1);
+			collider->addForce(colDir, stats.getKnockback(), 1);
 			triggerNode(WeaponNodeActivation::OnHit, stats);
 		}
 	}
@@ -298,6 +289,16 @@ void Sword::scaleWeapon(float scale)
 	pos.height *= scale;
 	scaleColliderElements(scale);
 	Weapon::scaleWeapon(scale);
+}
+
+float Sword::getWeaponRotation()
+{
+	if (!hasOwnRotationAngle)
+		rotationAgnel = stats.getAngle();
+	float angle = Vector2Angle({ 0.0000001f,0.0000001f }, faceingDir) * 180 / PI;
+	if (!left)
+		return angle - rotationAgnel / 2;
+	return angle + rotationAgnel / 2;
 }
 
 void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant)
