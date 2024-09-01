@@ -467,9 +467,7 @@ void Weapon::readFromWeaponData(std::string weaponType, int variant)
 			{
 				int slotsMin = weaponData[weaponType]["Slots"][variant][0];
 				int slotsMax = weaponData[weaponType]["Slots"][variant][1];
-				slots = std::min(slotsMin, slotsMax);
-				if (slotsMin != slotsMax)
-					slots += getRandom(seed, 1, abs(slotsMax - slotsMin) - 1);
+				slots = getRandom(seed, slotsMin, slotsMax + 1);
 			}
 			else if (weaponData[weaponType]["Slots"][variant].size() > 0)
 			{
