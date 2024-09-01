@@ -228,6 +228,7 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 	else if (useTime > 0)
 	{
 		procent = useTime / useTimeMax;
+		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (std::max(numberOfUseMax, 1) * useTimeMax);
 		c.b = 255;
 	}
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);

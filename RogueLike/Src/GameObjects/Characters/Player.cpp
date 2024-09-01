@@ -32,7 +32,7 @@ Player::Player(float x, float y):Hitable(1000.0f){
     inventory = Inventory(this);
     ///*
 
-    for (int j = 3; j < 11; j++)
+    for (int j = 0; j < 10; j++)
     {
         Weapon* w = getWeapon(0, 0, (WeaponType)j);
         if (!w)
