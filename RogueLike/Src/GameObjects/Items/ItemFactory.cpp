@@ -8,12 +8,6 @@
 static nlohmann::json weaponData;
 static nlohmann::json weaponNodeData;
 static nlohmann::json itemData;
-static int seed = 1000;
-
-void setFactoryItemSeed(int s)
-{
-	seed = s;
-}
 
 void setUpItemFactory(std::string path)
 {
@@ -22,7 +16,7 @@ void setUpItemFactory(std::string path)
 	itemData = readJson(path + "ItemData.json");
 }
 
-WeaponNodeItem* getWeaponNode(int tier)
+WeaponNodeItem* getWeaponNode(int tier, int& seed)
 {
 	if (weaponNodeData.size() <= 0)
 		return nullptr;
@@ -34,8 +28,6 @@ WeaponNodeItem* getWeaponNode(int tier)
 	int itemInTier = getRandom(seed, 0, weaponNodeData[tier].size());
 	return new WeaponNodeItem(weaponNodeData[tier][itemInTier]);
 }
-
-#define ENUM_TO_STRING(ENUM) #ENUM
 
 Weapon* getWeapon(int variant, int tier, WeaponType wt)
 {

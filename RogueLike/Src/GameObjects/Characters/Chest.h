@@ -19,5 +19,7 @@ public:
     void interact(GameObject* interactObj);
 
     virtual bool canInteract()override { return !open; }
+
+    friend class Floor;
 };
 

@@ -11,6 +11,7 @@
 #include "raymath.h"
 #include "../../GameObjects/AddisionalTypes/DrawUI.h"
 #include "../../GameObjects/Game.h"
+#include "../../GameObjects/Characters/Chest.h"
 
 FloorRooms getFloorRooms()
 {
@@ -176,7 +177,7 @@ void Floor::createFloor()
 
     int floorW = (int)(pos.width / roomW);
     int floorH = (int)(pos.height / roomH);
-    srand(seed);
+    setSeeds();
     std::vector<std::vector<RoomData>> roomGrid = generareFloor(floorW, floorH, floorRooms);
     for (int i = 0; i < floorW; i++)
         for (int j = 0; j < floorH; j++)
@@ -196,6 +197,7 @@ void Floor::createFloor()
     //setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
     removeCloseEnemies();
+    
 }
 
 void Floor::start()
@@ -514,4 +516,11 @@ void Floor::removeObj(GameObject* o)
     for (auto c : colliders)
         c->removeObject(collider);
     
+}
+
+void Floor::setSeeds()
+{
+    srand(seed);
+    Chest::seed = rand();
+
 }

@@ -50,7 +50,7 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 			particle.textPos = { startTexturePos + textureX * x,textureY * y,textureX,textureY };
 			particle.dir = DirFromAngle(getRandom(seed, 0, 360));
 			particle.anglePerSec = getRandom(seed, minAngle, maxAngle);
-			particle.timer = getRandom(seed, timer / 2.0f, timer);
+			particle.timer = getRandom(seed, timer * 100, timer * 1000) / 1000.0f;
 			particle.startTime = particle.timer;
 			particle.speed = getRandom(seed, speed / 2, speed);
 

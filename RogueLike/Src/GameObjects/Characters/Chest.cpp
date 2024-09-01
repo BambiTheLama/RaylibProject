@@ -55,7 +55,7 @@ void Chest::interact(GameObject* interactObj)
 		//if (!w)
 		//	continue;
 		//GameObject* o = dynamic_cast<GameObject*>(w);
-		GameObject* o = getWeaponNode(0);
+		GameObject* o = getWeaponNode(0, seed);
 		if (!o)
 		{
 			//delete w;

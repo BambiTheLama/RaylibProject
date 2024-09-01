@@ -5,11 +5,9 @@
 #include "Item.h"
 #include <string>
 
-void setFactoryItemSeed(int seed);
-
 void setUpItemFactory(std::string path);
 
-WeaponNodeItem* getWeaponNode(int tier);
+WeaponNodeItem* getWeaponNode(int tier, int& seed);
 
 Weapon* getWeapon(int variant,int tier, WeaponType wt);
 

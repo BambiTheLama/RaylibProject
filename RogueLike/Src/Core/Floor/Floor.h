@@ -65,6 +65,6 @@ private:
 
     void removeObj(GameObject* o);
 
-
+    void setSeeds();
 };
 

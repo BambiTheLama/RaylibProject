@@ -156,7 +156,9 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
 }
 
 void Player::draw() {
-    DrawFrameRec(pos, BLUE, BLACK);
+    Color c = getHitColor(BLUE);
+
+    DrawFrameRec(pos, c, BLACK);
     Hitable::draw({ pos.x,pos.y - 30,pos.width,20 });
 
     float range = 50.0f;
@@ -173,7 +175,7 @@ void Player::draw() {
 
     Vector2 starLine = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 
-    DrawSegmentLine(starLine, useDir, 10, timer*3, rangeMax, segments, BLACK);
+    //DrawSegmentLine(starLine, useDir, 10, timer*3, rangeMax, segments, BLACK);
     inventory.drawItem();
 
 }
