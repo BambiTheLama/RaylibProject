@@ -59,10 +59,10 @@ void TextureController::draw(Rectangle pos,bool flipVertical,bool flipHorizontal
 	DrawTexturePro(texture, sourse, pos, rotationPoint, angle, color);
 }
 
-void TextureController::drawTile(Rectangle pos, float startX, float startY, float repetW, float repetH)
+void TextureController::drawTile(Rectangle pos, float startX, float startY, float repetW, float repetH,Color c)
 {
 	Rectangle sourse = { startX,startY,(float)(repetW * texture.width),(float)(repetH * texture.height) };
-	DrawTexturePro(texture, sourse, pos, { 0.0f,0.0f }, 0.0f, WHITE);
+	DrawTexturePro(texture, sourse, pos, { 0.0f,0.0f }, 0.0f, c);
 }
 
 int TextureController::getFrames(std::string animationName)

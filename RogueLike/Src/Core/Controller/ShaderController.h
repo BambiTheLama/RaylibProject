@@ -17,13 +17,15 @@ public:
 
 	Shader getShader();
 
+	void setValue(const char* name, float value);
+
 	friend class Engine;
 
 private:
 
 	static void clearShaders();
 
-	static void setUpTexture(std::string dirPath);
+	static void setUpShader(std::string dirPath);
 
 };
 

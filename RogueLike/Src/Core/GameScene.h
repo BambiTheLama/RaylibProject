@@ -8,6 +8,8 @@
 
 class GameScene : public Scene {
     CharacterController controller;
+    RenderTexture2D sceneFrame;
+    RenderTexture2D shadowsFrame;
     Floor* floor = nullptr;
     Camera2D camera;
 public:
@@ -40,5 +42,7 @@ public:
     bool deleteObject(GameObject* obj);
 
     void removeObject(GameObject* obj);
+
+    void onResize();
 };
 

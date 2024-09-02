@@ -20,7 +20,7 @@
         "NumberOfFrames": 3,
         "FrameSize": [ 32, 32 ]
     },
-    "Elements/Mimic.png": {
+    "Enemies/Mimic.png": {
         "NumberOfFrames": 9,
         "FrameSize": [ 32, 32 ]
     },

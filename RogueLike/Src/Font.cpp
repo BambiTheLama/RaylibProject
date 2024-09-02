@@ -8,6 +8,7 @@
 #include <limits>
 
 static ShaderController outline;
+static ShaderController shadowFilter;
 
 namespace MyFont
 {
@@ -18,6 +19,7 @@ namespace MyFont
 	void SetUpFont()
 	{
 		outline = ShaderController("OutLine.vert","OutLine.frag");
+		shadowFilter = ShaderController("ShadowFilter.frag");
 		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
 		SetTextureFilter(diffFont.texture, TEXTURE_FILTER_BILINEAR);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
@@ -293,6 +295,12 @@ float RectangleDistance(Rectangle r1, Rectangle r2)
 void startOutLineShader()
 {
 	BeginShaderMode(outline.getShader());
+}
+
+void startShadowFilterShader(float zoom)
+{
+	BeginShaderMode(shadowFilter.getShader());
+	shadowFilter.setValue("zoom", zoom);
 }
 
 Shader getOutLineShader()

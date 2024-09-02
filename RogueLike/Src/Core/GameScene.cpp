@@ -21,6 +21,7 @@ GameScene::GameScene() {
     camera.zoom = 1.01f;
     camera.rotation = 0;
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
+    onResize();
     Rectangle pos = { 0,0,7000,7000 };
     
     do {
@@ -61,7 +62,10 @@ GameScene::GameScene() {
 }
 
 GameScene::~GameScene() {
-
+    if (sceneFrame.id > 0)
+        UnloadRenderTexture(sceneFrame);
+    if (shadowsFrame.id > 0)
+        UnloadRenderTexture(shadowsFrame);
     Game::gameScene = nullptr;
     Floor* f = floor;
     floor = nullptr;
@@ -173,11 +177,43 @@ void GameScene::removeObject(GameObject* obj)
         floor->removeObject(obj);
 }
 
+void GameScene::onResize()
+{
+    if (sceneFrame.id > 0)
+        UnloadRenderTexture(sceneFrame);
+    if (shadowsFrame.id > 0)
+        UnloadRenderTexture(shadowsFrame);
+    sceneFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+    shadowsFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+}
+
 void GameScene::draw() {
+
+    BeginTextureMode(sceneFrame);
+    ClearBackground(BLANK);
     BeginMode2D(camera);
     if (floor)
         floor->draw();
     EndMode2D();
+    EndTextureMode();
+    BeginTextureMode(shadowsFrame);
+    ClearBackground(BLANK);
+    BeginMode2D(camera);
+    if (floor)
+        floor->drawShadows();
+    EndMode2D();
+    EndTextureMode();
+
+    Texture2D frameTexture = sceneFrame.texture;
+    DrawTextureRec(frameTexture, { 0,0, (float)frameTexture.width,(float)-frameTexture.height }, { 0, 0 }, WHITE);
+    Texture2D shadowTexture = shadowsFrame.texture;
+    SetTextureWrap(shadowTexture, TEXTURE_WRAP_CLAMP);
+    startShadowFilterShader(camera.zoom);
+    DrawTextureRec(shadowTexture,
+        { 0,0, (float)shadowTexture.width,(float)-shadowTexture.height }
+    , { 0,0 }, { 0,0,0,0 });
+
+    EndShaderMode();
     if (floor)
         floor->drawUI();
 }

@@ -221,6 +221,9 @@
       <Filter>GameObjects\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Src\Random.h" />
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\ShadowObject.h">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -386,6 +389,9 @@
       <Filter>GameObjects\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Src\Random.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -418,6 +424,9 @@
     </None>
     <None Include="Res\Enemies.json">
       <Filter>Res</Filter>
+    </None>
+    <None Include="Res\Shader\ShadowFilter.frag">
+      <Filter>Res\Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

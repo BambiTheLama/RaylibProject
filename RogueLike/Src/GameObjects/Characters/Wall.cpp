@@ -41,6 +41,14 @@ void Wall::draw(){
     texture.drawTile(pos, x, y, pos.width / tileW, pos.height / tileH);
 }
 
+void Wall::drawShadow()
+{
+    float x = pos.x - ((int)(pos.x / tileW)) * tileW;
+    float y = pos.y - ((int)(pos.y / tileH)) * tileH;
+    texture.drawTile(pos, x, y, pos.width / tileW, pos.height / tileH, BLACK);
+}
+
+
 void Wall::onCollisionEnter(Collider* collider) {
     
 }
@@ -138,3 +146,4 @@ void Wall::updateCollison()
     addCollisionElement(new CollisionElementLines({ 0.0f,0.0f,pos.width,pos.height }));
     Game::toCheckPos(pos);
 }
+

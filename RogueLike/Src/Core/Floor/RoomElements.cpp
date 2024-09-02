@@ -59,6 +59,7 @@ GameObject* getEnemy(EnemiesID ID)
 	case EnemiesID::Slime:
 		return new StandardEnemy(dataName, enemyData, thisFloor);
 	default:
+		return new StandardEnemy(dataName, enemyData, thisFloor);
 		break;
 	}
 	return nullptr;

@@ -7,7 +7,8 @@ enum class EnemiesID
 {
 	Slime=0,
 	Goblin,
-	Skeletron
+	Skeletron,
+	Mimic
 };
 
 class GameObject;

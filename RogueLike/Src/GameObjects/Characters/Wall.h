@@ -6,11 +6,11 @@
 #include "../AddisionalTypes/Hitable.h"
 #include <vector>
 #include "raylib.hpp"
-
+#include "../AddisionalTypes/ShadowObject.h"
 extern const float tileW;
 extern const float tileH;
 
-class Wall : public GameObject, public Collider{
+class Wall : public GameObject, public Collider,public ShadowObject{
     TextureController texture;
 public:
     Wall(Rectangle pos);
@@ -25,6 +25,8 @@ public:
 
     void draw() override;
 
+    void drawShadow() override;
+
     void onCollisionEnter(Collider* collider) override;
 
     void onCollisionExit(Collider* collider) override;
@@ -32,4 +34,5 @@ public:
     void deletePartWall(Rectangle toDelete);
 
     void updateCollison();
+
 };

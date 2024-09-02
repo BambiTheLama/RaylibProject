@@ -6,6 +6,7 @@
 #include <vector>
 #include "../WaveCollapsFun.h"
 #include "PathFinder.h"
+#include "../../GameObjects/AddisionalTypes/ShadowObject.h"
 class Room;
 using CreateObjectFun = GameObject * (*)(int, Rectangle);
 
@@ -17,6 +18,7 @@ class Floor
     std::list<GameObject*> toRemove;
     std::list<GameObject*> toAdd;
     std::list<Collider*> colliders;
+    std::list<ShadowObject*> shadows;
     PathFinder* pathFinder = nullptr;
     QuadTree* tree;
     Rectangle pos;
@@ -37,6 +39,8 @@ public:
     void update(float deltaTime, Camera2D camera);
 
     void draw();
+
+    void drawShadows();
 
     void drawUI();
 

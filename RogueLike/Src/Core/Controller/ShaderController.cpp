@@ -49,6 +49,11 @@ Shader ShaderController::getShader()
 	return shader;
 }
 
+void ShaderController::setValue(const char* name, float value)
+{
+	SetShaderValue(shader, GetShaderLocation(shader, name), &value, SHADER_UNIFORM_FLOAT);
+}
+
 void ShaderController::clearShaders()
 {
 	for (auto s: shaders)
@@ -58,7 +63,7 @@ void ShaderController::clearShaders()
 	shaders.clear();
 }
 
-void ShaderController::setUpTexture(std::string dirPath)
+void ShaderController::setUpShader(std::string dirPath)
 {
 	ShaderController::dirPath = dirPath;
 }

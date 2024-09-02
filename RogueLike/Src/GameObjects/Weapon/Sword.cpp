@@ -197,7 +197,7 @@ void Sword::draw()
 	if (points.size() > 0)
 	{
 		rlEnableBackfaceCulling();
-		unsigned char colorA = (unsigned char)(128 * (-powf(2 * useTime / useTimeMax - 1, 2) + 1));
+		unsigned char colorA = (unsigned char)(200 * (-powf(2 * useTime / useTimeMax - 1, 2) + 1));
 		printf("%d\n", colorA);
 		DrawTriangleStrip(points.data(), (int)points.size(), GetColor(0xffffff00 + colorA));
 		rlDisableBackfaceCulling();

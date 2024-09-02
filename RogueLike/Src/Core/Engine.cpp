@@ -20,7 +20,7 @@ Engine::Engine() {
     //ToggleFullscreen();
 
     TextureController::setUpTexture("Res/");
-    ShaderController::setUpTexture("Res/Shader/");
+    ShaderController::setUpShader("Res/Shader/");
     
     //SetTargetFPS(61);
     MyFont::SetUpFont();

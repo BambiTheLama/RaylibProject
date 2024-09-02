@@ -13,6 +13,7 @@
 #include "../../GameObjects/Game.h"
 #include "../../GameObjects/Characters/Chest.h"
 
+
 FloorRooms getFloorRooms()
 {
     FloorRooms floorRooms;
@@ -192,7 +193,7 @@ void Floor::createFloor()
             setUpRooms(startX, startY, room);
         }
 
-    setUpObjects(std::vector<int>{ 0,1,2 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
+    setUpObjects(std::vector<int>{ 0,1,2,3 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ -1 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
     //setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
@@ -284,25 +285,27 @@ void Floor::update(float deltaTime,Camera2D camera)
 
 
 }
+
+bool sortShadowsCondiction(ShadowObject* gm, ShadowObject* gm2)
+{
+    return gm->getDrawOrder() < gm2->getDrawOrder();
+}
+
 static bool pressedControl = false;
 static bool pressedColliders = false;
 static bool pressedQuadtree = false;
 static bool pressedPathfinder = false;
-static int typeBlend = 0;
 void Floor::draw()
 {
-
-    if (IsKeyPressed(KEY_T))
-        typeBlend++;
-    if (IsKeyPressed(KEY_G))
-        typeBlend--;
-    BeginBlendMode(typeBlend);
+    shadows.clear();
     for (auto o : closeObjects)
     {
         o->draw();
+        ShadowObject* shadow = dynamic_cast<ShadowObject*>(o);
+        if (shadow)
+            shadows.push_back(shadow);
     }
-    EndBlendMode();
-
+    shadows.sort(sortShadowsCondiction);
     if (IsKeyPressed(KEY_LEFT_CONTROL))
     {
         pressedControl = !pressedControl;
@@ -332,6 +335,14 @@ void Floor::draw()
 
 }
 
+void Floor::drawShadows()
+{
+    for (auto o : shadows)
+    {
+        o->drawShadow();
+    }
+}
+
 void Floor::drawUI()
 {
     MyFont::DrawTextWithOutline(TextFormat("%d/%d", closeObjects.size(), allGameObjects.size()), 0, 64, 32, WHITE, BLACK);
@@ -352,9 +363,6 @@ void Floor::drawUI()
     const float textSize = 32;
     if (pressedControl)
         MyFont::DrawTextWithOutline(ctext, 0, GetScreenHeight() - MyFont::TextSize(ctext, textSize, 0).y, textSize, WHITE, BLACK);
-    MyFont::DrawTextWithOutline(TextFormat("BlendType:%d", typeBlend), 800, GetScreenHeight() - MyFont::TextSize(ctext, textSize, 0).y, textSize, WHITE, BLACK);
-
-
 }
 
 std::list<GameObject*> Floor::getObjects(Rectangle pos) 

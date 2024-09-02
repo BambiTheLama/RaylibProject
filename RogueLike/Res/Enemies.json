@@ -42,7 +42,24 @@
     "Slime": {
         "Texture": "Enemies/Slime.png",
         "Size": [ 32, 32 ],
-        "Scale": 1.5,
+        "Scale": 2,
+        "Range": 300,
+        "MinDist": 0,
+        "MaxDist": 0,
+        "ContactDamage": 1.0,
+        "Col": [
+            [ 6, 23 ],
+            [ 2, 19 ],
+            [ 12, 9 ],
+            [ 19, 9 ],
+            [ 29, 19 ],
+            [ 25, 23 ]
+        ]
+    },
+    "Mimic": {
+        "Texture": "Enemies/Mimic.png",
+        "Size": [ 32, 32 ],
+        "Scale": 1,
         "Range": 300,
         "MinDist": 0,
         "MaxDist": 0,

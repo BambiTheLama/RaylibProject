@@ -50,6 +50,8 @@ float RectangleDistance(Rectangle r1, Rectangle r2);
 
 void startOutLineShader();
 
+void startShadowFilterShader(float zoom = 1.0f);
+
 Shader getOutLineShader();
 
 Rectangle moveRectangeBy(Rectangle pos, Vector2 moveBy);
