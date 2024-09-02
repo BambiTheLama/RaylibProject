@@ -70,6 +70,11 @@ void StandardEnemy::destroy()
 
 void StandardEnemy::update(float deltaTime)
 {
+	if (isMoving)
+		moveTimer += deltaTime;
+	else
+		moveTimer = .0f;
+
 	frameTimer += deltaTime;
 	if (item)
 		item->update(0.0f, attackDir);
@@ -98,13 +103,26 @@ void StandardEnemy::update(float deltaTime)
 		if (chargeWeapon)
 			canSwap = true;
 		if (distance > maxRangeAttack && canSwap)
+		{
+			isMoving = true;
 			ai->setAction(Action::GoTo);
+		}
 		else if (distance < minRangeAttack && canSwap)
-			ai->setAction(Action::RunFrom);		
+		{
+			isMoving = true;
+			ai->setAction(Action::RunFrom);
+		}
 		else if (distance < maxRangeAttack && distance > minRangeAttack)
+		{
+			isMoving = false;
 			ai->setAction(Action::Attack);
-		else 
+		}
+		else
+		{
+			isMoving = false;
 			ai->setAction(Action::IDE);
+		}
+
 	}
 	else if(!ai->hasPath())
 	{
@@ -125,8 +143,12 @@ void StandardEnemy::draw()
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
 	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
 	Color c = getHitColor(WHITE);
-	texture.draw(pos, false, false, frame, { 0,0 }, 0.0f, c);
+	Rectangle pos = getPos();
 	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
+	pos.x += pos.width / 2;
+	pos.y += pos.height / 2;
+	texture.draw(pos, false, false, frame, { pos.width / 2,pos.height / 2 }, std::sin(moveTimer * 4) * 5, c);
+
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
 		gm->draw();

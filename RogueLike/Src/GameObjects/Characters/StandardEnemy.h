@@ -21,6 +21,8 @@ class StandardEnemy :
     Vector2 dir = { 0.0f,0.0f };
     bool col = false;
     std::string animationName = "";
+    float moveTimer = 0.0f;
+    bool isMoving = false;
     float contactDamage = 0.0f;
     float minRangeAttack = 0.0f;
     float maxRangeAttack = 0.0f;
