@@ -13,6 +13,7 @@ class GameScene : public Scene {
     RenderTexture2D lightFrame;
     Floor* floor = nullptr;
     Camera2D camera;
+    Color shadowColor = BLACK;//{ 25,25,25,255 };
 public:
     GameScene();
 

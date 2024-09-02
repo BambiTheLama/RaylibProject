@@ -226,7 +226,7 @@ void GameScene::draw() {
 
     BeginTextureMode(lightFrame);
     BeginMode2D(camera);
-    ClearBackground(BLACK);
+    ClearBackground(shadowColor);
     if (floor)
         floor->drawLightObjects();
     EndMode2D();

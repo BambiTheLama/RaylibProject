@@ -392,7 +392,9 @@
       <Filter>GameObjects\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Src\Random.cpp" />
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -14,7 +14,9 @@ void LightObject::drawLight()
 	if (!gm)
 		return;
 	Vector2 pos = getMidlePoint(gm->getPos());
-	BeginBlendMode(BLEND_ADD_COLORS);
+	//BeginBlendMode(BLEND_ADD_COLORS);
+	BeginBlendMode(BLEND_CUSTOM);
+	rlSetBlendFactors(0xffffffff, 0xffffffff, RL_MAX);
 
 	float r = fmaxf(radius + (radius / 100.0f + 50) * std::sin(timer), 0.0f);
 
