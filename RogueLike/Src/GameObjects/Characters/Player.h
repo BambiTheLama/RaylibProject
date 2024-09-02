@@ -9,9 +9,10 @@
 #include "../AddisionalTypes/DrawUI.h"
 #include "../../Core/Controller/ShaderController.h"
 #include "../AddisionalTypes/Interactive.h"
+#include "../AddisionalTypes/LightObject.h"
 
 class Player 
-    : public GameObject, public Character, public Collider,public Hitable,public DrawUI 
+    : public GameObject, public Character, public Collider,public Hitable,public DrawUI ,public LightObject
 {
     float speed = 600;
     Inventory inventory;

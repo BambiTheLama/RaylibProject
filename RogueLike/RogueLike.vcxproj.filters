@@ -224,6 +224,9 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\ShadowObject.h">
       <Filter>GameObjects\AddisionalTypes</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\LightObject.h">
+      <Filter>GameObjects\AddisionalTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -389,9 +392,7 @@
       <Filter>GameObjects\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Src\Random.cpp" />
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
-    </ClCompile>
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -426,6 +427,9 @@
       <Filter>Res</Filter>
     </None>
     <None Include="Res\Shader\ShadowFilter.frag">
+      <Filter>Res\Shader</Filter>
+    </None>
+    <None Include="Res\Shader\Light.frag">
       <Filter>Res\Shader</Filter>
     </None>
   </ItemGroup>

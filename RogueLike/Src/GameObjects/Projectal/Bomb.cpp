@@ -66,3 +66,5 @@ void Bomb::draw()
 	texture.draw(pos, false, false, frame);
 	//DrawFrameRec(pos, mixColor(YELLOW, RED, time / timerMax));
 }
+
+

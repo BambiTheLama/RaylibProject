@@ -34,12 +34,12 @@ Color ExplodeParticle::getColor()
 	return WHITE;
 }
 
-void ExplodeParticle::draw(TextureController& texture)
+void ExplodeParticle::draw(TextureController& texture, float scale)
 {
 	if (timer <= 0.0f)
 		return;
 	int frame = texture.getFrames() * timer / timerMax;
-	Rectangle drawPos = { pos.x,pos.y,size ,size  };
+	Rectangle drawPos = { pos.x,pos.y,size * scale ,size * scale };
 	Color color = getColor();
 	texture.draw(drawPos, false, false, frame, { drawPos.width / 2,drawPos.height / 2 }, angle, color);
 	//DrawCircleV(pos, size, getColor()); 
@@ -49,7 +49,7 @@ ExplodeParticleSystem::ExplodeParticleSystem(Vector2 pos,float range, int partic
 {
 	this->pos = { pos.x - range,pos.y - range,range * 2,range * 2 };
 	texture = TextureController("Projectal/Smoke.png");
-	this->timer = timer;
+	this->timer = 0.0f;
 	for (int i = 0; i < particles; i++)
 	{
 		ExplodeParticle ep;
@@ -63,6 +63,7 @@ ExplodeParticleSystem::ExplodeParticleSystem(Vector2 pos,float range, int partic
 		ep.deltaAngle= GetRandomValue(-360, 360);
 		ep.acceleration = -ep.speed / GetRandomValue(1, 100) / 30.0f;
 		ep.timer = timer / 6.0f * 5.0f * GetRandomValue(1, 1000) / 1000.0f + timer / 6.0f;
+		this->timer = fmaxf(this->timer, ep.timer);
 		ep.size = GetRandomValue(100, 200);
 		//ep.deltaSize = GetRandomValue(-100, -50);
 		ep.timerMax = ep.timer;
@@ -85,6 +86,14 @@ void ExplodeParticleSystem::draw()
 {
 	for (auto p : particles)
 		p.draw(texture);
+}
+
+void ExplodeParticleSystem::drawLight()
+{
+	BeginBlendMode(BLEND_ADD_COLORS);
+	for (auto p : particles)
+		p.draw(texture,2.0f);
+	EndBlendMode();
 }
 
 

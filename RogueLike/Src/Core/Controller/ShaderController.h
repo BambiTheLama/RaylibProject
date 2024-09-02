@@ -19,6 +19,8 @@ public:
 
 	void setValue(const char* name, float value);
 
+	void setValue(const char* name, Texture2D texture);
+
 	friend class Engine;
 
 private:

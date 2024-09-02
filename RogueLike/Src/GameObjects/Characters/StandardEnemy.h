@@ -7,9 +7,9 @@
 #include "../../Core/Controller/AIController.h"
 #include "../Projectal/ProjectalID.h"
 #include "../Weapon/Weapon.h"
-
+#include "../AddisionalTypes/LightObject.h"
 class StandardEnemy :
-    public GameObject,public Hitable,public Collider,public Character
+    public GameObject,public Hitable,public Collider,public Character,public LightObject
 {
     int target = 0b010010;
     float damge = 1.0f;

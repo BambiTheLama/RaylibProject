@@ -10,6 +10,7 @@ class GameScene : public Scene {
     CharacterController controller;
     RenderTexture2D sceneFrame;
     RenderTexture2D shadowsFrame;
+    RenderTexture2D lightFrame;
     Floor* floor = nullptr;
     Camera2D camera;
 public:

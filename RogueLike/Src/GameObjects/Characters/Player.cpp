@@ -49,11 +49,12 @@ Player::~Player() {
 }
 
 void Player::start() {
-
+    //LightObject::colorCenter = YELLOW;
 }
 
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
+    LightObject::update(deltaTime);
     inventory.update(deltaTime, getcursorDir());
     inventory.updateClick();
     timer += deltaTime;

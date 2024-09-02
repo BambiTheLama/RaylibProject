@@ -9,6 +9,7 @@
 
 static ShaderController outline;
 static ShaderController shadowFilter;
+static ShaderController light;
 
 namespace MyFont
 {
@@ -20,6 +21,7 @@ namespace MyFont
 	{
 		outline = ShaderController("OutLine.vert","OutLine.frag");
 		shadowFilter = ShaderController("ShadowFilter.frag");
+		light = ShaderController("Light.frag");
 		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
 		SetTextureFilter(diffFont.texture, TEXTURE_FILTER_BILINEAR);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");

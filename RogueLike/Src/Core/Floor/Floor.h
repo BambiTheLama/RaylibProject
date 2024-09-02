@@ -40,7 +40,15 @@ public:
 
     void draw();
 
+    void drawDebugInterface();
+
     void drawShadows();
+
+    void drawShadowObjects();
+
+    void drawLightObjects();
+
+    void drawNoShadowObjects();
 
     void drawUI();
 

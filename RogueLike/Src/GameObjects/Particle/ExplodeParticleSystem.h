@@ -1,6 +1,7 @@
 #pragma once
 #include "../GameObject.h"
 #include <vector>
+#include "../AddisionalTypes/LightObject.h"
 
 struct ExplodeParticle {
     Vector2 pos = { .0f, .0f };
@@ -19,12 +20,12 @@ struct ExplodeParticle {
 
     Color getColor();
 
-    void draw(TextureController& texture);
+    void draw(TextureController& texture, float scale = 1.0f);
 };
 
 
 class ExplodeParticleSystem:
-    public GameObject
+    public GameObject, public LightObject
 {
     float timer = 0.0f;
     std::vector<ExplodeParticle> particles;
@@ -35,5 +36,7 @@ public:
     void update(float deltaTime)override;
 
     void draw()override;
+
+    virtual void drawLight() override;
 };
 

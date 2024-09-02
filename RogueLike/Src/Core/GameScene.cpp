@@ -66,6 +66,8 @@ GameScene::~GameScene() {
         UnloadRenderTexture(sceneFrame);
     if (shadowsFrame.id > 0)
         UnloadRenderTexture(shadowsFrame);
+    if (lightFrame.id > 0)
+        UnloadRenderTexture(lightFrame);
     Game::gameScene = nullptr;
     Floor* f = floor;
     floor = nullptr;
@@ -183,19 +185,20 @@ void GameScene::onResize()
         UnloadRenderTexture(sceneFrame);
     if (shadowsFrame.id > 0)
         UnloadRenderTexture(shadowsFrame);
+    if (lightFrame.id > 0)
+        UnloadRenderTexture(lightFrame);
     sceneFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
     shadowsFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+    lightFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
 }
-
+static int light = 0;
 void GameScene::draw() {
+    light = 0;
+    if (IsKeyDown(KEY_ONE))
+        light = 1;
+    if (IsKeyDown(KEY_TWO))
+        light = 2;
 
-    BeginTextureMode(sceneFrame);
-    ClearBackground(BLANK);
-    BeginMode2D(camera);
-    if (floor)
-        floor->draw();
-    EndMode2D();
-    EndTextureMode();
     BeginTextureMode(shadowsFrame);
     ClearBackground(BLANK);
     BeginMode2D(camera);
@@ -204,16 +207,44 @@ void GameScene::draw() {
     EndMode2D();
     EndTextureMode();
 
-    Texture2D frameTexture = sceneFrame.texture;
-    DrawTextureRec(frameTexture, { 0,0, (float)frameTexture.width,(float)-frameTexture.height }, { 0, 0 }, WHITE);
+    BeginTextureMode(sceneFrame);
+    ClearBackground(WHITE);
+    BeginMode2D(camera);
+    if (floor)
+        floor->drawShadowObjects();
+    EndMode2D();
     Texture2D shadowTexture = shadowsFrame.texture;
     SetTextureWrap(shadowTexture, TEXTURE_WRAP_CLAMP);
     startShadowFilterShader(camera.zoom);
-    DrawTextureRec(shadowTexture,
-        { 0,0, (float)shadowTexture.width,(float)-shadowTexture.height }
-    , { 0,0 }, { 0,0,0,0 });
-
+    DrawTextureRec(shadowTexture, { 0,0, (float)shadowTexture.width,(float)-shadowTexture.height }, { 0,0 }, WHITE);
     EndShaderMode();
+    BeginMode2D(camera);
+    if (floor)
+        floor->drawNoShadowObjects();
+    EndMode2D();
+    EndTextureMode();
+
+    BeginTextureMode(lightFrame);
+    BeginMode2D(camera);
+    ClearBackground(BLACK);
+    if (floor)
+        floor->drawLightObjects();
+    EndMode2D();
+    EndTextureMode();
+    Texture2D frameTexture = sceneFrame.texture;
+    Texture2D lightTexture = lightFrame.texture;
+    //DrawTextureRec(frameTexture, { 0,0, (float)frameTexture.width,(float)-frameTexture.height }, { 0, 0 }, WHITE);
+
+    DrawTextureRec(frameTexture, { 0,0, (float)frameTexture.width,(float)-frameTexture.height }, { 0, 0 }, WHITE);
+    BeginBlendMode(BLEND_MULTIPLIED);
+    DrawTextureRec(lightTexture, { 0,0, (float)lightTexture.width,(float)-lightTexture.height }, { 0, 0 }, WHITE);
+    EndBlendMode();
+
+
+    BeginMode2D(camera);
+    if (floor)
+        floor->drawDebugInterface();
+    EndMode2D();
     if (floor)
         floor->drawUI();
 }

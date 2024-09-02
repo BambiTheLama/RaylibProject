@@ -17,6 +17,7 @@ Wall::Wall(float x, float y, float w, float h)
     addCollisionElement(new CollisionElementLines({ 0.0f,0.0f,pos.width,pos.height }));
     type = ObjectType::Wall;
     texture = TextureController("Wall/Wall.png");
+    shadowTexture = TextureController("Wall/ShadowWall.png");
 }
 
 Wall::~Wall()
@@ -39,13 +40,14 @@ void Wall::draw(){
     float x = pos.x - ((int)(pos.x / tileW)) * tileW;
     float y = pos.y - ((int)(pos.y / tileH)) * tileH;
     texture.drawTile(pos, x, y, pos.width / tileW, pos.height / tileH);
+
 }
 
 void Wall::drawShadow()
 {
     float x = pos.x - ((int)(pos.x / tileW)) * tileW;
     float y = pos.y - ((int)(pos.y / tileH)) * tileH;
-    texture.drawTile(pos, x, y, pos.width / tileW, pos.height / tileH, BLACK);
+    shadowTexture.drawTile(pos, x = 1, y - 1, (pos.width + 2) / tileW, (pos.height + 2) / tileH, WHITE);
 }
 
 

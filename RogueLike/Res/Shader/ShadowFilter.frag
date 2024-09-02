@@ -17,7 +17,7 @@ out vec4 finalColor;
 void main()
 {
     vec4 texel = texture(texture0, fragTexCoord);
-	if(texel.a>=0.1)
+	if(texel.a>=0.01)
 	{
 		texel = vec4(0.0f);
 	    int sampleRadius = 4;

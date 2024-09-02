@@ -12,7 +12,7 @@
 #include "../../GameObjects/AddisionalTypes/DrawUI.h"
 #include "../../GameObjects/Game.h"
 #include "../../GameObjects/Characters/Chest.h"
-
+#include "../../GameObjects/AddisionalTypes/LightObject.h"
 
 FloorRooms getFloorRooms()
 {
@@ -306,6 +306,12 @@ void Floor::draw()
             shadows.push_back(shadow);
     }
     shadows.sort(sortShadowsCondiction);
+
+
+}
+
+void Floor::drawDebugInterface()
+{
     if (IsKeyPressed(KEY_LEFT_CONTROL))
     {
         pressedControl = !pressedControl;
@@ -314,7 +320,7 @@ void Floor::draw()
         pressedPathfinder = false;
     }
 
-    if(pressedControl)
+    if (pressedControl)
     {
         if (IsKeyPressed(KEY_ONE))
             pressedColliders = !pressedColliders;
@@ -332,14 +338,49 @@ void Floor::draw()
             pathFinder->draw();
 #endif
     }
-
 }
 
 void Floor::drawShadows()
 {
+    shadows.clear();
+    for (auto o : closeObjects)
+    {
+        ShadowObject* shadow = dynamic_cast<ShadowObject*>(o);
+        if (shadow)
+            shadows.push_back(shadow);
+    }
+    shadows.sort(sortShadowsCondiction);
     for (auto o : shadows)
     {
         o->drawShadow();
+    }
+}
+
+void Floor::drawShadowObjects()
+{
+    for (auto o : closeObjects)
+    {
+        if (dynamic_cast<ShadowObject*>(o))
+            o->draw();
+    }
+}
+
+void Floor::drawLightObjects()
+{
+    for (auto o : closeObjects)
+    {
+        LightObject* light = dynamic_cast<LightObject*>(o);
+        if (light)
+            light->drawLight();
+    }
+}
+
+void Floor::drawNoShadowObjects()
+{
+    for (auto o : closeObjects)
+    {
+        if (!dynamic_cast<ShadowObject*>(o))
+            o->draw();
     }
 }
 

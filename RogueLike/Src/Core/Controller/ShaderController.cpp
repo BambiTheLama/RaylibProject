@@ -54,6 +54,11 @@ void ShaderController::setValue(const char* name, float value)
 	SetShaderValue(shader, GetShaderLocation(shader, name), &value, SHADER_UNIFORM_FLOAT);
 }
 
+void ShaderController::setValue(const char* name, Texture2D texture)
+{
+	SetShaderValueTexture(shader, GetShaderLocation(shader, name), texture);
+}
+
 void ShaderController::clearShaders()
 {
 	for (auto s: shaders)

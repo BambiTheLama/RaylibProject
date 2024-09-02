@@ -44,6 +44,7 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\DrawUI.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Interactive.h" />
+    <ClInclude Include="Src\GameObjects\AddisionalTypes\LightObject.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\ShadowObject.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h" />
     <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
@@ -105,7 +106,7 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\DrawUI.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Interactive.cpp" />
-    <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Chest.cpp" />
@@ -148,6 +149,7 @@
     <None Include="Res\ItemData.json" />
     <None Include="Res\Projectal.json" />
     <None Include="Res\Rooms.json" />
+    <None Include="Res\Shader\Light.frag" />
     <None Include="Res\Shader\OutLine.frag" />
     <None Include="Res\Shader\OutLine.vert" />
     <None Include="Res\Shader\ShadowFilter.frag" />
