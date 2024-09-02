@@ -5,7 +5,7 @@
 
 void LightObject::update(float deltaTime)
 {
-	timer += deltaTime*3;
+	timer += deltaTime * 5.f;
 }
 
 void LightObject::drawLight()
@@ -18,7 +18,7 @@ void LightObject::drawLight()
 	BeginBlendMode(BLEND_CUSTOM);
 	rlSetBlendFactors(0xffffffff, 0xffffffff, RL_MAX);
 
-	float r = fmaxf(radius + (radius / 100.0f + 50) * std::sin(timer), 0.0f);
+	float r = fmaxf(radius + (  50) * std::sin(timer), 0.0f);
 
 	DrawCircleGradient(pos.x, pos.y, r, colorCenter, colorEnd);
 	EndBlendMode();

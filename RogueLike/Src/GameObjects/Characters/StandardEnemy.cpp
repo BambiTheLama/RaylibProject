@@ -42,7 +42,7 @@ void StandardEnemy::start()
 {
 	particleActivated = false;
 	LightObject::colorCenter = WHITE;
-	LightObject::colorEnd = BLACK;
+	//LightObject::colorEnd = BLACK;
 }
 
 void StandardEnemy::destroy()
