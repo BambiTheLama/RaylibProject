@@ -59,5 +59,7 @@ public:
     virtual float getSpeed() { return speed; }
 private:
     void readData(std::string type, nlohmann::json data, int level);
+
+
 };
 

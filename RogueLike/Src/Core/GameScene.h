@@ -37,6 +37,8 @@ public:
 
     std::list<Vector3> getPathToGo(Rectangle start, Rectangle end, float range);
 
+    std::list<Rectangle> getShadowsRecs(Rectangle pos);
+
     bool isObjectAtScene(GameObject* gm);
 
     bool addObject(GameObject *obj);

@@ -1,16 +1,39 @@
 #pragma once
 #include "raylib.h"
+#include <list>
+
+struct ShadowGeometry {
+	Vector2 vertices[4];
+};
 
 class LightObject
 {
+	float radius = 0.0f;
 protected:
-	float radius = 600.0f;
+	float zoom = 8.0f;
+	bool valid = false;
 	float timer = 0.0f;
+	Vector2 lightPos = { 0,0 };
 	Color colorCenter = WHITE;
-	Color colorEnd = BLANK;
+	Color colorEnd = BLACK;
+	std::list<ShadowGeometry> lightFan;
+	RenderTexture2D lightTexture;
 public:
+	LightObject();
+
+	virtual ~LightObject();
+
 	void update(float deltaTime);
 
 	virtual void drawLight();
+
+	void setRange(float range);
+
+private:
+	void generateTexture();
+
+	bool createLightFan();
+
+	void computeShadowVolumeForEdge(Vector2 sp, Vector2 ep);
 };
 

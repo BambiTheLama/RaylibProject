@@ -49,7 +49,8 @@ Player::~Player() {
 }
 
 void Player::start() {
-    LightObject::colorCenter = YELLOW;
+    //LightObject::colorCenter = YELLOW;
+    LightObject::setRange(320.0f);
 }
 
 void Player::update(float deltaTime) {

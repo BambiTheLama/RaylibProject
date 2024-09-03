@@ -107,6 +107,7 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Interactive.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp" />
+    <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Chest.cpp" />

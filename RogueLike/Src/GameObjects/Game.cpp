@@ -55,6 +55,13 @@ std::list<Vector3> Game::getPathToGo(Rectangle start, Rectangle end, float range
     return gameScene->getPathToGo(start, end, range);
 }
 
+std::list<Rectangle> Game::getShadowsRecs(Rectangle pos)
+{
+    if (!gameScene)
+        return std::list<Rectangle>();
+    return gameScene->getShadowsRecs(pos);
+}
+
 void Game::toCheckPos(Rectangle toCheck)
 {
     if (!gameScene)

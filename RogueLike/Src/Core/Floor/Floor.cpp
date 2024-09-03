@@ -456,6 +456,20 @@ void Floor::removeObject(GameObject* obj)
         toRemove.push_back(obj);
 }
 
+std::list<Rectangle> Floor::getShadowsRecs(Rectangle pos)
+{
+    std::list<Rectangle> rects;/* = {
+        {pos.x, pos.y,  pos.width,  1},
+        {pos.x, pos.y + pos.height - 1,  pos.width,  1},
+        {pos.x, pos.y,  1,  pos.height},
+        {pos.x + pos.width - 1, pos.y,  1,  pos.height},
+    };*/
+    for (auto s : shadows)
+        rects.push_back(s->getShadowPos());
+
+    return rects;
+}
+
 void Floor::toCheckPos(Rectangle toCheck)
 {
     if (pathFinder)

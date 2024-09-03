@@ -30,6 +30,8 @@ public:
 
     static std::list<Vector3> getPathToGo(Rectangle start, Rectangle end, float range);
 
+    static std::list<Rectangle> getShadowsRecs(Rectangle pos);
+    
     static void toCheckPos(Rectangle toCheck);
 
     friend class GameScene;

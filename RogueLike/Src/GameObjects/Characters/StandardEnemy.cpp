@@ -30,7 +30,9 @@ StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 	//trigger = true;
 	texture = TextureController("Enemies/Skeletron.png");
 	readData(type, data, level);
-	LightObject::radius = ai->range;
+
+	LightObject::setRange(ai->range * 1.25f);
+	//LightObject::setRange(0.0f);
 }
 
 StandardEnemy::~StandardEnemy()

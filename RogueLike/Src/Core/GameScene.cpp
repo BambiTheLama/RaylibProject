@@ -153,6 +153,13 @@ std::list<Vector3> GameScene::getPathToGo(Rectangle start, Rectangle end, float 
     return floor->getPathToGo(start, end, range);
 }
 
+std::list<Rectangle> GameScene::getShadowsRecs(Rectangle pos)
+{
+    if (!floor)
+        return std::list<Rectangle>();
+    return floor->getShadowsRecs(pos);
+}
+
 bool GameScene::isObjectAtScene(GameObject* gm)
 {
     if (!floor)

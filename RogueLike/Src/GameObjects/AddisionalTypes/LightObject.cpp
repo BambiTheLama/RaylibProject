@@ -2,24 +2,145 @@
 #include "../GameObject.h"
 #include <math.h>
 #include "rlgl.h"
+#include "raymath.h"
+#include "../Game.h"
+
+LightObject::LightObject()
+{
+    setRange(radius);
+}
+
+LightObject::~LightObject()
+{
+    if (lightTexture.id > 0)
+        UnloadRenderTexture(lightTexture);
+}
 
 void LightObject::update(float deltaTime)
 {
+    if (radius <= 0.0f)
+        return;
 	timer += deltaTime * 5.f;
+    GameObject* gm = dynamic_cast<GameObject*>(this);
+    if (!gm)
+        return;
+    lightPos = getMidlePoint(gm->getPos());
+    valid = createLightFan();
+    valid = true;
+    generateTexture();
 }
 
 void LightObject::drawLight()
 {
-	GameObject* gm = dynamic_cast<GameObject*>(this);
-	if (!gm)
-		return;
-	Vector2 pos = getMidlePoint(gm->getPos());
-	//BeginBlendMode(BLEND_ADD_COLORS);
-	BeginBlendMode(BLEND_CUSTOM);
-	rlSetBlendFactors(0xffffffff, 0xffffffff, RL_MAX);
+    if (!valid || radius <= 0.0f)
+        return;
+    BeginBlendMode(BLEND_CUSTOM);
+    rlSetBlendFactors(0xffffffff, 0xffffffff, RL_MAX);
+    Texture2D texture = lightTexture.texture;
+    DrawTexturePro(texture, { 0.0f,0.0f,(float)texture.width,(float)-texture.height },
+        { lightPos.x - radius, lightPos.y - radius ,radius * 2,radius * 2 }, { 0,0 }, 0, WHITE);
+    EndBlendMode();
+    //DrawCircle(lightPos.x, lightPos.y, radius, RED);
 
-	float r = fmaxf(radius + (  50) * std::sin(timer), 0.0f);
+}
 
-	DrawCircleGradient(pos.x, pos.y, r, colorCenter, colorEnd);
-	EndBlendMode();
+void LightObject::setRange(float range)
+{
+    this->radius = range;
+    if (lightTexture.id > 0)
+        UnloadRenderTexture(lightTexture);
+    if (range > 0)
+        lightTexture = LoadRenderTexture(range * 2.0f / zoom, range * 2 / zoom);
+}
+
+void LightObject::generateTexture()
+{
+    if (!valid)
+        return;
+    Camera2D camera;
+    camera.offset = { radius/zoom,radius/zoom };
+    camera.target = lightPos;
+    camera.rotation = 0;
+    camera.zoom = 1.0f/zoom;
+    BeginTextureMode(lightTexture);
+    ClearBackground(BLACK);
+    BeginMode2D(camera);
+
+    DrawCircleGradient(lightPos.x, lightPos.y, radius, colorCenter, colorEnd);
+    rlSetBlendMode(BLEND_ALPHA);
+    rlSetBlendFactors(0x0302, 0x0302, RL_MIN);
+    rlSetBlendMode(BLEND_CUSTOM);
+    for (auto f : lightFan)
+    {
+        DrawTriangleFan(f.vertices, 4, BLACK);
+    }
+    rlDrawRenderBatchActive();
+    
+    // Go back to normal blend mode
+    rlSetBlendMode(BLEND_ALPHA);
+
+    EndMode2D();
+    EndTextureMode();
+}
+
+bool LightObject::createLightFan()
+{
+    if (radius <= 0.0f)
+        return false;
+    Rectangle lightBox = { lightPos.x - radius,lightPos.y - radius,radius * 2,radius * 2 };
+    std::list<Rectangle> shadowObjects = Game::getShadowsRecs(lightBox);
+    lightFan.clear();
+    for (auto shadow : shadowObjects)
+    {
+        //if (CheckCollisionPointRec(lightPos, shadow)) 
+        //    return false;
+
+        if (!CheckCollisionRecs(lightBox, shadow)) 
+            continue;
+
+        Vector2 sp = { shadow.x, shadow.y };
+        Vector2 ep = { shadow.x + shadow.width, shadow.y };
+
+        if (lightPos.y > ep.y) 
+            computeShadowVolumeForEdge(sp, ep);
+        sp = ep;
+        ep.y += shadow.height;
+        if (lightPos.x < ep.x) 
+            computeShadowVolumeForEdge(sp, ep);
+        sp = ep;
+        ep.x -= shadow.width;
+        if (lightPos.y < ep.y) 
+            computeShadowVolumeForEdge(sp, ep);
+        sp = ep;
+        ep.y -= shadow.height;
+        if (lightPos.x > ep.x) 
+            computeShadowVolumeForEdge(sp, ep);
+
+        ShadowGeometry sg;
+        sg.vertices[0] = { shadow.x, shadow.y };
+        sg.vertices[1] = { shadow.x, shadow.y + shadow.height };
+        sg.vertices[2] = { shadow.x + shadow.width, shadow.y + shadow.height };
+        sg.vertices[3] = { shadow.x + shadow.width, shadow.y };
+        lightFan.push_back(sg);
+    }
+
+    return true;
+}
+
+void LightObject::computeShadowVolumeForEdge(Vector2 sp, Vector2 ep)
+{
+
+    float extension = radius * 2;
+
+    Vector2 spVector = Vector2Normalize(Vector2Subtract(sp, lightPos));
+    Vector2 spProjection = Vector2Add(sp, Vector2Scale(spVector, extension));
+
+    Vector2 epVector = Vector2Normalize(Vector2Subtract(ep, lightPos));
+    Vector2 epProjection = Vector2Add(ep, Vector2Scale(epVector, extension));
+    ShadowGeometry sg;
+    sg.vertices[0] = sp;
+    sg.vertices[1] = ep;
+    sg.vertices[2] = epProjection;
+    sg.vertices[3] = spProjection;
+    lightFan.push_back(sg);
 }

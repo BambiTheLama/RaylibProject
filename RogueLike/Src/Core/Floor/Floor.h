@@ -64,6 +64,8 @@ public:
 
     std::list<Vector3> getPathToGo(Rectangle start, Rectangle end, float range) { return pathFinder->getPathToGo(start, end, range); }
 
+    std::list<Rectangle> getShadowsRecs(Rectangle pos);
+
     void toCheckPos(Rectangle toCheck);
 
     bool canPassMap();
