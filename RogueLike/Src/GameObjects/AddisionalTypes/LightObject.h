@@ -13,13 +13,14 @@ protected:
 	float zoom = 8.0f;
 	bool valid = false;
 	float timer = 0.0f;
+	float updateTimer = 0.1f;
 	Vector2 lightPos = { 0,0 };
 	Color colorCenter = WHITE;
 	Color colorEnd = BLACK;
 	std::list<ShadowGeometry> lightFan;
 	RenderTexture2D lightTexture;
 public:
-	LightObject();
+	LightObject(float updateTimer=1.0f);
 
 	virtual ~LightObject();
 

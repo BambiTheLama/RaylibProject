@@ -31,7 +31,7 @@ StandardEnemy::StandardEnemy(std::string type, nlohmann::json data, int level)
 	texture = TextureController("Enemies/Skeletron.png");
 	readData(type, data, level);
 
-	LightObject::setRange(ai->range * 1.25f);
+	//LightObject::setRange(ai->range * 1.25f);
 	//LightObject::setRange(0.0f);
 }
 
@@ -43,7 +43,7 @@ StandardEnemy::~StandardEnemy()
 void StandardEnemy::start()
 {
 	particleActivated = false;
-	LightObject::colorCenter = WHITE;
+	//LightObject::colorCenter = WHITE;
 	//LightObject::colorEnd = BLACK;
 }
 
@@ -81,7 +81,7 @@ void StandardEnemy::update(float deltaTime)
 	if (item)
 		item->update(0.0f, attackDir);
 	Hitable::update(deltaTime);
-	LightObject::update(deltaTime);
+	//LightObject::update(deltaTime);
 	
 	controller.update(deltaTime);
 	if (!ai)

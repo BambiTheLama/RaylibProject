@@ -12,7 +12,7 @@
 #include "../AddisionalTypes/Interactive.h"
 #include "../Items/ItemFactory.h"
 
-Player::Player(float x, float y):Hitable(1000.0f){
+Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
 
     pos = {(float) x, (float) y, 48, 48};
     pos.x -= pos.width / 2;
@@ -50,7 +50,7 @@ Player::~Player() {
 
 void Player::start() {
     //LightObject::colorCenter = YELLOW;
-    LightObject::setRange(320.0f);
+    LightObject::setRange(800.0f);
 }
 
 void Player::update(float deltaTime) {

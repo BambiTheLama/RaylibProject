@@ -9,7 +9,7 @@
 #include "../Weapon/Weapon.h"
 #include "../AddisionalTypes/LightObject.h"
 class StandardEnemy :
-    public GameObject,public Hitable,public Collider,public Character,public LightObject
+    public GameObject,public Hitable,public Collider,public Character
 {
     int target = 0b010010;
     float damge = 1.0f;

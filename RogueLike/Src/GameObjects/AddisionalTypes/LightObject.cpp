@@ -5,8 +5,9 @@
 #include "raymath.h"
 #include "../Game.h"
 
-LightObject::LightObject()
+LightObject::LightObject(float updateTimer)
 {
+    this->updateTimer = updateTimer;
     setRange(radius);
 }
 
@@ -20,7 +21,10 @@ void LightObject::update(float deltaTime)
 {
     if (radius <= 0.0f)
         return;
-	timer += deltaTime * 5.f;
+    timer -= deltaTime;
+    if (timer > 0.0f)
+        return;
+    timer = updateTimer;
     GameObject* gm = dynamic_cast<GameObject*>(this);
     if (!gm)
         return;
@@ -68,7 +72,9 @@ void LightObject::generateTexture()
     ClearBackground(BLACK);
     BeginMode2D(camera);
 
-    DrawCircleGradient(lightPos.x, lightPos.y, radius, colorCenter, colorEnd);
+    Color end = colorEnd;
+    end.a = 0;
+    DrawCircleGradient(lightPos.x, lightPos.y, radius, colorCenter, end);
     rlSetBlendMode(BLEND_MULTIPLIED);
 
     for (auto f : lightFan)

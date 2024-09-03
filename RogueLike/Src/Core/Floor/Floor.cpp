@@ -194,7 +194,7 @@ void Floor::createFloor()
         }
 
     setUpObjects(std::vector<int>{ 0,1,2,3 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
-    setUpObjects(std::vector<int>{ -1 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
+    setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
     //setUpObjects(std::vector<int>{ 0 }, 1, BlockType::ElitEnemySpawn, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
     removeCloseEnemies();
@@ -459,8 +459,14 @@ void Floor::removeObject(GameObject* obj)
 std::list<Rectangle> Floor::getShadowsRecs(Rectangle pos)
 {
     std::list<Rectangle> rects;
-    for (auto s : shadows)
-        rects.push_back(s->getShadowPos());
+    std::list<GameObject*> objs = getObjects(pos);
+    for (auto o : objs)
+    {
+        ShadowObject* s = dynamic_cast<ShadowObject*>(o);
+        if (s)
+            rects.push_back(s->getShadowPos());
+    }
+
 
     return rects;
 }

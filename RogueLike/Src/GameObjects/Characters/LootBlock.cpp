@@ -22,11 +22,16 @@ LootBlock::~LootBlock()
 void LootBlock::start()
 {
 	Game::toCheckPos(pos);
+	LightObject::setRange(300);
+	LightObject::colorCenter = ORANGE;
+	LightObject::colorEnd = WHITE;
+
 }
 
 void LootBlock::update(float deltaTime)
 {
 	Hitable::update(deltaTime);
+	LightObject::update(deltaTime);
 }
 
 void LootBlock::draw()

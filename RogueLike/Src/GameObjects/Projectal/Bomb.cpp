@@ -43,9 +43,9 @@ void Bomb::explode()
 		std::list<GameObject*> objs = Game::getObjects(explodePos);
 		for (auto o : objs)
 		{
-			Hitable* hit = dynamic_cast<Hitable*>(o);
-			if (hit)
-				hit->dealDamage(damage);
+			//Hitable* hit = dynamic_cast<Hitable*>(o);
+			//if (hit)
+			//	hit->dealDamage(damage);
 			Wall* wall = dynamic_cast<Wall*>(o);
 			if (wall)
 				wall->deletePartWall(explodePos);
