@@ -149,7 +149,7 @@ void StandardEnemy::draw()
 	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
 	pos.x += pos.width / 2;
 	pos.y += pos.height / 2;
-	texture.draw(pos, false, false, frame, { pos.width / 2,pos.height / 2 }, std::sin(moveTimer * 4) * 5, c);
+	texture.draw(pos, false, false, frame, { pos.width / 2,pos.height / 2 }, std::sin(moveTimer * 16) * 5, c);
 
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)

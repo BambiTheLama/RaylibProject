@@ -47,6 +47,7 @@ void ExplodeParticle::draw(TextureController& texture, float scale)
 
 ExplodeParticleSystem::ExplodeParticleSystem(Vector2 pos,float range, int particles, float timer, float speed)
 {
+	drawOrder = 10;
 	this->pos = { pos.x - range,pos.y - range,range * 2,range * 2 };
 	texture = TextureController("Projectal/Smoke.png");
 	this->timer = 0.0f;

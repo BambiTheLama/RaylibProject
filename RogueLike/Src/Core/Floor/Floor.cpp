@@ -358,10 +358,10 @@ void Floor::drawShadows()
 
 void Floor::drawShadowObjects()
 {
-    for (auto o : closeObjects)
+    for (auto s : shadows)
     {
-        if (dynamic_cast<ShadowObject*>(o))
-            o->draw();
+        GameObject* o = dynamic_cast<GameObject*>(s);
+        o->draw();
     }
 }
 
@@ -458,12 +458,7 @@ void Floor::removeObject(GameObject* obj)
 
 std::list<Rectangle> Floor::getShadowsRecs(Rectangle pos)
 {
-    std::list<Rectangle> rects;/* = {
-        {pos.x, pos.y,  pos.width,  1},
-        {pos.x, pos.y + pos.height - 1,  pos.width,  1},
-        {pos.x, pos.y,  1,  pos.height},
-        {pos.x + pos.width - 1, pos.y,  1,  pos.height},
-    };*/
+    std::list<Rectangle> rects;
     for (auto s : shadows)
         rects.push_back(s->getShadowPos());
 

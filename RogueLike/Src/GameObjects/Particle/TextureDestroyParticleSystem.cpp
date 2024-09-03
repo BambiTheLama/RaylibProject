@@ -7,6 +7,7 @@ void TextureDestroyParticle::update(float deltaTime)
 	angle += anglePerSec * deltaTime;
 	pos.x += dir.x * speed * deltaTime;
 	pos.y += dir.y * speed * deltaTime;
+
 }
 
 void TextureDestroyParticle::draw(TextureController& texture)
@@ -25,6 +26,7 @@ int TextureDestroyParticleSystem::seed = 1000;
 
 TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController texture,int frame, Rectangle pos, int w, int h, float timer, float speed)
 {
+	drawOrder = 8;
 	GameObject::pos = pos;
 	this->texture = texture;
 	this->timer = timer;

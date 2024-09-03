@@ -40,6 +40,8 @@ void LightObject::drawLight()
     DrawTexturePro(texture, { 0.0f,0.0f,(float)texture.width,(float)-texture.height },
         { lightPos.x - radius, lightPos.y - radius ,radius * 2,radius * 2 }, { 0,0 }, 0, WHITE);
     EndBlendMode();
+    //DrawTexturePro(texture, { 0.0f,0.0f,(float)texture.width,(float)-texture.height },
+    //   { lightPos.x - radius, lightPos.y - radius ,radius * 2,radius * 2 }, { 0,0 }, 0, {255,0,0,69});
     //DrawCircle(lightPos.x, lightPos.y, radius, RED);
 
 }
@@ -67,17 +69,14 @@ void LightObject::generateTexture()
     BeginMode2D(camera);
 
     DrawCircleGradient(lightPos.x, lightPos.y, radius, colorCenter, colorEnd);
-    rlSetBlendMode(BLEND_ALPHA);
-    rlSetBlendFactors(0x0302, 0x0302, RL_MIN);
-    rlSetBlendMode(BLEND_CUSTOM);
+    rlSetBlendMode(BLEND_MULTIPLIED);
+
     for (auto f : lightFan)
     {
         DrawTriangleFan(f.vertices, 4, BLACK);
     }
-    rlDrawRenderBatchActive();
+    EndBlendMode();
     
-    // Go back to normal blend mode
-    rlSetBlendMode(BLEND_ALPHA);
 
     EndMode2D();
     EndTextureMode();
