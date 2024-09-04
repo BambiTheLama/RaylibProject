@@ -198,13 +198,11 @@ void GameScene::onResize()
     shadowsFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
     lightFrame = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
 }
-static int light = 0;
+static bool light = true;
 void GameScene::draw() {
-    light = 0;
-    if (IsKeyDown(KEY_ONE))
-        light = 1;
-    if (IsKeyDown(KEY_TWO))
-        light = 2;
+    if (IsKeyPressed(KEY_FOUR))
+        light = !light;
+
 
     BeginTextureMode(shadowsFrame);
     ClearBackground(BLANK);
@@ -215,7 +213,7 @@ void GameScene::draw() {
     EndTextureMode();
 
     BeginTextureMode(sceneFrame);
-    ClearBackground(WHITE);
+    ClearBackground(BLANK);
     BeginMode2D(camera);
     if (floor)
         floor->drawShadowObjects();
@@ -244,7 +242,8 @@ void GameScene::draw() {
 
     DrawTextureRec(frameTexture, { 0,0, (float)frameTexture.width,(float)-frameTexture.height }, { 0, 0 }, WHITE);
     BeginBlendMode(BLEND_MULTIPLIED);
-    DrawTextureRec(lightTexture, { 0,0, (float)lightTexture.width,(float)-lightTexture.height }, { 0, 0 }, WHITE);
+    if(light)
+        DrawTextureRec(lightTexture, { 0,0, (float)lightTexture.width,(float)-lightTexture.height }, { 0, 0 }, WHITE);
     EndBlendMode();
 
 

@@ -10,9 +10,10 @@ class LightObject
 {
 	float radius = 0.0f;
 protected:
-	float zoom = 8.0f;
+	float zoom = 10.0f;
 	bool valid = false;
 	float timer = 0.0f;
+	float lightTimer = 0.0f;
 	float updateTimer = 0.1f;
 	Vector2 lightPos = { 0,0 };
 	Color colorCenter = WHITE;

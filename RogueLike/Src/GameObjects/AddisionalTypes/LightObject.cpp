@@ -19,6 +19,7 @@ LightObject::~LightObject()
 
 void LightObject::update(float deltaTime)
 {
+    lightTimer += deltaTime;
     if (radius <= 0.0f)
         return;
     timer -= deltaTime;
@@ -41,6 +42,8 @@ void LightObject::drawLight()
     BeginBlendMode(BLEND_CUSTOM);
     rlSetBlendFactors(0xffffffff, 0xffffffff, RL_MAX);
     Texture2D texture = lightTexture.texture;
+    float radius = this->radius + zoom * sin(lightTimer);
+
     DrawTexturePro(texture, { 0.0f,0.0f,(float)texture.width,(float)-texture.height },
         { lightPos.x - radius, lightPos.y - radius ,radius * 2,radius * 2 }, { 0,0 }, 0, WHITE);
     EndBlendMode();
@@ -134,7 +137,6 @@ bool LightObject::createLightFan()
 
 void LightObject::computeShadowVolumeForEdge(Vector2 sp, Vector2 ep)
 {
-
     float extension = radius * 2;
 
     Vector2 spVector = Vector2Normalize(Vector2Subtract(sp, lightPos));
