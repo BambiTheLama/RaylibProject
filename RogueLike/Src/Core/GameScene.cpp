@@ -23,11 +23,11 @@ GameScene::GameScene() {
     camera.offset = { (float)GetScreenWidth() / 2,(float)GetScreenHeight() / 2 };
     onResize();
     Rectangle pos = { 0,0,7000,7000 };
-    
+    int seed = 10000;
     do {
         if (floor)
             delete floor;
-        floor = new Floor(pos);
+        floor = new Floor(pos,seed);
 
     } while (!floor->canPassMap());
     Game::gameScene = this;

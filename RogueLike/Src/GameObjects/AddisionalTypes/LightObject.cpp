@@ -42,7 +42,7 @@ void LightObject::drawLight()
     BeginBlendMode(BLEND_CUSTOM);
     rlSetBlendFactors(0xffffffff, 0xffffffff, RL_MAX);
     Texture2D texture = lightTexture.texture;
-    float radius = this->radius + zoom * sin(lightTimer);
+    float radius = this->radius + (int)(zoom * sin(lightTimer));
 
     DrawTexturePro(texture, { 0.0f,0.0f,(float)texture.width,(float)-texture.height },
         { lightPos.x - radius, lightPos.y - radius ,radius * 2,radius * 2 }, { 0,0 }, 0, WHITE);

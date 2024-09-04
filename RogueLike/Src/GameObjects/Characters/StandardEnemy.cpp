@@ -128,6 +128,7 @@ void StandardEnemy::update(float deltaTime)
 	}
 	else if(!ai->hasPath())
 	{
+		isMoving = false;
 		ai->lookForTarget();
 		ai->setAction(Action::IDE);
 	}

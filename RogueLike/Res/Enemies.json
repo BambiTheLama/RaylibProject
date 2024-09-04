@@ -4,13 +4,13 @@
         "Size": [ 32, 32 ],
         "Scale": 3,
         "Range": 300,
-        "MinDist": 30,
-        "MaxDist": 70,
+        "MinDist": 150,
+        "MaxDist": 200,
         "SpawnPoint": [ 16, 16 ],
         "Weapon": {
             "Variant": 0,
             "Tier": 0,
-            "Type": "Dager"
+            "Type": "Bow"
         },
         "Col": [
             [ 12, 16 ],
@@ -59,7 +59,7 @@
     "Mimic": {
         "Texture": "Enemies/Mimic.png",
         "Size": [ 32, 32 ],
-        "Scale": 1,
+        "Scale": 2,
         "Range": 300,
         "MinDist": 0,
         "MaxDist": 0,
