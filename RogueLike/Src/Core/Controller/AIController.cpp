@@ -122,7 +122,7 @@ void AIController::setAction(Action action)
 
 void AIController::readLastMoveData(float deltaTime)
 {
-	toGoDirNow.z -= deltaTime * thisObj->getSpeed();
+	toGoDirNow.z -= deltaTime * thisObj->getSpeed() * 200;
 	lastMoveDir = Vector2Normalize({ toGoDirNow.x, toGoDirNow.y });
 	if (toGoDirNow.z <= 0.0f)
 	{

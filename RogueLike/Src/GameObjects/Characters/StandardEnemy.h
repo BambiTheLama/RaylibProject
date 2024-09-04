@@ -13,7 +13,7 @@ class StandardEnemy :
 {
     int target = 0b010010;
     float damge = 1.0f;
-    float speed = 200.0f;
+    float speed = 1.0f;
     float frameTimer = 0.0f;
     CharacterController controller;
     TextureController texture;

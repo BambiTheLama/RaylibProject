@@ -14,7 +14,7 @@
 class Player 
     : public GameObject, public Character, public Collider,public Hitable,public DrawUI ,public LightObject
 {
-    float speed = 600;
+    float speed = 2;
     Inventory inventory;
     Vector2 useDir = { 0.0f,0.0f };
     Interactive* closeObj = nullptr;

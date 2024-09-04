@@ -77,7 +77,7 @@ void BossEnterWall::onCollisionEnter(Collider* collider)
     ControllAction* action3 = new ControllAction;
     ControllAction* action4 = new ControllAction;
     ControllAction* action5 = new ControllAction;
-    float speed = gm->getSpeed();
+    float speed = gm->getSpeed() * 200;
     Rectangle pos = gm->getPos();
     Vector2 gmPoint = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
     float dist = Vector2Distance(spawnPoint, gmPoint);

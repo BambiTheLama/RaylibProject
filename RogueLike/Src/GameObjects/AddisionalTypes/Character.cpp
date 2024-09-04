@@ -17,7 +17,7 @@ void Character::move(Vector2 dir, float deltaTime)
         if (!thisObj)
             return;
     }
-    thisObj->move(Vector2Scale(dir, deltaTime * thisObj->getSpeed()));
+    thisObj->move(Vector2Scale(dir, deltaTime * thisObj->getSpeed() * 200));
 
 }
 

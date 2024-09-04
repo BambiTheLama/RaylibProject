@@ -262,7 +262,7 @@ void DrawFrameRounded(Rectangle pos, Color frameColor, Color outlineColor)
 	const float lineSize = 3.0f;
 	pos = RectangleIncreasSize(pos, border);
 	DrawRectangleRounded(pos, randnes, segments, frameColor);
-	DrawRectangleRoundedLines(RectangleDecreasSize(pos, lineSize), randnes, segments, lineSize, outlineColor);
+	DrawRectangleRoundedLines(RectangleDecreasSize(pos, lineSize/2.0f), randnes, segments, lineSize, outlineColor);
 }
 void DrawFrameRec(Rectangle pos, Color frameColor, Color outlineColor)
 {

@@ -2,9 +2,9 @@
 #include "../GameObject.h"
 #include "../Collider/Collider.h"
 #include "../Collider/CollisionElementLines.h"
-
+#include "../AddisionalTypes/ShadowObject.h"
 class BossWall :
-    public GameObject , public Collider
+    public GameObject , public Collider,public ShadowObject
 {
     TextureController texture;
     BossWall();

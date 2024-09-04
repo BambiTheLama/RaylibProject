@@ -6,7 +6,7 @@ class ShadowObject
 	int drawOrder = 0;
 public:
 
-	virtual void drawShadow() = 0;
+	virtual void drawShadow(){}
 
 	int getDrawOrder() { return drawOrder; }
 
