@@ -68,6 +68,8 @@
     <ClInclude Include="Src\GameObjects\Items\WeaponNodeItem.h" />
     <ClInclude Include="Src\GameObjects\ObjectType.h" />
     <ClInclude Include="Src\GameObjects\Particle\ExplodeParticleSystem.h" />
+    <ClInclude Include="Src\GameObjects\Particle\FierParticle.h" />
+    <ClInclude Include="Src\GameObjects\Particle\Particle.h" />
     <ClInclude Include="Src\GameObjects\Particle\ParticleText.h" />
     <ClInclude Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.h" />
     <ClInclude Include="Src\GameObjects\Projectal\Bomb.h" />
@@ -130,6 +132,8 @@
     <ClCompile Include="Src\GameObjects\Items\ItemFactory.cpp" />
     <ClCompile Include="Src\GameObjects\Items\WeaponNodeItem.cpp" />
     <ClCompile Include="Src\GameObjects\Particle\ExplodeParticleSystem.cpp" />
+    <ClCompile Include="Src\GameObjects\Particle\FierParticle.cpp" />
+    <ClCompile Include="Src\GameObjects\Particle\Particle.cpp" />
     <ClCompile Include="Src\GameObjects\Particle\ParticleText.cpp" />
     <ClCompile Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.cpp" />
     <ClCompile Include="Src\GameObjects\Projectal\Bomb.cpp" />

@@ -3,8 +3,9 @@
 #include "../GameObject.h"
 #include "../Collider/Collider.h"
 #include <json.hpp>
+#include "../AddisionalTypes/LightObject.h"
 
-class StandardProjectal:public Projectal,public GameObject,public Collider
+class StandardProjectal:public Projectal,public GameObject,public Collider,public LightObject
 {
 	float range = 1.0f;
 	float rangeMax = 1.0f;
@@ -41,5 +42,7 @@ private:
 	virtual void updateStatsAfterSetStats();
 
 	void readData(nlohmann::json data, std::string type);
+
+	Color getColor();
 };
 

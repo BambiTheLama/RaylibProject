@@ -240,6 +240,12 @@
     <ClInclude Include="Src\GameObjects\Elements\Torch.h">
       <Filter>Src\GameObjects\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GameObjects\Particle\FierParticle.h">
+      <Filter>Src\GameObjects\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Particle\Particle.h">
+      <Filter>Src\GameObjects\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -421,6 +427,12 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Elements\Torch.cpp">
       <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Particle\FierParticle.cpp">
+      <Filter>Src\GameObjects\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Particle\Particle.cpp">
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

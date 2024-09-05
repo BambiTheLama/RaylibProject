@@ -18,6 +18,7 @@ LightObject::~LightObject()
 
 void LightObject::update(float deltaTime)
 {
+
     lightTimer += deltaTime;
     if (radius <= 0.0f)
         return;
@@ -30,7 +31,9 @@ void LightObject::update(float deltaTime)
     GameObject* gm = dynamic_cast<GameObject*>(this);
     if (!gm)
         return;
-    lightPos = getMidlePoint(gm->getPos());
+    Rectangle pos = gm->getPos();
+    lightPos = Vector2Add({ pos.x,pos.y }, lightPosDiff);
+
     valid = createLightFan();
     valid = true;
     generateTexture();

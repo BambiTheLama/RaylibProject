@@ -50,7 +50,8 @@ Player::~Player() {
 
 void Player::start() {
     //LightObject::colorCenter = YELLOW;
-    LightObject::setRange(100.0f);
+    LightObject::setRange(1000.0f);
+    lightPosDiff = { pos.width / 2,pos.height / 2 };
 }
 
 void Player::update(float deltaTime) {

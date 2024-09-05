@@ -13,7 +13,7 @@ StandardProjectal::StandardProjectal()
 	type = ObjectType::Projectal;
 }
 
-StandardProjectal::StandardProjectal(nlohmann::json data, std::string type)
+StandardProjectal::StandardProjectal(nlohmann::json data, std::string type) :LightObject(0.0f)
 {
 	readData(data, type);
 }
@@ -28,6 +28,7 @@ void StandardProjectal::start()
 	range = stats.getRange();
 	rangeMax = range;
 	wasParticleSpawned = false;
+	LightObject::setRange(100.0f);
 }
 
 void StandardProjectal::destroy()
@@ -45,6 +46,7 @@ void StandardProjectal::destroy()
 
 void StandardProjectal::update(float deltaTime)
 {
+	LightObject::update(deltaTime);
 	frameTimer += deltaTime;
 	pos.x += dir.x * stats.getSpeed() * deltaTime;
 	pos.y += dir.y * stats.getSpeed() * deltaTime;
@@ -61,11 +63,10 @@ void StandardProjectal::draw()
 	//DrawCircleV({ pos.x + pos.width / 2, pos.y + pos.height / 2 }, pos.height / 2, BLACK);
 
 	int frame = texture.getFrame("", (int)(frameTimer / timePerFrame));
-	Color c = WHITE;
-	if (target & (int)ObjectType::Player)
-		c = RED;
-	texture.draw(pos, false, false, frame, rotationPoint, angle, c);
+
+	texture.draw(pos, false, false, frame, rotationPoint, angle, getColor());
 }
+
 
 
 
@@ -169,4 +170,11 @@ void StandardProjectal::readData(nlohmann::json data, std::string type)
 		rotationDiff = data[type]["RotationDiff"];
 
 
+}
+
+Color StandardProjectal::getColor()
+{
+	if (target & (int)ObjectType::Player)
+		return RED;
+	return WHITE;
 }

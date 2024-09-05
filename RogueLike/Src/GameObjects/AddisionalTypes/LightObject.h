@@ -16,6 +16,7 @@ protected:
 	float lightTimer = 0.0f;
 	float updateTimer = 0.1f;
 	Vector2 lightPos = { 0,0 };
+	Vector2 lightPosDiff = { 0,0 };
 	Color colorCenter = WHITE;
 	Color colorEnd = WHITE;
 	std::list<ShadowGeometry> lightFan;
