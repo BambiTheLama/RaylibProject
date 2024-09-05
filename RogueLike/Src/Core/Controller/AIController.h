@@ -33,6 +33,8 @@ public:
 
     void setAction(Action action);
 
+    void findPathToObject(GameObject* target);
+
     bool hasPath() { return toGoDir.size() > 0 || toGoDirNow.z > 0.0f; }
 
 private:

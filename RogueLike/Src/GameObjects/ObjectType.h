@@ -8,5 +8,7 @@ enum class ObjectType :int
     Wall        = 0b100,
     SpawnPoint  = 0b1000,
     Loot        = 0b10000,
-    Item        = 0b100000
+    Item        = 0b100000,
+    Projectal   = 0b1000000,
+
 };

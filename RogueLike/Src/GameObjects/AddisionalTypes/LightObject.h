@@ -17,7 +17,7 @@ protected:
 	float updateTimer = 0.1f;
 	Vector2 lightPos = { 0,0 };
 	Color colorCenter = WHITE;
-	Color colorEnd = BLACK;
+	Color colorEnd = WHITE;
 	std::list<ShadowGeometry> lightFan;
 	RenderTexture2D lightTexture;
 public:

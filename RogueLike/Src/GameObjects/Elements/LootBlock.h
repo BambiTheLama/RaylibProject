@@ -7,10 +7,10 @@ extern const float tileW;
 extern const float tileH;
 
 class LootBlock :
-    public GameObject,public Collider,public Hitable,public LightObject
+    public GameObject,public Collider,public Hitable
 {
 public:
-    LootBlock(float x, float y);
+    LootBlock(Rectangle pos);
 
     ~LootBlock();
 

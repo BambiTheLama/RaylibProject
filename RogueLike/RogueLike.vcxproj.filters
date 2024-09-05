@@ -1,402 +1,426 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{11d53e83-cb4a-4d38-99ae-8d298051a5a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Controllers">
-      <UniqueIdentifier>{f7078cd4-35c3-49c1-9020-3b51887552ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Floor">
-      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects">
-      <UniqueIdentifier>{8a179deb-aec9-48d8-8787-ad8ea8af4362}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\AddisionalTypes">
-      <UniqueIdentifier>{cf6bd629-9c31-45fc-a3cf-4304654f0622}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Characters">
-      <UniqueIdentifier>{4bf0bcaa-2ad6-4acc-956d-3a1ce35dc194}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Weapons">
-      <UniqueIdentifier>{faae65cd-67a7-41dc-8364-14658b62f4c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Colliders">
-      <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Projectal">
-      <UniqueIdentifier>{1e008653-3f97-4845-9249-6a57a9d9ca31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Items">
-      <UniqueIdentifier>{48f68963-87ef-4478-9df3-85f58e278367}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Res">
       <UniqueIdentifier>{9b6ce021-84d2-43d7-bc2e-cb3d943d0025}</UniqueIdentifier>
     </Filter>
     <Filter Include="Res\Shader">
       <UniqueIdentifier>{3945ee78-5496-4cdc-bebf-7932f9ce09e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Particle">
+    <Filter Include="Src">
+      <UniqueIdentifier>{31a3b027-c6d4-4c4f-bf09-9ae9131194de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects">
+      <UniqueIdentifier>{8a179deb-aec9-48d8-8787-ad8ea8af4362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\AddisionalTypes">
+      <UniqueIdentifier>{cf6bd629-9c31-45fc-a3cf-4304654f0622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Characters">
+      <UniqueIdentifier>{4bf0bcaa-2ad6-4acc-956d-3a1ce35dc194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Weapons">
+      <UniqueIdentifier>{faae65cd-67a7-41dc-8364-14658b62f4c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Colliders">
+      <UniqueIdentifier>{79302c63-36f1-4023-9920-7b11c3968782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Projectal">
+      <UniqueIdentifier>{1e008653-3f97-4845-9249-6a57a9d9ca31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Items">
+      <UniqueIdentifier>{48f68963-87ef-4478-9df3-85f58e278367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Particle">
       <UniqueIdentifier>{a7a8225c-a678-4ac1-a02d-c63fc06a52b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core">
+      <UniqueIdentifier>{11d53e83-cb4a-4d38-99ae-8d298051a5a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core\Controllers">
+      <UniqueIdentifier>{f7078cd4-35c3-49c1-9020-3b51887552ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core\Floor">
+      <UniqueIdentifier>{2876b299-a92e-4e64-92f6-856c25303cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\GameObjects\Elements">
+      <UniqueIdentifier>{789d00f0-2502-4558-b737-26e3392b19a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\GameScene.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Scene.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Game.h">
-      <Filter>GameObjects</Filter>
+      <Filter>Src\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\GameObject.h">
-      <Filter>GameObjects</Filter>
+      <Filter>Src\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Character.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\CharacterController.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Hitable.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Characters\StandardEnemy.h">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Characters\Enemy.h">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Characters\Player.h">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\Wall.h">
-      <Filter>GameObjects\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Font.h" />
     <ClInclude Include="Src\Core\QuadTree.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\WaveCollapsFun.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Floor\Floor.h">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Floor\Room.h">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Floor\RoomElements.h">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\RoomEdytor.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h">
-      <Filter>GameObjects\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\BossWall.h">
-      <Filter>GameObjects\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\SpawnPoint.h">
-      <Filter>GameObjects\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\LootBlock.h">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Weapon\Sword.h">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Weapon\Weapon.h">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Collider\Collider.h">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Collider\CollisionElement.h">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementCircle.h">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Weapon\WeaponNode.h">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Weapon\WeaponNodeTrigger.h">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Projectal\Projectal.h">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Projectal\ProjectalFactory.h">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Projectal\StandardProjectal.h">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Weapon\WeaponStats.h">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Projectal\Explosion.h">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\BlockType.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Dir.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\RoomType.h">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\ObjectType.h">
-      <Filter>GameObjects</Filter>
+      <Filter>Src\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller\AIController.h">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller\Controller.h">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller\GamePadController.h">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller\KeyBoardController.h">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller\TextureController.h">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Items\Item.h">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Items\Inventory.h">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\DrawUI.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Items\WeaponNodeItem.h">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Controller\ShaderController.h">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Floor\PathFinder.h">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Projectal\Bomb.h">
-      <Filter>GameObjects\Projectal</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\Chest.h">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Interactive.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Items\ItemFactory.h">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Weapon\Bow.h">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Projectal\ProjectalID.h">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.h">
-      <Filter>GameObjects\Particle</Filter>
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Particle\ParticleText.h">
-      <Filter>GameObjects\Particle</Filter>
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\Particle\ExplodeParticleSystem.h">
-      <Filter>GameObjects\Particle</Filter>
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Random.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\ShadowObject.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObjects\AddisionalTypes\LightObject.h">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Font.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Random.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\BossEnterWall.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\BossWall.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\Chest.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\LootBlock.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\SpawnPoint.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\Wall.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\Torch.h">
+      <Filter>Src\GameObjects\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\GameScene.cpp">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Game.cpp">
-      <Filter>GameObjects</Filter>
+      <Filter>Src\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\CharacterController.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClCompile>
-    <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Character.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Hitable.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Characters\StandardEnemy.cpp">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Characters\Player.cpp">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\GameObjects\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\Wall.cpp">
-      <Filter>GameObjects\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Font.cpp" />
     <ClCompile Include="Src\Core\QuadTree.cpp">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\WaveCollapsFun.cpp">
-      <Filter>Core</Filter>
+      <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Floor\Floor.cpp">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Floor\Room.cpp">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Floor\RoomElements.cpp">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\RoomEdytor.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp">
-      <Filter>GameObjects\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp">
-      <Filter>GameObjects\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\SpawnPoint.cpp">
-      <Filter>GameObjects\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\Sword.cpp">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\Weapon.cpp">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\Collider.cpp">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\CollisionElement.cpp">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp">
-      <Filter>GameObjects\Colliders</Filter>
+      <Filter>Src\GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\WeaponNode.cpp">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\WeaponNodeTrigger.cpp">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\Projectal.cpp">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\ProjectalFactory.cpp">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\StandardProjectal.cpp">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\Explosion.cpp">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\AIController.cpp">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\Controller.cpp">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\GamePadController.cpp">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\KeyBoardController.cpp">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\TextureController.cpp">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\WeaponStats.cpp">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Items\Item.cpp">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Items\Inventory.cpp">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\DrawUI.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Items\WeaponNodeItem.cpp">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Controller\ShaderController.cpp">
-      <Filter>Core\Controllers</Filter>
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Floor\PathFinder.cpp">
-      <Filter>Core\Floor</Filter>
+      <Filter>Src\Core\Floor</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Projectal\Bomb.cpp">
-      <Filter>GameObjects\Projectal</Filter>
+      <Filter>Src\GameObjects\Projectal</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\BlockType.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\Chest.cpp">
-      <Filter>GameObjects\Characters</Filter>
+      <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Interactive.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Items\ItemFactory.cpp">
-      <Filter>GameObjects\Items</Filter>
+      <Filter>Src\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Weapon\Bow.cpp">
-      <Filter>GameObjects\Weapons</Filter>
+      <Filter>Src\GameObjects\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\GameObject.cpp" />
     <ClCompile Include="Src\GameObjects\Particle\TextureDestroyParticleSystem.cpp">
-      <Filter>GameObjects\Particle</Filter>
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Particle\ParticleText.cpp">
-      <Filter>GameObjects\Particle</Filter>
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Particle\ExplodeParticleSystem.cpp">
-      <Filter>GameObjects\Particle</Filter>
+      <Filter>Src\GameObjects\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Random.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
     </ClCompile>
     <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp">
-      <Filter>GameObjects\AddisionalTypes</Filter>
+      <Filter>Src\GameObjects\AddisionalTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Font.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Random.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\GameObject.cpp">
+      <Filter>Src\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\BossEnterWall.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\BossWall.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\Chest.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\LootBlock.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\SpawnPoint.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\Wall.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\Torch.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,8 +461,8 @@
     <None Include="Res\Shader\Light.frag">
       <Filter>Res\Shader</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="TODO.json" />
+    <None Include="Res\Boss.json">
+      <Filter>Res</Filter>
+    </None>
   </ItemGroup>
 </Project>

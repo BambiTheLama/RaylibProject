@@ -2,16 +2,15 @@
 #include "../Game.h"
 #include "../Collider/CollisionElementCircle.h"
 
-LootBlock::LootBlock(float x, float y)
+LootBlock::LootBlock(Rectangle pos)
 {
 	//trigger = true;
 	solidObject = true;
 	moving = false;
-	pos = { x,y,tileW,tileH };
+	this->pos = pos;
 	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.width / 4));
 	type = ObjectType::Loot;
 	mass = 100;
-
 }
 
 LootBlock::~LootBlock()
@@ -22,16 +21,16 @@ LootBlock::~LootBlock()
 void LootBlock::start()
 {
 	Game::toCheckPos(pos);
-	LightObject::setRange(300);
-	LightObject::colorCenter = ORANGE;
-	LightObject::colorEnd = WHITE;
+	//LightObject::setRange(300);
+	//LightObject::colorCenter = ORANGE;
+	//LightObject::colorEnd = WHITE;
 
 }
 
 void LootBlock::update(float deltaTime)
 {
 	Hitable::update(deltaTime);
-	LightObject::update(deltaTime);
+	//LightObject::update(deltaTime);
 }
 
 void LootBlock::draw()

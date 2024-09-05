@@ -3,9 +3,9 @@
         "Texture": "Enemies/Goblin.png",
         "Size": [ 32, 32 ],
         "Scale": 3,
-        "Range": 300,
-        "MinDist": 150,
-        "MaxDist": 200,
+        "Range": 350,
+        "MinDist": 200,
+        "MaxDist": 300,
         "SpawnPoint": [ 16, 16 ],
         "Weapon": {
             "Variant": 0,
@@ -65,12 +65,10 @@
         "MaxDist": 0,
         "ContactDamage": 1.0,
         "Col": [
-            [ 6, 23 ],
-            [ 2, 19 ],
-            [ 12, 9 ],
-            [ 19, 9 ],
-            [ 29, 19 ],
-            [ 25, 23 ]
+            [ 0, 0 ],
+            [ 0, 32 ],
+            [ 32, 32 ],
+            [ 32, 0 ]
         ]
     }
 }

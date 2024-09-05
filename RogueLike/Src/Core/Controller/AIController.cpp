@@ -120,6 +120,17 @@ void AIController::setAction(Action action)
 	toGoDir.clear();
 }
 
+void AIController::findPathToObject(GameObject* target)
+{
+	this->target = target;
+
+	toGoDir = Game::getPathToGo(thisObj->getColPos(), target->getColPos(), range * 1.5f);
+	newToGoDir();
+	findPathTimer = refresTimer;
+
+	readLastMoveData(0.0f);
+}
+
 void AIController::readLastMoveData(float deltaTime)
 {
 	toGoDirNow.z -= deltaTime * thisObj->getSpeed() * 200;

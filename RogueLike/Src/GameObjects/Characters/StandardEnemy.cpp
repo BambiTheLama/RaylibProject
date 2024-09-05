@@ -155,7 +155,7 @@ void StandardEnemy::draw()
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
 		gm->draw();
-	//Color c = GREEN;
+	//c = GREEN;
 	//c.a = 20;
 	//DrawRectangleRec(RectangleIncreasSize(pos, ai->range), c);
 
@@ -202,8 +202,33 @@ void StandardEnemy::destoryController()
 
 void StandardEnemy::onHit()
 {
+	printf("KURWA TRAFIL MNIE\n");
+	std::list<GameObject*> objs = Game::getObjects(RectangleIncreasSize(pos, 100));
+	objs.remove(this);
+	int i = 0;
+	for (auto o : objs)
+	{
+		//if (o->getType() != ObjectType::Projectal)
+		//	continue;
+		printf("%d\n", i);
+		Projectal* pro = dynamic_cast<Projectal*>(o);
+		if (!pro)
+			continue;
+		printf("JEST TO POCISK\n", i);
+		if (((int)pro->getTarger() & (int)getType()) == 0)
+			continue;
 
+		GameObject* hitedBy = pro->getProjectalOwner();
+		if (!hitedBy)
+			continue;
+		ai->findPathToObject(hitedBy);
+		printf("MAM CIE CHUJU\n");
+		return;
+	}
+	printf("CHUJA NIE UDA£O SIÊ ZNALEZC\n");
 }
+
+
 
 void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 {

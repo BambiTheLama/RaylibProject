@@ -25,11 +25,11 @@ TextureController::TextureController(std::string path)
 					data.end = e["End"];
 				if (e.contains("Name"))
 					animations.insert({ e["Name"], data });
-				puts(e.dump(2).c_str());
+				//puts(e.dump(2).c_str());
 
 			}
-			for (auto e : animations)
-				puts(e.first.c_str());
+			//for (auto e : animations)
+			//	puts(e.first.c_str());
 
 		}
 	}

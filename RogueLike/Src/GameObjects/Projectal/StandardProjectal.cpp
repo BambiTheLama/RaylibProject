@@ -10,6 +10,7 @@ StandardProjectal::StandardProjectal()
 {
 	pos = { 0,0,16,16 };
 	addCollisionElement(new CollisionElementCircle({ pos.width / 2,pos.height / 2 }, pos.height / 2));
+	type = ObjectType::Projectal;
 }
 
 StandardProjectal::StandardProjectal(nlohmann::json data, std::string type)

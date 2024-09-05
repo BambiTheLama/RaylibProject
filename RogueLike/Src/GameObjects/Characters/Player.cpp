@@ -7,7 +7,7 @@
 #include "../Items/Item.h"
 #include "../../Core/Controller/KeyBoardController.h"
 #include "../../Core/Controller/GamePadController.h"
-#include "Wall.h"
+#include "../Elements/Wall.h"
 #include "../Projectal/Bomb.h"
 #include "../AddisionalTypes/Interactive.h"
 #include "../Items/ItemFactory.h"
@@ -50,7 +50,7 @@ Player::~Player() {
 
 void Player::start() {
     //LightObject::colorCenter = YELLOW;
-    LightObject::setRange(800.0f);
+    LightObject::setRange(100.0f);
 }
 
 void Player::update(float deltaTime) {

@@ -1,11 +1,12 @@
 #include "RoomElements.h"
-#include "../../GameObjects/Characters/Wall.h"
-#include "../../GameObjects/Characters/BossWall.h"
-#include "../../GameObjects/Characters/SpawnPoint.h"
-#include "../../GameObjects/Characters/BossEnterWall.h"
+#include "../../GameObjects/Elements/Wall.h"
+#include "../../GameObjects/Elements/BossWall.h"
+#include "../../GameObjects/Elements/SpawnPoint.h"
+#include "../../GameObjects/Elements/BossEnterWall.h"
 #include "../../GameObjects/Characters/StandardEnemy.h"
-#include "../../GameObjects/Characters/LootBlock.h"
-#include "../../GameObjects/Characters/Chest.h"
+#include "../../GameObjects/Elements/LootBlock.h"
+#include "../../GameObjects/Elements/Chest.h"
+#include "../../GameObjects/Elements/Torch.h"
 #include <magic_enum/magic_enum.hpp>
 
 static int thisFloor = 0;
@@ -90,7 +91,9 @@ GameObject* getObject(int ID, Rectangle pos)
 	switch (ID)
 	{
 	case 0:
-		return new LootBlock(pos.x, pos.y);
+		return new LootBlock(pos);
+	case 1:
+		return new Torch(pos);
 	default:
 		break;
 	}

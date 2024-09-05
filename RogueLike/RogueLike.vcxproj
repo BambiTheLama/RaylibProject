@@ -46,19 +46,20 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\Interactive.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\LightObject.h" />
     <ClInclude Include="Src\GameObjects\AddisionalTypes\ShadowObject.h" />
-    <ClInclude Include="Src\GameObjects\Characters\BossEnterWall.h" />
-    <ClInclude Include="Src\GameObjects\Characters\BossWall.h" />
-    <ClInclude Include="Src\GameObjects\Characters\Chest.h" />
     <ClInclude Include="Src\GameObjects\Characters\Enemy.h" />
-    <ClInclude Include="Src\GameObjects\Characters\LootBlock.h" />
     <ClInclude Include="Src\GameObjects\Characters\Player.h" />
-    <ClInclude Include="Src\GameObjects\Characters\SpawnPoint.h" />
-    <ClInclude Include="Src\GameObjects\Characters\Wall.h" />
     <ClInclude Include="Src\GameObjects\Characters\StandardEnemy.h" />
     <ClInclude Include="Src\GameObjects\Collider\Collider.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElement.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementCircle.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElementLines.h" />
+    <ClInclude Include="Src\GameObjects\Elements\BossEnterWall.h" />
+    <ClInclude Include="Src\GameObjects\Elements\BossWall.h" />
+    <ClInclude Include="Src\GameObjects\Elements\Chest.h" />
+    <ClInclude Include="Src\GameObjects\Elements\LootBlock.h" />
+    <ClInclude Include="Src\GameObjects\Elements\SpawnPoint.h" />
+    <ClInclude Include="Src\GameObjects\Elements\Torch.h" />
+    <ClInclude Include="Src\GameObjects\Elements\Wall.h" />
     <ClInclude Include="Src\GameObjects\Game.h" />
     <ClInclude Include="Src\GameObjects\GameObject.h" />
     <ClInclude Include="Src\GameObjects\Items\Inventory.h" />
@@ -108,19 +109,20 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\Interactive.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\LightObject.cpp" />
     <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp" />
-    <ClCompile Include="Src\GameObjects\Characters\BossEnterWall.cpp" />
-    <ClCompile Include="Src\GameObjects\Characters\BossWall.cpp" />
-    <ClCompile Include="Src\GameObjects\Characters\Chest.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp" />
-    <ClCompile Include="Src\GameObjects\Characters\LootBlock.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Player.cpp" />
-    <ClCompile Include="Src\GameObjects\Characters\SpawnPoint.cpp" />
-    <ClCompile Include="Src\GameObjects\Characters\Wall.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\StandardEnemy.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\Collider.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElement.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementCircle.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElementLines.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\BossEnterWall.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\BossWall.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\Chest.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\LootBlock.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\SpawnPoint.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\Torch.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\Wall.cpp" />
     <ClCompile Include="Src\GameObjects\Game.cpp" />
     <ClCompile Include="Src\GameObjects\GameObject.cpp" />
     <ClCompile Include="Src\GameObjects\Items\Inventory.cpp" />
@@ -146,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Res\Boss.json" />
     <None Include="Res\Enemies.json" />
     <None Include="Res\ItemData.json" />
     <None Include="Res\Projectal.json" />
@@ -158,9 +161,6 @@
     <None Include="Res\Weapon.json" />
     <None Include="Res\WeaponData.json" />
     <None Include="Res\WeaponNodeData.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="TODO.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

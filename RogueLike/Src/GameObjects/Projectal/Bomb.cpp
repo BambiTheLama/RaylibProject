@@ -1,7 +1,7 @@
 #include "Bomb.h"
 #include "../Game.h"
 #include "../AddisionalTypes/Hitable.h"
-#include "../Characters/Wall.h"
+#include "../Elements/Wall.h"
 #include "../Particle/TextureDestroyParticleSystem.h"
 #include "../Particle/ExplodeParticleSystem.h"
 
@@ -34,27 +34,32 @@ void Bomb::update(float deltaTime)
 
 void Bomb::explode()
 {
-	Rectangle explodePos = pos;
-	explodePos.x -= range;
-	explodePos.width += 2 * range;
-	float delta = tileW/2;
-	while (explodePos.width > 0)
+	Rectangle explodePos;
+	for (int i = 0; i < 2; i++)
 	{
-		std::list<GameObject*> objs = Game::getObjects(explodePos);
-		for (auto o : objs)
+		explodePos = pos;
+		explodePos.x -= range;
+		explodePos.width += 2 * range;
+		float delta = tileW / 2;
+		while (explodePos.width > 0)
 		{
-			//Hitable* hit = dynamic_cast<Hitable*>(o);
-			//if (hit)
-			//	hit->dealDamage(damage);
-			Wall* wall = dynamic_cast<Wall*>(o);
-			if (wall)
-				wall->deletePartWall(explodePos);
+			std::list<GameObject*> objs = Game::getObjects(explodePos);
+			for (auto o : objs)
+			{
+				Hitable* hit = dynamic_cast<Hitable*>(o);
+				if (hit)
+					hit->dealDamage(damage);
+				Wall* wall = dynamic_cast<Wall*>(o);
+				if (wall)
+					wall->deletePartWall(explodePos);
+			}
+			explodePos.x += delta;
+			explodePos.width -= 2 * delta;
+			explodePos.y -= delta;
+			explodePos.height += 2 * delta;
 		}
-		explodePos.x += delta;
-		explodePos.width -= 2 * delta;
-		explodePos.y -= delta;
-		explodePos.height += 2 * delta;
 	}
+
 	Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos(), 5, 5, 1.0f, 400));
 	Game::addObject(new ExplodeParticleSystem(getMidlePoint(getPos()), range, 200, 1.25f, 200));
 

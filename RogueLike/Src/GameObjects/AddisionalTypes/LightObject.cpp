@@ -8,7 +8,6 @@
 LightObject::LightObject(float updateTimer)
 {
     this->updateTimer = updateTimer;
-    setRange(radius);
 }
 
 LightObject::~LightObject()
@@ -22,6 +21,8 @@ void LightObject::update(float deltaTime)
     lightTimer += deltaTime;
     if (radius <= 0.0f)
         return;
+    if(lightTexture.id<0)
+        setRange(radius);
     timer -= deltaTime;
     if (timer > 0.0f)
         return;

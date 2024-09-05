@@ -1,21 +1,4 @@
 {
-    "Weapons/Bow.png": {
-        "NumberOfFrames": 13,
-        "FrameSize": [ 32, 32 ]
-
-    },
-    "Weapons/WoodBow.png": {
-        "NumberOfFrames": 12,
-        "FrameSize": [ 32, 32 ]
-    },
-    "Projectal/Bomb.png": {
-        "NumberOfFrames": 12,
-        "FrameSize": [ 32, 32 ]
-    },
-    "Projectal/Smoke.png": {
-        "NumberOfFrames": 13,
-        "FrameSize": [ 32, 32 ]
-    },
     "Elements/Chest.png": {
         "NumberOfFrames": 3,
         "FrameSize": [ 32, 32 ]
@@ -23,25 +6,6 @@
     "Elements/Torch.png": {
         "NumberOfFrames": 5,
         "FrameSize": [ 32, 32 ]
-    },
-    "Enemies/Mimic.png": {
-        "NumberOfFrames": 9,
-        "FrameSize": [ 32, 32 ]
-    },
-    "Projectal/MagicMissile.png": {
-        "NumberOfFrames": 3,
-        "FrameSize": [ 32, 32 ]
-    },
-    "Enemies/Slime.png": {
-        "NumberOfFrames": 6,
-        "FrameSize": [ 32, 32 ],
-        "Frames": [
-            {
-                "Name": "IDE",
-                "Start": 0,
-                "End": 5
-            }
-        ]
     },
     "Enemies/Goblin.png": {
         "NumberOfFrames": 20,
@@ -84,5 +48,45 @@
                 "End": 19
             }
         ]
+    },
+    "Enemies/Slime.png": {
+        "NumberOfFrames": 6,
+        "FrameSize": [ 32, 32 ],
+        "Frames": [
+            {
+                "Name": "IDE",
+                "Start": 0,
+                "End": 5
+            }
+        ]
+    },
+    "Enemies/SlimeBoss.png": {
+        "NumberOfFrames": 6,
+        "FrameSize": [ 64, 64 ]
+    },
+    "Enemies/Mimic.png": {
+        "NumberOfFrames": 9,
+        "FrameSize": [ 32, 32 ]
+    },
+    "Projectal/Bomb.png": {
+        "NumberOfFrames": 12,
+        "FrameSize": [ 32, 32 ]
+    },
+    "Projectal/MagicMissile.png": {
+        "NumberOfFrames": 3,
+        "FrameSize": [ 32, 32 ]
+    },
+    "Projectal/Smoke.png": {
+        "NumberOfFrames": 13,
+        "FrameSize": [ 32, 32 ]
+    },
+    "Weapons/Bow.png": {
+        "NumberOfFrames": 13,
+        "FrameSize": [ 32, 32 ]
+
+    },
+    "Weapons/WoodBow.png": {
+        "NumberOfFrames": 12,
+        "FrameSize": [ 32, 32 ]
     }
 }

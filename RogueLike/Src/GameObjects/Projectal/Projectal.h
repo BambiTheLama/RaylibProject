@@ -30,6 +30,10 @@ public:
 
 	void setTarget(int target) { this->target = target; }
 
+	GameObject* getProjectalOwner() { return owner; }
+
+	int getTarger() { return target; }
+
 private:
 	bool findThisObject();
 

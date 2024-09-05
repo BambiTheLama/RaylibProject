@@ -15,7 +15,7 @@ Engine::Engine() {
     const int screenWidth = 1600;
     const int screenHeight = 900;
     SetConfigFlags(FLAG_WINDOW_HIGHDPI);
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "Roguelike");
 
     //ToggleFullscreen();
 

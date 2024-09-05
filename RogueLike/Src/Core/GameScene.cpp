@@ -2,9 +2,9 @@
 #include "../GameObjects/Characters/Player.h"
 #include "../GameObjects/Game.h"
 #include <algorithm>
-#include "../GameObjects/Characters/Wall.h"
+#include "../GameObjects/Elements/Wall.h"
 #include "../GameObjects/Characters/StandardEnemy.h"
-#include "../GameObjects/Characters/SpawnPoint.h"
+#include "../GameObjects/Elements/SpawnPoint.h"
 #include "Controller/Controller.h"
 #include "rlgl.h"
 #include "WaveCollapsFun.h"
