@@ -11,7 +11,7 @@ Torch::Torch(Rectangle pos)
 	solidObject = true;
 	moving = false;
 	type = ObjectType::Loot;
-	particle = new FierParticle({ pos.x+15,pos.y+14 });
+	particle = new FierParticle({ pos.x+15,pos.y+12 });
 	//mass = 100;
 }
 

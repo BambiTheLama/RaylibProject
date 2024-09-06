@@ -3,8 +3,8 @@
 
 FierParticle::FierParticle(Vector2 pos)
 {
-	this->pos = { pos.x,pos.y,1,1 };
-	for (int i = 0; i < 10; i++)
+	this->pos = { pos.x,pos.y,2,2 };
+	for (int i = 0; i < 16; i++)
 	{
 		Particle p;
 		resetParticle(p);
@@ -32,17 +32,17 @@ void FierParticle::draw()
 
 void FierParticle::resetParticle(Particle& p)
 {
-	const float timer = 3.0f;
-	const int speed = 69;
-	p.pos.x = pos.x;
-	p.pos.y = pos.y;
+	const float timer = 2.5f;
+	const int speed = 60;
+	p.pos.x = pos.x + GetRandomValue(-pos.width, pos.width);
+	p.pos.y = pos.y + GetRandomValue(-pos.height, pos.height);
 	p.dir.x = GetRandomValue(-100, 100) / 100.0f;
 	p.dir.y = -GetRandomValue(100, 1000) / 100.0f;
 	p.dir = Vector2Normalize(p.dir);
 	p.speed = (float)GetRandomValue(speed / 3, speed);
 	p.deltaAngle = (float)GetRandomValue(-360, 360);
 	p.acceleration = -p.speed / GetRandomValue(1, 100) / 30.0f;
-	p.timer = timer / 6.0f * 5.0f * GetRandomValue(1, 1000) / 1000.0f + timer / 6.0f;
+	p.timer = timer / 3.0f * 2.0f * GetRandomValue(1, 1000) / 1000.0f + timer / 3.0f;
 	p.timerMax = p.timer;
 	p.size = (float)GetRandomValue(10, 20);
 }

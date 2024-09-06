@@ -16,7 +16,7 @@ void TextureDestroyParticle::draw(TextureController& texture)
 	Texture2D text = texture.getTexture();
 	Rectangle pos = RectangleDecreasSize(this->pos, fminf(this->pos.width, this->pos.height) * (1.0f - scale) / 2);
 	Color c = WHITE;
-	c.a *= scale;
+	c.a = (unsigned char)(c.a * scale);
 	pos.x += pos.width / 2;
 	pos.y += pos.height / 2;
 	DrawTexturePro(text, textPos, pos, { pos.width / 2,pos.height / 2 }, angle, c);
