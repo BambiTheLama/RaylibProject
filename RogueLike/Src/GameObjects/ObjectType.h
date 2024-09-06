@@ -10,5 +10,6 @@ enum class ObjectType :int
     Loot        = 0b10000,
     Item        = 0b100000,
     Projectal   = 0b1000000,
+    Coins       = 0b10000000,
 
 };

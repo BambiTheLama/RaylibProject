@@ -34,8 +34,8 @@ void FierParticle::resetParticle(Particle& p)
 {
 	const float timer = 2.5f;
 	const int speed = 60;
-	p.pos.x = pos.x + GetRandomValue(-pos.width, pos.width);
-	p.pos.y = pos.y + GetRandomValue(-pos.height, pos.height);
+	p.pos.x = pos.x + GetRandomValue(-(int)pos.width, (int)pos.width);
+	p.pos.y = pos.y + GetRandomValue(-(int)pos.height, (int)pos.height);
 	p.dir.x = GetRandomValue(-100, 100) / 100.0f;
 	p.dir.y = -GetRandomValue(100, 1000) / 100.0f;
 	p.dir = Vector2Normalize(p.dir);

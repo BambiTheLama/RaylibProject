@@ -40,6 +40,7 @@ public:
 
     void destroy() override;
 
+
     void update(float deltaTime);
 
     void draw();
@@ -60,6 +61,7 @@ public:
 private:
     void readData(std::string type, nlohmann::json data, int level);
 
+    void dropItems();
 
 };
 

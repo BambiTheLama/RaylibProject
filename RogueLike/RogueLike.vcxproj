@@ -56,6 +56,7 @@
     <ClInclude Include="Src\GameObjects\Elements\BossEnterWall.h" />
     <ClInclude Include="Src\GameObjects\Elements\BossWall.h" />
     <ClInclude Include="Src\GameObjects\Elements\Chest.h" />
+    <ClInclude Include="Src\GameObjects\Elements\Coin.h" />
     <ClInclude Include="Src\GameObjects\Elements\LootBlock.h" />
     <ClInclude Include="Src\GameObjects\Elements\SpawnPoint.h" />
     <ClInclude Include="Src\GameObjects\Elements\Torch.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="Src\GameObjects\Elements\BossEnterWall.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\BossWall.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\Chest.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\Coin.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\LootBlock.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\SpawnPoint.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\Torch.cpp" />

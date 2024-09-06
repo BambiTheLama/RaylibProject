@@ -10,7 +10,8 @@ Torch::Torch(Rectangle pos)
 	addCollisionElement(new CollisionElementLines({ pos.width / 3,pos.height / 2,pos.width / 3,pos.height / 2 }));
 	solidObject = true;
 	moving = false;
-	type = ObjectType::Loot;
+	trigger = true;
+	//type = ObjectType::Loot;
 	particle = new FierParticle({ pos.x+15,pos.y+12 });
 	//mass = 100;
 }

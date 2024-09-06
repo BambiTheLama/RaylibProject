@@ -57,6 +57,7 @@ void StandardEnemy::destroy()
 		int frame = texture.getFrame(animationName, (int)(frameTimer / timePerFrame));
 		Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos()));
 		particleActivated = true;
+		dropItems();
 	}
 
 	if (!weapon)
@@ -69,6 +70,8 @@ void StandardEnemy::destroy()
 	weapon = nullptr;
 
 }
+
+
 
 void StandardEnemy::update(float deltaTime)
 {
@@ -310,4 +313,14 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 
 
 	}
+}
+#include "../Elements/Coin.h"
+
+void StandardEnemy::dropItems()
+{
+	if (!Game::isGameScene())
+		return;
+	Coin* c = new Coin(pos, 1);
+	if (!Game::addObject(c))
+		delete c;
 }

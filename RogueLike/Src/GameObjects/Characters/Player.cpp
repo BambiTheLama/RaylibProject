@@ -11,6 +11,7 @@
 #include "../Projectal/Bomb.h"
 #include "../AddisionalTypes/Interactive.h"
 #include "../Items/ItemFactory.h"
+#include "../Elements/Coin.h"
 
 Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
 
@@ -186,17 +187,25 @@ void Player::draw() {
 void Player::drawUI()
 {
     inventory.draw();
+    MyFont::DrawTextWithOutline(TextFormat("{Icon:2}: %d", coins), 0, 300, MyFont::getFontSize(), ORANGE, BLACK);
+
 }
 
 void Player::onCollisionEnter(Collider* collider) { 
     Character* ch = dynamic_cast<Character*>(collider);
     Hitable* hit = dynamic_cast<Hitable*>(collider);
-    //if (hit)
-    //{
-    //    hit->dealDamage(2);
-    //}
-    //if (ch)
-    //    ch->destoryController();
+    GameObject* gm = collider->getThisObj();
+    if (gm)
+    {
+        if (gm->getType() == ObjectType::Coins)
+        {
+
+            Coin* c = dynamic_cast<Coin*>(gm);
+            if (c)
+                coins += c->getCoins();
+            Game::deleteObject(gm);
+        }
+    }
 }
 
 void Player::onCollisionExit(Collider* collider) {
@@ -208,7 +217,7 @@ void Player::interact()
     Interactive* interactObj = getCloseInteractiveObjects();
     if (interactObj)
         interactObj->interact(this);
-}
+    }
 
 Interactive* Player::getCloseInteractiveObjects()
 {
