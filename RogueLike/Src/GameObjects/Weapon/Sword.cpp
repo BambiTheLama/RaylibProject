@@ -21,7 +21,7 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 			readStats(data[weaponType], weaponTier);
 		else
 		{
-			variantToRead = Clamp(variant, 0, data[weaponType].size() - 1.0f);
+			variantToRead = (int)Clamp((float)variant, 0, data[weaponType].size() - 1.0f);
 			if (data[weaponType].size() > variantToRead)
 				readStats(data[weaponType][variantToRead], weaponTier);
 		}

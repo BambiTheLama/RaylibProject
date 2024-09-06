@@ -70,7 +70,7 @@ void Hitable::deadTrigger()
 
 void Hitable::draw(Rectangle pos) {
 	float procentHp = getAnimateHp();
-	const char alpha = 200;
+	const unsigned char alpha = 200;
 	Color green = { 0,228,48,alpha };
 	Color gray = { 130,130,130,alpha };
 	Color black = { 0,0,0,alpha };

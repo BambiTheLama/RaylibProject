@@ -13,17 +13,17 @@ ExplodeParticleSystem::ExplodeParticleSystem(Vector2 pos,float range, int partic
 	{
 		Particle ep;
 		Vector2 posV = Vector2Normalize({ (float)GetRandomValue(-100, 100) ,(float)GetRandomValue(-100, 100) });
-		ep.pos.x = posV.x * GetRandomValue(0, range) + pos.x;
-		ep.pos.y = posV.y * GetRandomValue(0, range) + pos.y;
+		ep.pos.x = posV.x * GetRandomValue(0, (int)range) + pos.x;
+		ep.pos.y = posV.y * GetRandomValue(0, (int)range) + pos.y;
 		ep.dir.x = GetRandomValue(-100, 100) / 100.0f;
 		ep.dir.y = GetRandomValue(-100, 100) / 100.0f;
 		ep.dir = Vector2Normalize(ep.dir);
-		ep.speed = GetRandomValue(-1 * speed, speed);
-		ep.deltaAngle= GetRandomValue(-360, 360);
+		ep.speed = (float)GetRandomValue(-1 * (int)speed, (int)speed);
+		ep.deltaAngle = (float)GetRandomValue(-360, 360);
 		ep.acceleration = -ep.speed / GetRandomValue(1, 100) / 30.0f;
 		ep.timer = timer / 6.0f * 5.0f * GetRandomValue(1, 1000) / 1000.0f + timer / 6.0f;
 		this->timer = fmaxf(this->timer, ep.timer);
-		ep.size = GetRandomValue(100, 200);
+		ep.size = (float)GetRandomValue(100, 200);
 		//ep.deltaSize = GetRandomValue(-100, -50);
 		ep.timerMax = ep.timer;
 		this->particles.push_back(ep);

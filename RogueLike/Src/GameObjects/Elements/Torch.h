@@ -25,6 +25,8 @@ public:
 
     void draw()override;
 
+    void drawLight()override;
+
     void onHit()override;
 };
 

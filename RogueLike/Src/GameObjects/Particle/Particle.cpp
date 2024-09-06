@@ -18,7 +18,7 @@ Color Particle::getColor()
 	if (colors.size() > 1)
 	{
 		float procent = fabsf(timer / timerMax - 1.0f);
-		int color = procent * colors.size();
+		int color = (int)(procent * colors.size());
 		if (color + 1 >= colors.size() && color < colors.size())
 		{
 			return colors[color];
@@ -38,7 +38,7 @@ void Particle::draw(TextureController& texture, float scale)
 {
 	if (timer <= 0.0f)
 		return;
-	int frame = texture.getFrames() * timer / timerMax;
+	int frame = (int)(texture.getFrames() * timer / timerMax);
 	Rectangle drawPos = { pos.x,pos.y,size * scale ,size * scale };
 	Color color = getColor();
 	texture.draw(drawPos, false, false, frame, { drawPos.width / 2,drawPos.height / 2 }, angle, color);

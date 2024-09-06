@@ -54,7 +54,7 @@ void StandardEnemy::destroy()
 
 	if (!particleActivated)
 	{
-		int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
+		int frame = texture.getFrame(animationName, (int)(frameTimer / timePerFrame));
 		Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos()));
 		particleActivated = true;
 	}
@@ -144,7 +144,7 @@ void StandardEnemy::draw()
 {
 	//DrawRectangleRec(pos, { 255,255,0,69 });
 	//DrawRectangleRec(pos, col ?RED: LIGHTGRAY);
-	int frame = texture.getFrame(animationName, frameTimer / timePerFrame);
+	int frame = texture.getFrame(animationName, (int)(frameTimer / timePerFrame));
 	Color c = getHitColor(WHITE);
 	Rectangle pos = getPos();
 	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
@@ -214,7 +214,7 @@ void StandardEnemy::onHit()
 		Projectal* pro = dynamic_cast<Projectal*>(o);
 		if (!pro)
 			continue;
-		printf("JEST TO POCISK\n", i);
+		printf("JEST TO POCISK\n");
 		if (((int)pro->getTarger() & (int)getType()) == 0)
 			continue;
 

@@ -12,7 +12,7 @@ ParticleText::ParticleText(float x, float y, float time, std::string text,Color 
 	lifeTimeMax = time;
 	lifeTime = lifeTimeMax;
 	drawOrder = 9;
-	angleRotation = getRandom(seed, -1.0f, 1.0f);
+	angleRotation = getRandom(seed, -100, 100) / 100.0f;
 }
 
 void ParticleText::update(float deltaTime)

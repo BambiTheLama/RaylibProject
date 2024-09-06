@@ -36,8 +36,8 @@ TextureController::TextureController(std::string path)
 	else
 	{
 		this->frames = 1;
-		frameSize.x = texture.width;
-		frameSize.y = texture.height;
+		frameSize.x = (float)texture.width;
+		frameSize.y = (float)texture.height;
 	}
 
 }

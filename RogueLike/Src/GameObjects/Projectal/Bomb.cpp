@@ -67,7 +67,7 @@ void Bomb::explode()
 
 void Bomb::draw()
 {
-	int frame = (timerMax - time) / timerMax * texture.getFrames();
+	int frame = (int)((timerMax - time) / timerMax * texture.getFrames());
 	texture.draw(pos, false, false, frame);
 	//DrawFrameRec(pos, mixColor(YELLOW, RED, time / timerMax));
 }

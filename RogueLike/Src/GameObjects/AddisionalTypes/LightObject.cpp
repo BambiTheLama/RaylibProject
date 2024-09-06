@@ -63,7 +63,7 @@ void LightObject::setRange(float range)
     if (lightTexture.id > 0)
         UnloadRenderTexture(lightTexture);
     if (range > 0)
-        lightTexture = LoadRenderTexture(range * 2.0f / zoom, range * 2 / zoom);
+        lightTexture = LoadRenderTexture((int)(range * 2.0f / zoom), (int)(range * 2 / zoom));
 }
 
 void LightObject::generateTexture()
@@ -81,7 +81,7 @@ void LightObject::generateTexture()
 
     Color end = colorEnd;
     end.a = 0;
-    DrawCircleGradient(lightPos.x, lightPos.y, radius, colorCenter, end);
+    DrawCircleGradient((int)lightPos.x, (int)lightPos.y, radius, colorCenter, end);
     rlSetBlendMode(BLEND_MULTIPLIED);
 
     for (auto f : lightFan)

@@ -38,7 +38,7 @@ void Torch::destroy()
 
 	if (!particleActivated)
 	{
-		int frame = texture.getFrame("", frameTimer / timePerFrame);
+		int frame = texture.getFrame("", (int)(frameTimer / timePerFrame));
 		Game::addObject(new TextureDestroyParticleSystem(texture, 0, getPos()));
 		particleActivated = true;
 	}
@@ -54,10 +54,17 @@ void Torch::update(float deltaTime)
 
 void Torch::draw()
 {
-	int frame = texture.getFrames() * (frameTimer / timePerFrame / 5);
+	int frame = (int)(texture.getFrames() * (frameTimer / timePerFrame / 5));
 	texture.draw(pos, false, false, frame);
 	particle->draw();
 }
+
+void Torch::drawLight()
+{
+	LightObject::drawLight();
+	particle->draw();
+}
+
 
 void Torch::onHit()
 {

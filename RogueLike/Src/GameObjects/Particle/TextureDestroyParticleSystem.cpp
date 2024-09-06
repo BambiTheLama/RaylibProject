@@ -41,8 +41,8 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 	const float posH = pos.height / h;
 	const float textureX = frameSize.x / w;
 	const float textureY = frameSize.y / h;
-	const float minAngle = -30.0f;
-	const float maxAngle = 30.0f;
+	const int minAngle = -30;
+	const int maxAngle = 30;
 	for (int x = 0; x < w; x++)
 	{
 		for (int y = 0; y < h; y++)
@@ -50,11 +50,11 @@ TextureDestroyParticleSystem::TextureDestroyParticleSystem(TextureController tex
 			TextureDestroyParticle particle;
 			particle.pos = { pos.x + posW * x,pos.y + posH * y,posW,posH };
 			particle.textPos = { startTexturePos + textureX * x,textureY * y,textureX,textureY };
-			particle.dir = DirFromAngle(getRandom(seed, 0, 360));
-			particle.anglePerSec = getRandom(seed, minAngle, maxAngle);
-			particle.timer = getRandom(seed, timer * 100, timer * 1000) / 1000.0f;
+			particle.dir = DirFromAngle((float)getRandom(seed, 0, 360));
+			particle.anglePerSec = (float)getRandom(seed, minAngle, maxAngle);
+			particle.timer = getRandom(seed, (int)(timer * 100), (int)(timer * 1000)) / 1000.0f;
 			particle.startTime = particle.timer;
-			particle.speed = getRandom(seed, speed / 2, speed);
+			particle.speed = (float)getRandom(seed, (int)(speed / 2), (int)speed);
 
 			particles.push_back(particle);
 		}

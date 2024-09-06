@@ -50,7 +50,7 @@ static void getJsonData(nlohmann::json& json, StatFloatMulti* stat)
 	{
 		float min = json["Min"];
 		float max = json["Max"];
-		float procent = getRandom(seed, 0.0f, 1.0f);
+		float procent = getRandom(seed, 0, 1000) / 1000.0f;
 		stat->value = (min + (max - min) * procent);
 	}
 	else if (json.contains("Value"))
@@ -66,7 +66,7 @@ static void getJsonData(nlohmann::json& json, StatFloatMulti* stat)
 	{
 		float min = json["MulMin"];
 		float max = json["MulMax"];
-		float procent = getRandom(seed, 0.0f, 1.0f);
+		float procent = getRandom(seed, 0, 1000) / 1000.0f;
 		stat->multiplier = (min + (max - min) * procent);
 	}
 	else if (json.contains("MulValue"))
@@ -86,7 +86,7 @@ static void getJsonData(nlohmann::json& json,int tier, StatFloatMulti* stat)
 	}
 	if (json.size() <= 0)
 		return;
-	int tiers = (int)Clamp(tier, 0, json.size() - 1.0f);
+	int tiers = (int)Clamp((float)tier, 0, json.size() - 1.0f);
 	
 	getJsonData(json[tiers], stat);
 }
@@ -121,7 +121,7 @@ static void readStatFromWeapon(nlohmann::json& json, const char* statProperty, i
 	if (!json.contains(statProperty))
 		return;
 	StatFloatMulti tmpStat;
-	tmpStat.value = stat->value;
+	tmpStat.value = (float)stat->value;
 	tmpStat.inportant = stat->inportant;
 	readStatFromWeapon(json, statProperty, tier, &tmpStat);
 	stat->value = (int)tmpStat.value;

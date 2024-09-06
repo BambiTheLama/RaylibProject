@@ -33,16 +33,16 @@ void FierParticle::draw()
 void FierParticle::resetParticle(Particle& p)
 {
 	const float timer = 3.0f;
-	const float speed = 69.0f;
+	const int speed = 69;
 	p.pos.x = pos.x;
 	p.pos.y = pos.y;
 	p.dir.x = GetRandomValue(-100, 100) / 100.0f;
 	p.dir.y = -GetRandomValue(100, 1000) / 100.0f;
 	p.dir = Vector2Normalize(p.dir);
-	p.speed = GetRandomValue(speed / 3, speed);
-	p.deltaAngle = GetRandomValue(-360, 360);
+	p.speed = (float)GetRandomValue(speed / 3, speed);
+	p.deltaAngle = (float)GetRandomValue(-360, 360);
 	p.acceleration = -p.speed / GetRandomValue(1, 100) / 30.0f;
 	p.timer = timer / 6.0f * 5.0f * GetRandomValue(1, 1000) / 1000.0f + timer / 6.0f;
 	p.timerMax = p.timer;
-	p.size = GetRandomValue(10, 20);
+	p.size = (float)GetRandomValue(10, 20);
 }

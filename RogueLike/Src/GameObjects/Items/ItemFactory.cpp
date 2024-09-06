@@ -25,7 +25,7 @@ WeaponNodeItem* getWeaponNode(int tier, int& seed)
 
 	if (weaponNodeData[tier].size() <= 0)
 		return nullptr;
-	int itemInTier = getRandom(seed, 0, weaponNodeData[tier].size());
+	int itemInTier = getRandom(seed, 0, (int)weaponNodeData[tier].size());
 	return new WeaponNodeItem(weaponNodeData[tier][itemInTier]);
 }
 
