@@ -21,12 +21,10 @@ StandardProjectal::StandardProjectal(nlohmann::json data, std::string type) :Lig
 
 void StandardProjectal::start()
 {
+	Projectal::start();
 	triggerNode(WeaponNodeActivation::OnUse, stats);
-	angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir) ) * RAD2DEG + rotationDiff;
 	drawOrder = 10;
 	trigger = true;
-	range = stats.getRange();
-	rangeMax = range;
 	wasParticleSpawned = false;
 	LightObject::setRange(100.0f);
 }
@@ -112,15 +110,6 @@ float StandardProjectal::getAngle()
 {
 	angle = (Vector2Angle({ 0.0000001f,0.0000001f }, dir)) * RAD2DEG + rotationDiff;
 	return angle;
-}
-
-void StandardProjectal::updateStatsAfterSetStats()
-{
-	pirce = stats.getPirce();
-	bounce = stats.getBounce();
-	range = stats.getRange();
-	timer = stats.getUseTime();
-	
 }
 
 void StandardProjectal::readData(nlohmann::json data, std::string type)

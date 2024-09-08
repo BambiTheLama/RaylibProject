@@ -46,7 +46,7 @@ Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
 }
 
 Player::~Player() {
-
+    delete inventory;
 }
 
 void Player::start() {

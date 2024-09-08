@@ -24,12 +24,11 @@ GameScene::GameScene() {
     onResize();
     Rectangle pos = { 0,0,7000,7000 };
     int seed = 10000;
-    do {
-        if (floor)
-            delete floor;
-        floor = new Floor(pos,seed);
 
-    } while (!floor->canPassMap());
+    floor = new Floor(pos, seed);
+    
+
+
     Game::gameScene = this;
 
 

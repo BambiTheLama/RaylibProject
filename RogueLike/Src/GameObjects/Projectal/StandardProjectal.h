@@ -7,15 +7,9 @@
 
 class StandardProjectal:public Projectal,public GameObject,public Collider,public LightObject
 {
-	float range = 1.0f;
-	float rangeMax = 1.0f;
 	float timer = 1.0f;
-	int pirce = 1;
-	int bounce = 1;
-	float angle = 0.0f;
 	float frameTimer = 0.0f;
 	TextureController texture;
-	Vector2 rotationPoint = { 0,0 };
 	bool wasParticleSpawned = true;
 public:
 	StandardProjectal();
@@ -39,7 +33,6 @@ public:
 	void setPos(Vector2 p)override { pos.x = p.x ; pos.y = p.y ; }
 
 private:
-	virtual void updateStatsAfterSetStats();
 
 	void readData(nlohmann::json data, std::string type);
 

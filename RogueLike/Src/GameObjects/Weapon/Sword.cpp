@@ -52,7 +52,7 @@ void Sword::start()
 
 void Sword::update(float deltaTime)
 {
-
+	updateWeaponSize();
 	if (reloadTime > 0)
 	{
 		reloadTime -= deltaTime;
@@ -198,7 +198,6 @@ void Sword::draw()
 	{
 		rlEnableBackfaceCulling();
 		unsigned char colorA = (unsigned char)(200 * (-powf(2 * useTime / useTimeMax - 1, 2)+10));
-		printf("%d\n", colorA);
 		DrawTriangleStrip(points.data(), (int)points.size(), GetColor(0xaab6cc00 + colorA));
 		rlDisableBackfaceCulling();
 	}
@@ -272,23 +271,26 @@ void Sword::updateWeaponSize()
 {
 	if (!isRangeScale)
 		return;
-	float scale = (stats.getRange() * rangeScale + 16) / (pos.width);
-	if (pos.width * scale < 16)
-		scale = 16 / pos.width;
-	if (pos.height * scale < 16)
-		scale = 16 / pos.height;
+	float scale = (stats.getRange() * rangeScale);
+	if (scale == lastScaleRange)
+		return;
+
 	scaleWeapon(scale);
+
 
 }
 
 void Sword::scaleWeapon(float scale)
 {
-	if (scale <= 0)
+
+	if (scale <= 0 || lastScaleRange == scale)
 		return;
-	pos.width *= scale;
-	pos.height *= scale;
-	scaleColliderElements(scale);
-	Weapon::scaleWeapon(scale);
+	float s = scale/lastScaleRange;
+	pos.width *= s;
+	pos.height *= s;
+	scaleColliderElements(s);
+	Weapon::scaleWeapon(s);
+	lastScaleRange = scale;
 }
 
 float Sword::getWeaponRotation()

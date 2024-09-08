@@ -12,10 +12,9 @@ class Inventory
 	Vector2 ItemsSize = { 64,64 };
 	Vector2 ItemsSpaceing = { 75,0 };
 	Rectangle descriptionPos = { 100,100,600,300 };
-	const Vector2 descriptionStart = { -1900,100 };
-	const Vector2 descriptionEnd = { 2000,100 };
+	const Vector2 descriptionStart = { -2000,100 };
 	float timerDesctiption = 0.0f;
-	float timerDesctiptionMax = 1.0f;
+	float timerDesctiptionMax = 0.3f;
 
 	float fontSize = 32.0f;
 	Item* items[InventorySize];

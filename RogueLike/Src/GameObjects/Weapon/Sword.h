@@ -29,6 +29,7 @@ class Sword:public GameObject,public Weapon,public Collider,public Item
 	bool flipHorizontalFromFile = false;
 	bool flipVertical = false;
 	bool isRangeScale = false;
+	float lastScaleRange = 1.0f;
 	Vector2 faceingDir = { 0,0 };
 public:
 #pragma region Constructor

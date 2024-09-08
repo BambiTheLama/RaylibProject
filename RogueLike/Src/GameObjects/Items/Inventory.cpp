@@ -247,17 +247,13 @@ void Inventory::draw()
 	{
 		itemPos = getItemPos(usingItem);
 		Rectangle descriptionPos = this->descriptionPos;
-		float procent = powf(timerDesctiption / timerDesctiptionMax, 2);
+		float procent = 0.0f;
 		if (showDescription)
-		{
-			descriptionPos.x = descriptionPos.x * (1.0f - procent) + descriptionStart.x * procent;
-			descriptionPos.y = descriptionPos.y * (1.0f - procent) + descriptionStart.y * procent;
-		}
+			procent = powf(timerDesctiption / timerDesctiptionMax, 2);
 		else
-		{
-			descriptionPos.x = descriptionPos.x * procent + descriptionEnd.x * (1.0f - procent);
-			descriptionPos.y = descriptionPos.y * procent + descriptionEnd.y * (1.0f - procent);
-		}
+			procent = powf(1.0f - timerDesctiption / timerDesctiptionMax, 2);
+		descriptionPos.x = descriptionPos.x * (1.0f - procent) + descriptionStart.x * procent;
+		descriptionPos.y = descriptionPos.y * (1.0f - procent) + descriptionStart.y * procent;
 		if (items[usingItem])
 			items[usingItem]->drawDescription(descriptionPos, fontSize);
 	}
@@ -365,7 +361,10 @@ void Inventory::setItemToHand()
 
 void Inventory::swapVisibleDescriptions()
 {
-	timerDesctiption = timerDesctiptionMax;
+	if (timerDesctiption <= 0.0f)
+		timerDesctiption = timerDesctiptionMax;
+	else
+		timerDesctiption = timerDesctiptionMax - timerDesctiption;
 	showDescription = !showDescription;
 	choseFromEq = true;
 	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);

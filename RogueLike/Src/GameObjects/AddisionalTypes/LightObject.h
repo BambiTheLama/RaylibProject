@@ -10,7 +10,7 @@ class LightObject
 {
 	float radius = 0.0f;
 protected:
-	float zoom = 10.0f;
+	float zoom = 3.0f;
 	bool valid = false;
 	float timer = 0.0f;
 	float lightTimer = 0.0f;
