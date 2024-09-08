@@ -48,6 +48,7 @@
     <ClInclude Include="Src\GameObjects\AddisionalTypes\ShadowObject.h" />
     <ClInclude Include="Src\GameObjects\Characters\Enemy.h" />
     <ClInclude Include="Src\GameObjects\Characters\Player.h" />
+    <ClInclude Include="Src\GameObjects\Characters\ShopKeeper.h" />
     <ClInclude Include="Src\GameObjects\Characters\StandardEnemy.h" />
     <ClInclude Include="Src\GameObjects\Collider\Collider.h" />
     <ClInclude Include="Src\GameObjects\Collider\CollisionElement.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Src\GameObjects\AddisionalTypes\ShadowObject.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Enemy.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\Player.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\ShopKeeper.cpp" />
     <ClCompile Include="Src\GameObjects\Characters\StandardEnemy.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\Collider.cpp" />
     <ClCompile Include="Src\GameObjects\Collider\CollisionElement.cpp" />

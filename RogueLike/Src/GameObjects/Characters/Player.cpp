@@ -33,7 +33,7 @@ Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
     inventory = new Inventory(this);
     ///*
 
-    for (int j = 0; j < 10; j++)
+    for (int j = 4; j < 14; j++)
     {
         Weapon* w = getWeapon(0, 0, (WeaponType)j);
         if (!w)
@@ -51,7 +51,7 @@ Player::~Player() {
 
 void Player::start() {
     //LightObject::colorCenter = YELLOW;
-    LightObject::setRange(1000.0f);
+    LightObject::setRange(400.0f);
     lightPosDiff = { pos.width / 2,pos.height / 2 };
 }
 
@@ -187,7 +187,7 @@ void Player::draw() {
 void Player::drawUI()
 {
     inventory->draw();
-    MyFont::DrawTextWithOutline(TextFormat("%d$", coins), 0, 300, MyFont::getFontSize(), ORANGE, BLACK);
+    MyFont::DrawTextWithOutline(TextFormat("{Icon:11}%d", coins), 0, 300, MyFont::getFontSize(), WHITE, BLACK);
 
 }
 

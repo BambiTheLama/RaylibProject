@@ -33,7 +33,8 @@ void Coin::destroy()
 	if (!Game::isGameScene() || particleAcctivated)
 		return;
 	Vector2 pos = getMidlePoint(getPos());
-	Game::addObject(new ParticleText(pos.x, pos.y, 1,  std::to_string(coins)+"$", ORANGE));
+	Game::addObject(new ParticleText(pos.x, pos.y, 1, "{Icon:11}"+ std::to_string(coins), ORANGE));
+	particleAcctivated = true;
 }
 
 void Coin::update(float deltaTime)

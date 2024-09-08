@@ -195,7 +195,7 @@ void Floor::createFloor()
 
     setUpObjects(std::vector<int>{ 0,1,2,3 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
-    setUpObjects(std::vector<int>{ 1 }, 100, BlockType::ElitEnemySpawn, roomGrid, getObject, 36, 36);
+    //setUpObjects(std::vector<int>{ 1 }, 100, BlockType::ElitEnemySpawn, roomGrid, getObject, 36, 36);
     setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
     removeCloseEnemies();
     
