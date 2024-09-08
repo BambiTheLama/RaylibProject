@@ -211,6 +211,8 @@ void Inventory::dropItem()
 
 void Inventory::update(float deltaTime,Vector2 dir)
 {
+
+	timerDesctiption = fmaxf(timerDesctiption - deltaTime, 0.0f);
 	if (!items[usingItem])
 		return;
 	showItem();
@@ -240,6 +242,26 @@ void Inventory::draw()
 {
 	Rectangle itemPos;
 	const float diffPos = 10;
+
+	if (showDescription || timerDesctiption > 0.0f)
+	{
+		itemPos = getItemPos(usingItem);
+		Rectangle descriptionPos = this->descriptionPos;
+		float procent = powf(timerDesctiption / timerDesctiptionMax, 2);
+		if (showDescription)
+		{
+			descriptionPos.x = descriptionPos.x * (1.0f - procent) + descriptionStart.x * procent;
+			descriptionPos.y = descriptionPos.y * (1.0f - procent) + descriptionStart.y * procent;
+		}
+		else
+		{
+			descriptionPos.x = descriptionPos.x * procent + descriptionEnd.x * (1.0f - procent);
+			descriptionPos.y = descriptionPos.y * procent + descriptionEnd.y * (1.0f - procent);
+		}
+		if (items[usingItem])
+			items[usingItem]->drawDescription(descriptionPos, fontSize);
+	}
+
 	for (int i = 0; i < InventorySize; i++)
 	{
 		itemPos = getItemPos(i);
@@ -250,12 +272,7 @@ void Inventory::draw()
 		if (items[i])
 			items[i]->drawIcon(RectangleDecreasSize(itemPos, 8), false);
 
-		if (i == usingItem && showDescription)
-		{
-			itemPos = RectangleDecreasSize(itemPos, diffPos);
-			if (items[i])
-				items[i]->drawDescription(descriptionPos, fontSize);
-		}
+
 
 	}
 	if (itemInHand)
@@ -348,6 +365,7 @@ void Inventory::setItemToHand()
 
 void Inventory::swapVisibleDescriptions()
 {
+	timerDesctiption = timerDesctiptionMax;
 	showDescription = !showDescription;
 	choseFromEq = true;
 	Weapon* w = dynamic_cast<Weapon*>(items[usingItem]);

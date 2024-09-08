@@ -337,3 +337,8 @@ Vector2 DirFromAngle(float angle)
 	angle *= DEG2RAD;
 	return { cosf(angle) - sinf(angle),sinf(angle) + cosf(angle) };
 }
+
+Rectangle changeRecntalgeSize(Rectangle pos, float w, float h)
+{
+	return { pos.x + (pos.width - w) / 2,pos.y + (pos.height - h) / 2,w,h };
+}

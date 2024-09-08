@@ -30,7 +30,7 @@ Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
     type = ObjectType::Player;
     mass = 10;
     trigger = false;
-    inventory = Inventory(this);
+    inventory = new Inventory(this);
     ///*
 
     for (int j = 0; j < 10; j++)
@@ -39,7 +39,7 @@ Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
         if (!w)
             continue;
         Item* i = dynamic_cast<Item*>(w);
-        if (i && !inventory.addItem(i))
+        if (i && !inventory->addItem(i))
             delete w;
     }
 
@@ -58,8 +58,8 @@ void Player::start() {
 void Player::update(float deltaTime) {
     Hitable::update(deltaTime);
     LightObject::update(deltaTime);
-    inventory.update(deltaTime, getcursorDir());
-    inventory.updateClick();
+    inventory->update(deltaTime, getcursorDir());
+    inventory->updateClick();
     timer += deltaTime;
     timer -= (float)((int)(timer / 1) * 1);
     updateCloseInteractive();
@@ -92,11 +92,11 @@ void Player::updateCloseInteractive()
 }
 
 void Player::move(Vector2 dir, float deltaTime) {
-    if (!inventory.isDescriptionShowed())
+    if (!inventory->isDescriptionShowed())
     {
         Character::move(dir, deltaTime);
     }
-    inventory.update(0.0f, getcursorDir());
+    inventory->update(0.0f, getcursorDir());
 }
 
 void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float deltaTime) {
@@ -106,11 +106,11 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     {
     case Input::Attack:
         //weapon->use(cursorDir, deltaTime);
-        inventory.use(useDir, deltaTime);
-        inventory.setTarget(target);
+        inventory->use(useDir, deltaTime);
+        inventory->setTarget(target);
         break;
     case Input::StopAttack:
-        inventory.stopUse(useDir, deltaTime);
+        inventory->stopUse(useDir, deltaTime);
         break;
     case Input::Bomb:
         Game::addObject(new Bomb(pos.x + pos.width / 2 + cursorDir.x * 50, pos.y + pos.height / 2 + cursorDir.y * 50));
@@ -118,42 +118,42 @@ void Player::action(Input input, Vector2 movedir, Vector2 cursorDir, float delta
     case Input::IDE:
         break;
     case Input::NextItem:
-        if (!inventory.isDescriptionShowed())
-            inventory.nextItem(false);
+        if (!inventory->isDescriptionShowed())
+            inventory->nextItem(false);
         break;
     case Input::PrivItem:
-        if (!inventory.isDescriptionShowed())
-            inventory.privItem(false);
+        if (!inventory->isDescriptionShowed())
+            inventory->privItem(false);
         break;
     case Input::SwapDescriptionVisible:
-        inventory.swapVisibleDescriptions();
+        inventory->swapVisibleDescriptions();
         break;
     case Input::Interact:
-        if (inventory.isDescriptionShowed())
-            inventory.setItemToHand();
+        if (inventory->isDescriptionShowed())
+            inventory->setItemToHand();
         else
             interact();
         break;
 
     case Input::NextSlot:
-        if (inventory.isDescriptionShowed())
-            inventory.nextSlot();
+        if (inventory->isDescriptionShowed())
+            inventory->nextSlot();
         break;
     case Input::PrivSlot:
-        if (inventory.isDescriptionShowed())
-            inventory.privSlot();
+        if (inventory->isDescriptionShowed())
+            inventory->privSlot();
         break;
     case Input::UpSlot:
-        if (inventory.isDescriptionShowed())
-            inventory.upSlot();
+        if (inventory->isDescriptionShowed())
+            inventory->upSlot();
         break;
     case Input::DownSlot:
-        if (inventory.isDescriptionShowed())
-            inventory.downSlot();
+        if (inventory->isDescriptionShowed())
+            inventory->downSlot();
         break;
     case Input::DropItem:
-        if (!inventory.isDescriptionShowed())
-            inventory.dropItem();
+        if (!inventory->isDescriptionShowed())
+            inventory->dropItem();
     default:
         break;
     }
@@ -180,14 +180,14 @@ void Player::draw() {
     Vector2 starLine = { pos.x + pos.width / 2,pos.y + pos.height / 2 };
 
     //DrawSegmentLine(starLine, useDir, 10, timer*3, rangeMax, segments, BLACK);
-    inventory.drawItem();
+    inventory->drawItem();
 
 }
 
 void Player::drawUI()
 {
-    inventory.draw();
-    MyFont::DrawTextWithOutline(TextFormat("{Icon:2}: %d", coins), 0, 300, MyFont::getFontSize(), ORANGE, BLACK);
+    inventory->draw();
+    MyFont::DrawTextWithOutline(TextFormat("%d$", coins), 0, 300, MyFont::getFontSize(), ORANGE, BLACK);
 
 }
 

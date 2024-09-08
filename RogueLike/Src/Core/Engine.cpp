@@ -49,6 +49,7 @@ Engine::Engine() {
 
         s->update(deltaTime);
         BeginDrawing();
+
         ClearBackground(GetColor(0x333377ff));
         s->draw();
         timer -= GetFrameTime();
@@ -58,7 +59,7 @@ Engine::Engine() {
             timer = 0.1f;
         }
         MyFont::DrawTextWithOutline(text.c_str(), 0, 0, 32, GREEN, BLACK);
-        //DrawFPS(0, 0);
+
         EndDrawing();
     }
     if (s)

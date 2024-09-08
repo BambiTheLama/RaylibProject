@@ -15,7 +15,7 @@ class Player
     : public GameObject, public Character, public Collider,public Hitable,public DrawUI ,public LightObject
 {
     float speed = 2;
-    Inventory inventory;
+    Inventory* inventory = nullptr;
     Vector2 useDir = { 0.0f,0.0f };
     Interactive* closeObj = nullptr;
     float timer=0.0f;
@@ -44,7 +44,7 @@ public:
 
     void onCollisionEnter(Collider* collider) override;
 
-    bool addItem(Item* i) { return inventory.addItem(i); }
+    bool addItem(Item* i) { return inventory->addItem(i); }
 
     void onCollisionExit(Collider* collider) override;
 

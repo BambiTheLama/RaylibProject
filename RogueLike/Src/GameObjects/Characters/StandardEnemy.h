@@ -40,7 +40,6 @@ public:
 
     void destroy() override;
 
-
     void update(float deltaTime);
 
     void draw();
@@ -51,7 +50,7 @@ public:
 
     void setPos(Vector2 point) { pos.x = point.x - pos.width / 2; pos.y = point.y - pos.height / 2; }
 
-    Vector2 getHoldPoint() { return { pos.x + spawnPoint.x,pos.y + spawnPoint.y }; }
+    Vector2 getHoldPoint();
 
     void destoryController();
 

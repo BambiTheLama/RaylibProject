@@ -64,5 +64,5 @@ Color mixColor(Color c1, Color c2, float procent);
 
 Vector2 DirFromAngle(float angle);
 
-
+Rectangle changeRecntalgeSize(Rectangle pos, float w, float h);
 

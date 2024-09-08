@@ -151,9 +151,12 @@ void StandardEnemy::draw()
 	Color c = getHitColor(WHITE);
 	Rectangle pos = getPos();
 	Hitable::draw({ pos.x + pos.width / 2 - hpBarSize / 2,pos.y - 30,hpBarSize,20 });
+	float timer = std::sin(moveTimer * 16);
+	const float sizeDiff = 5.0f;
+	pos = changeRecntalgeSize(pos, pos.width + timer * 2 * sizeDiff, pos.height - timer * 2 * sizeDiff);
 	pos.x += pos.width / 2;
 	pos.y += pos.height / 2;
-	texture.draw(pos, false, false, frame, { pos.width / 2,pos.height / 2 }, std::sin(moveTimer * 16) * 5, c);
+	texture.draw(pos, false, false, frame, { pos.width / 2,pos.height / 2 }, timer * 5, c);
 
 	GameObject* gm = dynamic_cast<GameObject*>(weapon);
 	if (gm)
@@ -195,6 +198,12 @@ void StandardEnemy::onCollision(Collider* collider)
 		}
 	}
 
+}
+
+Vector2 StandardEnemy::getHoldPoint()
+{
+	float timer = std::sin(moveTimer * 16);
+	return { pos.x + spawnPoint.x,pos.y + spawnPoint.y - timer * 5.0f };
 }
 
 void StandardEnemy::destoryController()
