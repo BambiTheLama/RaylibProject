@@ -44,9 +44,13 @@ public:
 
     void onCollisionEnter(Collider* collider) override;
 
+    void onTriggerEnter(Collider* collider) override;
+
     bool addItem(Item* i) { return inventory->addItem(i); }
 
     void onCollisionExit(Collider* collider) override;
+
+
 
     virtual float getSpeed() { return speed; }
 

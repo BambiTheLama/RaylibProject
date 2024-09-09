@@ -187,13 +187,29 @@ void Player::draw() {
 void Player::drawUI()
 {
     inventory->draw();
-    MyFont::DrawTextWithOutline(TextFormat("{Icon:11}%d", coins), 0, 300, MyFont::getFontSize(), WHITE, BLACK);
+    MyFont::DrawTextWithOutline(TextFormat("{Icon:11}%d", coins), 0, 300, MyFont::getFontSize(), ORANGE, BLACK);
 
 }
 
 void Player::onCollisionEnter(Collider* collider) { 
     Character* ch = dynamic_cast<Character*>(collider);
     Hitable* hit = dynamic_cast<Hitable*>(collider);
+    GameObject* gm = collider->getThisObj();
+    if (gm)
+    {
+        if (gm->getType() == ObjectType::Coins)
+        {
+
+            Coin* c = dynamic_cast<Coin*>(gm);
+            if (c)
+                coins += c->getCoins();
+            Game::deleteObject(gm);
+        }
+    }
+}
+
+void Player::onTriggerEnter(Collider* collider)
+{
     GameObject* gm = collider->getThisObj();
     if (gm)
     {

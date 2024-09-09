@@ -116,7 +116,10 @@ void Collider::clearCollider() {
     colliders.clear();
     for (auto c : collidersExit)
     {
-        onCollisionExit(c);
+        if (c->trigger)
+            onTriggerExit(c);
+        else
+            onCollisionExit(c);
     }
 
 }
@@ -241,10 +244,8 @@ void Collider::checkCollision(float deltaTime) {
             if (find == lastFrameColliders.end()) {
                 if (trigger || collider->trigger)
                 {
-                    if (trigger)
-                        onTriggerEnter(collider);
-                    if (collider->trigger)
-                        collider->onTriggerEnter(this);
+                    onTriggerEnter(collider);
+                    collider->onTriggerEnter(this);
                 }
                 else
                 {
@@ -254,10 +255,8 @@ void Collider::checkCollision(float deltaTime) {
             } else {
                 if (trigger || collider->trigger)
                 {
-                    if (trigger)
-                        onTrigger(collider);
-                    if (collider->trigger)
-                        collider->onTrigger(this);
+                    onTrigger(collider);
+                    collider->onTrigger(this);
                 }
                 else
                 {

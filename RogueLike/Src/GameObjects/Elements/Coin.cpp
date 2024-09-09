@@ -19,7 +19,7 @@ Coin::Coin(Rectangle pos, int coins)
 	this->coins = coins;
 	texture = TextureController("Elements/Coins.png");
 	moving = false;
-	trigger = false;
+	trigger = true;
 	addCollisionElement(new CollisionElementCircle({ pos.width/2,pos.height/2 }, pos.width / 5));
 }
 
