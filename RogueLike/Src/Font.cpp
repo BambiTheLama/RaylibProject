@@ -25,17 +25,17 @@ namespace MyFont
 		diffFont = LoadFontEx("Res/RobotoSlab-Regular.ttf", 512, 0, 255 * 2);
 		SetTextureFilter(diffFont.texture, TEXTURE_FILTER_BILINEAR);
 		//diffFont = LoadFont("Res/PatrickHand.ttf");
-		icons.push_back(TextureController("Icons/DamageIcon.png"));
-		icons.push_back(TextureController("Icons/UseTimeIcon.png"));
-		icons.push_back(TextureController("Icons/ReloadIcon.png"));
-		icons.push_back(TextureController("Icons/SpeedIcon.png"));
-		icons.push_back(TextureController("Icons/RangeIcon.png"));
-		icons.push_back(TextureController("Icons/AngleIcon.png"));
-		icons.push_back(TextureController("Icons/KnockbackIcon.png"));
-		icons.push_back(TextureController("Icons/CountOfUseIcon.png"));
-		icons.push_back(TextureController("Icons/BounceIcon.png"));
-		icons.push_back(TextureController("Icons/PirceIcon.png"));
-		icons.push_back(TextureController("Icons/InportantStat.png"));
+		icons.push_back(TextureController("Icons/Damage.png"));
+		icons.push_back(TextureController("Icons/UseTime.png"));
+		icons.push_back(TextureController("Icons/Reload.png"));
+		icons.push_back(TextureController("Icons/Speed.png"));
+		icons.push_back(TextureController("Icons/Range.png"));
+		icons.push_back(TextureController("Icons/Angle.png"));
+		icons.push_back(TextureController("Icons/Knockback.png"));
+		icons.push_back(TextureController("Icons/CountOfUse.png"));
+		icons.push_back(TextureController("Icons/Bounce.png"));
+		icons.push_back(TextureController("Icons/Pirce.png"));
+		icons.push_back(TextureController("Icons/Star.png"));
 		icons.push_back(TextureController("Icons/Gold.png"));
 	}
 

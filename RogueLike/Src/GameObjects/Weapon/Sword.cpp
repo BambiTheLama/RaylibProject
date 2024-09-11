@@ -72,7 +72,7 @@ void Sword::update(float deltaTime)
 			used = true;
 		}
 		useTime -= deltaTime;
-		
+
 		addLineTimer -= deltaTime;
 		if (addLineTimer <= 0 || fabs(lastAngle - angle) > angleDiffMax)
 		{
@@ -90,6 +90,7 @@ void Sword::update(float deltaTime)
 
 		if (useTime <= 0.0f)
 		{
+			triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
 			numberOfUse--;
 			points.clear();
 			if (numberOfUse <= 0)
@@ -107,6 +108,7 @@ void Sword::update(float deltaTime)
 			addLineTimer = 0.0f;
 			Collider::mirror = left != flipHorizontal;
 			Weapon::mirror = left != flipHorizontal;
+
 		}
 	}
 }

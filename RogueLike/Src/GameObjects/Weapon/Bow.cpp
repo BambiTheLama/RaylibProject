@@ -33,7 +33,11 @@ void Bow::stopUse(Vector2 dir, float deltaTime)
 {
 	loadTime += deltaTime;
 	if (loadTime >= stats.getUseTime())
+	{
 		triggerNode(WeaponNodeActivation::OnUse, stats);
+		triggerNode(WeaponNodeActivation::OnEffectEnd, stats);
+	}
+
 	loadTime = 0.0f;
 
 }
