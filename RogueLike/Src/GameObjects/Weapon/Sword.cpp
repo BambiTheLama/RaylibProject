@@ -169,7 +169,7 @@ void Sword::onTriggerEnter(Collider* collider)
 #pragma region DrawFun
 void Sword::draw(Rectangle pos, Color c)
 {
-	Vector2 rotationPoint = this->rotationPoint;
+	Vector2 rotationPoint = getRotationPoint();
 	float angle = this->angle;
 
 	bool mirror = Collider::mirror;

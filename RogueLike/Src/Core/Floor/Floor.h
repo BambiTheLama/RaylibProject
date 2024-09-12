@@ -19,6 +19,7 @@ class Floor
     std::list<GameObject*> toAdd;
     std::list<Collider*> colliders;
     std::list<ShadowObject*> shadows;
+    std::vector<int> enemyID;
     PathFinder* pathFinder = nullptr;
     QuadTree* tree;
     Rectangle pos;

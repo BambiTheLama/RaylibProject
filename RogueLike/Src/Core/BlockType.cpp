@@ -13,6 +13,8 @@ static std::map<BlockType, int> roomColor = {
 	{BlockType::LootSpawnPoint	,	0xff9900ff},
 	{BlockType::BossEnterWall	,	0xaa0000ff},
 	{BlockType::BossSpawnPoint	,	0x000000ff},
+	{BlockType::Torch           ,   0x999999ff},
+	{BlockType::ShopKeeper		,	0x00ff99ff}	
 
 };
 

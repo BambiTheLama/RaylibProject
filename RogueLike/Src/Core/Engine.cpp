@@ -58,8 +58,8 @@ Engine::Engine() {
             text = TextFormat("%d FPS", (int)(1.0f / GetFrameTime()));
             timer = 0.1f;
         }
-        MyFont::DrawTextWithOutline(text.c_str(), 0, 0, 32, GREEN, BLACK);
-
+        //MyFont::DrawTextWithOutline(text.c_str(), 0, 0, 32, GREEN, BLACK);
+        DrawFPS(0, 0);
         EndDrawing();
     }
     if (s)

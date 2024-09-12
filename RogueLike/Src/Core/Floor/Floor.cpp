@@ -168,6 +168,16 @@ Floor::~Floor()
     toDelete.clear();
     delete tree;
 }
+#include "../../GameObjects/Elements/Torch.h"
+
+GameObject* getTorch(int ID, Rectangle pos)
+{
+    return new Torch(pos);
+}
+GameObject* getShopKeeper(int ID, Rectangle pos)
+{
+    return new Torch(pos);
+}
 
 void Floor::createFloor()
 {
@@ -192,11 +202,12 @@ void Floor::createFloor()
             Room room = getRoom(type, ID);
             setUpRooms(startX, startY, room);
         }
-
-    setUpObjects(std::vector<int>{ 0,1,2,3 }, 5, BlockType::EnemySpawnPoint, roomGrid, getEnemy, 36, 36);
-    setUpObjects(std::vector<int>{ 0 }, 50, BlockType::LootSpawnPoint, roomGrid, getObject, 36, 36);
-    //setUpObjects(std::vector<int>{ 1 }, 100, BlockType::ElitEnemySpawn, roomGrid, getObject, 36, 36);
-    setUpObjects(std::vector<int>{ 0 }, 10, BlockType::ChestSpawnPoint, roomGrid, getChest, 36, 36);
+    enemyID = std::vector<int>{ 0,1,2,3 };
+    setUpObjects(enemyID,   5,      BlockType::EnemySpawnPoint,     roomGrid,  getEnemy,      36, 36);
+    setUpObjects({0},       50,     BlockType::LootSpawnPoint,      roomGrid,  getObject,     36, 36);
+    setUpObjects({0},       100,    BlockType::ChestSpawnPoint,     roomGrid,  getChest,      36, 36);
+    setUpObjects({0},       100,    BlockType::Torch,               roomGrid,  getTorch,      36, 36);
+    setUpObjects({0},       100,    BlockType::ShopKeeper,          roomGrid,  getShopKeeper, 36, 36);
     removeCloseEnemies();
     
 }

@@ -12,7 +12,9 @@ enum class BlockType :char
 	LootSpawnPoint,
 	BossSpawnPoint,
 	BossEnterWall,
-	ElitEnemySpawn
+	ElitEnemySpawn,
+	Torch,
+	ShopKeeper
 };
 
 bool isWallType(BlockType tpye);
