@@ -251,15 +251,7 @@ void StandardEnemy::readData(std::string type, nlohmann::json data, int level)
 
 	if (data[type].contains("Col"))
 	{
-		std::vector<Vector2> col;
-		
-		for (int i = 0; i < data[type]["Col"].size(); i++)
-		{
-			int x = data[type]["Col"][i][0];
-			int y = data[type]["Col"][i][1];
-			col.push_back({ (float)x,(float)y });
-		}
-		addCollisionElement(new CollisionElementLines(col));
+		Collider::readColliders(data[type]["Col"]);
 	}
 	if (data[type].contains("Mass"))
 		mass = data[type]["Mass"];

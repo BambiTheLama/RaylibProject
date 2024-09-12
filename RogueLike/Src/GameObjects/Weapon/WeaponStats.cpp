@@ -450,7 +450,7 @@ std::string WeaponStats::getStringLine(int l, StatType& statType)
 	StatType type;
 	toStringData(line, l, data, damage,		"Damage"		, 0, statType);
 	toStringData(line, l, data, useTime,	"UseTime"		, 1, statType);
-	toStringData(line, l, data, reloadTime,	"ReloadTime"	, 2, statType);
+	toStringData(line, l, data, reloadTime,	"ReloadTime"	, 2, statType, true);
 	toStringData(line, l, data, speed,		"Speed"		, 3, statType);
 	toStringData(line, l, data, range,		"Range"		, 4, statType);
 	toStringData(line, l, data, angle,		"Angle"		, 5, type);

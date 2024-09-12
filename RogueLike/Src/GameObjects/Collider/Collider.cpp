@@ -6,6 +6,8 @@
 #include "../Game.h"
 #include "../../Core/WaveCollapsFun.h"
 #include <math.h>
+#include "CollisionElementCircle.h"
+#include "CollisionElementLines.h"
 
 Collider::Collider(){
     thisObj = dynamic_cast<GameObject*>(this);
@@ -301,6 +303,36 @@ void Collider::clearCollisionElements()
     for (auto e : collisionElements)
         delete e;
     collisionElements.clear();
+}
+
+void Collider::readColliders(nlohmann::json json)
+{
+    if (json.is_array())
+    {
+        std::vector<Vector2> lines;
+        for (int i = 0; i < json.size(); i++)
+        {
+            float x = json[i][0];
+            float y = json[i][1];
+            lines.push_back({ x,y });
+        }
+        if (lines.size() > 0)
+            addCollisionElement(new CollisionElementLines(lines));
+    }
+    else
+    {
+        Vector2 circleP = { 0,0 };
+        float range = 0.0f;
+        if (json.contains("Point"))
+        {
+            circleP.x = json["Point"][0];
+            circleP.y = json["Point"][1];
+        }
+        if (json.contains("Range"))
+            range = json["Range"];
+        addCollisionElement(new CollisionElementCircle(circleP, range));
+    }
+
 }
 
 void Collider::draw() {

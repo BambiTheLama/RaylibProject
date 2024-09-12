@@ -12,8 +12,7 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 {
 	type = ObjectType::Item;
 	pos = { 0,0,32,32 };
-	std::vector<Vector2> col;
-	readFromWeaponData(weaponType, col, variant);
+	readFromWeaponData(weaponType, variant);
 	int variantToRead = 0;
 	if (data.contains(weaponType))
 	{
@@ -29,13 +28,13 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 	}
 
 	Collider::difSize = { pos.width,pos.height };
-	addCollisionElement(new CollisionElementLines(col));
 	Collider::getThisObj();
 	moving = true;
 	mass = 1;
 	updateWeaponSize();
 	//setIsSpawn(true);
 	//setSpawnID(1);
+
 }
 
 Sword::~Sword()
@@ -47,7 +46,8 @@ void Sword::start()
 {
 	Weapon::start();
 	Item::start();
-
+	numberOfUseMax = stats.getCountOfUse();
+	numberOfUse = numberOfUseMax;
 }
 
 void Sword::update(float deltaTime)
@@ -100,14 +100,11 @@ void Sword::update(float deltaTime)
 			}
 			else
 			{
-				useTime = useTimeMax;
 				used = false;
 				angle = getWeaponRotation();
-				left = !left;
 			}
 			addLineTimer = 0.0f;
-			Collider::mirror = left != flipHorizontal;
-			Weapon::mirror = left != flipHorizontal;
+
 
 		}
 	}
@@ -124,15 +121,20 @@ void Sword::update(float deltaTime, Vector2 dir)
 
 void Sword::use(Vector2 dir, float deltaTime)
 {
-	if (useTime <= 0 && reloadTime <= 0)
+	if (useTime <= 0 && reloadTime <= 0 && numberOfUse >= 0)
 	{
 		if (!hasOwnRotationAngle)
-			rotationAgnel = stats.getAngle();
+			rotationAgnel = Clamp(stats.getAngle(), 0.0f, 360);
 		if (!hasDefineNumberOfUse)
+		{
 			numberOfUseMax = stats.getCountOfUse();
-		numberOfUse = numberOfUseMax;
+			if (numberOfUse <= 0)
+				numberOfUse = numberOfUseMax;
+		}
+
+		//numberOfUse = numberOfUseMax;
 		left = !left;
-		useTimeMax = stats.getUseTime() / std::max(numberOfUseMax, 1);
+		useTimeMax = stats.getUseTime();
 		useTime = useTimeMax;
 
 		Collider::mirror = left != flipHorizontal;
@@ -223,6 +225,12 @@ void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 		procent = (useTime + (numberOfUse - 1) * (useTimeMax)) / (std::max(numberOfUseMax, 1) * useTimeMax);
 		c.b = 255;
 	}
+	else
+	{
+		procent = (float)numberOfUse / std::max(numberOfUseMax, 1);
+		c.b = 255;
+	}
+
 	DrawRing({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, c);
 	DrawRingLines({ pos.x + pos.width / 2,pos.y + pos.height / 2 }, pos.height / 4, pos.height / 2, procent * 360 - 90, -90, 30, BLACK);
 }
@@ -298,14 +306,14 @@ void Sword::scaleWeapon(float scale)
 float Sword::getWeaponRotation()
 {
 	if (!hasOwnRotationAngle)
-		rotationAgnel = stats.getAngle();
+		rotationAgnel = Clamp(stats.getAngle(), 0.0f, 360);
 	float angle = Vector2Angle({ 0.0000001f,0.0000001f }, faceingDir) * 180 / PI;
 	if (!left)
 		return angle - rotationAgnel / 2;
 	return angle + rotationAgnel / 2;
 }
 
-void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant)
+void Sword::readFromWeaponData(std::string weaponType, int variant)
 {
 	if (!weaponData.contains(weaponType))
 		return;
@@ -321,12 +329,7 @@ void Sword::readFromWeaponData(std::string weaponType, std::vector<Vector2>& col
 		flipVertical = weaponData[weaponType]["FlipVertical"];
 	if (weaponData[weaponType].contains("Col"))
 	{
-		for (int i = 0; i < weaponData[weaponType]["Col"].size(); i++)
-		{
-			int x = weaponData[weaponType]["Col"][i][0];
-			int y = weaponData[weaponType]["Col"][i][1];
-			col.push_back({ (float)x,(float)y });
-		}
+		Collider::readColliders(weaponData[weaponType]["Col"]);
 	}
 	if (weaponData[weaponType].contains("RangeScale"))
 	{

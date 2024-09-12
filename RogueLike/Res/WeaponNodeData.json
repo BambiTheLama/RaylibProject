@@ -1,184 +1,197 @@
 [
     [
         {
-            "Texture": "Icons/DamageIcon.png",
+            "Texture": "Items/Anvil.png",
             "Type": 0,
             "WeaponStats": {
-                "Damage": [
-                    {
-                        "Min": 1,
-                        "Max": 2,
-                        "MulMin": 1,
-                        "MulMax": 2
-                    }
-                ]
+                "Damage": {
+                    "Min": 1,
+                    "Max": 2
+                },
+                "Knockback": {
+                    "Min": 10,
+                    "Max": 30
+                },
+                "UseTime": {
+                    "Min": 0.4,
+                    "Max": 0.2
+                },
+                "ReloadTime": {
+                    "Min": 0.4,
+                    "Max": 1.0
+                },
+                "Speed": {
+                    "Min": -0.5,
+                    "Max": -0.3
+                }
+
             }
 
         },
         {
-            "Texture": "Icons/UseTimeIcon.png",
+            "Texture": "Items/AxeBlade.png",
             "Type": 0,
             "WeaponStats": {
-                "UseTime": [
-                    {
-                        "Min": -0.5,
-                        "Max": 0.5
-                    }
-                ]
+                "Damage": {
+                    "Min": 2,
+                    "Max": 4
+                },
+                "Range": {
+                    "Min": 0.3,
+                    "Max": 0.5
+                }
+
             }
 
         },
         {
-            "Texture": "Icons/ReloadIcon.png",
+            "Texture": "Items/BrokenArrow.png",
             "Type": 0,
             "WeaponStats": {
-                "ReloadTime": [
-                    {
-                        "Min": -0.5,
-                        "Max": 0.5
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/SpeedIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "Speed": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/RangeIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "Range": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/KnockbackIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "Knockback": [
-                    {
-                        "Min": 10,
-                        "Max": 20
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/AngleIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "Angle": [
-                    {
-                        "Min": -36,
-                        "Max": 36
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/CountOfUseIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "CountOfUse": [
-                    {
-                        "Min": 1,
-                        "Max": 5
-                    }
-                ]
-            }
-
-        },
-
-        {
-            "Texture": "Icons/PirceIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "Pirce": [
-                    {
-                        "Min": 1,
-                        "Max": 5
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/BounceIcon.png",
-            "Type": 0,
-            "WeaponStats": {
-                "Bounce": [
-                    {
-                        "Min": 1,
-                        "Max": 5
-                    }
-                ]
-            }
-
-        },
-        {
-            "Texture": "Icons/BounceIcon.png",
-            "Type": 1,
-            "Activation": 1,
-            "Spawn": "Bomb",
-            "WeaponStats": {
-                "Bounce": [
-                    {
-                        "Min": 0,
-                        "Max": 0
-                    }
-                ],
-                "Range": [
-                    {
-                        "Min": 3,
-                        "Max": 5
-                    }
-                ],
-                "UseTime": [
-                    {
-                        "Min": 1,
-                        "Max": 2
-                    }
-                ],
                 "CountOfUse": 1,
-                "Speed": 100,
+                "Range": {
+                    "Min": -0.2,
+                    "Max": -0.4
+                },
+                "Angle": 30
+
+            }
+
+        },
+        {
+            "Texture": "Items/BrokenBlade.png",
+            "Type": 0,
+            "WeaponStats": {
+                "Damage": {
+                    "Min": -0.4,
+                    "Max": 0.4
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/Flint.png",
+            "Type": 0,
+            "WeaponStats": {
+                "Damage": {
+                    "Min": 0.2,
+                    "Max": 0.4
+                },
+                "UseTime": {
+                    "Min": -0.2,
+                    "Max": 0.2
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/Glove.png",
+            "Type": 0,
+            "WeaponStats": {
+                "ReloadTime": {
+                    "Min": -0.2,
+                    "Max": -0.4
+                },
+                "UseTime": {
+                    "Min": -0.1,
+                    "Max": -0.3
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/HamerHead.png",
+            "Type": 0,
+            "WeaponStats": {
+                "Damage": {
+                    "Min": 7,
+                    "Max": 10
+                },
+                "UseTime": {
+                    "Min": 0.5,
+                    "Max": 0.75
+                },
+                "ReloadTime": {
+                    "Min": 0.15,
+                    "Max": 0.35
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/Oil.png",
+            "Type": 0,
+            "WeaponStats": {
+                "UseTime": {
+                    "Min": -0.5,
+                    "Max": -0.75
+                },
+                "ReloadTime": {
+                    "Min": -0.15,
+                    "Max": -0.35
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/ShurikenRain.png",
+            "Type": 1,
+            "Activation": 4,
+            "Spawn": "Shuriken",
+            "WeaponStats": {
+                "Bounce": [
+                    {
+                        "Min": 1,
+                        "Max": 2
+                    }
+                ],
+                "Range": 10,
+                "CountOfUse": 4,
+                "Speed": 10,
                 "Damage": [
                     {
                         "Min": 1.0,
                         "Max": 2.0
                     }
                 ],
-                "Angle": [
-                    {
-                        "Min": 36,
-                        "Max": 70
-                    }
-                ]
+                "Angle": 360
 
             }
+        },
+        {
+            "Texture": "Items/Stick.png",
+            "Type": 0,
+            "WeaponStats": {
+                "Range": {
+                    "Min": 0.5,
+                    "Max": 1.0
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/String.png",
+            "Type": 0,
+            "WeaponStats": {
+                "Angle": -20,
+                "Range": {
+                    "Min": 0.25,
+                    "Max": 0.75
+                }
+            }
+
+        },
+        {
+            "Texture": "Items/WoodLog.png",
+            "Type": 0,
+            "WeaponStats": {
+                "Knockback": {
+                    "Min": 10,
+                    "Max": 20
+                }
+            }
+
         }
-
-
-
-
-
 
 
     ]

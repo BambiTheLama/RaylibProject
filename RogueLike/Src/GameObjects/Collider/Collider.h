@@ -2,7 +2,7 @@
 #include "raylib.hpp"
 #include <vector>
 #include <list>
-
+#include <json.hpp>
 #include "CollisionElement.h"
 
 
@@ -79,6 +79,8 @@ public:
     void addCollisionElement(CollisionElement* element) { collisionElements.push_back(element); }
 
     void clearCollisionElements();
+
+    void readColliders(nlohmann::json json);
 
 #ifdef showColliders
     void draw();

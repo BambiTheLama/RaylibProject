@@ -16,7 +16,17 @@ void setUpItemFactory(std::string path)
 	itemData = readJson(path + "ItemData.json");
 }
 
-WeaponNodeItem* getWeaponNode(int tier, int& seed)
+int getWeaponNodeSize(int tier)
+{
+	if (weaponNodeData.size() <= 0)
+		return 0;
+	if (tier >= weaponNodeData.size())
+		tier = (int)weaponNodeData.size() - 1;
+
+	return weaponNodeData[tier].size();
+}
+
+WeaponNodeItem* getWeaponNode(int ID, int tier)
 {
 	if (weaponNodeData.size() <= 0)
 		return nullptr;
@@ -25,8 +35,8 @@ WeaponNodeItem* getWeaponNode(int tier, int& seed)
 
 	if (weaponNodeData[tier].size() <= 0)
 		return nullptr;
-	int itemInTier = getRandom(seed, 0, (int)weaponNodeData[tier].size());
-	return new WeaponNodeItem(weaponNodeData[tier][itemInTier]);
+	ID %= weaponNodeData[tier].size();
+	return new WeaponNodeItem(weaponNodeData[tier][ID]);
 }
 
 Weapon* getWeapon(int variant, int tier, WeaponType wt)

@@ -13,7 +13,7 @@ StandardProjectal::StandardProjectal()
 	type = ObjectType::Projectal;
 }
 
-StandardProjectal::StandardProjectal(nlohmann::json data, std::string type) :LightObject(0.0f)
+StandardProjectal::StandardProjectal(nlohmann::json data, std::string type)
 {
 	readData(data, type);
 }
@@ -26,7 +26,6 @@ void StandardProjectal::start()
 	drawOrder = 10;
 	trigger = true;
 	wasParticleSpawned = false;
-	LightObject::setRange(100.0f);
 }
 
 void StandardProjectal::destroy()
@@ -44,11 +43,11 @@ void StandardProjectal::destroy()
 
 void StandardProjectal::update(float deltaTime)
 {
-	LightObject::update(deltaTime);
+
 	frameTimer += deltaTime;
-	pos.x += dir.x * stats.getSpeed() * deltaTime;
-	pos.y += dir.y * stats.getSpeed() * deltaTime;
-	range -= stats.getSpeed() * deltaTime;
+	pos.x += dir.x * speed * deltaTime;
+	pos.y += dir.y * speed * deltaTime;
+	range -= speed * deltaTime;
 	timer -= deltaTime;
 	if (range <= 0.0f)
 		Game::deleteObject(this);
@@ -131,15 +130,7 @@ void StandardProjectal::readData(nlohmann::json data, std::string type)
 
 	if (data[type].contains("Col"))
 	{
-		std::vector<Vector2> lines;	
-		for (int i = 0; i < data[type]["Col"].size(); i++)
-		{
-			float x = data[type]["Col"][i][0];
-			float y = data[type]["Col"][i][1];
-			lines.push_back({ x,y });
-		}
-
-		addCollisionElement(new CollisionElementLines(lines));
+		Collider::readColliders(data[type]["Col"]);
 	}
 	else
 	{

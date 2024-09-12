@@ -81,6 +81,6 @@ private:
 	float getWeaponRotation();
 protected:
 
-	void readFromWeaponData(std::string weaponType, std::vector<Vector2>& col, int variant = 0);
+	void readFromWeaponData(std::string weaponType, int variant = 0);
 };
 

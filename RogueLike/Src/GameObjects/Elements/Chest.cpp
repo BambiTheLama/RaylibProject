@@ -56,13 +56,13 @@ void Chest::interact(GameObject* interactObj)
 		//Weapon* w = getWeapon(0, 0, getRandomWeaponType());
 		//if (!w)
 		//	continue;
-		//GameObject* o = dynamic_cast<GameObject*>(w);
-		GameObject* o = getWeaponNode(0, seed);
+		//GameObject* o = dynamic_cast<GameObject*>(w);'
+
+		int tier = 0;
+		int ID = getRandom(seed, 0, getWeaponNodeSize(tier));
+		GameObject* o = getWeaponNode(ID, tier);
 		if (!o)
-		{
-			//delete w;
 			continue;
-		}
 
 		o->setPos(getMidlePoint(moveRectangeBy( pos,Vector2Scale(randVector2(), 10))));
 		Game::addObject(o);

@@ -47,7 +47,7 @@
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 1.5,
+                "Value": 0.75,
                 "Inportant": true
             },
             "Range": {
@@ -94,7 +94,7 @@
                 "Inportant": true
             },
             "Speed": {
-                "Value": 600,
+                "Value": 6,
                 "Inportant": true
             },
             "Angle": {
@@ -114,7 +114,7 @@
                 "Inportant": true
             },
             "Range": {
-                "Value": 10,
+                "Value": 3,
                 "Inportant": true
             },
             "Damage": {
@@ -153,7 +153,7 @@
                 "Inportant": true
             },
             "Speed": {
-                "Value": 1000,
+                "Value": 10,
                 "Inportant": true
             },
             "Angle": {
@@ -216,15 +216,15 @@
                 "Inportant": true
             },
             "CountOfUse": {
-                "Value": 6,
+                "Value": 10,
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0.2,
+                "Value": 0.5,
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 1.5,
+                "Value": 0.25,
                 "Inportant": true
             },
             "Range": {
@@ -274,11 +274,11 @@
                 "Inportant": true
             },
             "ReloadTime": {
-                "Value": 0.2,
+                "Value": 0.5,
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 1.7,
+                "Value": 0.27,
                 "Inportant": true
             },
             "Range": {
@@ -354,25 +354,13 @@
     "Shuriken": {
         "Col": [
             [ 2, 2 ],
-            [ 5, 2 ],
             [ 15, 8 ],
-            [ 16, 8 ],
-            [ 26, 2 ],
             [ 29, 2 ],
-            [ 29, 5 ],
             [ 23, 15 ],
-            [ 23, 16 ],
-            [ 29, 26 ],
             [ 29, 29 ],
-            [ 26, 29 ],
             [ 16, 23 ],
-            [ 15, 23 ],
-            [ 5, 29 ],
             [ 2, 29 ],
-            [ 2, 26 ],
-            [ 8, 16 ],
-            [ 8, 15 ],
-            [ 2, 5 ]
+            [ 8, 16 ]
         ],
         "Size": [ 32, 32 ],
         "SpawnPoint": [ 16, 16 ],
@@ -405,7 +393,7 @@
                 "Inportant": true
             },
             "Speed": {
-                "Value": 500,
+                "Value": 5,
                 "Inportant": true
             },
             "Angle": {
@@ -425,7 +413,7 @@
                 "Inportant": true
             },
             "Range": {
-                "Value": 3,
+                "Value": 5,
                 "Inportant": true
             },
             "Damage": {
@@ -487,7 +475,7 @@
                 "Inportant": true
             },
             "UseTime": {
-                "Value": 1.0,
+                "Value": 0.5,
                 "Inportant": true
             },
             "Range": {
@@ -646,7 +634,7 @@
                 "Inportant": true
             },
             "Speed": {
-                "Value": 750,
+                "Value": 8,
                 "Inportant": true
             },
             "Angle": {
@@ -666,7 +654,7 @@
                 "Inportant": true
             },
             "Range": {
-                "Value": 100,
+                "Value": 10,
                 "Inportant": true
             },
             "Damage": {

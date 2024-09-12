@@ -5,7 +5,7 @@
 #include <json.hpp>
 #include "../AddisionalTypes/LightObject.h"
 
-class StandardProjectal:public Projectal,public GameObject,public Collider,public LightObject
+class StandardProjectal:public Projectal,public GameObject,public Collider
 {
 	float timer = 1.0f;
 	float frameTimer = 0.0f;
