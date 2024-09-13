@@ -228,6 +228,14 @@ void Player::onCollisionExit(Collider* collider) {
 
 }
 
+bool Player::removeCoins(int c)
+{
+    if (c > coins)
+        return false;
+    coins -= c;
+    return true;
+}
+
 void Player::interact()
 {
     Interactive* interactObj = getCloseInteractiveObjects();

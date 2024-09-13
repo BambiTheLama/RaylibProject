@@ -2,10 +2,14 @@
 #include "../GameObject.h"
 #include "../AddisionalTypes/Hitable.h"
 #include "../Collider/Collider.h"
+#include "../Elements/ShopItem.h"
+
 class ShopKeeper
 	:public GameObject,public Hitable,public Collider
 {
 	TextureController texture;
+	std::list<ShopItem*> items;
+	float timer = 0.0f;
 public:
 	ShopKeeper(Rectangle pos);
 
@@ -18,5 +22,7 @@ public:
 	void update(float deltaTime)override;
 
 	void draw() override;
+
+	void removeItem(ShopItem* item);
 };
 

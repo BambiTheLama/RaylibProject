@@ -27,7 +27,7 @@ namespace MyFont {
 
 	Vector2 TextSize(const char* text, float size, float spacing);
 
-	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint = { 0.0f,0.0f }, float angle = 0.0f);
+	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint = { 0.0f,0.0f }, float angle = 0.0f, float outLineSize = 2.0f);
 
 	float getFontSize();
 }

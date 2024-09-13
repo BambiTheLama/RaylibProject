@@ -11,10 +11,7 @@ int Chest::seed = 0;
 
 Chest::Chest(Rectangle pos, int tier)
 {
-	pos.width = tileW * 2;
-	pos.height = tileH * 2;
-	pos.y -= tileH/2;
-	pos.x -= tileW/2;
+	pos = changeRecntalgeSize(pos, tileW * 2, tileH * 2);
 	this->pos = pos;
 	addCollisionElement(new CollisionElementLines({ 0,0,pos.width,pos.height }));
 	solidObject = true;

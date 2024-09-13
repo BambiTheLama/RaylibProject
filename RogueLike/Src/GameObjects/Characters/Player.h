@@ -50,7 +50,9 @@ public:
 
     void onCollisionExit(Collider* collider) override;
 
+    int getCoins() { return coins; }
 
+    bool removeCoins(int c);
 
     virtual float getSpeed() { return speed; }
 

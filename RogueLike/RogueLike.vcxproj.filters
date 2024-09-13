@@ -249,7 +249,12 @@
     <ClInclude Include="Src\GameObjects\Elements\Coin.h">
       <Filter>Src\GameObjects\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObjects\Characters\ShopKeeper.h" />
+    <ClInclude Include="Src\GameObjects\Characters\ShopKeeper.h">
+      <Filter>Src\GameObjects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObjects\Elements\ShopItem.h">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -441,7 +446,12 @@
     <ClCompile Include="Src\GameObjects\Elements\Coin.cpp">
       <Filter>Src\GameObjects\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObjects\Characters\ShopKeeper.cpp" />
+    <ClCompile Include="Src\GameObjects\Characters\ShopKeeper.cpp">
+      <Filter>Src\GameObjects\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObjects\Elements\ShopItem.cpp">
+      <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

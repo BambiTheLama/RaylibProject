@@ -188,12 +188,11 @@ namespace MyFont
 		return textSize;
 	}
 
-	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint, float angle) {
-		const float size = 2;
-		MyFont::DrawText(text, x - size, y, fontSize, outlineColor, rotationPoint, angle);
-		MyFont::DrawText(text, x + size, y, fontSize, outlineColor, rotationPoint, angle);
-		MyFont::DrawText(text, x, y - size, fontSize, outlineColor, rotationPoint, angle);
-		MyFont::DrawText(text, x, y + size, fontSize, outlineColor, rotationPoint, angle);
+	void DrawTextWithOutline(const char* text, float x, float y, float fontSize, Color textColor, Color outlineColor, Vector2 rotationPoint, float angle, float outLineSize) {
+		MyFont::DrawText(text, x - outLineSize, y, fontSize, outlineColor, rotationPoint, angle);
+		MyFont::DrawText(text, x + outLineSize, y, fontSize, outlineColor, rotationPoint, angle);
+		MyFont::DrawText(text, x, y - outLineSize, fontSize, outlineColor, rotationPoint, angle);
+		MyFont::DrawText(text, x, y + outLineSize, fontSize, outlineColor, rotationPoint, angle);
 		MyFont::DrawText(text, x, y, fontSize, textColor, rotationPoint, angle);
 
 	}

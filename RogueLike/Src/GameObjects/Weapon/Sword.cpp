@@ -46,8 +46,12 @@ void Sword::start()
 {
 	Weapon::start();
 	Item::start();
-	numberOfUseMax = stats.getCountOfUse();
-	numberOfUse = numberOfUseMax;
+	if (!hasDefineNumberOfUse)
+	{
+		numberOfUseMax = stats.getCountOfUse();
+		numberOfUse = numberOfUseMax;
+	}
+
 }
 
 void Sword::update(float deltaTime)
@@ -96,7 +100,7 @@ void Sword::update(float deltaTime)
 			if (numberOfUse <= 0)
 			{
 				reloadTime  = stats.getReloadTime();
-				numberOfUse = stats.getCountOfUse();
+				numberOfUse = numberOfUseMax;
 			}
 			else
 			{
@@ -344,6 +348,7 @@ void Sword::readFromWeaponData(std::string weaponType, int variant)
 	if (weaponData[weaponType].contains("NumberOfUse"))
 	{
 		numberOfUseMax = weaponData[weaponType]["NumberOfUse"];
+		numberOfUse = numberOfUseMax;
 		hasDefineNumberOfUse = true;
 	}
 	if (weaponData[weaponType].contains("Scale"))

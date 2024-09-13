@@ -59,6 +59,7 @@
     <ClInclude Include="Src\GameObjects\Elements\Chest.h" />
     <ClInclude Include="Src\GameObjects\Elements\Coin.h" />
     <ClInclude Include="Src\GameObjects\Elements\LootBlock.h" />
+    <ClInclude Include="Src\GameObjects\Elements\ShopItem.h" />
     <ClInclude Include="Src\GameObjects\Elements\SpawnPoint.h" />
     <ClInclude Include="Src\GameObjects\Elements\Torch.h" />
     <ClInclude Include="Src\GameObjects\Elements\Wall.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Src\GameObjects\Elements\Chest.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\Coin.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\LootBlock.cpp" />
+    <ClCompile Include="Src\GameObjects\Elements\ShopItem.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\SpawnPoint.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\Torch.cpp" />
     <ClCompile Include="Src\GameObjects\Elements\Wall.cpp" />

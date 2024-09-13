@@ -174,9 +174,11 @@ GameObject* getTorch(int ID, Rectangle pos)
 {
     return new Torch(pos);
 }
+#include "../../GameObjects/Characters/ShopKeeper.h"
+
 GameObject* getShopKeeper(int ID, Rectangle pos)
 {
-    return new Torch(pos);
+    return new ShopKeeper(pos);
 }
 
 void Floor::createFloor()
