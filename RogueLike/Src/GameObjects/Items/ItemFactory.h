@@ -9,6 +9,10 @@ void setUpItemFactory(std::string path);
 
 int getWeaponNodeSize(int tier);
 
+int getWeaponSize();
+
+int getWeaponVariantsSize(WeaponType wt);
+
 WeaponNodeItem* getWeaponNode(int ID, int tier);
 
 Weapon* getWeapon(int variant,int tier, WeaponType wt);

@@ -18,7 +18,7 @@ LightObject::~LightObject()
 
 void LightObject::update(float deltaTime)
 {
-
+    radiusTimer += deltaTime;
     lightTimer += deltaTime;
     if (radius <= 0.0f)
         return;
@@ -81,7 +81,7 @@ void LightObject::generateTexture()
 
     Color end = colorEnd;
     end.a = 0;
-    DrawCircleGradient((int)lightPos.x, (int)lightPos.y, radius, colorCenter, end);
+    DrawCircleGradient((int)lightPos.x, (int)lightPos.y, radius + sin(radiusTimer) * 5, colorCenter, end);
     rlSetBlendMode(BLEND_MULTIPLIED);
 
     for (auto f : lightFan)

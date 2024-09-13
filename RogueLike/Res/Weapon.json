@@ -663,5 +663,68 @@
             }
 
         }
+    },
+    "Wand": {
+        "Size": [ 32, 32 ],
+        "SpawnPoint": [ 25, 6 ],
+        "RotationPoint": [ 8, 8 ],
+        "RotationPointEnd": [ 5, 5 ],
+        "RotationAngle": 30,
+        "NumberOfUse": 5,
+        "Scale": 2,
+        "isRangeScale": false,
+        "Spawn": "MagicMissile",
+        "Slots": [
+            [ 2, 4 ],
+            [ 2, 3 ]
+        ],
+        "FlipHorizontal": true,
+        "Textures": [
+            "Weapons/WoodWand.png"
+        ],
+
+        "WeaponStats": {
+            "Knockback": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "Bounce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Pirce": {
+                "Value": 0,
+                "Inportant": true
+            },
+            "Speed": {
+                "Value": 8,
+                "Inportant": true
+            },
+            "Angle": {
+                "Value": 5,
+                "Inportant": true
+            },
+            "CountOfUse": {
+                "Value": 1,
+                "Inportant": true
+            },
+            "ReloadTime": {
+                "Value": 1.0,
+                "Inportant": true
+            },
+            "UseTime": {
+                "Value": 0.3,
+                "Inportant": true
+            },
+            "Range": {
+                "Value": 10,
+                "Inportant": true
+            },
+            "Damage": {
+                "Value": 3,
+                "Inportant": true
+            }
+
+        }
     }
 }

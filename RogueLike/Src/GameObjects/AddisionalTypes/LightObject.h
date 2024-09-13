@@ -13,6 +13,7 @@ protected:
 	float zoom = 3.0f;
 	bool valid = false;
 	float timer = 0.0f;
+	float radiusTimer = 0.0f;
 	float lightTimer = 0.0f;
 	float updateTimer = 0.1f;
 	Vector2 lightPos = { 0,0 };

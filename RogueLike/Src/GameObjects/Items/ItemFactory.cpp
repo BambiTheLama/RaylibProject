@@ -23,7 +23,20 @@ int getWeaponNodeSize(int tier)
 	if (tier >= weaponNodeData.size())
 		tier = (int)weaponNodeData.size() - 1;
 
-	return weaponNodeData[tier].size();
+	return (int)weaponNodeData[tier].size();
+}
+
+int getWeaponSize()
+{
+	return (int)magic_enum::enum_count<WeaponType>();
+}
+int getWeaponVariantsSize(WeaponType wt)
+{
+	auto enumWeapon = magic_enum::enum_name(wt);
+	const char* name = enumWeapon.data();
+	if (weaponData.contains(name) && weaponData[name].contains("Textures"))
+		return (int)weaponData[name]["Textures"].size();
+	return 1;
 }
 
 WeaponNodeItem* getWeaponNode(int ID, int tier)
@@ -55,6 +68,7 @@ Weapon* getWeapon(int variant, int tier, WeaponType wt)
 	case WeaponType::Spear:
 	case WeaponType::Sword:
 	case WeaponType::Book:
+	case WeaponType::Wand:
 		return new Sword(name, variant, weaponData, tier);
 		break;
 	case WeaponType::Bow:

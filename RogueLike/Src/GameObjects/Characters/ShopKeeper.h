@@ -10,6 +10,7 @@ class ShopKeeper
 	TextureController texture;
 	std::list<ShopItem*> items;
 	float timer = 0.0f;
+	static int seed;
 public:
 	ShopKeeper(Rectangle pos);
 
@@ -24,5 +25,7 @@ public:
 	void draw() override;
 
 	void removeItem(ShopItem* item);
+
+	static void setSeed(int seed) { ShopKeeper::seed = seed; }
 };
 

@@ -13,6 +13,7 @@
 #include "../../GameObjects/Game.h"
 #include "../../GameObjects/Elements/Chest.h"
 #include "../../GameObjects/AddisionalTypes/LightObject.h"
+#include "../../GameObjects/Characters/ShopKeeper.h"
 
 FloorRooms getFloorRooms()
 {
@@ -174,7 +175,6 @@ GameObject* getTorch(int ID, Rectangle pos)
 {
     return new Torch(pos);
 }
-#include "../../GameObjects/Characters/ShopKeeper.h"
 
 GameObject* getShopKeeper(int ID, Rectangle pos)
 {
@@ -204,6 +204,7 @@ void Floor::createFloor()
             Room room = getRoom(type, ID);
             setUpRooms(startX, startY, room);
         }
+    ShopKeeper::setSeed(getRandom(seed, 0, 1));
     enemyID = std::vector<int>{ 0,1,2,3 };
     setUpObjects(enemyID,   5,      BlockType::EnemySpawnPoint,     roomGrid,  getEnemy,      36, 36);
     setUpObjects({0},       50,     BlockType::LootSpawnPoint,      roomGrid,  getObject,     36, 36);

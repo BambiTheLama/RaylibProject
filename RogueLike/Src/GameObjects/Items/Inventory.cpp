@@ -161,6 +161,8 @@ void Inventory::downSlot()
 
 bool Inventory::addItem(Item* item)
 {
+	if (!item)
+		return true;
 	if (hasThisItem(item))
 		return true;
 	for (int i = 0; i < InventorySize; i++)
@@ -168,17 +170,16 @@ bool Inventory::addItem(Item* item)
 		if (items[i])
 			continue;
 		items[i] = item;
-		if (items[i])
-		{
-			items[i]->setOwner(owner);
-			items[i]->setInventory(this);
-			items[i]->update();
 
-			GameObject* gm = dynamic_cast<GameObject*>(items[i]);
-			if (gm && i != usingItem)
-				Game::removeObject(gm);
+		item->setOwner(owner);
+		item->setInventory(this);
+		item->update();
 
-		}
+		GameObject* gm = dynamic_cast<GameObject*>(item);
+		if (gm && i != usingItem)
+			Game::removeObject(gm);
+
+		
 		if (i == usingItem)
 			showItem();
 		return true;

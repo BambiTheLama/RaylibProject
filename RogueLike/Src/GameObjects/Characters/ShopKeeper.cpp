@@ -8,6 +8,8 @@
 extern const float tileW;
 extern const float tileH;
 
+int ShopKeeper::seed = 1000;
+
 ShopKeeper::ShopKeeper(Rectangle pos)
 {
 	pos = changeRecntalgeSize(pos, pos.width * 3, pos.height * 3);
@@ -25,9 +27,8 @@ ShopKeeper::~ShopKeeper()
 void ShopKeeper::start()
 {
 	Rectangle itemPos = { pos.x - tileW * 2,pos.y + pos.height,tileW * 2,tileH * 2 };
-	int seed = 1000;
 	int tier = 0;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		Item* item = getWeaponNode(getRandom(seed, 0, getWeaponNodeSize(tier)), tier);
 		ShopItem* shopItem = new ShopItem(itemPos, item);
@@ -36,6 +37,22 @@ void ShopKeeper::start()
 		Game::addObject(shopItem);
 		itemPos.x += tileW * 2.5f;
 	}
+	WeaponType wtype = (WeaponType)getRandom(seed, 0, getWeaponSize());
+	int variant = getRandom(seed, 0, getWeaponVariantsSize(wtype));
+	Weapon* weapon = getWeapon(variant, tier, wtype);
+	Item* item = dynamic_cast<Item*>(weapon);
+	if(item)
+	{
+		ShopItem* shopItem = new ShopItem(itemPos, item);
+		shopItem->setShopSkeeper(this);
+		shopItem->setPrice(getRandom(seed, 1, 10));
+		Game::addObject(shopItem);
+	}
+	else
+	{
+		delete weapon;
+	}
+
 }
 
 void ShopKeeper::destroy()

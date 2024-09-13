@@ -22,7 +22,7 @@ Engine::Engine() {
     TextureController::setUpTexture("Res/");
     ShaderController::setUpShader("Res/Shader/");
     
-    //SetTargetFPS(61);
+    SetTargetFPS(60);
     MyFont::SetUpFont();
     setScene(new GameScene());
     std::string text = TextFormat("%d", (int)(1.0f / 1.0f));

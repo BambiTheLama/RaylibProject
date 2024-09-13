@@ -33,13 +33,13 @@ Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
     inventory = new Inventory(this);
     ///*
 
-    for (int j = 4; j < 14; j++)
+    for (int j = 0; j < 5; j++)
     {
-        Weapon* w = getWeapon(0, 0, (WeaponType)j);
+        Weapon* w = getWeapon(0, 0, (WeaponType)(10 + j));
         if (!w)
             continue;
         Item* i = dynamic_cast<Item*>(w);
-        if (i && !inventory->addItem(i))
+        if (!inventory->addItem(i))
             delete w;
     }
 
