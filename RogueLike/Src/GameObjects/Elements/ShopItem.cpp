@@ -7,7 +7,7 @@ ShopItem::ShopItem(Rectangle pos, Item* item)
 {
 	this->pos = pos;
 	this->item = item;
-	sound = SoundController("Coin.wav");
+	sound = SoundController("Coin.mp3");
 }
 
 ShopItem::~ShopItem()

@@ -461,9 +461,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Res\Textures.json">
-      <Filter>Res</Filter>
-    </None>
     <None Include="Res\Weapon.json">
       <Filter>Res</Filter>
     </None>
@@ -498,6 +495,12 @@
       <Filter>Res\Shader</Filter>
     </None>
     <None Include="Res\Boss.json">
+      <Filter>Res</Filter>
+    </None>
+    <None Include="Res\Textures\Textures.json">
+      <Filter>Res</Filter>
+    </None>
+    <None Include="Res\Sounds\Sounds.json">
       <Filter>Res</Filter>
     </None>
   </ItemGroup>

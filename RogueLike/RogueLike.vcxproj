@@ -169,7 +169,8 @@
     <None Include="Res\Shader\OutLine.frag" />
     <None Include="Res\Shader\OutLine.vert" />
     <None Include="Res\Shader\ShadowFilter.frag" />
-    <None Include="Res\Textures.json" />
+    <None Include="Res\Sounds\Sounds.json" />
+    <None Include="Res\Textures\Textures.json" />
     <None Include="Res\Weapon.json" />
     <None Include="Res\WeaponData.json" />
     <None Include="Res\WeaponNodeData.json" />
