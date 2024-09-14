@@ -16,11 +16,12 @@ Engine::Engine() {
     const int screenHeight = 900;
     SetConfigFlags(FLAG_WINDOW_HIGHDPI);
     InitWindow(screenWidth, screenHeight, "Roguelike");
-
+    InitAudioDevice();
     //ToggleFullscreen();
 
-    TextureController::setUpTexture("Res/");
+    TextureController::setUpTexture("Res/Textures/");
     ShaderController::setUpShader("Res/Shader/");
+    SoundController::setUpSounds("Res/Sounds/");
     
     SetTargetFPS(60);
     MyFont::SetUpFont();

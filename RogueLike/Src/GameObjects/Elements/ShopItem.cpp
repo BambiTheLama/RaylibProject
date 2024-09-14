@@ -7,6 +7,7 @@ ShopItem::ShopItem(Rectangle pos, Item* item)
 {
 	this->pos = pos;
 	this->item = item;
+	sound = SoundController("Coin.wav");
 }
 
 ShopItem::~ShopItem()
@@ -34,7 +35,7 @@ void ShopItem::interact(GameObject* interactObject)
 	{
 		delete item;
 	}
-
+	sound.play();
 	item = nullptr;
 	Game::deleteObject(this);
 

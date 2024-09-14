@@ -32,6 +32,7 @@ Sword::Sword(std::string weaponType, int variant, nlohmann::json data,int weapon
 	moving = true;
 	mass = 1;
 	updateWeaponSize();
+	setOwner(nullptr);
 	//setIsSpawn(true);
 	//setSpawnID(1);
 
@@ -216,7 +217,7 @@ void Sword::draw()
 
 void Sword::drawIcon(Rectangle pos, bool onlyIcon, Color color)
 {
-	texture.draw(pos, false, !flipHorizontal, 0, { 0.0f,0.0f }, 0.0f, color);
+	texture.draw(pos, false, false, 0, { 0.0f,0.0f }, 0.0f, color);
 	if (onlyIcon)
 		return;
 	Color c = { 128,128,128,200 };
@@ -249,10 +250,15 @@ void Sword::setOwner(GameObject* owner)
 	if (!owner)
 	{
 		angle = 0.0f;
+		flipHorizontal = false;
 	}
-	trigger = owner;
-	flipHorizontal = (bool)(owner) == flipHorizontalFromFile;
-	flipHorizontalElements(flipHorizontal);
+	else
+	{
+		trigger = true;
+		flipHorizontal = flipHorizontalFromFile;
+		flipHorizontalElements(flipHorizontal);
+	}
+
 }
 
 #pragma endregion Setters

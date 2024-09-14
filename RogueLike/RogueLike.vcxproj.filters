@@ -255,6 +255,9 @@
     <ClInclude Include="Src\GameObjects\Elements\ShopItem.h">
       <Filter>Src\GameObjects\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Controller\SoundController.h">
+      <Filter>Src\Core\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\Engine.cpp">
@@ -451,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="Src\GameObjects\Elements\ShopItem.cpp">
       <Filter>Src\GameObjects\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Controller\SoundController.cpp">
+      <Filter>Src\Core\Controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

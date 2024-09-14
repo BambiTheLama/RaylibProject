@@ -25,6 +25,7 @@
     <ClInclude Include="Src\Core\Controller\GamePadController.h" />
     <ClInclude Include="Src\Core\Controller\KeyBoardController.h" />
     <ClInclude Include="Src\Core\Controller\ShaderController.h" />
+    <ClInclude Include="Src\Core\Controller\SoundController.h" />
     <ClInclude Include="Src\Core\Controller\TextureController.h" />
     <ClInclude Include="Src\Core\Dir.h" />
     <ClInclude Include="Src\Core\Engine.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Src\Core\Controller\GamePadController.cpp" />
     <ClCompile Include="Src\Core\Controller\KeyBoardController.cpp" />
     <ClCompile Include="Src\Core\Controller\ShaderController.cpp" />
+    <ClCompile Include="Src\Core\Controller\SoundController.cpp" />
     <ClCompile Include="Src\Core\Controller\TextureController.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
     <ClCompile Include="Src\Core\Floor\Floor.cpp" />
@@ -290,7 +292,7 @@
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>

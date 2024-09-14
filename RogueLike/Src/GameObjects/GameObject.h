@@ -3,6 +3,7 @@
 #include "../Font.h"
 #include "ObjectType.h"
 #include "../Core/Controller/TextureController.h"
+#include "../Core/Controller/SoundController.h"
 
 class GameObject {
 protected:
