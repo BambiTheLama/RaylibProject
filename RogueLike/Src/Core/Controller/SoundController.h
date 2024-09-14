@@ -16,7 +16,7 @@ public:
 
 	~SoundController();
 
-	void play();
+	void play(float leftProcent = 0.5f);
 
 	static void setGlobalVolume(float gv) { globalVolume = gv; }
 

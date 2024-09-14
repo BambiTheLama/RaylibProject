@@ -42,7 +42,7 @@ Player::Player(float x, float y):Hitable(1000.0f),LightObject(0.0f){
         if (!inventory->addItem(i))
             delete w;
     }
-
+    coinSound = SoundController("Coin.mp3");
 }
 
 Player::~Player() {
@@ -53,6 +53,7 @@ void Player::start() {
     //LightObject::colorCenter = YELLOW;
     LightObject::setRange(400.0f);
     lightPosDiff = { pos.width / 2,pos.height / 2 };
+
 }
 
 void Player::update(float deltaTime) {
@@ -202,7 +203,13 @@ void Player::onCollisionEnter(Collider* collider) {
 
             Coin* c = dynamic_cast<Coin*>(gm);
             if (c)
+            {
                 coins += c->getCoins();
+                float dir = (Collider::getCollisionDir(collider).x + 1) / 2.0f;
+
+                coinSound.play(dir);
+            }
+
             Game::deleteObject(gm);
         }
     }
@@ -210,18 +217,7 @@ void Player::onCollisionEnter(Collider* collider) {
 
 void Player::onTriggerEnter(Collider* collider)
 {
-    GameObject* gm = collider->getThisObj();
-    if (gm)
-    {
-        if (gm->getType() == ObjectType::Coins)
-        {
-
-            Coin* c = dynamic_cast<Coin*>(gm);
-            if (c)
-                coins += c->getCoins();
-            Game::deleteObject(gm);
-        }
-    }
+    onCollisionEnter(collider);
 }
 
 void Player::onCollisionExit(Collider* collider) {

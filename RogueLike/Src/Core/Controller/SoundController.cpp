@@ -15,17 +15,18 @@ SoundController::~SoundController()
 {
 }
 
-void SoundController::play()
+void SoundController::play(float leftProcent)
 {
 	SetSoundVolume(sound, globalVolume * volume);
-	SetSoundPan(sound, 0.0f);
+	SetSoundPan(sound, leftProcent);
+
 	PlaySound(sound);
 }
 
 void SoundController::loadSound(std::string path)
 {
 	readData(path);
-	auto search = sounds.find(dirPath + path);
+	auto search = sounds.find(path);
 	if (search != sounds.end())
 	{
 		sound = search->second;

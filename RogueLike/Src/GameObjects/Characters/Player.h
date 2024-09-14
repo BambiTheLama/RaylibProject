@@ -21,6 +21,7 @@ class Player
     float timer=0.0f;
     int coins = 0;
     int target = 0b010001;
+    SoundController coinSound;
 public:
     Player(float x,float y);
 
