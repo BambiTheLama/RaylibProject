@@ -7,7 +7,8 @@ ShopItem::ShopItem(Rectangle pos, Item* item)
 {
 	this->pos = pos;
 	this->item = item;
-	sound = SoundController("Coin.mp3");
+	buySound = SoundController("Buy.mp3");
+	cancelSound = SoundController("Cancel.mp3");
 }
 
 ShopItem::~ShopItem()
@@ -22,7 +23,11 @@ void ShopItem::interact(GameObject* interactObject)
 	if (!p)
 		return;
 	if (!p->removeCoins(price))
+	{
+		cancelSound.play();
 		return;
+	}
+
 	if (shopKeeper)
 		shopKeeper->removeItem(this);
 	GameObject* itemGm = dynamic_cast<GameObject*>(item);
@@ -35,7 +40,7 @@ void ShopItem::interact(GameObject* interactObject)
 	{
 		delete item;
 	}
-	sound.play();
+	buySound.play();
 	item = nullptr;
 	Game::deleteObject(this);
 

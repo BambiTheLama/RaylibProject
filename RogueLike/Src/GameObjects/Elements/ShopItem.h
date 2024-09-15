@@ -7,7 +7,8 @@ class ShopItem :
     public GameObject, public Interactive
 {
     ShopKeeper* shopKeeper = nullptr;
-    SoundController sound;
+    SoundController buySound;
+    SoundController cancelSound;
     Item* item = nullptr;
     int price = 1000;
 public:

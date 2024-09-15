@@ -1,5 +1,35 @@
 {
-	"Coin.mp3": {
+	"Book.mp3": {
+		"Volume": 0.2
+	},
+	"Bow.mp3": {
+		"Volume": 0.2
+	},
+	"Buy.mp3": {
+		"Volume": 0.2
+	},
+	"Cancel.mp3": {
 		"Volume": 0.1
+	},
+	"Coin.mp3": {
+		"Volume": 0.2
+	},
+	"Dagger.mp3" {
+		"Volume": 0.2
+	},
+	"Hamer.mp3": {
+		"Volume": 0.2
+	},
+	"Knife.mp3" {
+		"Volume": 0.2
+	},
+	"Magic.mp3": {
+		"Volume": 0.2
+	},
+	"Shuriken.mp3" {
+		"Volume": 0.2
+	},
+	"Sword.mp3" {
+		"Volume": 0.2
 	}
 }
