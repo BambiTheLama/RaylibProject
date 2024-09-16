@@ -23,7 +23,7 @@ bool Projectal::triggerNode(WeaponNodeActivation activation,WeaponStats stats)
 	if (!thisObj && !findThisObject())
 		return false;
 	Rectangle pos = thisObj->getPos();
-	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, { 0,0 });
+	return weaponNodeTrigger.activateTrigger(activation, thisObj, stats, { 0,0 }, target);
 }
 
 bool Projectal::findThisObject()
