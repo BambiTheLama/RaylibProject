@@ -24,6 +24,7 @@
             [ 1, 2 ],
             [ 2, 3 ]
         ],
+        "Sound": "Hamer.mp3",
         "Textures": [
             "Weapons/RustyAxe.png",
             "Weapons/Axe.png"
@@ -309,6 +310,7 @@
         "RotationPoint": [ 4, 4 ],
         "RotationPointEnd": [ -4, -4 ],
         "RangeScale": 0.5,
+        "Sound": "Hamer.mp3",
         "Slots": [
             [ 1, 2 ],
             [ 2, 3 ]

@@ -68,6 +68,7 @@ Engine::Engine() {
     MyFont::ClearFont();
     TextureController::clearTextures();
     ShaderController::clearShaders();
+    SoundController::clearSounds();
     CloseWindow();
 }
 
